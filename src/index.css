@@ -6,4 +6,38 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  transition: 0.5s;
+}
+
+@font-face {
+  font-family: iransans;
+  src: url("./assets/fonts/IRANSans/IRANSansWeb.ttf");
+}
+
+.slider {
+  margin: 0 20px;
+  overflow: "hidden";
+  padding: 2rem 0;
+}
+
+.slider img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.react-multi-carousel-list {
+  padding: 0rem 0 2rem 0;
+}
+
+.custom-dot-list-style button {
+  border: none !important;
+  background: #a5a4a491 !important;
+  cursor: pointer !important;
+}
+.react-multi-carousel-dot.react-multi-carousel-dot--active button {
+  background: #6540fba4 !important;
+  border: none !important;
+  width: 25px;
+  border-radius: 30px;
+  cursor: pointer !important;
 }

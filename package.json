@@ -10,9 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.5.1",
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "font-awesome": "^4.7.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.21.3"
+    "react-multi-carousel": "^2.8.4",
+    "react-router-dom": "^6.20.0",
+    "sass": "^1.70.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
