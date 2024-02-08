@@ -3,9 +3,9 @@ import img from "../../../assets/images/home-3/blog/1.png";
 
 const BlogCard = () => {
   return (
-    <div className="w-[300px] px-4 py-4 rounded-lg shadow-md shadow-gray-200">
+    <div className="w-[300px] px-4 py-4 rounded-lg shadow-md shadow-gray-200 mb-4">
       <img className="" src={img} alt="" />
-      <h6 className=" text-gray-500 mt-4">طراحی وب</h6>
+      <h6 className=" text-purple-500 mt-4">طراحی وب</h6>
       <h5 className=" text-sky-900 text-lg mt-3 font-medium">
         7 قابلیت بهینه شده برای LINQ در Net 6.
       </h5>

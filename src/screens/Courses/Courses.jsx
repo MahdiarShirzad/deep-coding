@@ -70,14 +70,14 @@ const Courses = () => {
         با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
       </p>
       <div className="flex items-start justify-between mt-32 gap-8">
-        <div className=" w-1/5">
+        <div className=" w-1/4">
           <CourseCategory />
           <CourseStar />
           <CoursePrice />
           <CourseLevel />
           <CourseTime />
         </div>
-        <div className=" w-4/5 ">
+        <div className=" w-4/5">
           <div className=" flex items-center justify-between px-10">
             <p className="text-gray-600 text-sm">
               نمایش <span className=" text-gray-800 font-semibold">200 </span>

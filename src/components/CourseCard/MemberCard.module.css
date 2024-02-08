@@ -1,0 +1,55 @@
+.card_item {
+  text-align: right;
+  /* width: 276px; */
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(99, 99, 99, 0.2);
+  /* padding: 43px; */
+  position: relative;
+}
+
+.card_item::before,
+.card_item::after {
+  content: "";
+  position: absolute;
+  width: 19%;
+  height: 19%;
+  transition: all 0.4s ease;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+}
+.card_item::before {
+  bottom: -2px;
+  right: -2px;
+  border-bottom-right-radius: 20px;
+  border-bottom: 3px solid;
+  border-right: 3px solid;
+}
+.card_item::after {
+  top: -2px;
+  left: -2px;
+  border-top-left-radius: 20px;
+  border-top: 3px solid;
+  border-left: 3px solid;
+}
+
+.card_users::before,
+.card_users::after {
+  border-color: #1a064f;
+}
+
+.card_text h5 {
+  font-size: 1.5rem;
+  margin: 2rem 0;
+  color: #2e3350;
+  font-weight: 700;
+}
+.card_text p {
+  color: #9a9baa;
+}
+.card_section:hover .card_item::before,
+.card_section:hover .card_item::after {
+  width: 85%;
+  height: 85%;
+}

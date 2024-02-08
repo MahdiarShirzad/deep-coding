@@ -1,5 +1,6 @@
 import React from "react";
 import img from "../../assets/images/home-6/learn/1.png";
+import { Link } from "react-router-dom";
 
 const Enroll = () => {
   return (
@@ -13,9 +14,11 @@ const Enroll = () => {
           لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده
           از طراحان گرافیک است.
         </p>
-        <button class="bg-[#140342] border-[#140342] hover:bg-transparent hover:text-black border-2 text-white px-8 py-4 rounded-3xl mt-16">
-          ثبت نام رایگان
-        </button>
+        <Link to="/sign-up">
+          <button class="bg-[#140342] border-[#140342] hover:bg-transparent hover:text-black border-2 text-white px-8 py-4 rounded-3xl mt-16">
+            ثبت نام رایگان
+          </button>
+        </Link>
       </div>
       <div className=" w-1/2">
         <div className=" relative">

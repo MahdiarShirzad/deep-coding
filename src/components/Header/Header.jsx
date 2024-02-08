@@ -9,7 +9,7 @@ const Header = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      const scrollThreshold = 50;
+      const scrollThreshold = 70;
       setIsScrolled(scrollPosition > scrollThreshold);
     };
 
@@ -22,7 +22,7 @@ const Header = () => {
 
   return (
     <div
-      className={`fixed top-0 right-0 left-0 border-b z-50 bg-${
+      className={`fixed top-0 right-0 left-0 border-b z-[10000] transition-none bg-${
         isScrolled ? "white" : "transparent"
       } transition-all`}
     >

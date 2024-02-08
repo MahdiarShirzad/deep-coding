@@ -1,26 +1,38 @@
 import React from "react";
 import heroimg from "../../assets/images/home-7/hero/image.png";
+import { Link } from "react-router-dom";
 
 const Herosection = () => {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <>
       <div className="bg-[url('assets/images/home-6/hero/bg.png')] bg-no-repeat absolute -z-20   w-full right-0 h-[780px]"></div>
       <div className="flex items-center py-20 px-10 font-iransans z-20 max-w-[1320px]  container mx-auto">
         <div className="w-1/2">
-          <h1 className="text-4xl font-extrabold leading-[60px]">
+          <h1 className="text-4xl font-extrabold leading-[60px] text-right">
             دوره های مورد نظر را پیدا کنید و مهارت ها را بهبود ببخشید
           </h1>
-          <p className="mt-8 w-3/4 leading-8 text-lg">
+          <p className="mt-8 w-3/4 leading-8 text-lg text-right">
             لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
             استفاده از طراحان گرافیک است. چاپگرها و متون است.
           </p>
           <div className="flex items-center justify-center w-3/4 mt-20 gap-5">
-            <button className="bg-[#140342] border-[#140342] hover:bg-transparent hover:text-black border-2 text-white px-8 py-4 rounded-3xl">
-              ثبت نام رایگان
-            </button>
-            <button className="border-2 border-[#140342] hover:bg-[#140342] hover:text-white px-8 py-4 rounded-3xl">
-              جستجوی دوره
-            </button>
+            <Link onClick={scrollToTop} to="/sign-up">
+              <button className="bg-[#140342] border-[#140342] hover:bg-transparent hover:text-black border-2 text-white px-8 py-4 rounded-3xl">
+                ثبت نام رایگان
+              </button>
+            </Link>
+            <Link onClick={scrollToTop} to="/courses">
+              <button className="border-2 border-[#140342] hover:bg-[#140342] hover:text-white px-8 py-4 rounded-3xl">
+                جستجوی دوره
+              </button>
+            </Link>
           </div>
         </div>
         <div>

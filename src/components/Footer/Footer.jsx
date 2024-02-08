@@ -1,8 +1,16 @@
 import React from "react";
 import map from "../../assets/images/map.svg";
 import mail from "../../assets/images/mail.svg";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <div className="  bg-[#1A064F] py-20">
       <div className=" container max-w-[1320px] mx-auto font-iransans relative">
@@ -124,10 +132,18 @@ const Footer = () => {
         <div>
           <h6 className="text-2xl font-extrabold">پیوند ها</h6>
           <ul className=" text-sm mt-5 flex flex-col gap-4">
-            <li>صفحه اصلی</li>
-            <li>دوره ها</li>
-            <li>درباره ما</li>
-            <li>تماس با ما</li>
+            <Link onClick={scrollToTop} to="/">
+              <li>صفحه اصلی</li>
+            </Link>
+            <Link onClick={scrollToTop} to="/courses">
+              <li>دوره ها</li>
+            </Link>
+            <Link onClick={scrollToTop} to="/about-us">
+              <li>درباره ما</li>
+            </Link>
+            <Link onClick={scrollToTop} to="/contact-us">
+              <li>تماس با ما</li>
+            </Link>
           </ul>
         </div>
         <div className=" bg-[#6440FB] px-8 py-5 rounded-3xl">

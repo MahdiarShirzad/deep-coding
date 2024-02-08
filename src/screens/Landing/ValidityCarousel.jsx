@@ -32,7 +32,9 @@ const ValidityCarousel = () => {
   };
 
   const nextSlide = () => {
-    setCurrentSlide(currentSlide + 1);
+    if (currentSlide < slides.length - 1) {
+      setCurrentSlide(currentSlide + 1);
+    }
   };
 
   const prevSlide = () => {
