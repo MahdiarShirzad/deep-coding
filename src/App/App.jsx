@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Landing from "../screens/Landing/Landing";
 import Header from "../components/Header/Header";
@@ -10,6 +10,9 @@ import AboutUs from "../screens/AboutUs/AboutUs";
 import ContactUs from "../screens/ContactUs/ContactUs";
 import Login from "../screens/Login/Login";
 import SignUp from "../screens/Login/SignUp";
+import axios from "axios";
+
+const BASE_URL = "http://localhost:9000";
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -33,12 +36,29 @@ const Layout = ({ children }) => {
 };
 
 const App = () => {
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch products
+        const productsResponse = await axios.get(`${BASE_URL}/courses/`);
+        setCourses(productsResponse.data);
+        console.log(productsResponse);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <BrowserRouter>
       <Layout>
         <Routes>
-          <Route path="/" index element={<Landing />} />
-          <Route path="/courses" index element={<Courses />} />
+          <Route path="/" index element={<Landing courses={courses} />} />
+          <Route path="/courses" index element={<Courses items={courses} />} />
           <Route path="/blogs" index element={<Blogs />} />
           <Route path="/about-us" index element={<AboutUs />} />
           <Route path="/contact-us" index element={<ContactUs />} />

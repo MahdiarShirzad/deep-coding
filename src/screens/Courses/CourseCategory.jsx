@@ -1,7 +1,7 @@
 import React from "react";
 import "./accardion.scss";
 
-const CourseCategory = () => {
+const CourseCategory = ({ categories, handleCategoryToggle, courseCounts }) => {
   return (
     <div className="tab mb-4">
       <input type="checkbox" id="chck1" />
@@ -9,20 +9,26 @@ const CourseCategory = () => {
         دسته بندی ها
       </label>
       <div className="tab-content text-sm">
-        <div className=" flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <input
-              className=" checked:accent-zinc-500 w-4 h-4"
-              type="checkbox"
-              name=""
-              id=""
-            />
-            <label className="" htmlFor="">
-              JS
-            </label>
+        {categories.map((category, index) => (
+          <div className="flex items-center justify-between" key={index}>
+            <div className="flex items-center my-1 gap-3 text-base">
+              <input
+                className="checked:accent-gray-800 rounded-full w-5 h-4 cursor-pointer"
+                type="checkbox"
+                name={category}
+                id={category}
+                onChange={() => handleCategoryToggle(category)}
+              />
+              <label
+                className="text-gray-800 cursor-pointer"
+                htmlFor={category}
+              >
+                {category}
+              </label>
+            </div>
+            <div className="font-bold">({courseCounts[category]})</div>
           </div>
-          <p className="">(32)</p>
-        </div>
+        ))}
       </div>
     </div>
   );

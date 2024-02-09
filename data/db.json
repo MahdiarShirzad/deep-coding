@@ -1,0 +1,60 @@
+{
+  "courses": [
+    {
+      "name": "آموزش NodeJs",
+      "category": "طراحی وب"
+    },
+    {
+      "name": "آموزش Python",
+      "category": "برنامه نویسی"
+    },
+    {
+      "name": "آموزش Angular",
+      "category": "برنامه نویسی"
+    },
+    {
+      "name": "آموزش Photoshop",
+      "category": "گرافیک"
+    },
+    {
+      "name": "آموزش Bootstrap",
+      "category": "برنامه نویسی"
+    },
+    {
+      "name": "آموزش React-native",
+      "category": "برنامه نویسی"
+    },
+    {
+      "name": "آموزش ASP.Net",
+      "category": "برنامه نویسی"
+    },
+    {
+      "name": "آموزش NodeJs",
+      "category": "طراحی وب"
+    },
+    {
+      "name": "آموزش Python",
+      "category": "برنامه نویسی"
+    },
+    {
+      "name": "آموزش Angular",
+      "category": "برنامه نویسی"
+    },
+    {
+      "name": "آموزش Photoshop",
+      "category": "گرافیک"
+    },
+    {
+      "name": "آموزش Bootstrap",
+      "category": "برنامه نویسی"
+    },
+    {
+      "name": "آموزش React-native",
+      "category": "برنامه نویسی"
+    },
+    {
+      "name": "آموزش ASP.Net",
+      "category": "برنامه نویسی"
+    }
+  ]
+}

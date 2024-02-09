@@ -1,6 +1,13 @@
 import React from "react";
 
-const CourseLevel = () => {
+const CourseLevel = ({
+  sortByLevel,
+  sortCoursesByLevel,
+  handleLevelChange,
+  sortedCoursesByLevel,
+}) => {
+  const courseLevelTypes = ["همه سطوح", "مقدماتی", "متوسط", "پیشرفته"];
+
   return (
     <div className="tab border-t-2 mb-4">
       <input type="checkbox" id="chck4" />
@@ -8,62 +15,21 @@ const CourseLevel = () => {
         سطح
       </label>
       <div className="tab-content text-sm">
-        <div className=" flex items-center justify-between ">
-          <div className="flex items-center gap-2">
-            <input
-              className=" checked:accent-zinc-500 w-4 h-4"
-              type="checkbox"
-              name=""
-              id=""
-            />
-            <label className="" htmlFor="">
-              همه سطوح
-            </label>
+        {courseLevelTypes.map((levelType) => (
+          <div key={levelType} className="flex items-center justify-between">
+            <div className="flex items-center gap-2 my-1">
+              <input
+                className="checked:accent-zinc-500 w-3 h-3"
+                type="checkbox"
+                name="sortByLevel"
+                id={levelType}
+                onChange={() => handleLevelChange(levelType)}
+              />
+              <label htmlFor={levelType}>{`${levelType}`}</label>
+            </div>
+            <p className=" font-bold">({sortedCoursesByLevel.length})</p>
           </div>
-          <p className="">(32)</p>
-        </div>{" "}
-        <div className=" flex items-center justify-between mt-2">
-          <div className="flex items-center gap-2">
-            <input
-              className=" checked:accent-zinc-500 w-4 h-4"
-              type="checkbox"
-              name=""
-              id=""
-            />
-            <label className="" htmlFor="">
-              مقدماتی
-            </label>
-          </div>
-          <p className="">(32)</p>
-        </div>{" "}
-        <div className=" flex items-center justify-between mt-2">
-          <div className="flex items-center gap-2">
-            <input
-              className=" checked:accent-zinc-500 w-4 h-4"
-              type="checkbox"
-              name=""
-              id=""
-            />
-            <label className="" htmlFor="">
-              متوسط
-            </label>
-          </div>
-          <p className="">(32)</p>
-        </div>{" "}
-        <div className=" flex items-center justify-between mt-2">
-          <div className="flex items-center gap-2">
-            <input
-              className=" checked:accent-zinc-500 w-4 h-4"
-              type="checkbox"
-              name=""
-              id=""
-            />
-            <label className="" htmlFor="">
-              پیشرفته
-            </label>
-          </div>
-          <p className="">(32)</p>
-        </div>
+        ))}
       </div>
     </div>
   );

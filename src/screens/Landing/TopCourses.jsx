@@ -1,7 +1,31 @@
-import React from "react";
+import React, { useReducer } from "react";
 import TopCoursesCard from "../../components/common/TopCoursesCard/TopCoursesCard";
 
-const TopCourses = () => {
+const categoryReducer = (state, action) => {
+  switch (action.type) {
+    case "SET_CATEGORY":
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+const TopCourses = ({ courses }) => {
+  const [selectedCategory, dispatch] = useReducer(categoryReducer, "all");
+
+  const categories = ["all", "طراحی وب", "برنامه نویسی", "گرافیک"];
+
+  const setCategory = (category) => {
+    dispatch({ type: "SET_CATEGORY", payload: category });
+  };
+
+  const coursesData = courses;
+
+  const filteredCourses =
+    selectedCategory === "all"
+      ? coursesData
+      : coursesData.filter((course) => course.category === selectedCategory);
+
   return (
     <div className="mt-24 max-w-[1320px] mx-auto">
       <div className="flex font-iransans items-center justify-between">
@@ -14,23 +38,23 @@ const TopCourses = () => {
           </p>
         </div>
         <ul className="flex items-center justify-center gap-3 p-2 rounded-full bg-gray-200">
-          <li className="bg-white px-4 py-2 text-[#6440FB] rounded-full cursor-pointer">
-            همه
-          </li>
-          <li className="px-4 py-2 rounded-full cursor-pointer">طراحی وب</li>
-          <li className="px-4 py-2 rounded-full cursor-pointer">گرافیک</li>
-          <li className="px-4 py-2 rounded-full cursor-pointer">
-            برنامه نویسی
-          </li>
+          {categories.map((category) => (
+            <li
+              key={category}
+              onClick={() => setCategory(category)}
+              className={`px-4 py-2 rounded-full cursor-pointer ${
+                selectedCategory === category ? "bg-white text-[#6440FB]" : ""
+              }`}
+            >
+              {category === "all" ? "همه" : category}
+            </li>
+          ))}
         </ul>
       </div>
       <div className="flex flex-wrap justify-between mt-10">
-        <TopCoursesCard />
-        <TopCoursesCard />
-        <TopCoursesCard />
-        <TopCoursesCard />
-        <TopCoursesCard />
-        <TopCoursesCard />
+        {filteredCourses.slice(0, 6).map((course, index) => (
+          <TopCoursesCard key={index} title={course.name} />
+        ))}
       </div>
     </div>
   );

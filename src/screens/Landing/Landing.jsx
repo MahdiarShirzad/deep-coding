@@ -7,11 +7,11 @@ import Enroll from "./Enroll";
 import BlogSection from "./BlogSection";
 import ProgramDownloadSection from "./ProgramDownloadSection";
 
-const Landing = () => {
+const Landing = ({ courses }) => {
   return (
     <div className=" mx-auto">
       <Herosection />
-      <TopCourses />
+      <TopCourses courses={courses} />
       <TopCategory />
       <Validity />
       <div className=" w-full flex flex-row-reverse">

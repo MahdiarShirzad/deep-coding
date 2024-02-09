@@ -5,51 +5,58 @@ import CourseStar from "./CourseStar";
 import CoursePrice from "./CoursePrice";
 import CourseTime from "./CourseTime";
 import CourseLevel from "./CourseLevel";
+import Pagination from "../../components/Pagination/Pagination";
+import SortingCourses from "./SortingCourses";
 
-const Courses = () => {
-  const [posts, setPosts] = useState([]);
-  const [defaultPosts, setDefaultPosts] = useState([]);
+const Courses = ({ items }) => {
+  const [posts, setPosts] = useState(items);
+  const [loading, setLoading] = useState(false);
+
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(12);
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
+  // Sorting
+  const [defaultCourses, setDefaultCourses] = useState([]);
   const [sortingOption, setSortingOption] = useState("");
   const [selectedOption, setSelectedOption] = useState("پیش فرض");
   const [isOpen, setIsOpen] = useState(false);
 
   const sortPosts = (sortBy) => {
-    if (sortBy === "") {
-      const sortedPosts = [...posts].sort((a, b) => {
-        const scoreA = parseFloat(a.score);
-        const scoreB = parseFloat(b.score);
-        return scoreB - scoreA;
-      });
-      setPosts(sortedPosts);
+    let sortedPosts = [...defaultCourses];
+
+    if (sortBy === "محبوب ترین") {
+      sortedPosts = sortedPosts.sort(
+        (a, b) => parseFloat(b.popularity) - parseFloat(a.popularity)
+      );
+    } else if (sortBy === "بیشترین نمره") {
+      sortedPosts = sortedPosts.sort(
+        (a, b) => parseFloat(b.score) - parseFloat(a.score)
+      );
+    } else if (sortBy === "جدید ترین") {
+      sortedPosts = sortedPosts.sort(
+        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+      );
+    } else {
+      sortedPosts = defaultCourses;
     }
-    if (sortBy === "") {
-      const sortedPosts = [...posts].sort((a, b) => {
-        const priceA = parseFloat(a.price);
-        const priceB = parseFloat(b.price);
-        return priceA - priceB;
-      });
-      setPosts(sortedPosts);
-    }
-    if (sortBy === "") {
-      const sortedPosts = [...posts].sort((a, b) => {
-        const priceA = parseFloat(a.price);
-        const priceB = parseFloat(b.price);
-        return priceB - priceA;
-      });
-      setPosts(sortedPosts);
-    }
+
+    setPosts(sortedPosts);
     setSortingOption(sortBy);
   };
 
   const resetTodefault = () => {
-    setPosts();
-    setSortingOption("");
-    setSelectedOption("");
+    setPosts(defaultCourses);
+    setSortingOption("پیش فرض");
+    setSelectedOption("پیش فرض");
     setIsOpen(false);
   };
 
   useEffect(() => {
-    setDefaultPosts();
+    setDefaultCourses(posts);
     setSortingOption("");
   }, []);
 
@@ -63,6 +70,142 @@ const Courses = () => {
     setIsOpen(!isOpen);
   };
 
+  // Category
+  const uniqueCategories = [...new Set(items.map((item) => item.category))];
+  const [selectedCategory, setSelectedCategory] = useState([]);
+  const [courseCounts, setCourseCounts] = useState({});
+
+  const handleCategoryToggle = (category) => {
+    if (selectedCategory.includes(category)) {
+      setSelectedCategory(
+        selectedCategory.filter(
+          (selectedCategory) => selectedCategory !== category
+        )
+      );
+    } else {
+      setSelectedCategory([...selectedCategory, category]);
+    }
+  };
+
+  useEffect(() => {
+    if (selectedCategory.length > 0) {
+      const filteredItems = items.filter((item) =>
+        selectedCategory.includes(item.category)
+      );
+      setPosts(filteredItems);
+
+      const counts = {};
+      uniqueCategories.forEach((category) => {
+        const categoryCount = filteredItems.filter(
+          (item) => item.category === category
+        ).length;
+        counts[category] = categoryCount;
+      });
+      setCourseCounts(counts);
+    } else {
+      setPosts(items);
+
+      const counts = {};
+      uniqueCategories.forEach((category) => {
+        const categoryCount = items.filter(
+          (item) => item.category === category
+        ).length;
+        counts[category] = categoryCount;
+      });
+      setCourseCounts(counts);
+    }
+  }, [selectedCategory, items]);
+  console.log(courseCounts);
+
+  // Star
+  const [sortBy, setSortBy] = useState("default");
+
+  const sortCourses = () => {
+    switch (sortBy) {
+      case "4.5":
+        return posts.filter((course) => course.star >= 4.5);
+      case "4":
+        return posts.filter((course) => course.star > 4);
+      case "3.5":
+        return posts.filter((course) => course.star >= 3.5);
+      case "3":
+        return posts.filter((course) => course.star >= 3);
+      default:
+        return posts;
+    }
+  };
+
+  const handleStarChange = (criteria) => {
+    setSortBy(criteria);
+  };
+
+  const sortedCoursesByStar = sortCourses();
+
+  // pricing
+  const [sortByPrice, setSortByPrice] = useState("default");
+
+  const sortCoursesByPrice = () => {
+    switch (sortByPrice) {
+      case "paid":
+        return posts.filter((course) => course.price !== 0);
+      case "free":
+        return posts.filter((course) => course.price === 0);
+      case "default":
+      default:
+        return posts;
+    }
+  };
+
+  const handlePriceChange = (criteria) => {
+    setSortByPrice(criteria);
+  };
+  const sortedCoursesByPrice = sortCoursesByPrice();
+  //Level
+  const [sortByLevel, setSortByLevel] = useState("All");
+
+  const sortCoursesByLevel = () => {
+    switch (sortByLevel) {
+      case "basic":
+        return posts.filter((course) => course.level === "مقدماتی");
+      case "intermediate":
+        return posts.filter((course) => course.price === "متوسط");
+      case "advanced":
+        return posts.filter((course) => course.price === "پیشرفته");
+      case "All":
+      default:
+        return posts;
+    }
+  };
+
+  const handleLevelChange = (criteria) => {
+    setSortByLevel(criteria);
+  };
+  const sortedCoursesByLevel = sortCoursesByLevel();
+
+  // Time
+  const [sortByTime, setSortByTime] = useState("+All");
+
+  const sortCoursesByTime = () => {
+    switch (sortByTime) {
+      case "-3":
+        return posts.filter((course) => course.time <= 3);
+      case "4-7":
+        return posts.filter((course) => course.time <= 7 && course.time >= 4);
+      case "8-18":
+        return posts.filter((course) => course.time >= 8 && course.time <= 8);
+      case "+20":
+        return posts.filter((course) => course.time >= 20);
+      case "All":
+      default:
+        return posts;
+    }
+  };
+
+  const handleTimeChange = (criteria) => {
+    setSortByLevel(criteria);
+  };
+  const sortedCoursesByTime = sortCoursesByTime();
+
   return (
     <div className=" mt-[100px] mb-24 font-iransans container max-w-[1320px] mx-auto">
       <h2 className=" text-2xl mt-36 font-medium">لیست دوره ها</h2>
@@ -71,111 +214,76 @@ const Courses = () => {
       </p>
       <div className="flex items-start justify-between mt-32 gap-8">
         <div className=" w-1/4">
-          <CourseCategory />
-          <CourseStar />
-          <CoursePrice />
-          <CourseLevel />
-          <CourseTime />
+          <CourseCategory
+            handleCategoryToggle={handleCategoryToggle}
+            categories={uniqueCategories}
+            courseCounts={courseCounts}
+          />
+          <CourseStar
+            handleStarChange={handleStarChange}
+            sortedCoursesByStar={sortedCoursesByStar}
+            sortBy={sortBy}
+          />
+          <CoursePrice
+            sortByPrice={sortByPrice}
+            sortCoursesByPrice={sortCoursesByPrice}
+            handlePriceChange={handlePriceChange}
+            sortedCoursesByPrice={sortedCoursesByPrice}
+          />
+          <CourseLevel
+            sortByLevel={sortByLevel}
+            sortCoursesByLevel={sortCoursesByLevel}
+            handleLevelChange={handleLevelChange}
+            sortedCoursesByLevel={sortedCoursesByLevel}
+          />
+          <CourseTime
+            setSortByTime={setSortByTime}
+            handleTimeChange={handleTimeChange}
+            sortedCoursesByTime={sortedCoursesByTime}
+            sortByTime={sortByTime}
+          />
         </div>
         <div className=" w-4/5">
           <div className=" flex items-center justify-between px-10">
             <p className="text-gray-600 text-sm">
-              نمایش <span className=" text-gray-800 font-semibold">200 </span>
+              نمایش{" "}
+              <span className=" text-gray-800 font-semibold">
+                {posts.length}{" "}
+              </span>
               نتیجه
             </p>
             <div className=" flex gap-3 items-center">
               <p className=" text-gray-600 text-sm">مرتب سازی :</p>
               <div>
                 <div className="relative inline-block text-left">
-                  <div>
-                    <button
-                      type="button"
-                      className="inline-flex justify-end gap-2  rounded-md border border-gray-300 shadow-sm bg-gray-200 w-36 px-4 py-2 text-sm font-medium  focus:outline-none focus:border-blue-300  focus:ring-0"
-                      id="options-menu"
-                      aria-expanded={isOpen}
-                      aria-haspopup="true"
-                      onClick={toggleDropdown}
-                    >
-                      {selectedOption}
-                      <svg
-                        className="w-4"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                        <g
-                          id="SVGRepo_tracerCarrier"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        ></g>
-                        <g id="SVGRepo_iconCarrier">
-                          <path
-                            d="m12 14.586 6.293-6.293a1 1 0 1 1 1.414 1.414l-6.646 6.647a1.5 1.5 0 0 1-2.122 0L4.293 9.707a1 1 0 0 1 1.414-1.414L12 14.586z"
-                            fill="#000"
-                          ></path>
-                        </g>
-                      </svg>
-                    </button>
-                  </div>
-                  {isOpen && (
-                    <div className="origin-top-right absolute z-40 right-0 mt-2 text-right w-56 rounded-lg shadow-lg bg-gray-200  ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      <ul
-                        className="py-1 flex flex-col gap-1 px-1"
-                        role="menu"
-                        aria-orientation="vertical"
-                        aria-labelledby="options-menu"
-                      >
-                        <li
-                          onClick={() => handleSort("پیش فرض")}
-                          className={`block px-4 py-2 text-sm cursor-pointer rounded-lg hover:bg-gray-500 ${
-                            sortingOption === "" ? "bg-gray-500" : ""
-                          }`}
-                        >
-                          پیش فرض
-                        </li>
-
-                        <li
-                          onClick={() => handleSort("محبوب ترین")}
-                          className={`block px-4 py-2 text-sm  hover:bg-gray-500 rounded-lg cursor-pointer ${
-                            selectedOption === "محبوبیت" ? "bg-gray-500" : ""
-                          } `}
-                        >
-                          محبوب ترین
-                        </li>
-                        <li
-                          onClick={() => handleSort("بیشترین نمره")}
-                          className={`block px-4 py-2 text-sm  hover:bg-gray-500 rounded-lg cursor-pointer ${
-                            selectedOption === "بیشترین نمره"
-                              ? "bg-gray-500"
-                              : ""
-                          } `}
-                        >
-                          بیشترین نمره
-                        </li>
-                        <li
-                          onClick={() => handleSort("جدید ترین")}
-                          className={`block px-4 py-2 text-sm  hover:bg-gray-500 rounded-lg cursor-pointer ${
-                            selectedOption === "جدید ترین" ? "bg-gray-500" : ""
-                          } `}
-                        >
-                          جدید ترین
-                        </li>
-                      </ul>
-                    </div>
-                  )}
+                  <SortingCourses
+                    setCourses={setPosts}
+                    courses={posts}
+                    isOpen={isOpen}
+                    toggleDropdown={toggleDropdown}
+                    selectedOption={selectedOption}
+                    handleSort={handleSort}
+                    sortingOption={sortingOption}
+                    resetTodefault={resetTodefault}
+                  />
                 </div>
               </div>
             </div>
           </div>
           <div>
-            <div className=" flex items-center justify-between flex-wrap mt-7 px-2">
-              <CourseCard />
-              <CourseCard />
-              <CourseCard />
-              <CourseCard />
+            <div className=" flex items-center gap-8 flex-wrap mt-7 px-2">
+              {currentPosts.map((course, index) => (
+                <CourseCard key={index} title={course.name} />
+              ))}
             </div>
-            <div className="flex items-center justify-center">pagination</div>
+            <div className="flex items-center justify-center">
+              <Pagination
+                setCurrentPage={setCurrentPage}
+                postsPerPage={postsPerPage}
+                totalPosts={posts.length}
+                currentPage={currentPage}
+              />
+            </div>
           </div>
         </div>
       </div>
