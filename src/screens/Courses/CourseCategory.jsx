@@ -37,7 +37,6 @@ const CourseCategory = ({
         ).length;
         counts[category] = categoryCount;
       });
-      setCourseCounts(counts);
     } else {
       setPosts(items);
 

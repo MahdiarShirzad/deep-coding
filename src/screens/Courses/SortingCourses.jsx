@@ -1,13 +1,52 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-const SortingCourses = ({
-  isOpen,
-  toggleDropdown,
-  selectedOption,
-  handleSort,
-  sortingOption,
-  resetTodefault,
-}) => {
+const SortingCourses = ({ setPosts, posts, items }) => {
+  const [defaultCourses, setDefaultCourses] = useState([]);
+  const [sortingOption, setSortingOption] = useState("");
+  const [selectedOption, setSelectedOption] = useState("پیش فرض");
+  const [isOpen, setIsOpen] = useState(false);
+
+  const sortPosts = (sortBy) => {
+    if (sortBy === "محبوبیت") {
+      const sortedPosts = [...posts].sort((a, b) => {
+        const scoreA = parseFloat(a.star);
+        const scoreB = parseFloat(b.star);
+        return scoreB - scoreA;
+      });
+      setPosts(sortedPosts);
+    }
+    // if (sortBy === "جدید ترین") {
+    //   sortedPosts = sortedPosts.sort(
+    //     (a, b) => new Date(b.date) - new Date(a.date)
+    //   );
+    //   setPosts(sortedPosts);
+    // }
+
+    setSortingOption(sortBy);
+  };
+
+  const resetToDefault = () => {
+    setPosts(defaultCourses);
+    setSortingOption("پیش فرض");
+    setSelectedOption("پیش فرض");
+    setIsOpen(false);
+  };
+
+  useEffect(() => {
+    setDefaultCourses(items);
+    setSortingOption("");
+  }, [items]);
+
+  const handleSort = (sortBy) => {
+    sortPosts(sortBy);
+    setSelectedOption(sortBy);
+    setIsOpen(false);
+  };
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <>
       <div>
@@ -26,11 +65,11 @@ const SortingCourses = ({
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
             <g
               id="SVGRepo_tracerCarrier"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             ></g>
             <g id="SVGRepo_iconCarrier">
               <path
@@ -42,7 +81,7 @@ const SortingCourses = ({
         </button>
       </div>
       {isOpen && (
-        <div className="origin-top-right absolute z-40 right-0 mt-2 text-right w-56 rounded-lg shadow-lg bg-gray-200  ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <div className="origin-top-right absolute z-40 right-0 mt-2 text-right w-56 rounded-lg shadow-lg bg-gray-200 text-black ring-1 ring-black ring-opacity-5 focus:outline-none">
           <ul
             className="py-1 flex flex-col gap-1 px-1"
             role="menu"
@@ -50,34 +89,26 @@ const SortingCourses = ({
             aria-labelledby="options-menu"
           >
             <li
-              onClick={resetTodefault}
+              onClick={resetToDefault}
               className={`block px-4 py-2 text-sm cursor-pointer rounded-lg hover:bg-gray-500 ${
-                sortingOption === "پیش فرض" ? "bg-gray-500" : ""
+                sortingOption === "پیش فرض" ? "bg-gray-600 text-white" : ""
               }`}
             >
               پیش فرض
             </li>
 
             <li
-              onClick={() => handleSort("محبوب ترین")}
+              onClick={() => handleSort("محبوبیت")}
               className={`block px-4 py-2 text-sm  hover:bg-gray-500 rounded-lg cursor-pointer ${
-                selectedOption === "محبوب ترین" ? "bg-gray-500" : ""
+                selectedOption === "محبوبیت" ? "bg-gray-600 text-white" : ""
               } `}
             >
-              محبوب ترین
-            </li>
-            <li
-              onClick={() => handleSort("بیشترین نمره")}
-              className={`block px-4 py-2 text-sm  hover:bg-gray-500 rounded-lg cursor-pointer ${
-                selectedOption === "بیشترین نمره" ? "bg-gray-500" : ""
-              } `}
-            >
-              بیشترین نمره
+              محبوبیت
             </li>
             <li
               onClick={() => handleSort("جدید ترین")}
               className={`block px-4 py-2 text-sm  hover:bg-gray-500 rounded-lg cursor-pointer ${
-                selectedOption === "جدید ترین" ? "bg-gray-500" : ""
+                selectedOption === "جدید ترین" ? "bg-gray-600 text-white" : ""
               } `}
             >
               جدید ترین

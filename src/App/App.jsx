@@ -44,7 +44,6 @@ const App = () => {
         // Fetch products
         const productsResponse = await axios.get(`${BASE_URL}/courses/`);
         setCourses(productsResponse.data);
-        console.log(productsResponse);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
