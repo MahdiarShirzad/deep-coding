@@ -1,11 +1,13 @@
 import React from "react";
 import img from "../../assets/images/coursesCards/12.png";
 import lecture from "../../assets/images/coursesCards/icons/1.svg";
-import time from "../../assets/images/coursesCards/icons/2.svg";
-import level from "../../assets/images/coursesCards/icons/3.svg";
+import timesvg from "../../assets/images/coursesCards/icons/2.svg";
+import levelsvg from "../../assets/images/coursesCards/icons/3.svg";
 import styles from "./MemberCard.module.css";
 
-const CourseCard = () => {
+const CourseCard = ({ posts }) => {
+  const { name, category, price, level, star, time } = posts;
+
   return (
     <div className={styles.card_section}>
       <div className={`${styles.card_item} ${styles.card_users}`}>
@@ -13,7 +15,7 @@ const CourseCard = () => {
           <img className=" rounded-lg" src={img} alt="" />
           <div className=" flex items-center gap-3 text-sm mt-4 text-gray-600">
             <p className="flex items-center gap-1">
-              <p className="text-[#FFAC33]">3.4</p>
+              <p className="text-[#FFAC33]">{star}</p>
               <svg
                 viewBox="0 0 36 36"
                 xmlns="http://www.w3.org/2000/svg"
@@ -40,21 +42,19 @@ const CourseCard = () => {
             </p>
             <p>(203)</p>
           </div>
-          <h1 className=" text-lg mt-4 font-medium text-right">
-            آموزش ASP.NET
-          </h1>
+          <h1 className=" text-lg mt-4 font-medium text-right">{name}</h1>
           <div className=" flex items-center gap-4 text-sm mt-5 text-gray-600">
             <div className=" flex items-center gap-1">
               <img src={lecture} alt="" />
               <p>6 درس</p>
             </div>
             <div className=" flex items-center gap-1">
-              <img src={time} alt="" />
-              <p>6 ساعت</p>
+              <img src={timesvg} alt="" />
+              <p>{time} ساعت</p>
             </div>
             <div className=" flex items-center gap-1">
-              <img src={level} alt="" />
-              <p>همه سطوح</p>
+              <img src={levelsvg} alt="" />
+              <p>{level}</p>
             </div>
           </div>
           <div className=" flex items-center justify-between mt-6 px-3 border-t pt-2">
@@ -62,11 +62,11 @@ const CourseCard = () => {
               <p>ممد</p>
             </div>
             <div className="flex gap-1 items-center text-gray-700">
-              <span className=" font-semibold">120000</span>
+              <span className=" font-semibold">{price}</span>
               <span>تومان</span>
             </div>
           </div>
-        </div>{" "}
+        </div>
       </div>
     </div>
   );

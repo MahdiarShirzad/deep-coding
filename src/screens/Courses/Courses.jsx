@@ -11,6 +11,7 @@ import SortingCourses from "./SortingCourses";
 const Courses = ({ items }) => {
   const [posts, setPosts] = useState(items);
   const [loading, setLoading] = useState(false);
+  console.log(items.price);
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -70,118 +71,6 @@ const Courses = ({ items }) => {
     setIsOpen(!isOpen);
   };
 
-  // Category
-  const uniqueCategories = [...new Set(items.map((item) => item.category))];
-  const [selectedCategory, setSelectedCategory] = useState([]);
-  const [courseCounts, setCourseCounts] = useState({});
-
-  const handleCategoryToggle = (category) => {
-    if (selectedCategory.includes(category)) {
-      setSelectedCategory(
-        selectedCategory.filter(
-          (selectedCategory) => selectedCategory !== category
-        )
-      );
-    } else {
-      setSelectedCategory([...selectedCategory, category]);
-    }
-  };
-
-  useEffect(() => {
-    if (selectedCategory.length > 0) {
-      const filteredItems = items.filter((item) =>
-        selectedCategory.includes(item.category)
-      );
-      setPosts(filteredItems);
-
-      const counts = {};
-      uniqueCategories.forEach((category) => {
-        const categoryCount = filteredItems.filter(
-          (item) => item.category === category
-        ).length;
-        counts[category] = categoryCount;
-      });
-      setCourseCounts(counts);
-    } else {
-      setPosts(items);
-
-      const counts = {};
-      uniqueCategories.forEach((category) => {
-        const categoryCount = items.filter(
-          (item) => item.category === category
-        ).length;
-        counts[category] = categoryCount;
-      });
-      setCourseCounts(counts);
-    }
-  }, [selectedCategory, items]);
-  console.log(courseCounts);
-
-  // Star
-  const [sortBy, setSortBy] = useState("default");
-
-  const sortCourses = () => {
-    switch (sortBy) {
-      case "4.5":
-        return posts.filter((course) => course.star >= 4.5);
-      case "4":
-        return posts.filter((course) => course.star > 4);
-      case "3.5":
-        return posts.filter((course) => course.star >= 3.5);
-      case "3":
-        return posts.filter((course) => course.star >= 3);
-      default:
-        return posts;
-    }
-  };
-
-  const handleStarChange = (criteria) => {
-    setSortBy(criteria);
-  };
-
-  const sortedCoursesByStar = sortCourses();
-
-  // pricing
-  const [sortByPrice, setSortByPrice] = useState("default");
-
-  const sortCoursesByPrice = () => {
-    switch (sortByPrice) {
-      case "paid":
-        return posts.filter((course) => course.price !== 0);
-      case "free":
-        return posts.filter((course) => course.price === 0);
-      case "default":
-      default:
-        return posts;
-    }
-  };
-
-  const handlePriceChange = (criteria) => {
-    setSortByPrice(criteria);
-  };
-  const sortedCoursesByPrice = sortCoursesByPrice();
-  //Level
-  const [sortByLevel, setSortByLevel] = useState("All");
-
-  const sortCoursesByLevel = () => {
-    switch (sortByLevel) {
-      case "basic":
-        return posts.filter((course) => course.level === "مقدماتی");
-      case "intermediate":
-        return posts.filter((course) => course.price === "متوسط");
-      case "advanced":
-        return posts.filter((course) => course.price === "پیشرفته");
-      case "All":
-      default:
-        return posts;
-    }
-  };
-
-  const handleLevelChange = (criteria) => {
-    setSortByLevel(criteria);
-  };
-  const sortedCoursesByLevel = sortCoursesByLevel();
-
   // Time
   const [sortByTime, setSortByTime] = useState("+All");
 
@@ -202,7 +91,7 @@ const Courses = ({ items }) => {
   };
 
   const handleTimeChange = (criteria) => {
-    setSortByLevel(criteria);
+    // setSortByLevel(criteria);
   };
   const sortedCoursesByTime = sortCoursesByTime();
 
@@ -214,34 +103,11 @@ const Courses = ({ items }) => {
       </p>
       <div className="flex items-start justify-between mt-32 gap-8">
         <div className=" w-1/4">
-          <CourseCategory
-            handleCategoryToggle={handleCategoryToggle}
-            categories={uniqueCategories}
-            courseCounts={courseCounts}
-          />
-          <CourseStar
-            handleStarChange={handleStarChange}
-            sortedCoursesByStar={sortedCoursesByStar}
-            sortBy={sortBy}
-          />
-          <CoursePrice
-            sortByPrice={sortByPrice}
-            sortCoursesByPrice={sortCoursesByPrice}
-            handlePriceChange={handlePriceChange}
-            sortedCoursesByPrice={sortedCoursesByPrice}
-          />
-          <CourseLevel
-            sortByLevel={sortByLevel}
-            sortCoursesByLevel={sortCoursesByLevel}
-            handleLevelChange={handleLevelChange}
-            sortedCoursesByLevel={sortedCoursesByLevel}
-          />
-          <CourseTime
-            setSortByTime={setSortByTime}
-            handleTimeChange={handleTimeChange}
-            sortedCoursesByTime={sortedCoursesByTime}
-            sortByTime={sortByTime}
-          />
+          <CourseCategory items={items} setPosts={setPosts} />
+          <CourseStar setPosts={setPosts} items={items} />
+          <CoursePrice items={items} setPosts={setPosts} />
+          <CourseLevel setPosts={setPosts} items={items} />
+          <CourseTime items={items} setPosts={setPosts} />
         </div>
         <div className=" w-4/5">
           <div className=" flex items-center justify-between px-10">
@@ -273,7 +139,7 @@ const Courses = ({ items }) => {
           <div>
             <div className=" flex items-center gap-8 flex-wrap mt-7 px-2">
               {currentPosts.map((course, index) => (
-                <CourseCard key={index} title={course.name} />
+                <CourseCard key={index} posts={course} />
               ))}
             </div>
             <div className="flex items-center justify-center">

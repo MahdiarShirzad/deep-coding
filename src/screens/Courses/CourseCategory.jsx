@@ -1,7 +1,55 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./accardion.scss";
 
-const CourseCategory = ({ categories, handleCategoryToggle, courseCounts }) => {
+const CourseCategory = ({
+  courseCounts,
+  items,
+  setPosts,
+  setCourseCounts,
+  categories,
+}) => {
+  const uniqueCategories = [...new Set(items.map((item) => item.category))];
+  const [selectedCategory, setSelectedCategory] = useState([]);
+
+  const handleCategoryToggle = (category) => {
+    if (selectedCategory.includes(category)) {
+      setSelectedCategory(
+        selectedCategory.filter(
+          (selectedCategory) => selectedCategory !== category
+        )
+      );
+    } else {
+      setSelectedCategory([...selectedCategory, category]);
+    }
+  };
+
+  useEffect(() => {
+    if (selectedCategory.length > 0) {
+      const filteredItems = items.filter((item) =>
+        selectedCategory.includes(item.category)
+      );
+      setPosts(filteredItems);
+
+      const counts = {};
+      uniqueCategories.forEach((category) => {
+        const categoryCount = filteredItems.filter(
+          (item) => item.category === category
+        ).length;
+        counts[category] = categoryCount;
+      });
+      setCourseCounts(counts);
+    } else {
+      setPosts(items);
+
+      const counts = {};
+      uniqueCategories.forEach((category) => {
+        const categoryCount = items.filter(
+          (item) => item.category === category
+        ).length;
+        counts[category] = categoryCount;
+      });
+    }
+  }, [selectedCategory, items]);
   return (
     <div className="tab mb-4">
       <input type="checkbox" id="chck1" />
@@ -9,11 +57,11 @@ const CourseCategory = ({ categories, handleCategoryToggle, courseCounts }) => {
         دسته بندی ها
       </label>
       <div className="tab-content text-sm">
-        {categories.map((category, index) => (
+        {uniqueCategories.map((category, index) => (
           <div className="flex items-center justify-between" key={index}>
             <div className="flex items-center my-1 gap-3 text-base">
               <input
-                className="checked:accent-gray-800 rounded-full w-5 h-4 cursor-pointer"
+                className="checked:accent-gray-800 rounded-full w-3 h-4 cursor-pointer"
                 type="checkbox"
                 name={category}
                 id={category}
@@ -26,7 +74,6 @@ const CourseCategory = ({ categories, handleCategoryToggle, courseCounts }) => {
                 {category}
               </label>
             </div>
-            <div className="font-bold">({courseCounts[category]})</div>
           </div>
         ))}
       </div>

@@ -1,11 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-const CourseLevel = ({
-  sortByLevel,
-  sortCoursesByLevel,
-  handleLevelChange,
-  sortedCoursesByLevel,
-}) => {
+const CourseLevel = ({ setPosts, items }) => {
+  const [selectedLevelType, setSelectedLevelType] = useState([]);
+
+  const handleLevelTypeToggle = (levelType) => {
+    if (selectedLevelType.includes(levelType)) {
+      setSelectedLevelType(
+        selectedLevelType.filter((type) => type !== levelType)
+      );
+    } else {
+      setSelectedLevelType([...selectedLevelType, levelType]);
+    }
+  };
+
+  const applyLevelFilter = () => {
+    let filteredItems = [...items];
+
+    if (selectedLevelType.length) {
+      filteredItems = filteredItems.filter((course) =>
+        selectedLevelType.includes(course.level)
+      );
+    }
+
+    setPosts(filteredItems);
+  };
+
+  useEffect(() => {
+    applyLevelFilter();
+  }, [selectedLevelType]);
   const courseLevelTypes = ["همه سطوح", "مقدماتی", "متوسط", "پیشرفته"];
 
   return (
@@ -23,11 +45,11 @@ const CourseLevel = ({
                 type="checkbox"
                 name="sortByLevel"
                 id={levelType}
-                onChange={() => handleLevelChange(levelType)}
+                checked={selectedLevelType.includes(levelType)}
+                onChange={() => handleLevelTypeToggle(levelType)}
               />
               <label htmlFor={levelType}>{`${levelType}`}</label>
             </div>
-            <p className=" font-bold">({sortedCoursesByLevel.length})</p>
           </div>
         ))}
       </div>

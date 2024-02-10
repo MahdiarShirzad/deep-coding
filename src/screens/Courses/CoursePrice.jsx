@@ -1,17 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-const CoursePrice = ({
-  sortByPrice,
-  sortCoursesByPrice,
-  handlePriceChange,
-  sortedCoursesByPrice,
-}) => {
+const CoursePrice = ({ items, setPosts }) => {
   const priceTypes = ["همه", "پولی", "رایگان"];
+
+  const [selectedPriceType, setSelectedPriceType] = useState([]);
+
+  const handlePriceTypeToggle = (priceType) => {
+    if (selectedPriceType.includes(priceType)) {
+      setSelectedPriceType(
+        selectedPriceType.filter((type) => type !== priceType)
+      );
+    } else {
+      setSelectedPriceType([...selectedPriceType, priceType]);
+    }
+  };
+
+  const applyPriceFilter = () => {
+    let filteredItems = [...items];
+
+    if (selectedPriceType.includes("پولی")) {
+      filteredItems = filteredItems.filter((course) => course.price !== 0);
+    }
+
+    if (selectedPriceType.includes("رایگان")) {
+      filteredItems = filteredItems.filter((course) => course.price === 0);
+    }
+
+    setPosts(filteredItems);
+  };
+
+  useEffect(() => {
+    applyPriceFilter();
+  }, [selectedPriceType]);
+
   return (
     <div className="tab border-t-2 mb-4">
       <input type="checkbox" id="chck3" />
 
-      <label className="tab-label" for="chck3">
+      <label className="tab-label" htmlFor="chck3">
         قیمت
       </label>
       <div className="tab-content text-sm">
@@ -20,16 +46,14 @@ const CoursePrice = ({
             <div key={priceType} className="flex items-center justify-between">
               <div className="flex items-center gap-2 my-1">
                 <input
-                  className="checked:accent-zinc-500 w-3 h-3"
-                  type="radio"
-                  name="sortByPrice"
+                  className="checked:accent-gray-800 rounded-full w-3 h-4 cursor-pointer"
+                  type="checkbox"
                   id={priceType}
-                  checked={sortByPrice === priceType}
-                  onChange={() => handlePriceChange(priceType)}
+                  checked={selectedPriceType.includes(priceType)}
+                  onChange={() => handlePriceTypeToggle(priceType)}
                 />
                 <label htmlFor={priceType}>{`${priceType} `}</label>
               </div>
-              <p className=" font-bold">({sortedCoursesByPrice.length})</p>
             </div>
           ))}
         </div>

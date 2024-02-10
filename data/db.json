@@ -2,59 +2,115 @@
   "courses": [
     {
       "name": "آموزش NodeJs",
-      "category": "طراحی وب"
+      "category": "طراحی وب",
+      "price": 10000,
+      "level": "همه سطوح",
+      "time": 1,
+      "star": 2
     },
     {
       "name": "آموزش Python",
-      "category": "برنامه نویسی"
+      "category": "برنامه نویسی",
+      "price": 0,
+      "level": "مقدماتی",
+      "time": 10,
+      "star": 3.5
     },
     {
       "name": "آموزش Angular",
-      "category": "برنامه نویسی"
+      "category": "برنامه نویسی",
+      "price": 234000,
+      "level": "پیشرفته",
+      "time": 9,
+      "star": 5
     },
     {
       "name": "آموزش Photoshop",
-      "category": "گرافیک"
+      "category": "گرافیک",
+      "price": 0,
+      "level": "متوسط",
+      "time": 44,
+      "star": 4.7
     },
     {
       "name": "آموزش Bootstrap",
-      "category": "برنامه نویسی"
+      "category": "برنامه نویسی",
+      "price": 333333,
+      "level": "متوسط",
+      "time": 32,
+      "star": 1.3
     },
     {
       "name": "آموزش React-native",
-      "category": "برنامه نویسی"
+      "category": "برنامه نویسی",
+      "price": 321000,
+      "level": "پیشرفته",
+      "time": 19,
+      "star": 3.4
     },
     {
       "name": "آموزش ASP.Net",
-      "category": "برنامه نویسی"
+      "category": "برنامه نویسی",
+      "price": 3461000,
+      "level": "همه سطوح",
+      "time": 11,
+      "star": 4.9
     },
     {
       "name": "آموزش NodeJs",
-      "category": "طراحی وب"
+      "category": "طراحی وب",
+      "price": 982222,
+      "level": "مقدماتی",
+      "time": 39,
+      "star": 3.9
     },
     {
       "name": "آموزش Python",
-      "category": "برنامه نویسی"
+      "category": "برنامه نویسی",
+      "price": 3244560,
+      "level": "متوسط",
+      "star": 4.5,
+      "time": 36
     },
     {
       "name": "آموزش Angular",
-      "category": "برنامه نویسی"
+      "category": "برنامه نویسی",
+      "price": 4521022,
+      "level": "مقدماتی",
+      "time": 33,
+      "star": 4.1
     },
     {
       "name": "آموزش Photoshop",
-      "category": "گرافیک"
+      "category": "گرافیک",
+      "price": 322000,
+      "level": "همه سطوح",
+      "star": 3.0,
+      "time": 55
     },
     {
       "name": "آموزش Bootstrap",
-      "category": "برنامه نویسی"
+      "category": "برنامه نویسی",
+      "price": 0,
+      "level": "مقدماتی",
+      "time": 22,
+      "star": 2.9
     },
     {
       "name": "آموزش React-native",
-      "category": "برنامه نویسی"
+      "category": "برنامه نویسی",
+      "price": 338800,
+      "level": "پیشرفته",
+      "time": 20,
+      "star": 4.8
     },
     {
       "name": "آموزش ASP.Net",
-      "category": "برنامه نویسی"
+      "category": "برنامه نویسی",
+      "price": 3210000,
+      "level": "همه سطوح",
+      "time": 40,
+      "star": 4.3
     }
   ]
 }
