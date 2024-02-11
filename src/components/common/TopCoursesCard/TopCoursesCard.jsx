@@ -1,13 +1,14 @@
 import React from "react";
 import img from "../../../assets/images/coursesCards/1.png";
-import level from "../../../assets/images//coursesCards/icons/3.svg";
+import levelsvg from "../../../assets/images//coursesCards/icons/3.svg";
 import styles from "./MemberCard.module.css";
+import RenderStars from "../../RenderStars/RenderStars";
 
-const TopCoursesCard = () => {
+const TopCoursesCard = ({ course }) => {
+  const { name, star, level, time } = course;
   return (
     <div className={styles.card_section}>
       <div className={`${styles.card_item} ${styles.card_users}`}>
-        {" "}
         <div className="w-[600px] flex font-iransans mb-8 gap-8 rounded-2xl px-6 py-4 shadow-sm shadow-slate-300">
           <div>
             <img className="w-52 rounded-xl" src={img} alt="" />
@@ -15,34 +16,12 @@ const TopCoursesCard = () => {
           <div>
             <p className="flex items-start gap-3 text-gray-500">
               <span>(1000)</span>
-              <div className="flex items-start gap-2">
-                <svg
-                  viewBox="0 0 36 36"
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                  aria-hidden="true"
-                  role="img"
-                  className="w-4"
-                  preserveAspectRatio="xMidYMid meet"
-                  fill="#000000"
-                >
-                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                  <g
-                    id="SVGRepo_tracerCarrier"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></g>
-                  <g id="SVGRepo_iconCarrier">
-                    <path
-                      fill="#FFAC33"
-                      d="M27.287 34.627c-.404 0-.806-.124-1.152-.371L18 28.422l-8.135 5.834a1.97 1.97 0 0 1-2.312-.008a1.971 1.971 0 0 1-.721-2.194l3.034-9.792l-8.062-5.681a1.98 1.98 0 0 1-.708-2.203a1.978 1.978 0 0 1 1.866-1.363L12.947 13l3.179-9.549a1.976 1.976 0 0 1 3.749 0L23 13l10.036.015a1.975 1.975 0 0 1 1.159 3.566l-8.062 5.681l3.034 9.792a1.97 1.97 0 0 1-.72 2.194a1.957 1.957 0 0 1-1.16.379z"
-                    ></path>
-                  </g>
-                </svg>
-                <span>3</span>
+              <div className="flex items-center w-[100px]">
+                <RenderStars rating={star} />
               </div>
+              <span>3</span>
             </p>
-            <h3 className="text-xl font-medium mb-3 mt-2">آموزش سی شارپ</h3>
+            <h3 className="text-xl font-medium mb-3 mt-2">{name}</h3>
             <div className="flex items-center gap-5 mb-2">
               <p className="flex items-center justify-center text-gray-500 text-sm gap-1">
                 <svg
@@ -68,11 +47,11 @@ const TopCoursesCard = () => {
                     ></path>{" "}
                   </g>
                 </svg>
-                <span>2:33:00</span>
+                <span>{time}</span>
               </p>
               <p className="flex items-start text-gray-500 text-sm gap-1">
-                <img src={level} alt="" />
-                <span>پیشرفته</span>
+                <img src={levelsvg} alt="" />
+                <span>{level}</span>
               </p>
             </div>
             <div className="border-t-2 flex pt-3 pr-2 gap-2">

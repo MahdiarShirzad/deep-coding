@@ -7,12 +7,12 @@ import Enroll from "./Enroll";
 import BlogSection from "./BlogSection";
 import ProgramDownloadSection from "./ProgramDownloadSection";
 
-const Landing = ({ courses }) => {
+const Landing = ({ courses, blogs }) => {
   return (
     <div className=" mx-auto">
       <Herosection />
       <TopCourses courses={courses} />
-      <TopCategory />
+      <TopCategory items={courses} />
       <Validity />
       <div className=" w-full flex flex-row-reverse">
         <svg
@@ -30,7 +30,7 @@ const Landing = ({ courses }) => {
         </svg>
       </div>
       <Enroll />
-      <BlogSection />
+      <BlogSection blogs={blogs} />
       <ProgramDownloadSection />
     </div>
   );

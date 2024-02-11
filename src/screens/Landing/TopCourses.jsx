@@ -53,7 +53,7 @@ const TopCourses = ({ courses }) => {
       </div>
       <div className="flex flex-wrap justify-between mt-10">
         {filteredCourses.slice(0, 6).map((course, index) => (
-          <TopCoursesCard key={index} title={course.name} />
+          <TopCoursesCard key={index} course={course} />
         ))}
       </div>
     </div>

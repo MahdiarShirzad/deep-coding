@@ -60,7 +60,11 @@ const App = () => {
     <BrowserRouter>
       <Layout>
         <Routes>
-          <Route path="/" index element={<Landing courses={courses} />} />
+          <Route
+            path="/"
+            index
+            element={<Landing courses={courses} blogs={blogs} />}
+          />
           <Route path="/courses" index element={<Courses items={courses} />} />
           <Route path="/blogs" index element={<Blogs blogs={blogs} />} />
           <Route path="/about-us" index element={<AboutUs />} />

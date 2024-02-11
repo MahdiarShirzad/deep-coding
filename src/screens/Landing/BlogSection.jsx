@@ -2,7 +2,7 @@ import React from "react";
 import BlogCard from "../../components/common/BlogCard/BlogCard";
 import { Link } from "react-router-dom";
 
-const BlogSection = () => {
+const BlogSection = ({ blogs }) => {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -26,10 +26,9 @@ const BlogSection = () => {
         </Link>
       </div>
       <div className="flex items-center justify-between mt-16">
-        <BlogCard />
-        <BlogCard />
-        <BlogCard />
-        <BlogCard />
+        {blogs.slice(-4).map((blog, index) => (
+          <BlogCard blog={blog} key={index} />
+        ))}
       </div>
     </div>
   );

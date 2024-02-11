@@ -34,7 +34,7 @@
     },
     {
       "name": "آموزش Bootstrap",
-      "category": "برنامه نویسی",
+      "category": "هوش مصنوعی",
       "price": 333333,
       "level": "متوسط",
       "time": 32,
@@ -42,7 +42,7 @@
     },
     {
       "name": "آموزش React-native",
-      "category": "برنامه نویسی",
+      "category": "داده کاوی",
       "price": 321000,
       "level": "پیشرفته",
       "time": 19,
@@ -50,7 +50,7 @@
     },
     {
       "name": "آموزش ASP.Net",
-      "category": "برنامه نویسی",
+      "category": "یادگیری ماشین",
       "price": 3461000,
       "level": "همه سطوح",
       "time": 11,
@@ -58,7 +58,7 @@
     },
     {
       "name": "آموزش NodeJs",
-      "category": "طراحی وب",
+      "category": "برنامه نویسی موبایل",
       "price": 982222,
       "level": "مقدماتی",
       "time": 39,
@@ -66,7 +66,7 @@
     },
     {
       "name": "آموزش Python",
-      "category": "برنامه نویسی",
+      "category": "شبکه",
       "price": 3244560,
       "level": "متوسط",
       "star": 4.5,

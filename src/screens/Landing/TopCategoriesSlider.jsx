@@ -1,8 +1,6 @@
 import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import CustomLeftArrow from "../../components/common/CustomLeftArrow/CustomLeftArrow";
-import CustomRightArrow from "../../components/common/CustomRightArrow/CustomRightArrow";
 
 const responsive = {
   desktop: {
@@ -22,37 +20,8 @@ const responsive = {
   },
 };
 
-const categories = [
-  {
-    title: "طراحی وب",
-  },
-  {
-    title: "طراحی وب",
-  },
-  {
-    title: "طراحی وب",
-  },
-  {
-    title: "طراحی وب",
-  },
-  {
-    title: "طراحی وب",
-  },
-  {
-    title: "طراحی وب",
-  },
-  {
-    title: "طراحی وب",
-  },
-  {
-    title: "طراحی وب",
-  },
-  {
-    title: "طراحی وب",
-  },
-];
-
-const TopCategoriesSlider = () => {
+const TopCategoriesSlider = ({ uniqueCategories }) => {
+  console.log(uniqueCategories);
   return (
     <div className="parent mt-8 relative ">
       <Carousel
@@ -65,11 +34,9 @@ const TopCategoriesSlider = () => {
         partialVisible={false}
         dotListClass="custom-dot-list-style"
         arrows={false}
-        // customLeftArrow={<CustomLeftArrow />}
-        // customRightArrow={<CustomRightArrow />}
         autoPlaySpeed={3000}
       >
-        {categories.map((category, index) => {
+        {uniqueCategories.map((category, index) => {
           return (
             <div
               className="slider flex flex-col items-center justify-center gap-5 w-48 border-2 border-slate-100 rounded-lg"
@@ -101,9 +68,7 @@ const TopCategoriesSlider = () => {
                   </g>
                 </svg>
               </div>
-              <h5 className="text-lg text-cyan-950 font-medium ">
-                {category.title}
-              </h5>
+              <h5 className="text-lg text-cyan-950 font-medium ">{category}</h5>
             </div>
           );
         })}
