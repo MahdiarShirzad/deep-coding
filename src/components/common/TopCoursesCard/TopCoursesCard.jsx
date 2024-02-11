@@ -19,7 +19,7 @@ const TopCoursesCard = ({ course }) => {
               <div className="flex items-center w-[100px]">
                 <RenderStars rating={star} />
               </div>
-              <span>3</span>
+              <span className=" text-amber-400">{star}</span>
             </p>
             <h3 className="text-xl font-medium mb-3 mt-2">{name}</h3>
             <div className="flex items-center gap-5 mb-2">
