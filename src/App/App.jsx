@@ -37,6 +37,7 @@ const Layout = ({ children }) => {
 
 const App = () => {
   const [courses, setCourses] = useState([]);
+  const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,6 +45,9 @@ const App = () => {
         // Fetch products
         const productsResponse = await axios.get(`${BASE_URL}/courses/`);
         setCourses(productsResponse.data);
+        // Fetch blogs
+        const blogsResponse = await axios.get(`${BASE_URL}/blogs/`);
+        setBlogs(blogsResponse.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -58,7 +62,7 @@ const App = () => {
         <Routes>
           <Route path="/" index element={<Landing courses={courses} />} />
           <Route path="/courses" index element={<Courses items={courses} />} />
-          <Route path="/blogs" index element={<Blogs />} />
+          <Route path="/blogs" index element={<Blogs blogs={blogs} />} />
           <Route path="/about-us" index element={<AboutUs />} />
           <Route path="/contact-us" index element={<ContactUs />} />
           <Route path="/login" element={<Login />} />
