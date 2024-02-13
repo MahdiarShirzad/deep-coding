@@ -11,6 +11,7 @@ import ContactUs from "../screens/ContactUs/ContactUs";
 import Login from "../screens/Login/Login";
 import SignUp from "../screens/Login/SignUp";
 import axios from "axios";
+import Cart from "../screens/Cart/Cart";
 
 const BASE_URL = "http://localhost:9000";
 
@@ -68,6 +69,7 @@ const App = () => {
           <Route path="/courses" index element={<Courses items={courses} />} />
           <Route path="/blogs" index element={<Blogs blogs={blogs} />} />
           <Route path="/about-us" index element={<AboutUs />} />
+          <Route path="/cart" index element={<Cart />} />
           <Route path="/contact-us" index element={<ContactUs />} />
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />

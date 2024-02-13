@@ -9,6 +9,8 @@ import RenderStars from "../RenderStars/RenderStars";
 const CourseCard = ({ posts }) => {
   const { name, category, price, level, star, time } = posts;
 
+  const coursePrice = price === 0 ? <p>رایگان</p> : price;
+
   return (
     <div className={styles.card_section}>
       <div className={`${styles.card_item} ${styles.card_users}`}>
@@ -19,7 +21,6 @@ const CourseCard = ({ posts }) => {
               <p className="text-[#FFAC33]">{star}</p>
               <RenderStars rating={star} />
             </p>
-            <p>(203)</p>
           </div>
           <h1 className=" text-lg mt-4 font-medium text-right">{name}</h1>
           <div className=" flex items-center gap-4 text-sm mt-5 text-gray-600">
@@ -41,8 +42,8 @@ const CourseCard = ({ posts }) => {
               <p>ممد</p>
             </div>
             <div className="flex gap-1 items-center text-gray-700">
-              <span className=" font-semibold">{price}</span>
-              <span>تومان</span>
+              <span className=" font-semibold">{coursePrice}</span>
+              {price !== 0 ? <span>تومان</span> : <span></span>}
             </div>
           </div>
         </div>

@@ -1,7 +1,34 @@
 import React from "react";
+import { Field, Form, Formik, ErrorMessage } from "formik";
 import { Link } from "react-router-dom";
+import * as yup from "yup";
 
 const SignUPForm = () => {
+  const validation = yup.object().shape({
+    email: yup
+      .string()
+      .required("لطفاً ایمیل را وارد کنید.")
+      .email("فرمت ایمیل صحیح نیست."),
+    userName: yup.string().required("لطفاً نام کاربری را وارد کنید."),
+    password: yup
+      .string()
+      .required("لطفاً رمز عبور را وارد کنید.")
+      .min(8, "رمز عبور باید حداقل 8 کاراکتر باشد.")
+      .matches(
+        /^(?=.*[A-Za-z])(?=.*\d)/,
+        "رمز عبور باید شامل حروف و اعداد باشد."
+      ),
+    confirmPassword: yup
+      .string()
+      .oneOf(
+        [yup.ref("password"), null],
+        "رمز عبور و تکرار آن باید یکسان باشند."
+      )
+      .required("لطفاً تکرار رمز عبور را وارد کنید."),
+  });
+
+  const onSubmit = (values) => {};
+
   return (
     <div className=" bg-white w-[610px] font-iransans px-16 py-10 rounded-xl">
       <p className=" text-3xl font-bold">ورود</p>
@@ -11,53 +38,87 @@ const SignUPForm = () => {
           ورود
         </Link>
       </div>
-      <form action="">
-        <div className=" flex flex-wrap items-center justify-between">
-          <div className=" flex flex-col mt-7">
-            <label htmlFor="">ایمیل</label>
-            <input
-              className=" border-2 px-3 text-sm py-4 mt-2 rounded-lg focus:outline-none text-gray-700"
-              type="text"
-              name=""
-              id=""
-              placeholder="ایمیل"
-            />
+      <Formik
+        initialValues={{
+          email: "",
+          userName: "",
+          password: "",
+          confirmPassword: "",
+        }}
+        onSubmit={(values) => onSubmit(values)}
+        validationSchema={validation}
+      >
+        <Form>
+          <div className=" flex flex-wrap items-center justify-between">
+            <div className=" flex flex-col mt-7">
+              <label htmlFor="email">ایمیل</label>
+              <Field
+                type="text"
+                name="email"
+                id="email"
+                placeholder="ایمیل"
+                className=" border-2 px-3 text-sm py-4 mt-2 rounded-lg focus:outline-none text-gray-700"
+              />
+              <ErrorMessage
+                name="email"
+                component="div"
+                className="text-red-500 text-sm mt-1"
+              />
+            </div>
+            <div className=" flex flex-col mt-7">
+              <label htmlFor="userName">نام کاربری</label>
+              <Field
+                type="text"
+                name="userName"
+                id="userName"
+                placeholder="نام کاربری"
+                className=" border-2 px-3 text-sm py-4 mt-2 rounded-lg focus:outline-none text-gray-700"
+              />
+              <ErrorMessage
+                name="userName"
+                component="div"
+                className="text-red-500 text-sm mt-1"
+              />
+            </div>
+            <div className=" flex flex-col mt-7">
+              <label htmlFor="password">رمز عبور</label>
+              <Field
+                type="password"
+                name="password"
+                id="password"
+                placeholder="*******"
+                className=" border-2 px-3 text-sm py-4 mt-2 rounded-lg focus:outline-none text-gray-700"
+              />
+              <ErrorMessage
+                name="password"
+                component="div"
+                className="text-red-500 text-sm mt-1"
+              />
+            </div>
+            <div className=" flex flex-col mt-7">
+              <label htmlFor="confirmPassword">تایید رمز عبور</label>
+              <Field
+                type="password"
+                name="confirmPassword"
+                id="confirmPassword"
+                placeholder="*******"
+                className=" border-2 px-3 text-sm py-4 mt-2 rounded-lg focus:outline-none text-gray-700"
+              />
+              <ErrorMessage
+                name="confirmPassword"
+                component="div"
+                className="text-red-500 text-sm mt-1"
+              />
+            </div>
           </div>
-          <div className=" flex flex-col mt-7">
-            <label htmlFor="">نام کاربری</label>
-            <input
-              className=" border-2 px-3 text-sm py-4 mt-2 rounded-lg focus:outline-none text-gray-700"
-              type="text"
-              name=""
-              id=""
-              placeholder="نام کاربری"
-            />
-          </div>
-          <div className=" flex flex-col mt-7">
-            <label htmlFor="">رمز عبور</label>
-            <input
-              className=" border-2 px-3 text-sm py-4 mt-2 rounded-lg focus:outline-none text-gray-700"
-              type="password"
-              name=""
-              id=""
-              placeholder="*******"
-            />
-          </div>
-          <div className=" flex flex-col mt-7">
-            <label htmlFor=""> تایید رمز عبور</label>
-            <input
-              className=" border-2 px-3 text-sm py-4 mt-2 rounded-lg focus:outline-none text-gray-700"
-              type="password"
-              name=""
-              id=""
-              placeholder="*******"
-            />
-          </div>
-        </div>
-        <button className=" mt-5 text-center w-full bg-lime-400 py-4 rounded-lg">
-          ثبت نام
-        </button>
-      </form>
+          <button
+            type="submit"
+            className=" mt-5 text-center w-full bg-lime-400 py-4 rounded-lg"
+          >
+            ثبت نام
+          </button>
+        </Form>
+      </Formik>
     </div>
   );
 };
