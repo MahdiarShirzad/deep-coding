@@ -3,6 +3,7 @@ import img1 from "../../assets/images/about-1/1.png";
 import img2 from "../../assets/images/about-1/2.png";
 import img3 from "../../assets/images/about-1/3.png";
 import { Link } from "react-router-dom";
+import Button from "../../components/common/Button/Button";
 
 const AboutUsLogin = () => {
   return (
@@ -31,10 +32,8 @@ const AboutUsLogin = () => {
           سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای
           متنوع با هدف بهبود ابزارهای کاربردی می باشد.
         </p>
-        <Link to="/sign-up">
-          <button className=" bg-[#6440FB] mt-8 text-white px-8 py-4 rounded-lg hover:bg-white hover:text-[#6440FB] border-2 border-[#6440FB]">
-            آموزش رایگان را شروع کنید
-          </button>
+        <Link to="/sign-up" className=" block mt-20">
+          <Button>آموزش رایگان را شروع کنید</Button>
         </Link>
       </div>
     </div>

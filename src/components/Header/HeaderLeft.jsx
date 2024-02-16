@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import Button from "../common/Button/Button";
 
 const HeaderLeft = () => {
   return (
@@ -32,9 +33,7 @@ const HeaderLeft = () => {
         <button>ورود</button>
       </NavLink>
       <NavLink to="sign-up">
-        <button className="text-white bg-[#6440FB] rounded-full px-9 py-3 border-2 border-[#6440FB] hover:bg-transparent hover:text-[#6440FB]">
-          ثبت نام
-        </button>
+        <Button>ثبت نام</Button>
       </NavLink>
     </div>
   );

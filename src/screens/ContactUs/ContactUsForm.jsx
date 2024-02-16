@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "../../components/common/Button/Button";
 
 const ContactUsForm = () => {
   return (
@@ -36,9 +37,7 @@ const ContactUsForm = () => {
           placeholder="متن پیام"
         ></textarea>
       </div>
-      <button className=" text-white bg-[#6440FB] rounded-lg px-12 py-5 mt-4 text-sm border-2 border-[#6440FB] hover:bg-transparent hover:text-[#6440FB]">
-        ارسال
-      </button>
+      <Button>ارسال</Button>
     </div>
   );
 };

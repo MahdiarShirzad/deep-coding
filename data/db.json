@@ -1,116 +1,144 @@
 {
   "courses": [
     {
-      "name": "آموزش NodeJs",
-      "category": "طراحی وب",
+      "id": 1,
+      "name": "متخصص فلاتر",
+      "category": "برنامه نویسی موبایل",
       "price": 10000,
       "level": "همه سطوح",
       "time": 1,
-      "star": 2
+      "star": 2,
+      "teacher": "maximillian"
     },
     {
+      "id": 2,
       "name": "آموزش Python",
       "category": "برنامه نویسی",
       "price": 0,
       "level": "مقدماتی",
       "time": 10,
-      "star": 3.5
+      "star": 3.5,
+      "teacher": "jose"
     },
     {
+      "id": 3,
       "name": "آموزش Angular",
-      "category": "برنامه نویسی",
+      "category": "برنامه نویسی فرانت",
       "price": 234000,
       "level": "پیشرفته",
       "time": 9,
-      "star": 5
+      "star": 5,
+      "teacher": "maximillian"
     },
     {
+      "id": 4,
       "name": "آموزش Photoshop",
       "category": "گرافیک",
       "price": 0,
       "level": "متوسط",
       "time": 44,
-      "star": 4.7
+      "star": 4.7,
+      "teacher": "walter"
     },
     {
+      "id": 5,
       "name": "آموزش Bootstrap",
-      "category": "هوش مصنوعی",
+      "category": "برنامه نویسی فرانت",
       "price": 333333,
       "level": "متوسط",
       "time": 32,
-      "star": 1.3
+      "star": 1.3,
+      "teacher": "brad"
     },
     {
+      "id": 6,
       "name": "آموزش React-native",
-      "category": "داده کاوی",
+      "category": "برنامه نویسی موبایل",
       "price": 321000,
       "level": "پیشرفته",
       "time": 19,
-      "star": 3.4
+      "star": 3.4,
+      "teacher": "maximillian"
     },
     {
+      "id": 7,
       "name": "آموزش ASP.Net",
-      "category": "یادگیری ماشین",
+      "category": "برنامه نویسی بک",
       "price": 3461000,
       "level": "همه سطوح",
       "time": 11,
-      "star": 4.9
+      "star": 4.9,
+      "teacher": "mosh"
     },
     {
+      "id": 8,
       "name": "آموزش NodeJs",
       "category": "برنامه نویسی موبایل",
       "price": 982222,
       "level": "مقدماتی",
       "time": 39,
-      "star": 3.9
+      "star": 3.9,
+      "teacher": "jonas"
     },
     {
-      "name": "آموزش Python",
-      "category": "شبکه",
+      "id": 9,
+      "name": "آموزش React",
+      "category": "برنامه نویسی فرانت",
       "price": 3244560,
       "level": "متوسط",
       "star": 4.5,
-      "time": 36
+      "time": 36,
+      "teacher": "jonas"
     },
     {
-      "name": "آموزش Angular",
-      "category": "برنامه نویسی",
+      "id": 10,
+      "name": "متخصص مهندسی داده و بیگ دیتا",
+      "category": "هوش مصنوعی",
       "price": 4521022,
       "level": "مقدماتی",
       "time": 33,
-      "star": 4.1
+      "star": 4.1,
+      "teacher": "کاویانی"
     },
     {
-      "name": "آموزش Photoshop",
+      "id": 11,
+      "name": "متخصص پایتون توسعه وب",
       "category": "گرافیک",
       "price": 322000,
       "level": "همه سطوح",
       "star": 3.0,
-      "time": 55
+      "time": 55,
+      "teacher": "کاویانی"
     },
     {
-      "name": "آموزش Bootstrap",
+      "id": 12,
+      "name": "متخصص جاوا",
       "category": "برنامه نویسی",
       "price": 0,
       "level": "مقدماتی",
       "time": 22,
-      "star": 2.9
+      "star": 2.9,
+      "teacher": "jose"
     },
     {
-      "name": "آموزش React-native",
-      "category": "برنامه نویسی",
+      "id": 13,
+      "name": "متخصص یادگیری ماشین و علم داده",
+      "category": "هوش مصنوعی",
       "price": 338800,
       "level": "پیشرفته",
       "time": 20,
-      "star": 4.8
+      "star": 4.8,
+      "teacher": "کاویانی"
     },
     {
-      "name": "آموزش ASP.Net",
+      "id": 14,
+      "name": "متخصص لینوکس",
       "category": "برنامه نویسی",
       "price": 3210000,
       "level": "همه سطوح",
       "time": 40,
-      "star": 4.3
+      "star": 4.3,
+      "teacher": "mosh"
     }
   ],
   "blogs": [

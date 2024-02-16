@@ -12,6 +12,9 @@ import Login from "../screens/Login/Login";
 import SignUp from "../screens/Login/SignUp";
 import axios from "axios";
 import Cart from "../screens/Cart/Cart";
+import CourseDetail from "../screens/CourseDetail/CourseDetail";
+import TeachersInfo from "../screens/TeachersInfo/TeachersInfo";
+import BlogDetail from "../screens/BlogDetail/BlogDetail";
 
 const BASE_URL = "http://localhost:9000";
 
@@ -67,12 +70,15 @@ const App = () => {
             element={<Landing courses={courses} blogs={blogs} />}
           />
           <Route path="/courses" index element={<Courses items={courses} />} />
+          <Route path="/coursedetail" index element={<CourseDetail />} />
           <Route path="/blogs" index element={<Blogs blogs={blogs} />} />
+          <Route path="/blog-detail" index element={<BlogDetail />} />
           <Route path="/about-us" index element={<AboutUs />} />
           <Route path="/cart" index element={<Cart />} />
           <Route path="/contact-us" index element={<ContactUs />} />
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/teacher-info" element={<TeachersInfo />} />
           <Route path="*" index element={<p className=" my-96">not found</p>} />
         </Routes>
       </Layout>

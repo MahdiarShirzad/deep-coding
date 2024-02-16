@@ -1,0 +1,4 @@
+.avatar img {
+  border-radius: 12px !important;
+  transition: 0.3s;
+}

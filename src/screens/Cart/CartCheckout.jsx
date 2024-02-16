@@ -17,7 +17,7 @@ const CartCheckout = () => {
           <span>تومان</span>
         </div>
       </div>
-      <button className=" text-center w-[220px] block py-3 rounded-xl text-white mx-auto mt-12 bg-cyan-700 ">
+      <button className=" text-center w-[220px] block py-3 rounded-xl text-white mx-auto mt-12 bg-violet-700 ">
         پرداخت و تکمیل ثبت نام
       </button>
     </div>

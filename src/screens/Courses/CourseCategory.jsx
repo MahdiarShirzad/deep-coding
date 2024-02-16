@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./accardion.scss";
 
-const CourseCategory = ({
-  courseCounts,
-  items,
-  setPosts,
-  setCourseCounts,
-  categories,
-}) => {
+const CourseCategory = ({ items, setPosts }) => {
   const uniqueCategories = [...new Set(items.map((item) => item.category))];
   const [selectedCategory, setSelectedCategory] = useState([]);
 

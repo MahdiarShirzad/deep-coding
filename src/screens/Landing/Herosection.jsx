@@ -1,6 +1,7 @@
 import React from "react";
 import heroimg from "../../assets/images/home-7/hero/image.png";
 import { Link } from "react-router-dom";
+import Button from "../../components/common/Button/Button";
 
 const Herosection = () => {
   const scrollToTop = () => {
@@ -24,12 +25,10 @@ const Herosection = () => {
           </p>
           <div className="flex items-center justify-center w-3/4 mt-20 gap-5">
             <Link onClick={scrollToTop} to="/sign-up">
-              <button className="bg-[#140342] border-[#140342] hover:bg-transparent hover:text-black border-2 text-white px-8 py-4 rounded-3xl">
-                ثبت نام رایگان
-              </button>
+              <Button>ثبت نام رایگان</Button>
             </Link>
             <Link onClick={scrollToTop} to="/courses">
-              <button className="border-2 border-[#140342] hover:bg-[#140342] hover:text-white px-8 py-4 rounded-3xl">
+              <button className="border-2 border-[#140342] hover:bg-[#140342] hover:text-white px-9 py-3 rounded-2xl">
                 جستجوی دوره
               </button>
             </Link>
