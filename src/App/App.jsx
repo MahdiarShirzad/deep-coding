@@ -42,6 +42,7 @@ const Layout = ({ children }) => {
 const App = () => {
   const [courses, setCourses] = useState([]);
   const [blogs, setBlogs] = useState([]);
+  const [teachers, setTeachers] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,6 +53,9 @@ const App = () => {
         // Fetch blogs
         const blogsResponse = await axios.get(`${BASE_URL}/blogs/`);
         setBlogs(blogsResponse.data);
+        // Fetch Teachers
+        const teachersResponse = await axios.get(`${BASE_URL}/teachers`);
+        setTeachers(teachersResponse.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -67,10 +71,20 @@ const App = () => {
           <Route
             path="/"
             index
-            element={<Landing courses={courses} blogs={blogs} />}
+            element={
+              <Landing courses={courses} blogs={blogs} teachers={teachers} />
+            }
           />
-          <Route path="/courses" index element={<Courses items={courses} />} />
-          <Route path="/coursedetail" index element={<CourseDetail />} />
+          <Route
+            path="/courses"
+            index
+            element={<Courses items={courses} teachers={teachers} />}
+          />
+          <Route
+            path="/courses/:id"
+            index
+            element={<CourseDetail items={courses} teachers={teachers} />}
+          ></Route>
           <Route path="/blogs" index element={<Blogs blogs={blogs} />} />
           <Route path="/blog-detail" index element={<BlogDetail />} />
           <Route path="/about-us" index element={<AboutUs />} />
@@ -78,7 +92,11 @@ const App = () => {
           <Route path="/contact-us" index element={<ContactUs />} />
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/teacher-info" element={<TeachersInfo />} />
+          <Route
+            path="/teacher-info/:id"
+            index
+            element={<TeachersInfo teachers={teachers} />}
+          />
           <Route path="*" index element={<p className=" my-96">not found</p>} />
         </Routes>
       </Layout>

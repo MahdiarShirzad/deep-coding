@@ -21,7 +21,6 @@ const responsive = {
 };
 
 const TopCategoriesSlider = ({ uniqueCategories }) => {
-  console.log(uniqueCategories);
   return (
     <div className="parent mt-8 relative ">
       <Carousel

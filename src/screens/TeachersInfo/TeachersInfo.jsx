@@ -1,18 +1,28 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 
 import TeacherAvatar from "./TeachersAvatar";
 import AboutTeacher from "./AboutTeacher";
 import TeachersCourse from "./TeachersCourse";
 
-const TeachersInfo = () => {
+const TeachersInfo = ({ teachers }) => {
+  const { id } = useParams();
+  const selectedTeacher = teachers.find((teacher) => teacher.id === +id);
+  // or
+  // const selectedTeacher = teachers.find((teacher) => teacher.id === parseInt(id));
+
+  console.log(id, selectedTeacher);
+  console.log(teachers);
   return (
     <div className="container max-w-[1320px] mx-auto mt-36  font-iransans flex items-start mb-10 justify-between px-20">
       <div className="w-[60%]">
         <div>
-          <p className="text-gray-500 text-lg font-black">مدرس</p>
-          <p className="text-4xl font-black mt-3">علی منصوریان</p>
+          <p className=" text-violet-600 text-lg font-black">مدرس</p>
+          <p className="text-4xl font-black mt-3">{selectedTeacher.name}</p>
         </div>
-        <div className="mt-6 text-lg font-extralight">توسعه دهنده بک اند</div>
+        <div className="mt-6 text-lg text-zinc-600 font-extralight">
+          {selectedTeacher.specialty}
+        </div>
         <div className="flex mt-14  items-center justify-between max-w-[70%]">
           <div className="flex flex-col gap-3 items-center">
             <p className="text-gray-500 text-lg">تعداد دانشجویان</p>
@@ -23,11 +33,11 @@ const TeachersInfo = () => {
             <p className="text-xl font-extrabold">7</p>
           </div>
         </div>
-        <AboutTeacher />
+        <AboutTeacher teacher={selectedTeacher} />
         {/* <TeachersCourse /> */}
       </div>
       <div className="w-[30%]">
-        <TeacherAvatar />
+        <TeacherAvatar teacher={selectedTeacher} />
         <div className="flex flex-col gap-6 mt-14">
           <div className="flex items-center justify-center px-20 py-4 p-2 shadow-sm  shadow-slate-300 rounded-2xl gap-3">
             <svg

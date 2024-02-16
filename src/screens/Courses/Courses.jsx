@@ -8,7 +8,9 @@ import CourseLevel from "./CourseLevel";
 import Pagination from "../../components/Pagination/Pagination";
 import SortingCourses from "./SortingCourses";
 
-const Courses = ({ items }) => {
+import { useParams } from "react-router-dom";
+
+const Courses = ({ items, teachers }) => {
   const [posts, setPosts] = useState(items);
   const [loading, setLoading] = useState(false);
 
