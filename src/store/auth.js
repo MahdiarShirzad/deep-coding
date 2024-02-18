@@ -5,41 +5,68 @@ const BASE_URL = "http://localhost:9000";
 
 const initialAuthState = {
   isAuthenticated: false,
+  isEmailExists: false,
+  errorMessage: "",
 };
 
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (userData, { rejectWithValue, dispatch }) => {
     try {
-      // درخواست برای دریافت اطلاعات کاربران از سرور
       const usersResponse = await axios.get(`${BASE_URL}/users`);
 
-      // چک کردن تکراری بودن ایمیل
       const isEmailExists = usersResponse.data.some(
         (user) => user.email === userData.email
       );
 
       if (isEmailExists) {
-        // اگر ایمیل تکراری بود، خطا را بازگردان
         return rejectWithValue({ message: "این ایمیل قبلاً ثبت شده است." });
       }
 
-      // اگر ایمیل تکراری نبود، ادامه ثبت نام
       const registerResponse = await axios.post(`${BASE_URL}/users`, userData);
 
       if (registerResponse.status === 200) {
-        // ثبت نام موفق بود، می‌توانید پیغام موفقیت را نمایش دهید
         console.log("شما با موفقیت ثبت نام کرده اید");
 
-        // همچنین می‌توانید وارد کردن کاربر به حالت ورود شده را انجام دهید
         dispatch(authActions.login());
         return registerResponse.data;
       } else {
-        // اگر خطایی رخ داد، خطا را بازگردان
         return rejectWithValue(registerResponse.data);
       }
     } catch (error) {
-      // در صورت خطا، خطا را بازگردان
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const loginUser = createAsyncThunk(
+  "auth/loginUser",
+  async (userData, { rejectWithValue, dispatch }) => {
+    try {
+      // Fetch the list of users from the server
+      const usersResponse = await axios.get(`${BASE_URL}/users`);
+      const users = usersResponse.data;
+
+      // Find the user by email or username
+      const user = users.find(
+        (u) => u.email === userData.username || u.userName === userData.username
+      );
+
+      if (!user) {
+        console.log("bilkh");
+        return rejectWithValue({ message: "ثبت نام نکرده‌اید." });
+      }
+
+      // Verify the password
+      if (user.password === userData.password) {
+        dispatch(authActions.login());
+        return user;
+      } else {
+        return rejectWithValue({
+          message: "نام کاربری یا رمز عبور اشتباه است.",
+        });
+      }
+    } catch (error) {
       return rejectWithValue(error.response.data);
     }
   }
@@ -79,9 +106,25 @@ const authSlice = createSlice({
         state.errorMessage = "خطا در ثبت نام.";
       }
     });
+
+    // اضافه کردن case برای بررسی ورود کاربر
+    builder.addCase(loginUser.fulfilled, (state, action) => {
+      state.isAuthenticated = true;
+    });
+    // اضافه کردن case برای بررسی خطاهای ورود کاربر
+    builder.addCase(loginUser.rejected, (state, action) => {
+      if (
+        action.payload &&
+        action.payload.message === "نام کاربری یا رمز عبور اشتباه است."
+      ) {
+        state.errorMessage = "نام کاربری یا رمز عبور اشتباه است.";
+      } else {
+        state.errorMessage = "خطا در ورود.";
+      }
+    });
   },
 });
 
-export const authActions = { ...authSlice.actions, registerUser };
+export const authActions = { ...authSlice.actions, registerUser, loginUser };
 
 export default authSlice.reducer;

@@ -2,14 +2,22 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "../../store/auth";
 
 const LoginForm = () => {
+  const dispatch = useDispatch();
+  const errorMessage = useSelector((state) => state.auth.errorMessage);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
   const validation = yup.object().shape({
-    username: yup.string().required("لطفاً نام کاربری را وارد کنید."),
+    username: yup.string().required("لطفاً نام کاربری یا ایمیل را وارد کنید."),
     password: yup.string().required("لطفاً رمز عبور را وارد کنید."),
   });
 
-  const onSubmit = (values) => {};
+  const onSubmit = (values) => {
+    dispatch(authActions.loginUser(values));
+  };
 
   return (
     <div className="bg-white w-[480px] font-iransans px-16 py-10 rounded-xl">
@@ -30,12 +38,12 @@ const LoginForm = () => {
       >
         <Form>
           <div className="flex flex-col mt-7">
-            <label htmlFor="username">نام کاربری</label>
+            <label htmlFor="username">نام کاربری یا ایمیل</label>
             <Field
               type="text"
               name="username"
               id="username"
-              placeholder="نام کاربری"
+              placeholder="نام کاربری یا ایمیل"
               className="border-2 px-3 text-sm py-4 mt-2 rounded-lg focus:outline-none text-gray-700"
             />
             <ErrorMessage
@@ -67,6 +75,19 @@ const LoginForm = () => {
           </button>
         </Form>
       </Formik>
+      {errorMessage && (
+        <div className="text-red-500 text-sm text-center mt-4">
+          {errorMessage}
+        </div>
+      )}
+      {isAuthenticated && !errorMessage && (
+        <div className="text-green-500 text-sm text-center mt-4">
+          با موفقیت وارد شدید.
+        </div>
+      )}
+      <Link className=" inline-block mt-6 text-sm text-end text-gray-700">
+        رمز عبور خود را فراموش کرده اید؟
+      </Link>
     </div>
   );
 };
