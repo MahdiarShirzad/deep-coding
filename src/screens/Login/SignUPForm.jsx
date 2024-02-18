@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
@@ -9,19 +9,17 @@ import { authActions } from "../../store/auth";
 const SignUPForm = () => {
   const dispatch = useDispatch();
   const isEmailExists = useSelector((state) => state.auth.isEmailExists);
-  const errorMessage = useSelector((state) => state.auth.errorMessage);
+  const isRegistrationSuccess = useSelector(
+    (state) => state.auth.isAuthenticated
+  );
 
   const onSubmit = async (values) => {
     try {
-      // اگر ایمیل قبلاً ثبت شده باشد، اعلان مرتبط با این موضوع را نمایش بدهید
-      if (isEmailExists) {
-        dispatch(authActions.setErrorMessage("این ایمیل قبلاً ثبت شده است."));
-      } else {
-        // در غیر این صورت، اطلاعات کاربر را ثبت کنید
-        await dispatch(authActions.registerUser(values));
-      }
+      await dispatch(authActions.registerUser(values));
+      // If registration is successful, display a success message
+      console.log("شما با موفقیت ثبت نام کرده اید");
     } catch (error) {
-      // اگر خطایی رخ دهد، می‌توانید در اینجا مدیریت کنید
+      // Handle other errors or display error messages as needed
       console.error("خطا در ثبت نام:", error);
     }
   };
@@ -137,9 +135,14 @@ const SignUPForm = () => {
           >
             ثبت نام
           </button>
-          {isEmailExists && (
+          {isRegistrationSuccess && (
+            <div className="text-green-500 text-sm text-center mt-4">
+              با موفقیت ثبت نام کرده اید!!
+            </div>
+          )}
+          {isEmailExists && !isRegistrationSuccess && (
             <div className="text-red-500 text-sm text-center mt-4">
-              {errorMessage}
+              قبلا ثبت نام کرده اید !!
             </div>
           )}
         </Form>

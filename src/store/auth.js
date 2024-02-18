@@ -7,31 +7,35 @@ const initialAuthState = {
   isAuthenticated: false,
 };
 
-// auth.js
-
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
-  async (userData, { rejectWithValue }) => {
+  async (userData, { rejectWithValue, dispatch }) => {
     try {
-      // بررسی وجود ایمیل
-      const emailCheckResponse = await axios.get(
-        `${BASE_URL}/users?email=${userData.email}`
+      // درخواست برای دریافت اطلاعات کاربران از سرور
+      const usersResponse = await axios.get(`${BASE_URL}/users`);
+
+      // چک کردن تکراری بودن ایمیل
+      const isEmailExists = usersResponse.data.some(
+        (user) => user.email === userData.email
       );
 
-      // اگر ایمیل موجود بود، خطا را بازگردان
-      if (emailCheckResponse.data.length > 0) {
+      if (isEmailExists) {
+        // اگر ایمیل تکراری بود، خطا را بازگردان
         return rejectWithValue({ message: "این ایمیل قبلاً ثبت شده است." });
       }
 
-      // ارسال درخواست POST برای ثبت نام
+      // اگر ایمیل تکراری نبود، ادامه ثبت نام
       const registerResponse = await axios.post(`${BASE_URL}/users`, userData);
 
-      // بررسی وضعیت پاسخ سرور
       if (registerResponse.status === 200) {
-        // اگر موفق بود، اطلاعات کاربر وارد شده را برگردان
+        // ثبت نام موفق بود، می‌توانید پیغام موفقیت را نمایش دهید
+        console.log("شما با موفقیت ثبت نام کرده اید");
+
+        // همچنین می‌توانید وارد کردن کاربر به حالت ورود شده را انجام دهید
+        dispatch(authActions.login());
         return registerResponse.data;
       } else {
-        // در غیر اینصورت، خطا را بازگردان
+        // اگر خطایی رخ داد، خطا را بازگردان
         return rejectWithValue(registerResponse.data);
       }
     } catch (error) {
@@ -40,8 +44,6 @@ export const registerUser = createAsyncThunk(
     }
   }
 );
-
-// auth.js
 
 const authSlice = createSlice({
   name: "authentication",
