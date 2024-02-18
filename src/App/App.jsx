@@ -10,13 +10,13 @@ import AboutUs from "../screens/AboutUs/AboutUs";
 import ContactUs from "../screens/ContactUs/ContactUs";
 import Login from "../screens/Login/Login";
 import SignUp from "../screens/Login/SignUp";
-import axios from "axios";
 import Cart from "../screens/Cart/Cart";
 import CourseDetail from "../screens/CourseDetail/CourseDetail";
 import TeachersInfo from "../screens/TeachersInfo/TeachersInfo";
 import BlogDetail from "../screens/BlogDetail/BlogDetail";
 
-const BASE_URL = "http://localhost:9000";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCourses, fetchBlogs, fetchTeachers } from "../store/data";
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -40,29 +40,16 @@ const Layout = ({ children }) => {
 };
 
 const App = () => {
-  const [courses, setCourses] = useState([]);
-  const [blogs, setBlogs] = useState([]);
-  const [teachers, setTeachers] = useState([]);
+  const dispatch = useDispatch();
+  const courses = useSelector((state) => state.data.courses);
+  const blogs = useSelector((state) => state.data.blogs);
+  const teachers = useSelector((state) => state.data.teachers);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch products
-        const productsResponse = await axios.get(`${BASE_URL}/courses/`);
-        setCourses(productsResponse.data);
-        // Fetch blogs
-        const blogsResponse = await axios.get(`${BASE_URL}/blogs/`);
-        setBlogs(blogsResponse.data);
-        // Fetch Teachers
-        const teachersResponse = await axios.get(`${BASE_URL}/teachers`);
-        setTeachers(teachersResponse.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+    dispatch(fetchCourses());
+    dispatch(fetchBlogs());
+    dispatch(fetchTeachers());
+  }, [dispatch]);
 
   return (
     <BrowserRouter>

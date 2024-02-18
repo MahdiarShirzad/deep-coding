@@ -3,7 +3,29 @@ import { Field, Form, Formik, ErrorMessage } from "formik";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
 
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "../../store/auth";
+
 const SignUPForm = () => {
+  const dispatch = useDispatch();
+  const isEmailExists = useSelector((state) => state.auth.isEmailExists);
+  const errorMessage = useSelector((state) => state.auth.errorMessage);
+
+  const onSubmit = async (values) => {
+    try {
+      // اگر ایمیل قبلاً ثبت شده باشد، اعلان مرتبط با این موضوع را نمایش بدهید
+      if (isEmailExists) {
+        dispatch(authActions.setErrorMessage("این ایمیل قبلاً ثبت شده است."));
+      } else {
+        // در غیر این صورت، اطلاعات کاربر را ثبت کنید
+        await dispatch(authActions.registerUser(values));
+      }
+    } catch (error) {
+      // اگر خطایی رخ دهد، می‌توانید در اینجا مدیریت کنید
+      console.error("خطا در ثبت نام:", error);
+    }
+  };
+
   const validation = yup.object().shape({
     email: yup
       .string()
@@ -26,8 +48,6 @@ const SignUPForm = () => {
       )
       .required("لطفاً تکرار رمز عبور را وارد کنید."),
   });
-
-  const onSubmit = (values) => {};
 
   return (
     <div className=" bg-white w-[610px] font-iransans px-16 py-10 rounded-xl">
@@ -117,6 +137,11 @@ const SignUPForm = () => {
           >
             ثبت نام
           </button>
+          {isEmailExists && (
+            <div className="text-red-500 text-sm text-center mt-4">
+              {errorMessage}
+            </div>
+          )}
         </Form>
       </Formik>
     </div>
