@@ -11,8 +11,15 @@ const CourseCard = ({ posts }) => {
 
   const coursePrice = price === 0 ? <p>رایگان</p> : price;
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
-    <Link to={`/courses/${id}`}>
+    <Link to={`/courses/${id}`} onClick={scrollToTop}>
       <div className={styles.card_section}>
         <div className={`${styles.card_item} ${styles.card_users}`}>
           <div className=" w-[300px] mb-8 px-4 py-5 rounded-xl shadow-sm shadow-gray-200">

@@ -1,6 +1,7 @@
 import React from "react";
 import BlogCard from "../../components/common/BlogCard/BlogCard";
 import { Link } from "react-router-dom";
+import Button from "../../components/common/Button/Button";
 
 const BlogSection = ({ blogs }) => {
   const scrollToTop = () => {
@@ -20,9 +21,7 @@ const BlogSection = ({ blogs }) => {
           </p>
         </div>
         <Link onClick={scrollToTop} to="/blogs">
-          <button className="bg-[#F4F1FE] border-[#F4F1FE] px-8 py-4 rounded-xl text-[#6440FB] hover:text-white hover:bg-[#6440FB]">
-            مشاهده همه
-          </button>
+          <Button>مشاهده همه</Button>
         </Link>
       </div>
       <div className="flex items-center justify-between mt-16">

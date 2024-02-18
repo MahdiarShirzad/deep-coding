@@ -10,7 +10,6 @@ import CourseHeadline from "./CourseHeadline";
 const CourseDetail = ({ items, teachers }) => {
   const { id } = useParams();
   const selectedCourse = items.find((item) => item.id === id);
-  console.log(selectedCourse);
 
   return (
     <div className=" my-36">

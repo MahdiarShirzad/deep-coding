@@ -1,9 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import ReactPlayer from "react-player";
 
-import imgCourse from "../../assets/images/coursesCards/5.png";
-import video from "../../assets/videos/React.mp4";
-
 const CoursePreview = ({ selectedCourse }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -23,10 +20,6 @@ const CoursePreview = ({ selectedCourse }) => {
     };
   }, []);
 
-  const handlePlayPause = () => {
-    setIsPlaying((prevState) => !prevState);
-  };
-
   return (
     <div
       className={` ${
@@ -37,7 +30,7 @@ const CoursePreview = ({ selectedCourse }) => {
         <ReactPlayer
           ref={playerRef}
           className=" w-full rounded-xl"
-          url={video}
+          url={selectedCourse.video}
           playing={isPlaying}
           controls={true}
           width="100%"
@@ -52,11 +45,8 @@ const CoursePreview = ({ selectedCourse }) => {
         </span>
         {selectedCourse.price !== 0 && <span>تومان</span>}
       </div>
-      <button
-        className=" bg-violet-600 mt-3 w-[300px] block mx-auto py-3 rounded-md text-white"
-        onClick={handlePlayPause}
-      >
-        {isPlaying ? "توقف" : "شروع پخش"}
+      <button className=" bg-violet-600 mt-3 w-[300px] block mx-auto py-3 rounded-md text-white">
+        افزودن به سبد خرید
       </button>
       <div className=" mr-3 mt-8 mb-6">
         <p>این دوره شامل:</p>

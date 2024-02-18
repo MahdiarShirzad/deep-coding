@@ -95,7 +95,7 @@ const App = () => {
           <Route
             path="/teacher-info/:id"
             index
-            element={<TeachersInfo teachers={teachers} />}
+            element={<TeachersInfo teachers={teachers} courses={courses} />}
           />
           <Route path="*" index element={<p className=" my-96">not found</p>} />
         </Routes>

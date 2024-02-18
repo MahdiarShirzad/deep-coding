@@ -5,14 +5,16 @@ import TeacherAvatar from "./TeachersAvatar";
 import AboutTeacher from "./AboutTeacher";
 import TeachersCourse from "./TeachersCourse";
 
-const TeachersInfo = ({ teachers }) => {
+const TeachersInfo = ({ teachers, courses }) => {
   const { id } = useParams();
-  const selectedTeacher = teachers.find((teacher) => teacher.id === +id);
-  // or
-  // const selectedTeacher = teachers.find((teacher) => teacher.id === parseInt(id));
+  const selectedTeacher = teachers.find((teacher) => teacher.id === id);
 
-  console.log(id, selectedTeacher);
-  console.log(teachers);
+  const teacherName = selectedTeacher.name;
+
+  const selectedCourses = courses.filter(
+    (course) => course.teacher === teacherName
+  );
+
   return (
     <div className="container max-w-[1320px] mx-auto mt-36  font-iransans flex items-start mb-10 justify-between px-20">
       <div className="w-[60%]">
@@ -26,15 +28,18 @@ const TeachersInfo = ({ teachers }) => {
         <div className="flex mt-14  items-center justify-between max-w-[70%]">
           <div className="flex flex-col gap-3 items-center">
             <p className="text-gray-500 text-lg">تعداد دانشجویان</p>
-            <p className="text-xl font-extrabold">234566</p>
+            <p className="text-xl font-extrabold">???</p>
           </div>
           <div className="flex flex-col gap-3 items-center">
             <p className="text-gray-500 text-lg">تعداد دوره ها</p>
-            <p className="text-xl font-extrabold">7</p>
+            <p className="text-xl font-extrabold">{selectedCourses.length}</p>
           </div>
         </div>
         <AboutTeacher teacher={selectedTeacher} />
-        {/* <TeachersCourse /> */}
+        <TeachersCourse
+          teacherName={teacherName}
+          selectedCourses={selectedCourses}
+        />
       </div>
       <div className="w-[30%]">
         <TeacherAvatar teacher={selectedTeacher} />
