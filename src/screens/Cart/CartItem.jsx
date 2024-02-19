@@ -8,9 +8,9 @@ import levelSvg from "../../assets/images/coursesCards/icons/3.svg";
 
 const CartItem = () => {
   return (
-    <div className=" flex items-start justify-between w-[700px] px-3 py-2 rounded-lg shadow-md">
+    <div className=" flex items-center justify-between w-[700px] px-3 py-2 rounded-lg shadow-md">
       <div>
-        <img className=" w-[130px] rounded-md" src={courseImg} alt="" />
+        <img className=" w-[130px] h-full rounded-md" src={courseImg} alt="" />
       </div>
       <div>
         <h1 className=" font-semibold text-right">آموزش جامع Laravel</h1>
@@ -36,8 +36,8 @@ const CartItem = () => {
           </div>
         </div>
       </div>
-      <div className=" flex flex-col items-center">
-        <p>646479</p>
+      <div className=" flex flex-col items-center text-sm">
+        <p className=" font-semibold mb-1">646479</p>
         <p>تومان</p>
       </div>
       <button className=" p-3 ml-6 my-auto bg-red-700 rounded-full">

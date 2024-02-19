@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +7,7 @@ import { authActions } from "../../store/auth";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const errorMessage = useSelector((state) => state.auth.errorMessage);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
@@ -75,11 +76,6 @@ const LoginForm = () => {
           </button>
         </Form>
       </Formik>
-      {errorMessage && (
-        <div className="text-red-500 text-sm text-center mt-4">
-          {errorMessage}
-        </div>
-      )}
       {isAuthenticated && !errorMessage && (
         <div className="text-green-500 text-sm text-center mt-4">
           با موفقیت وارد شدید.

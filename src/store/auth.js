@@ -7,6 +7,8 @@ const initialAuthState = {
   isAuthenticated: false,
   isEmailExists: false,
   errorMessage: "",
+  username: "",
+  savedUser: null,
 };
 
 export const registerUser = createAsyncThunk(
@@ -53,13 +55,18 @@ export const loginUser = createAsyncThunk(
       );
 
       if (!user) {
-        console.log("bilkh");
+        console.log("bilakh");
         return rejectWithValue({ message: "ثبت نام نکرده‌اید." });
       }
 
       // Verify the password
       if (user.password === userData.password) {
+        // Dispatch setSavedUser action with user information
+        dispatch(authActions.setSavedUser(user));
+
+        // Dispatch login action
         dispatch(authActions.login());
+
         return user;
       } else {
         return rejectWithValue({
@@ -81,21 +88,32 @@ const authSlice = createSlice({
     },
     logout(state) {
       state.isAuthenticated = false;
+      state.savedUser = null;
+      localStorage.removeItem("savedUser");
+      state.username = "";
     },
-    // اضافه کردن یک اکشن جدید برای تنظیم وضعیت ایمیل موجود
+
     setEmailExists(state, action) {
       state.isEmailExists = action.payload;
     },
-    // اضافه کردن یک اکشن جدید برای ثبت پیغام خطا
     setErrorMessage(state, action) {
       state.errorMessage = action.payload;
+    },
+    setSavedUser(state, action) {
+      state.isAuthenticated = true;
+      state.savedUser = action.payload;
+      state.username = action.payload?.userName || "";
+      localStorage.setItem("savedUser", JSON.stringify(action.payload));
     },
   },
   extraReducers: (builder) => {
     builder.addCase(registerUser.fulfilled, (state, action) => {
       state.isAuthenticated = true;
+      state.savedUser = action.payload;
+      localStorage.setItem("savedUser", JSON.stringify(action.payload));
+      state.username = action.payload.userName;
+      console.log("اطلاعات کاربر:", action.payload);
     });
-    // اضافه کردن دو case برای بررسی خطاهای مرتبط با وجود ایمیل موجود
     builder.addCase(registerUser.rejected, (state, action) => {
       if (
         action.payload &&
@@ -106,12 +124,15 @@ const authSlice = createSlice({
         state.errorMessage = "خطا در ثبت نام.";
       }
     });
-
-    // اضافه کردن case برای بررسی ورود کاربر
+    builder.addCase(authActions.logout, (state) => {
+      state.isAuthenticated = false;
+      state.savedUser = null;
+      localStorage.removeItem("savedUser");
+      state.username = "";
+    });
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.isAuthenticated = true;
     });
-    // اضافه کردن case برای بررسی خطاهای ورود کاربر
     builder.addCase(loginUser.rejected, (state, action) => {
       if (
         action.payload &&
@@ -125,6 +146,14 @@ const authSlice = createSlice({
   },
 });
 
-export const authActions = { ...authSlice.actions, registerUser, loginUser };
+export const authActions = {
+  ...authSlice.actions,
+  registerUser,
+  loginUser,
+  setSavedUser: (user) => ({
+    type: "authentication/setSavedUser",
+    payload: user,
+  }),
+};
 
 export default authSlice.reducer;

@@ -1,12 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import Button from "../common/Button/Button";
+import { authActions } from "../../store/auth";
 
 const HeaderLeft = () => {
   const dispatch = useDispatch();
-
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
+  const username = useSelector((state) => state.auth.username);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [rotate, setRotate] = useState(0);
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
+    setRotate(dropdownVisible ? 0 : 180);
+  };
+
+  const handleLogout = () => {
+    // Dispatch logout action
+    dispatch(authActions.logout());
+  };
+
+  useEffect(() => {
+    const savedUser = localStorage.getItem("savedUser");
+    if (savedUser) {
+      const parsedUser = JSON.parse(savedUser);
+      dispatch(authActions.setSavedUser(parsedUser));
+    }
+  }, [dispatch]);
 
   return (
     <div className="flex items-center gap-10 justify-end w-96">
@@ -36,12 +57,220 @@ const HeaderLeft = () => {
           </button>
         </NavLink>
       )}
-      <NavLink to="/login">
-        <button>ورود</button>
-      </NavLink>
-      <NavLink to="sign-up">
-        <Button>ثبت نام</Button>
-      </NavLink>
+      {!isAuth && (
+        <>
+          <NavLink to="/login">
+            <button>ورود</button>
+          </NavLink>
+          <NavLink to="sign-up">
+            <Button>ثبت نام</Button>
+          </NavLink>
+        </>
+      )}
+      {isAuth && (
+        <div className="relative">
+          <div
+            onClick={toggleDropdown}
+            className=" bg-zinc-100 px-5 min-w-[200px] py-1 rounded-full flex items-center justify-between cursor-pointer"
+          >
+            <div className=" flex items-center gap-2">
+              <svg
+                className=" w-[40px] p-0"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></g>
+                <g id="SVGRepo_iconCarrier">
+                  {" "}
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM15 9C15 10.6569 13.6569 12 12 12C10.3431 12 9 10.6569 9 9C9 7.34315 10.3431 6 12 6C13.6569 6 15 7.34315 15 9ZM12 20.5C13.784 20.5 15.4397 19.9504 16.8069 19.0112C17.4108 18.5964 17.6688 17.8062 17.3178 17.1632C16.59 15.8303 15.0902 15 11.9999 15C8.90969 15 7.40997 15.8302 6.68214 17.1632C6.33105 17.8062 6.5891 18.5963 7.19296 19.0111C8.56018 19.9503 10.2159 20.5 12 20.5Z"
+                    fill="#1C274C"
+                  ></path>{" "}
+                </g>
+              </svg>
+              <p>{username}</p>
+            </div>
+            <svg
+              className=" w-[17px]"
+              viewBox="0 0 1024 1024"
+              class="icon"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="#000000"
+              style={{ transform: `rotate(${rotate}deg)`, width: "17px" }}
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                <path
+                  d="M903.232 256l56.768 50.432L512 768 64 306.432 120.768 256 512 659.072z"
+                  fill="#000000"
+                ></path>
+              </g>
+            </svg>
+          </div>
+          <>
+            {dropdownVisible && (
+              <div className="absolute top-full right-0 w-[240px] flex flex-col gap-1 py-3 px-4 bg-white shadow-md rounded-md mt-1">
+                <NavLink
+                  className="flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 rounded-md"
+                  className="flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 rounded-md"
+                >
+                  <svg
+                    className=" w-[24px]"
+                    viewBox="0 0 18 18"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="#000000"
+                  >
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g
+                      id="SVGRepo_tracerCarrier"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></g>
+                    <g id="SVGRepo_iconCarrier">
+                      {" "}
+                      <path
+                        fill="none"
+                        stroke="#000"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-miterlimit="10"
+                        d="M1 2h16v11H1z"
+                      ></path>{" "}
+                      <path
+                        fill="none"
+                        stroke="#000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-miterlimit="10"
+                        d="M4 5.5v5s3-1 5 0v-5s-2-2-5 0zM9 5.5v5s3-1 5 0v-5s-2-2-5 0z"
+                      ></path>{" "}
+                      <path
+                        fill="#000"
+                        stroke="#000"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-miterlimit="10"
+                        d="M8.5 14l-3 3h7l-3-3z"
+                      ></path>{" "}
+                    </g>
+                  </svg>
+                  <p>دوره های من</p>
+                </NavLink>
+                <NavLink className="flex items-center gap-1 px-4 py-2 text-gray-800 hover:bg-gray-200 rounded-md">
+                  <svg
+                    className=" w-[35px] -mr-1"
+                    fill="#000000"
+                    viewBox="-3.5 0 19 19"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g
+                      id="SVGRepo_tracerCarrier"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></g>
+                    <g id="SVGRepo_iconCarrier">
+                      <path d="M10.05 3.828a1.112 1.112 0 0 1 1.11 1.108v10.562a1.112 1.112 0 0 1-1.11 1.108h-8.1a1.112 1.112 0 0 1-1.11-1.108V4.936a1.112 1.112 0 0 1 1.11-1.108h.415v1.108h-.414l-.002.002v10.558l.002.002h8.098l.002-.002V4.938l-.002-.002h-.414V3.828h.416zm-.98 4.076H2.82v1.108h6.25zm0 2.337H2.82v1.108h6.25zm0 2.337H2.82v1.108h6.25zm-.543-8.935v1.25a.476.476 0 0 1-.475.476H3.948a.476.476 0 0 1-.475-.475v-1.25a.476.476 0 0 1 .475-.476h.697V1.87a.476.476 0 0 1 .475-.475h1.76a.476.476 0 0 1 .475.475v1.3h.697a.476.476 0 0 1 .475.474zM6.55 2.67a.554.554 0 1 0-.554.554.554.554 0 0 0 .554-.554z"></path>
+                    </g>
+                  </svg>
+                  <p>آمار</p>
+                </NavLink>
+                <NavLink className="flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 rounded-md">
+                  <svg
+                    className=" w-[23px]"
+                    viewBox="0 0 20 20"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    fill="#000000"
+                  >
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g
+                      id="SVGRepo_tracerCarrier"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></g>
+                    <g id="SVGRepo_iconCarrier">
+                      {" "}
+                      <g
+                        id="Page-1"
+                        stroke="none"
+                        stroke-width="1"
+                        fill="none"
+                        fill-rule="evenodd"
+                      >
+                        {" "}
+                        <g
+                          id="Dribbble-Light-Preview"
+                          transform="translate(-380.000000, -2199.000000)"
+                          fill="#000000"
+                        >
+                          {" "}
+                          <g
+                            id="icons"
+                            transform="translate(56.000000, 160.000000)"
+                          >
+                            {" "}
+                            <path
+                              d="M342,2055.615 C342,2055.722 341.97,2055.821 341.939,2055.918 C341.723,2052.974 339.918,2050.482 337.375,2049.283 C338.368,2048.369 339,2047.071 339,2045.615 C339,2043.534 337.728,2041.753 335.92,2041 L341,2041 C341.552,2041 342,2041.063 342,2041.615 L342,2055.615 Z M339.963,2057 L327.975,2057 C327.974,2057 327.969,2056.741 327.969,2056.701 C327.969,2053.605 330.326,2050.96 333.339,2050.645 C334,2050.733 334.255,2050.622 334.623,2050.576 C337.625,2050.902 339.969,2053.623 339.969,2056.71 C339.969,2056.75 339.964,2057 339.963,2057 L339.963,2057 Z M326,2055.615 L326,2041.615 C326,2041.063 326.448,2041 327,2041 L332.08,2041 C330.272,2041.753 329,2043.534 329,2045.615 C329,2047.06 329.622,2048.351 330.602,2049.264 C328.107,2050.422 326.307,2052.82 326.012,2055.675 C326.011,2055.654 326,2055.636 326,2055.615 L326,2055.615 Z M337,2045.615 C337,2047.055 335.979,2048.26 334.623,2048.548 C334.033,2048.5 333.868,2048.508 333.368,2048.545 C332.017,2048.254 331,2047.052 331,2045.615 C331,2043.961 332.346,2042.615 334,2042.615 C335.654,2042.615 337,2043.961 337,2045.615 L337,2045.615 Z M342,2039 L326,2039 C324.895,2039 324,2039.895 324,2041 L324,2057 C324,2058.104 324.895,2059 326,2059 L342,2059 C343.105,2059 344,2058.104 344,2057 L344,2041 C344,2039.895 343.105,2039 342,2039 L342,2039 Z"
+                              id="profile_image_round-[#1326]"
+                            >
+                              {" "}
+                            </path>{" "}
+                          </g>{" "}
+                        </g>{" "}
+                      </g>{" "}
+                    </g>
+                  </svg>
+                  <p>پروفایل</p>
+                </NavLink>
+                <button
+                  onClick={handleLogout}
+                  className=" w-full flex items-center gap-2 text-right px-4 py-2 text-red-600 hover:bg-gray-200 rounded-md"
+                >
+                  <svg
+                    className=" w-[25px]"
+                    viewBox="0 0 512 512"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="#ee1717"
+                    stroke="#ee1717"
+                  >
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g
+                      id="SVGRepo_tracerCarrier"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></g>
+                    <g id="SVGRepo_iconCarrier">
+                      <path
+                        fill="#ee1717"
+                        d="M217 28.098v455.804l142-42.597V70.697zm159.938 26.88l.062 2.327V87h16V55zM119 55v117.27h18V73h62V55zm258 50v16h16v-16zm0 34v236h16V139zm-240 58.727V233H41v46h96v35.273L195.273 256zM244 232c6.627 0 12 10.745 12 24s-5.373 24-12 24-12-10.745-12-24 5.373-24 12-24zM137 339.73h-18V448h18zM377 393v14h16v-14zm0 32v23h16v-23zM32 471v18h167v-18zm290.652 0l-60 18H480v-18z"
+                      ></path>
+                    </g>
+                  </svg>
+                  <p>خروج</p>
+                </button>
+              </div>
+            )}
+          </>
+        </div>
+      )}
     </div>
   );
 };
