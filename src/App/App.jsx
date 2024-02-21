@@ -26,15 +26,10 @@ const Layout = ({ children }) => {
   const isLoginPage = location.pathname === "/login";
   const isSignUpPage = location.pathname === "/sign-up";
 
-  const isUserPanel = location.pathname === "/user-panel";
-
   if (isLoginPage) {
     return <>{children}</>;
   }
   if (isSignUpPage) {
-    return <>{children}</>;
-  }
-  if (isUserPanel) {
     return <>{children}</>;
   }
   return (
@@ -115,7 +110,7 @@ const App = () => {
             element={<TeachersInfo teachers={teachers} courses={courses} />}
           />
           <Route path="*" index element={<NotFound />} />
-          <Route path="/user-panel" element={<UserPanel />}></Route>
+          {isAuth && <Route path="/user-panel" element={<UserPanel />}></Route>}
         </Routes>
       </Layout>
     </BrowserRouter>

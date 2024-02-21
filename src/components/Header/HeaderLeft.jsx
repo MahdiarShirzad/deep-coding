@@ -19,7 +19,6 @@ const HeaderLeft = () => {
   };
 
   const handleLogout = () => {
-    // Dispatch logout action
     dispatch(authActions.logout());
   };
 
@@ -201,7 +200,10 @@ const HeaderLeft = () => {
                   </svg>
                   <p>آمار</p>
                 </NavLink>
-                <NavLink className="flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 rounded-md">
+                <NavLink
+                  to="/user-panel"
+                  className="flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 rounded-md"
+                >
                   <svg
                     className=" w-[23px]"
                     viewBox="0 0 20 20"
@@ -248,7 +250,7 @@ const HeaderLeft = () => {
                       </g>{" "}
                     </g>
                   </svg>
-                  <p>پروفایل</p>
+                  <p>داشبورد</p>
                 </NavLink>
                 <button
                   onClick={handleLogout}
@@ -256,10 +258,11 @@ const HeaderLeft = () => {
                 >
                   <svg
                     className=" w-[25px]"
-                    viewBox="0 0 512 512"
+                    viewBox="0 0 24 24"
+                    version="1.1"
                     xmlns="http://www.w3.org/2000/svg"
-                    fill="#ee1717"
-                    stroke="#ee1717"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    fill="#000000"
                   >
                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                     <g
@@ -268,10 +271,59 @@ const HeaderLeft = () => {
                       stroke-linejoin="round"
                     ></g>
                     <g id="SVGRepo_iconCarrier">
-                      <path
-                        fill="#ee1717"
-                        d="M217 28.098v455.804l142-42.597V70.697zm159.938 26.88l.062 2.327V87h16V55zM119 55v117.27h18V73h62V55zm258 50v16h16v-16zm0 34v236h16V139zm-240 58.727V233H41v46h96v35.273L195.273 256zM244 232c6.627 0 12 10.745 12 24s-5.373 24-12 24-12-10.745-12-24 5.373-24 12-24zM137 339.73h-18V448h18zM377 393v14h16v-14zm0 32v23h16v-23zM32 471v18h167v-18zm290.652 0l-60 18H480v-18z"
-                      ></path>
+                      {" "}
+                      <g
+                        id="Page-1"
+                        stroke="none"
+                        stroke-width="1"
+                        fill="none"
+                        fill-rule="evenodd"
+                      >
+                        {" "}
+                        <g id="Session-Leave">
+                          {" "}
+                          <rect
+                            id="Rectangle"
+                            fill-rule="nonzero"
+                            x="0"
+                            y="0"
+                            width="24"
+                            height="24"
+                          >
+                            {" "}
+                          </rect>{" "}
+                          <line
+                            x1="9"
+                            y1="12"
+                            x2="19"
+                            y2="12"
+                            id="Path"
+                            stroke="#de1b1b"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                          >
+                            {" "}
+                          </line>{" "}
+                          <path
+                            d="M16,8 L18.5858,10.5858 C19.3668,11.3668 19.3668,12.6332 18.5858,13.4142 L16,16"
+                            id="Path"
+                            stroke="#de1b1b"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                          >
+                            {" "}
+                          </path>{" "}
+                          <path
+                            d="M16,4 L6,4 C4.89543,4 4,4.89543 4,6 L4,18 C4,19.1046 4.89543,20 6,20 L16,20"
+                            id="Path"
+                            stroke="#de1b1b"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                          >
+                            {" "}
+                          </path>{" "}
+                        </g>{" "}
+                      </g>{" "}
                     </g>
                   </svg>
                   <p>خروج</p>
