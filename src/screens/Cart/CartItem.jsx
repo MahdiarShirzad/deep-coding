@@ -14,7 +14,7 @@ const CartItem = ({ item }) => {
     console.log("Removing from cart:", item);
     dispatch(
       removeFromCart({
-        itemIdToRemove: item.id, // Use the correct identifier (id)
+        itemIdToRemove: item.id, // استفاده از همان شناسه مشخص (مثلاً `id`)
       })
     );
   };

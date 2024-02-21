@@ -30,17 +30,19 @@ const CoursePreview = ({ selectedCourse }) => {
   const handleAddToCartClick = () => {
     if (isAuthenticated) {
       const item = {
-        itemId: selectedCourse.id, // باید از یک آیدی یکتا استفاده شود
+        itemId: selectedCourse.id,
         img: selectedCourse.img,
         name: selectedCourse.name,
         teacher: selectedCourse.teacher,
         star: selectedCourse.star,
-        lectures: selectedCourse.lectures,
+
         time: selectedCourse.time,
         level: selectedCourse.level,
         price: selectedCourse.price,
       };
       dispatch(addToCart({ userId, newItem: item }));
+
+      console.log("adding item ", item);
     }
   };
 
