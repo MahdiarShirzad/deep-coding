@@ -11,6 +11,8 @@ const HeaderLeft = () => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [rotate, setRotate] = useState(0);
 
+  const cartItems = useSelector((state) => state.cart.items) || {};
+
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
     setRotate(dropdownVisible ? 0 : 180);
@@ -54,9 +56,17 @@ const HeaderLeft = () => {
                 ></path>{" "}
               </g>
             </svg>
-            <div className="bg-[#1A064F] text-white text-xs  rounded-full w-5 h-5 flex items-center justify-center absolute -top-1 pt-1 -right-0">
-              1
-            </div>
+            {Object.values(cartItems).reduce(
+              (total, userCart) => total + userCart.length,
+              0
+            ) > 0 && (
+              <div className="bg-[#1A064F] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center absolute -top-1 pt-1 -right-0">
+                {Object.values(cartItems).reduce(
+                  (total, userCart) => total + userCart.length,
+                  0
+                )}
+              </div>
+            )}
           </button>
         </NavLink>
       )}
