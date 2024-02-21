@@ -1,46 +1,67 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import RenderStars from "../../components/RenderStars/RenderStars";
-
-import courseImg from "../../assets/images/coursesCards/1.png";
 import lectureSvg from "../../assets/images/coursesCards/icons/1.svg";
 import timeSvg from "../../assets/images/coursesCards/icons/2.svg";
 import levelSvg from "../../assets/images/coursesCards/icons/3.svg";
 
-const CartItem = () => {
+import { removeFromCart } from "../../store/cart";
+
+const CartItem = ({ item }) => {
+  const dispatch = useDispatch();
+
+  const handleRemoveFromCart = () => {
+    console.log("Removing from cart:", item);
+    dispatch(
+      removeFromCart({
+        itemIdToRemove: item.id, // Use the correct identifier (id)
+      })
+    );
+  };
+
+  const coursePrice = item.price === 0 ? <p>رایگان</p> : item.price;
+
   return (
     <div className=" flex items-center justify-between w-[700px] px-3 py-2 rounded-lg shadow-md">
       <div>
-        <img className=" w-[130px] h-full rounded-md" src={courseImg} alt="" />
+        <img
+          className=" w-[170px] h-[120px] rounded-md"
+          src={item.img}
+          alt=""
+        />
       </div>
       <div>
-        <h1 className=" font-semibold text-right">آموزش جامع Laravel</h1>
-        <p className=" text-gray-700 mt-3">ممد</p>
+        <h1 className=" font-semibold text-right">{item.name}</h1>
+        <p className=" text-gray-700 mt-3">{item.teacher}</p>
         <div className=" flex items-center gap-2 mt-3">
-          <span className=" text-amber-400">4</span>
+          <span className=" text-amber-400">{item.star}</span>
           <div className=" flex">
-            <RenderStars rating={4} />
+            <RenderStars rating={item.star} />
           </div>
         </div>
         <div className=" flex gap-4 mt-4">
           <div className=" flex items-center gap-2 text-sm">
             <img src={lectureSvg} alt="" />
-            <span>6 درس</span>
+            <span>{item.lectures} درس</span>
           </div>
           <div className=" flex items-center gap-2 text-sm">
             <img src={timeSvg} alt="" />
-            <span>7</span>
+            <span>{item.time}</span>
           </div>
           <div className=" flex items-center gap-2 text-sm">
             <img src={levelSvg} alt="" />
-            <span>مقدماتی</span>
+            <span>{item.level}</span>
           </div>
         </div>
       </div>
       <div className=" flex flex-col items-center text-sm">
-        <p className=" font-semibold mb-1">646479</p>
-        <p>تومان</p>
+        <span className=" font-semibold text-base">{coursePrice}</span>
+        {item.price !== 0 ? <span>تومان</span> : <span></span>}
       </div>
-      <button className=" p-3 ml-6 my-auto bg-red-700 rounded-full">
+      <button
+        onClick={handleRemoveFromCart}
+        className=" p-3 ml-6 my-auto bg-red-700 rounded-full"
+      >
         <svg
           className="w-[30px]"
           viewBox="0 0 24 24"

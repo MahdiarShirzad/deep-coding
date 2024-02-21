@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Landing from "../screens/Landing/Landing";
 import Header from "../components/Header/Header";
@@ -17,6 +17,8 @@ import BlogDetail from "../screens/BlogDetail/BlogDetail";
 
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCourses, fetchBlogs, fetchTeachers } from "../store/data";
+import NotFound from "../screens/notfound/NotFound";
+import UserPanel from "../screens/userpanel/UserPanel";
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -24,10 +26,15 @@ const Layout = ({ children }) => {
   const isLoginPage = location.pathname === "/login";
   const isSignUpPage = location.pathname === "/sign-up";
 
+  const isUserPanel = location.pathname === "/user-panel";
+
   if (isLoginPage) {
     return <>{children}</>;
   }
   if (isSignUpPage) {
+    return <>{children}</>;
+  }
+  if (isUserPanel) {
     return <>{children}</>;
   }
   return (
@@ -44,12 +51,28 @@ const App = () => {
   const courses = useSelector((state) => state.data.courses);
   const blogs = useSelector((state) => state.data.blogs);
   const teachers = useSelector((state) => state.data.teachers);
+  const cartItems = useSelector((state) => state.cart.items);
+
+  const isAuth = useSelector((state) => state.auth.isAuthenticated);
 
   useEffect(() => {
     dispatch(fetchCourses());
     dispatch(fetchBlogs());
     dispatch(fetchTeachers());
   }, [dispatch]);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+  }, [cartItems]);
+
+  // const finalizePurchase = () => {
+  //   const user = useSelector((state) => state.auth.user);
+  //   const courseIds = cartItems.map((item) => item.itemId);
+
+  //   user.courses.push(...courseIds);
+
+  //   dispatch();
+  // };
 
   return (
     <BrowserRouter>
@@ -75,7 +98,14 @@ const App = () => {
           <Route path="/blogs" index element={<Blogs blogs={blogs} />} />
           <Route path="/blog-detail" index element={<BlogDetail />} />
           <Route path="/about-us" index element={<AboutUs />} />
-          <Route path="/cart" index element={<Cart />} />
+          {isAuth && (
+            <Route
+              path="/cart"
+              index
+              element={<Cart courses={courses} />}
+              // finalizePurchase={finalizePurchase}
+            />
+          )}
           <Route path="/contact-us" index element={<ContactUs />} />
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
@@ -84,7 +114,8 @@ const App = () => {
             index
             element={<TeachersInfo teachers={teachers} courses={courses} />}
           />
-          <Route path="*" index element={<p className=" my-96">not found</p>} />
+          <Route path="*" index element={<NotFound />} />
+          <Route path="/user-panel" element={<UserPanel />}></Route>
         </Routes>
       </Layout>
     </BrowserRouter>

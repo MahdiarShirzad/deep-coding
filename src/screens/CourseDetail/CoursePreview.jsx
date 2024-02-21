@@ -1,10 +1,15 @@
 import React, { useEffect, useState, useRef } from "react";
 import ReactPlayer from "react-player";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../store/cart";
 
 const CoursePreview = ({ selectedCourse }) => {
+  const dispatch = useDispatch();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const playerRef = useRef(null);
+
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,6 +24,25 @@ const CoursePreview = ({ selectedCourse }) => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const userId = useSelector((state) => state.auth.user && state.auth.user.id);
+
+  const handleAddToCartClick = () => {
+    if (isAuthenticated) {
+      const item = {
+        itemId: selectedCourse.id, // باید از یک آیدی یکتا استفاده شود
+        img: selectedCourse.img,
+        name: selectedCourse.name,
+        teacher: selectedCourse.teacher,
+        star: selectedCourse.star,
+        lectures: selectedCourse.lectures,
+        time: selectedCourse.time,
+        level: selectedCourse.level,
+        price: selectedCourse.price,
+      };
+      dispatch(addToCart({ userId, newItem: item }));
+    }
+  };
 
   return (
     <div
@@ -45,7 +69,12 @@ const CoursePreview = ({ selectedCourse }) => {
         </span>
         {selectedCourse.price !== 0 && <span>تومان</span>}
       </div>
-      <button className=" bg-violet-600 mt-3 w-[300px] block mx-auto py-3 rounded-md text-white">
+      <button
+        onClick={handleAddToCartClick}
+        className={`bg-violet-600 mt-3 w-[300px] block mx-auto py-3 rounded-md text-white ${
+          !isAuthenticated && `cursor-not-allowed`
+        }`}
+      >
         افزودن به سبد خرید
       </button>
       <div className=" mr-3 mt-8 mb-6">

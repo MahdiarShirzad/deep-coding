@@ -416,46 +416,22 @@
   ],
   "users": [
     {
-      "id": "433e",
-      "email": "linddhv@gmail.com",
-      "userName": "mamad",
-      "password": "1234567a",
-      "confirmPassword": "1234567a"
-    },
-    {
-      "id": "fdc6",
+      "id": "17c0",
       "email": "mahdiar55582@gmail.com",
       "userName": "mahdiar",
       "password": "mahdiar5582",
-      "confirmPassword": "mahdiar5582"
+      "confirmPassword": "mahdiar5582",
+      "courses": [],
+      "registrationDate": "2024-02-20T15:06:21.449Z"
     },
     {
-      "id": "d519",
-      "email": "shirzadmahdiar82@gmail.com",
-      "userName": "ali",
-      "password": "ali12345",
-      "confirmPassword": "ali12345"
-    },
-    {
-      "id": "c5d7",
-      "email": "cayiwal306@wireps.com",
-      "userName": "naghi",
-      "password": "naghi123",
-      "confirmPassword": "naghi123"
-    },
-    {
-      "id": "527c",
-      "email": "mamad@gmail.com",
-      "userName": "mamad",
+      "id": "6569",
+      "email": "linddhv@gmail.com",
+      "userName": "mamd",
       "password": "mamad123",
-      "confirmPassword": "mamad123"
-    },
-    {
-      "id": "23d0",
-      "email": "ali@gmail.com",
-      "userName": "ali",
-      "password": "ali12345",
-      "confirmPassword": "ali12345"
+      "confirmPassword": "mamad123",
+      "courses": [],
+      "registrationDate": "2024-02-20T15:10:57.644Z"
     }
   ]
 }

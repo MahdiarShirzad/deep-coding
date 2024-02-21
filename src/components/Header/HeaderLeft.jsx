@@ -33,7 +33,7 @@ const HeaderLeft = () => {
     <div className="flex items-center gap-10 justify-end w-96">
       {isAuth && (
         <NavLink to="/cart">
-          <button>
+          <button className=" bg-gray-100 p-2 rounded-full relative">
             <svg
               className="w-8"
               viewBox="0 0 24 24"
@@ -54,6 +54,9 @@ const HeaderLeft = () => {
                 ></path>{" "}
               </g>
             </svg>
+            <div className="bg-[#1A064F] text-white text-xs  rounded-full w-5 h-5 flex items-center justify-center absolute -top-1 pt-1 -right-0">
+              1
+            </div>
           </button>
         </NavLink>
       )}
@@ -124,10 +127,7 @@ const HeaderLeft = () => {
           <>
             {dropdownVisible && (
               <div className="absolute top-full right-0 w-[240px] flex flex-col gap-1 py-3 px-4 bg-white shadow-md rounded-md mt-1">
-                <NavLink
-                  className="flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 rounded-md"
-                  className="flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 rounded-md"
-                >
+                <NavLink className="flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 rounded-md">
                   <svg
                     className=" w-[24px]"
                     viewBox="0 0 18 18"

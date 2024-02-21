@@ -9,6 +9,14 @@ const initialAuthState = {
   errorMessage: "",
   username: "",
   savedUser: null,
+  user: {
+    id: null,
+    email: "",
+    userName: "",
+    password: "",
+    courses: [],
+    registrationDate: "",
+  },
 };
 
 export const registerUser = createAsyncThunk(
@@ -25,7 +33,11 @@ export const registerUser = createAsyncThunk(
         return rejectWithValue({ message: "این ایمیل قبلاً ثبت شده است." });
       }
 
-      const registerResponse = await axios.post(`${BASE_URL}/users`, userData);
+      const registerResponse = await axios.post(`${BASE_URL}/users`, {
+        ...userData,
+        courses: [], // آرایه خالی برای دوره‌ها
+        registrationDate: new Date().toISOString(), // تاریخ ثبت نام
+      });
 
       if (registerResponse.status === 200) {
         console.log("شما با موفقیت ثبت نام کرده اید");

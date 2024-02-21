@@ -142,7 +142,7 @@ const SignUPForm = () => {
           )}
           {isEmailExists && !isRegistrationSuccess && (
             <div className="text-red-500 text-sm text-center mt-4">
-              قبلا ثبت نام کرده اید !!
+              قبلاً ثبت نام کرده اید !!
             </div>
           )}
         </Form>
