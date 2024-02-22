@@ -131,7 +131,7 @@ const Herosection = () => {
               لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ است.
             </p>
           </div>{" "}
-          <div className="flex flex-col items-center justify-center w-[300px] gap-4">
+          <div className="flex flex-col items-center justify-center w-[300px] gap-4 max-lg:mt-8">
             <div className="p-7 rounded-full shadow-gray-200 shadow-sm">
               <svg
                 className="w-14"
@@ -173,7 +173,7 @@ const Herosection = () => {
               لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ است.
             </p>
           </div>{" "}
-          <div className="flex flex-col items-center justify-center w-[300px] gap-4">
+          <div className="flex flex-col items-center justify-center w-[300px] gap-4 max-lg:mt-8">
             <div className="p-7 rounded-full shadow-gray-200 shadow-sm">
               <svg
                 className="w-14"

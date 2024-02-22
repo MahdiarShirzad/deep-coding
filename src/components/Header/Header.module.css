@@ -1,0 +1,50 @@
+.toggleNav:checked + label + ul {
+  transform: translateX(0);
+  -webkit-transform: translateX(0);
+  -moz-transform: translateX(0);
+  -ms-transform: translateX(0);
+  -o-transform: translateX(0);
+}
+
+.toggleX:checked + label + ul {
+  transform: translateX(0);
+  -webkit-transform: translateX(0);
+  -moz-transform: translateX(0);
+  -ms-transform: translateX(0);
+  -o-transform: translateX(0);
+}
+
+@media screen and (min-width: 1024px) {
+  .navMobile {
+    display: none;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .listNavMobile {
+    position: fixed;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 2px 3px 6px 0 #ccc;
+    height: 100%;
+    top: 0;
+    width: 200px;
+    transform: translateX(350px);
+    transition: all 250ms ease-out;
+    -webkit-transition: all 250ms ease-out;
+    -moz-transition: all 250ms ease-out;
+    -ms-transition: all 250ms ease-out;
+    -o-transition: all 250ms ease-out;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 2.5rem;
+    text-align: right;
+    overflow-x: hidden;
+    z-index: 50;
+  }
+
+  .labelToggleNav {
+    position: relative;
+  }
+}
