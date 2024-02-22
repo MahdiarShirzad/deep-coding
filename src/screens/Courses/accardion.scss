@@ -1,7 +1,3 @@
-// General
-body {
-  padding: 0 1em 1em;
-}
 h1 {
   margin: 0;
   line-height: 2;
@@ -12,15 +8,19 @@ h2 {
   font-weight: normal;
 }
 input#chck1,
+input#chck11,
+input#chck22,
 input#chck3,
+input#chck33,
 input#chck5,
+input#chck55,
+input#chck44,
 input#chck4,
 input#chck2 {
   position: absolute;
   opacity: 0;
   z-index: -1;
 }
-// Layout
 .row {
   display: flex;
   .col {
@@ -30,7 +30,6 @@ input#chck2 {
     }
   }
 }
-/* Accordion styles */
 .tabs {
   border-radius: 8px;
   overflow: hidden;
@@ -46,7 +45,6 @@ input#chck2 {
     padding: 1em;
     font-weight: bold;
     cursor: pointer;
-    /* Icon */
     &:hover {
     }
     &::after {
@@ -63,18 +61,12 @@ input#chck2 {
     transition: all 0.35s;
   }
   &-close {
-    // display: flex;
-    // justify-content: flex-end;
-    // padding: 1em;
-    // font-size: 0.75em;
-    // cursor: pointer;
     transition: all 0.35s;
     &:hover {
     }
   }
 }
 
-// :checked
 input:checked {
   + .tab-label {
     &::after {
@@ -82,8 +74,6 @@ input:checked {
     }
   }
   ~ .tab-content {
-    // max-height: 100vh;
-    // padding: 1em;
     height: 0;
     transition: all 0.5s;
   }

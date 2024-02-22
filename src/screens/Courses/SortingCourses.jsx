@@ -81,7 +81,7 @@ const SortingCourses = ({ setPosts, posts, items }) => {
         </button>
       </div>
       {isOpen && (
-        <div className="origin-top-right absolute z-40 right-0 mt-2 text-right w-56 rounded-lg shadow-lg bg-gray-200 text-black ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <div className="origin-top-right absolute z-40 right-0 mt-2 text-right w-44 rounded-lg shadow-lg bg-gray-200 text-black ring-1 ring-black ring-opacity-5 focus:outline-none">
           <ul
             className="py-1 flex flex-col gap-1 px-1"
             role="menu"

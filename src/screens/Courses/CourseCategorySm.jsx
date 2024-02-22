@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./accardion.scss";
 
-const CourseCategory = ({ items, setPosts }) => {
+const CourseCategorySm = ({ items, setPosts }) => {
   const uniqueCategories = [...new Set(items.map((item) => item.category))];
   const [selectedCategory, setSelectedCategory] = useState([]);
 
@@ -45,8 +45,8 @@ const CourseCategory = ({ items, setPosts }) => {
   }, [selectedCategory, items]);
   return (
     <div className="tab mb-4">
-      <input type="checkbox" id="chck11" />
-      <label className="tab-label" htmlFor="chck11">
+      <input type="checkbox" id="chck1" />
+      <label className="tab-label" htmlFor="chck1">
         دسته بندی ها
       </label>
       <div className="tab-content text-sm">
@@ -57,12 +57,12 @@ const CourseCategory = ({ items, setPosts }) => {
                 className="checked:accent-gray-800 rounded-full w-3 h-4 cursor-pointer"
                 type="checkbox"
                 name={category}
-                id={`${category}1`}
+                id={category}
                 onChange={() => handleCategoryToggle(category)}
               />
               <label
                 className="text-gray-800 cursor-pointer"
-                id={`${category}1`}
+                htmlFor={category}
               >
                 {category}
               </label>
@@ -74,4 +74,4 @@ const CourseCategory = ({ items, setPosts }) => {
   );
 };
 
-export default CourseCategory;
+export default CourseCategorySm;
