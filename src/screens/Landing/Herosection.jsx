@@ -14,8 +14,8 @@ const Herosection = () => {
   return (
     <>
       <div className="bg-[url('assets/images/home-6/hero/bg.png')] bg-no-repeat absolute -z-20   w-full right-0 h-[780px]"></div>
-      <div className="flex items-center py-20 px-10 font-iransans z-20 max-w-[1320px]  container mx-auto">
-        <div className="w-1/2">
+      <div className="flex  items-center py-20 px-10 font-iransans z-20 max-w-[1320px]  container mx-auto">
+        <div className="w-1/2 max-lg:mr-20">
           <h1 className="text-4xl font-extrabold leading-[60px] text-right">
             دوره های مورد نظر را پیدا کنید و مهارت ها را بهبود ببخشید
           </h1>
@@ -34,11 +34,11 @@ const Herosection = () => {
             </Link>
           </div>
         </div>
-        <div>
+        <div className=" max-lg:hidden">
           <img src={heroimg} alt="" />
         </div>
       </div>
-      <div className="font-iransans max-w-[1320px]  container mx-auto">
+      <div className="font-iransans max-w-[1320px]  container mx-auto ">
         <h2 className="text-center mb-7 text-3xl font-semibold">
           چرا برای آینده یاد بگیریم؟
         </h2>
@@ -46,7 +46,7 @@ const Herosection = () => {
           لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده
           از طراحان گرافیک است.
         </p>
-        <div className="flex justify-between items-center mt-9">
+        <div className="flex flex-wrap max-lg:px-20 justify-between items-center mt-9">
           <div className="flex flex-col items-center justify-center w-[300px] gap-4">
             <div className="p-7 rounded-full shadow-gray-200 shadow-sm">
               <svg

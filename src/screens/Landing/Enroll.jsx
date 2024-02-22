@@ -5,8 +5,8 @@ import Button from "../../components/common/Button/Button";
 
 const Enroll = () => {
   return (
-    <div className="container max-w-[1320px] mx-auto flex items-center justify-between font-iransans mt-20 gap-16">
-      <div className=" w-1/2">
+    <div className="container max-w-[1320px] mx-auto flex flex-wrap items-center justify-between font-iransans mt-20 gap-16">
+      <div className=" w-1/2 max-lg:mx-auto">
         <p className="text-3xl w-3/4 leading-[50px] font-semibold text-[#140342]">
           <span className="text-[#6440FB]">یادگیری</span> مهارت های جدید در زمان
           و مکانی که دوست دارید.
@@ -19,7 +19,7 @@ const Enroll = () => {
           <Button>ثبت نام رایگان</Button>
         </Link>
       </div>
-      <div className=" w-1/2">
+      <div className=" w-1/2 max-lg:mx-auto">
         <div className=" relative">
           <img className="" src={img} alt="" />
           <div className=" absolute bg-[#140342] text-white top-40 -right-20 rounded-xl px-8 py-6 flex flex-col gap-4">

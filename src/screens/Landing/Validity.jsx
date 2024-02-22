@@ -12,8 +12,8 @@ const Validity = () => {
   return (
     <div className=" bg-[#1A064F] mt-10">
       <div className=" container max-w-[1320px] mx-auto text-white font-iransans pt-20">
-        <div className=" flex items-center gap-14">
-          <div className="w-1/2">
+        <div className=" flex flex-wrap items-center gap-14">
+          <div className="w-1/2 max-lg:mx-auto">
             <div>
               <p className="text-3xl font-bold">
                 مردم دوست دارند با ما یاد بگیرند
@@ -37,7 +37,7 @@ const Validity = () => {
               </div>
             </div>
           </div>
-          <div>
+          <div className=" max-lg:mx-auto">
             <ValidityCarousel />
           </div>
         </div>

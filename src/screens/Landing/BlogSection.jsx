@@ -13,7 +13,7 @@ const BlogSection = ({ blogs }) => {
 
   return (
     <div className=" container mx-auto max-w-[1320px] font-iransans mt-20">
-      <div className="flex items-center justify-between ">
+      <div className="flex max-lg:px-10 items-center justify-between ">
         <div className="">
           <h3 className=" text-3xl font-bold">وبلاگ</h3>
           <p className="mt-5 text-slate-500">
@@ -24,7 +24,7 @@ const BlogSection = ({ blogs }) => {
           <Button>مشاهده همه</Button>
         </Link>
       </div>
-      <div className="flex items-center justify-between mt-16">
+      <div className="flex items-center flex-wrap max-lg:px-16 justify-between mt-16">
         {blogs.slice(-4).map((blog, index) => (
           <BlogCard blog={blog} key={index} />
         ))}

@@ -30,14 +30,14 @@ const TopCourses = ({ courses }) => {
     <div className="mt-24 max-w-[1320px] mx-auto">
       <div className="flex font-iransans items-center justify-between">
         <div>
-          <h3 className="text-3xl font-semibold">
+          <h3 className="text-3xl font-semibold max-lg:text-xl">
             پرمخاطب ترین دوره ها را جستجو کنید
           </h3>
-          <p className="text-sm mt-3 text-slate-600">
+          <p className="text-sm mt-3 text-slate-600 max-lg:text-xs">
             بیش از 10000 طرح منحصر به فرد در لیست دوره های آنلاین
           </p>
         </div>
-        <ul className="flex items-center justify-center gap-3 p-2 rounded-full bg-gray-200">
+        <ul className="flex items-center justify-center gap-3 p-2 rounded-full bg-gray-200 max-lg:text-sm">
           {categories.map((category) => (
             <li
               key={category}
@@ -51,7 +51,7 @@ const TopCourses = ({ courses }) => {
           ))}
         </ul>
       </div>
-      <div className="flex flex-wrap justify-between mt-10">
+      <div className="flex flex-wrap max-xl:mx-auto justify-between mt-10">
         {filteredCourses.slice(0, 6).map((course, index) => (
           <TopCoursesCard key={index} course={course} />
         ))}
