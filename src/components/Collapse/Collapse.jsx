@@ -52,7 +52,7 @@ const Unit = (props) => {
   };
 
   return (
-    <section className="wrapper bg-[#E5F0FD] max-w-[900px] mx-auto text-black px-10 py-4 rounded-3xl my-3 font-yekanReg text-base cursor-pointer ">
+    <section className="wrapper max-lg:mx-20 bg-[#E5F0FD] max-w-[900px] mx-auto text-black px-10 py-4 rounded-3xl my-3 font-yekanReg text-base cursor-pointer ">
       <div className=" flex items-center gap-4">
         <div>
           {!open ? (

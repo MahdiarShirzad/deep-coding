@@ -7,8 +7,8 @@ import Button from "../../components/common/Button/Button";
 
 const AboutUsLogin = () => {
   return (
-    <div className="container max-w-[1320px] mx-auto flex items-center justify-between mt-12 gap-14">
-      <div className=" w-1/2 flex items-center gap-7">
+    <div className="container max-w-[1320px] mx-auto flex max-lg:flex-wrap-reverse items-center justify-between mt-12 gap-14">
+      <div className=" w-1/2 flex items-center gap-7 max-lg:mx-auto">
         <div>
           <img src={img1} alt="" />
         </div>
@@ -17,7 +17,7 @@ const AboutUsLogin = () => {
           <img src={img3} alt="" />
         </div>
       </div>
-      <div className=" w-1/2">
+      <div className=" w-1/2 max-lg:mx-auto">
         <p className=" text-2xl font-medium">
           مهارت های خود را با بهترین دوره های آنلاین افزایش دهید
         </p>

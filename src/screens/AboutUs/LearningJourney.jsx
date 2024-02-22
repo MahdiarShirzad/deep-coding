@@ -14,7 +14,7 @@ const LearningJourney = () => {
         <p className=" text-white text-center mt-6">
           لورم ایپسوم متن ساختگی با تولید سادگی است.
         </p>
-        <div className=" flex items-center justify-between gap-8 mt-20">
+        <div className=" flex max-lg:flex-wrap max-lg:justify-center items-center justify-between gap-8 mt-20">
           <div className=" flex flex-col items-center justify-between bg-white w-[330px] gap-3 px-7 text-center py-5 rounded-lg shadow-md pb-10">
             <img className=" mb-3" src={img1} alt="" />
             <p className=" text-lg">با کارشناسان بیاموزید</p>

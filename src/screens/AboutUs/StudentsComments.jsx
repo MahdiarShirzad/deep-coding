@@ -55,8 +55,8 @@ const StudentsComments = () => {
   };
 
   return (
-    <div className=" mt-36 container max-w-[1320px] mx-auto mb-32">
-      <p className=" text-2xl text-center">دیدگاه هنرجویان</p>
+    <div className=" mt-36 max-lg:mt-96 container max-w-[1320px] mx-auto mb-32">
+      <p className=" text-2xl text-center max-lg:pt-36">دیدگاه هنرجویان</p>
       <p className=" text-center mt-4">
         لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم است.
       </p>

@@ -12,7 +12,7 @@ const Map = () => {
     iconSize: [50, 50],
   });
   return (
-    <div className=" max-w-[1000px] border mx-auto h-[550px] rounded-lg z-10 transition-none">
+    <div className=" max-w-[1000px] border mx-auto h-[550px] rounded-lg z-10 transition-none max-xl:mx-40">
       <MapContainer center={location} zoom={13} className="h-full">
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

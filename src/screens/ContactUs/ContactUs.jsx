@@ -10,8 +10,8 @@ const ContactUs = () => {
   return (
     <div className="mt-36">
       <Map />
-      <div className=" mt-20 max-w-[1320px] mx-auto flex font-iransans gap-16">
-        <div className=" w-1/3">
+      <div className=" mt-20 max-w-[1320px] mx-auto flex max-lg:flex-wrap-reverse font-iransans gap-16">
+        <div className=" w-1/3 max-lg:mx-auto">
           <p className=" text-2xl">با ما در ارتباط باشید</p>
           <p className=" mt-4 text-gray-500">
             لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
@@ -36,7 +36,7 @@ const ContactUs = () => {
             <p>info@deep-coding.com</p>
           </div>
         </div>
-        <div className=" w-2/3">
+        <div className=" w-2/3 max-lg:mx-auto">
           <p className=" text-2xl">ارسال پیام</p>
           <p className=" mt-4 text-sm text-gray-500">
             لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با

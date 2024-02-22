@@ -66,12 +66,12 @@ const Blogs = ({ blogs }) => {
         با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
       </p>
       <div className=" flex items-start justify-between mt-32 gap-7">
-        <div className="w-4/5 flex flex-wrap gap-9">
+        <div className="w-4/5 flex flex-wrap gap-9 max-lg: justify-center">
           {blog.map((blog, i) => (
             <BlogCard blog={blog} key={i} />
           ))}
         </div>
-        <div className="w-1/4 px-2">
+        <div className="w-1/4 px-2 max-lg:hidden">
           <BlogCategory
             categories={blogCategories}
             handleCategoryToggle={handleCategoryToggle}
