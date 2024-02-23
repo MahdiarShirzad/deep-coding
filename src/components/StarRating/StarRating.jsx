@@ -62,11 +62,11 @@ export default function StarRating({
           />
         ))}
       </div>
-      <p className="transition-none" style={textStyle}>
+      {/* <p className="transition-none" style={textStyle}>
         {messages.length === maxRating
           ? messages[tempRating ? tempRating - 1 : rating - 1]
           : tempRating || rating || ""}
-      </p>
+      </p> */}
     </div>
   );
 }

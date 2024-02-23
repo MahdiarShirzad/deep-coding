@@ -42,7 +42,7 @@ const Courses = ({ items, teachers }) => {
           <CourseLevel setPosts={setPosts} items={items} />
           <CourseTime items={items} setPosts={setPosts} />
         </div>
-        <div className=" w-4/5 max-lg:mx-auto">
+        <div className=" w-4/5 max-lg:mx-auto max-lg:w-full">
           <div className=" flex items-center justify-between lg:px-10">
             <p className="text-gray-600 text-sm">
               نمایش

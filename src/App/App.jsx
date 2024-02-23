@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCourses, fetchBlogs, fetchTeachers } from "../store/data";
 import NotFound from "../screens/notfound/NotFound";
 import UserPanel from "../screens/userpanel/UserPanel";
+import Library from "../screens/Library/Library";
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -92,6 +93,7 @@ const App = () => {
           ></Route>
           <Route path="/blogs" index element={<Blogs blogs={blogs} />} />
           <Route path="/blog-detail" index element={<BlogDetail />} />
+          <Route path="/library" index element={<Library />} />
           <Route path="/about-us" index element={<AboutUs />} />
           {isAuth && (
             <Route

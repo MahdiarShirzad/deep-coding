@@ -59,6 +59,9 @@ const NavItems = () => {
         <NavLink className={activeClass} onClick={scrollToTop} to="/blogs">
           <li>وبلاگ</li>
         </NavLink>
+        <NavLink className={activeClass} onClick={scrollToTop} to="/library">
+          <li>کتابخانه</li>
+        </NavLink>
         <NavLink className={activeClass} onClick={scrollToTop} to="/about-us">
           <li>درباره ما</li>
         </NavLink>

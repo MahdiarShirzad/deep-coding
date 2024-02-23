@@ -13,7 +13,7 @@ const BlogCard = ({ blog }) => {
   };
   return (
     <Link to="/blog-detail" onClick={scrollToTop}>
-      <div className="w-[800px] px-4 flex justify-between gap-10 py-4 rounded-lg shadow-md shadow-gray-200 mb-4">
+      <div className="w-[800px] px-4 flex justify-between gap-10 py-4 rounded-lg shadow-md shadow-gray-200 mb-4 group transition-all duration-300 transform-gpu hover:-translate-y-2">
         <div className=" w-1/3 h-[200px]">
           <img className=" rounded-md w-full h-full" src={img} alt="" />
         </div>

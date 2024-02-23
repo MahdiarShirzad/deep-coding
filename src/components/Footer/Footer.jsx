@@ -14,7 +14,7 @@ const Footer = () => {
   };
 
   return (
-    <div className=" bg-slate-400 bg-[url('assets/images/pattern/04.png')] bg-cover mb-0 text-white font-iransans pb-10">
+    <div className=" bg-slate-700 bg-[url('assets/images/pattern/04.png')] bg-cover mb-0 text-white font-iransans pb-10">
       <div className=" container max-w-[1320px] mx-auto ">
         <div className=" flex items-center gap-7 text-lg py-8 max-lg:mx-auto max-lg:justify-center">
           <img src={logo} alt="" />
@@ -31,7 +31,7 @@ const Footer = () => {
             <p>تماس با ما</p>
           </Link>
         </div>
-        <div className=" font-thin text-gray-600 max-lg:mx-auto max-lg:px-16">
+        <div className=" font-thin text-gray-300 max-lg:mx-auto max-lg:px-16">
           <p className="my-4">
             هدف مجموعه سون لرن افزایش سطح کیفیت آموزش و ساختن راهی برای ورود
             دانشجویان به بازار کار تخصصی است
