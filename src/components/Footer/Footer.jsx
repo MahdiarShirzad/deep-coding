@@ -36,12 +36,12 @@ const Footer = () => {
             هدف مجموعه سون لرن افزایش سطح کیفیت آموزش و ساختن راهی برای ورود
             دانشجویان به بازار کار تخصصی است
           </p>
-          <p>:: سون لرن توسط سرورهای اختصاصی پارس‌پک پشتیبانی شده است.</p>
+          <p>:: deep-coding توسط سرورهای اختصاصی پارس‌پک پشتیبانی شده است.</p>
         </div>
         <div className=" flex max-lg:flex-col max-lg:justify-center max-lg:items-center justify-between items-end">
           <div className=" mt-14">
             <p className="text-xl font-thin max-md:mr-16">
-              ::تهران-خیابان انقلاب-امیر آباد
+              :: تهران-خیابان انقلاب-امیر آباد
             </p>
             <div className=" flex flex-wrap max-lg:justify-center items-center gap-8 mt-4">
               <div className=" flex gap-1">

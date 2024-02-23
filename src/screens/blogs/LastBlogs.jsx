@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const LastBlogs = ({ blogs }) => {
   return (
     <div className=" border-t">
-      <p className=" my-3 text-lg">آخرین اخبار</p>
+      <p className=" my-3 text-lg">آخرین مقالات</p>
       <div>
         {blogs.slice(-3).map((blog, i) => (
           <Link key={i} to="/blog-detail">

@@ -14,7 +14,7 @@ const CoursePreview = ({ selectedCourse }) => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      const scrollThreshold = 170;
+      const scrollThreshold = 260;
       setIsScrolled(scrollPosition > scrollThreshold);
     };
 
@@ -51,7 +51,7 @@ const CoursePreview = ({ selectedCourse }) => {
       className={` ${
         !isScrolled
           ? `lg:absolute lg:top-14 lg:left-[70px] max-lg:block `
-          : "lg:fixed top-20 max-2xl:left-[115px] max-lg:block"
+          : "md:fixed top-2 max-2xl:left-[65px] left-[180px] max-lg:block"
       } rounded-lg bg-white text-black w-[350px] shadow-md shadow-gray-100 z-[300] mx-auto mt-16   max-lg:w-[600px] max-md:w-[500px] transition-none`}
     >
       <div>

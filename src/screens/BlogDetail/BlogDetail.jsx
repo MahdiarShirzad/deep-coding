@@ -1,35 +1,44 @@
 import React from "react";
 import algorithm from "../../assets/images/blog/algorithm.png";
+import BlogText from "./BlogText";
+import StarRating from "../../components/StarRating/StarRating";
 
 const BlogDetail = () => {
   return (
-    <div className=" container max-w-[1320px] mx-auto my-36 font-iransans">
-      <h3 className=" text-3xl font-bold text-gray-600 px-32">
-        الگوریتم چیست؟
-      </h3>
-      <img
-        className=" mt-10 mx-auto w-[600px] rounded-md"
-        src={algorithm}
-        alt=""
-      />
-      <article className="  mt-10 text-justify leading-9 px-36">
-        ما اغلب برای حل مشکلات به دنبال ساده‌ترین و سریع‌ترین راه‌حل‌ها هستیم.
-        سال‌ها است که علم با یافتن پاسخ سؤالات خود و استفاده از آن‌ها در
-        پیشامدهایی که الگوی تکراری دارند، اهداف خود را پیش می‌برد و سریع‌تر از
-        انتظار ما رازهای طبیعت را از دل آن بیرون می‌کشد. راه‌حل‌هایی که تست ‌شده
-        و مطمئن هستند و می‌توانند سوالاتی با مفاهیم یکسان را حل کنند، الگوریتم
-        نامیده می‌شوند. اگر بخواهیم معنی الگوریتم را در زمینه علوم کامپیوتر
-        بررسی کنیم، می‌توان گفت الگوریتم‌ها مجموعه فرایندهایی هستند که به کمک
-        آن‌ها می‌توان بسیاری از مسائل برنامه‌نویسی را به‌راحتی حل کرد. به‌
-        عنوان‌ مثال الگوریتم یک موتور جستجو را در نظر بگیرید. الگوریتم موتور
-        جستجو گوگل به‌طور ساده این‌گونه است که عبارت تایپ شده شما را دریافت
-        کرده، آن را در پایگاه داده‌های خود جستجو می‌کند و سپس صفحات وب مربوطه را
-        پیداکرده و به شما نشان می‌دهد. این روند کلی از ایجاد سؤال تا رسیدن به
-        پاسخ یک الگوریتم محسوب می‌شود. استفاده از الگوریتم‌ها در کاهش هزینه‌های
-        مالی و زمانی یک پروژه اهمیت زیادی دارد. الگوریتم‌ها با انجام سلسله
-        اقدامات مشخصی و در ازای گرفتن ورودی تعریف ‌شده، نتیجه‌ای مطابق انتظار به
-        ما خواهند داد.
-      </article>
+    <div className=" container max-w-[1320px] flex items-start justify-between mx-auto my-36 font-iransans">
+      <div className=" w-1/3">
+        <img className=" rounded-3xl" src={algorithm} alt="" />
+        <div className=" mt-10 pl-8">
+          <p className="text-lg text-blue-500 font-semibold">
+            راهنمای مقاله و فهرست مطالب
+          </p>
+          <ul className=" mt-3 px-3 flex flex-col gap-2">
+            <li className="px-3 py-2 bg-gray-200 rounded-2xl">
+              برنامه نویسی چیست؟
+            </li>
+            <li className="px-3 py-2 bg-gray-200 rounded-2xl">
+              بازار کار برنامه نویسی
+            </li>
+            <li className="px-3 py-2 bg-gray-200 rounded-2xl">
+              الگوگیری از بزرگان
+            </li>
+            <li className="px-3 py-2 bg-gray-200 rounded-2xl">
+              نکات مثبت گرفتن مدرک
+            </li>
+          </ul>
+        </div>
+        <div className=" flex">
+          <div className=" w-1/2"></div>
+          <div className=" w-1/5">
+            <StarRating size={30} />
+          </div>
+        </div>
+      </div>
+      <div className=" w-2/3">
+        <h3 className=" text-3xl font-black pr-20">الگوریتم چیست</h3>
+
+        <BlogText />
+      </div>
     </div>
   );
 };

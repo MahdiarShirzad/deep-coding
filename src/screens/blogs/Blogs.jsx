@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import BlogCard from "../../components/common/BlogCard/BlogCard";
 import BlogCategory from "./BlogCategory";
 import LastBlogs from "./LastBlogs";
-import BlogLabel from "./BlogLabel";
+import SearchCourses from "../../components/SearchCourses/SearchCourses";
 
 const Blogs = ({ blogs }) => {
   const [blog, setBlog] = useState(blogs);
@@ -65,8 +65,9 @@ const Blogs = ({ blogs }) => {
       <p className=" mt-4 text-gray-700 max-lg:mr-10">
         با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
       </p>
+      <SearchCourses products={blogs} />
       <div className=" flex items-start  justify-between mt-32 gap-7">
-        <div className="w-4/5 flex flex-wrap gap-9 lg:justify-start justify-center max-lg:mx-auto">
+        <div className="w-4/5  max-lg:mx-auto">
           {blog.map((blog, i) => (
             <BlogCard blog={blog} key={i} />
           ))}

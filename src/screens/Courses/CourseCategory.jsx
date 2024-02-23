@@ -57,12 +57,12 @@ const CourseCategory = ({ items, setPosts }) => {
                 className="checked:accent-gray-800 rounded-full w-3 h-4 cursor-pointer"
                 type="checkbox"
                 name={category}
-                id={`${category}1`}
+                id={category}
                 onChange={() => handleCategoryToggle(category)}
               />
               <label
                 className="text-gray-800 cursor-pointer"
-                id={`${category}1`}
+                htmlFor={category}
               >
                 {category}
               </label>

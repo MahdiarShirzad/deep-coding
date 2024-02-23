@@ -14,6 +14,7 @@ import CourseStarSm from "./CourseStarSm";
 import CoursePriceSm from "./CoursePriceSm";
 import CourseLevelSm from "./CourseLevelsm";
 import CourseTimeSm from "./CourseTimeSm";
+import SearchCourses from "../../components/SearchCourses/SearchCourses";
 
 const Courses = ({ items, teachers }) => {
   const [posts, setPosts] = useState(items);
@@ -32,7 +33,8 @@ const Courses = ({ items, teachers }) => {
       <p className="mt-4 max-lg:mr-10">
         با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
       </p>
-      <div className="flex items-start justify-between mt-32 gap-8">
+      <SearchCourses products={items} />
+      <div className="flex items-start justify-between mt-24 gap-8">
         <div className={`w-1/4 max-lg:hidden max-xl:mr-10 `}>
           <CourseCategory items={items} setPosts={setPosts} />
           <CourseStar setPosts={setPosts} items={items} />

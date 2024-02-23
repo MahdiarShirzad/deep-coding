@@ -4,20 +4,20 @@ const BlogCategory = ({ categories, handleCategoryToggle }) => {
   return (
     <div>
       <div className="tab mb-4">
-        <p className="text-lg">دسته بندی ها</p>
+        <p className="text-xl">دسته بندی ها</p>
         <div className="tab-content text-sm mt-4">
           <div className="">
             {categories.map((category, i) => (
-              <div key={i} className="flex items-center my-3 gap-5">
+              <div key={i} className="flex items-center my-4 gap-5">
                 <input
-                  className="checked:accent-gray-800 rounded-full w-3 cursor-pointer"
+                  className=" hidden rounded-full w-3 cursor-pointer"
                   type="checkbox"
                   name={category}
                   id={category}
                   onChange={() => handleCategoryToggle(category)}
                 />{" "}
                 <label
-                  className="text-gray-800 font-yekanSemiBold text-base cursor-pointer"
+                  className="text-gray-500 font-yekanSemiBold text-sm cursor-pointer"
                   htmlFor={category}
                 >
                   {category}
