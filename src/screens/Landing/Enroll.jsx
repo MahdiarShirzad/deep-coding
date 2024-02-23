@@ -5,7 +5,7 @@ import Button from "../../components/common/Button/Button";
 
 const Enroll = () => {
   return (
-    <div className="container max-w-[1320px] mx-auto flex flex-wrap items-center justify-between font-iransans mt-20 gap-16">
+    <div className="container max-w-[1320px] mx-auto flex max-lg:flex-wrap items-center justify-between font-iransans mt-20 gap-16">
       <div className=" w-1/2 max-lg:mx-auto">
         <p className="text-3xl w-3/4 leading-[50px] font-semibold text-[#140342]">
           <span className="text-[#6440FB]">یادگیری</span> مهارت های جدید در زمان

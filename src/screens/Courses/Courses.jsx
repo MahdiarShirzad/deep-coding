@@ -33,7 +33,7 @@ const Courses = ({ items, teachers }) => {
         با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
       </p>
       <div className="flex items-start justify-between mt-32 gap-8">
-        <div className={`w-1/4 max-lg:hidden `}>
+        <div className={`w-1/4 max-lg:hidden max-xl:mr-10 `}>
           <CourseCategory items={items} setPosts={setPosts} />
           <CourseStar setPosts={setPosts} items={items} />
           <CoursePrice items={items} setPosts={setPosts} />
@@ -63,7 +63,7 @@ const Courses = ({ items, teachers }) => {
             </div>
           </div>
           <div>
-            <div className=" min-h-[700px] flex items-start justify-between px-5 flex-wrap mt-7 max-lg:justify-center max-lg:gap-12 max-xl:mx-auto">
+            <div className=" min-h-[700px] flex items-start justify-start lg:gap-5 max-xl:justify-between max-xl:px-32 px-5 flex-wrap mt-7 max-lg:justify-center max-lg:gap-12 max-xl:mx-auto">
               {currentPosts.map((course, index) => (
                 <CourseCard key={index} posts={course} />
               ))}
@@ -109,7 +109,7 @@ const Courses = ({ items, teachers }) => {
             </svg>
           </label>
           <ul
-            className={`w-[350px]  lg:hidden overflow-y-scroll z-20 ${styles.listFilter} ${styles.toggleX}`}
+            className={`w-[350px]  lg:hidden overflow-scroll z-20 ${styles.listFilter} ${styles.toggleX} min-h-[700px]`}
           >
             <CourseCategorySm items={items} setPosts={setPosts} />
             <CourseStarSm setPosts={setPosts} items={items} />

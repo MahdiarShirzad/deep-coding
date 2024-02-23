@@ -4,7 +4,7 @@ import Button from "../../components/common/Button/Button";
 const ContactUsForm = () => {
   return (
     <div>
-      <div className=" flex items-center gap-12 mt-9">
+      <div className=" flex flex-wrap items-center gap-12 mt-9">
         <div className=" flex flex-col">
           <label htmlFor="name">نام</label>
           <input

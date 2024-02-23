@@ -15,15 +15,15 @@ const Herosection = () => {
     <>
       <div className="bg-[url('assets/images/home-6/hero/bg.png')] bg-no-repeat absolute -z-20   w-full right-0 h-[780px]"></div>
       <div className="flex  items-center py-20 px-10 font-iransans z-20 max-w-[1320px]  container mx-auto">
-        <div className="w-1/2 max-lg:mr-20">
+        <div className="w-1/2 max-lg:mr-20 max-lg:w-3/4 max-lg:mt-16">
           <h1 className="text-4xl font-extrabold leading-[60px] text-right">
             دوره های مورد نظر را پیدا کنید و مهارت ها را بهبود ببخشید
           </h1>
-          <p className="mt-8 w-3/4 leading-8 text-lg text-right">
+          <p className="mt-8 w-3/4 leading-8 text-lg text-right max-lg:text-justify">
             لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
             استفاده از طراحان گرافیک است. چاپگرها و متون است.
           </p>
-          <div className="flex items-center justify-center w-3/4 mt-20 gap-5">
+          <div className="flex items-center justify-center w-3/4 mt-20 gap-5 max-lg:w-full">
             <Link onClick={scrollToTop} to="/sign-up">
               <Button>ثبت نام رایگان</Button>
             </Link>
@@ -46,7 +46,7 @@ const Herosection = () => {
           لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده
           از طراحان گرافیک است.
         </p>
-        <div className="flex flex-wrap max-lg:px-20 justify-between items-center mt-9">
+        <div className="flex flex-wrap max-lg:flex-col max-lg:gap-6 justify-between items-center mt-9">
           <div className="flex flex-col items-center justify-center w-[300px] gap-4">
             <div className="p-7 rounded-full shadow-gray-200 shadow-sm">
               <svg

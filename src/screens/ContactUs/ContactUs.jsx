@@ -11,13 +11,13 @@ const ContactUs = () => {
     <div className="mt-36">
       <Map />
       <div className=" mt-20 max-w-[1320px] mx-auto flex max-lg:flex-wrap-reverse font-iransans gap-16">
-        <div className=" w-1/3 max-lg:mx-auto">
+        <div className=" w-1/3 max-lg:w-1/2 max-lg:mx-auto">
           <p className=" text-2xl">با ما در ارتباط باشید</p>
           <p className=" mt-4 text-gray-500">
             لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
             استفاده از طراحان گرافیک است.
           </p>
-          <div className=" mt-5 flex items-center gap-4 w-3/4 text-sm">
+          <div className=" mt-5 flex items-center gap-4 w-3/4 max-md:w-full text-sm">
             <div className=" p-4 rounded-full bg-sky-100 ">
               <img src={contact1} alt="" />
             </div>

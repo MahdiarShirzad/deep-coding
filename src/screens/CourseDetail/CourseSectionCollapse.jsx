@@ -54,7 +54,7 @@ const Unit = (props) => {
   };
   return (
     <div className="">
-      <section className="wrapper bg-gray-200 max-w-[900px] text-black px-10 py-3 rounded-md my-2   font-yekanReg text-base cursor-pointer ">
+      <section className="wrapper bg-gray-200 w-3/5 text-black px-10 py-3 rounded-md my-2   font-yekanReg text-base cursor-pointer ">
         <div
           className=" flex items-center justify-between "
           onClick={onClickHandler}

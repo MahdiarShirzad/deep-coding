@@ -5,7 +5,7 @@ import googleplay from "../../assets/images/app/buttons/2.svg";
 
 const ProgramDownloadSection = () => {
   return (
-    <div className=" container max-w-[1320px] mx-auto flex bg-sky-100 mt-32 justify-between items-center font-iransans px-20 py-24 rounded-2xl mb-20">
+    <div className=" container max-w-[1320px] max-lg:hidden mx-auto flex bg-sky-100 mt-32 justify-between items-center font-iransans px-20 py-24 rounded-2xl mb-20">
       <div>
         <p className="text-3xl font-medium">برنامه را دانلود کنید</p>
         <p className="text-gray-500 mt-4">

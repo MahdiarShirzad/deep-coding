@@ -20,7 +20,7 @@ const CartCheckout = () => {
   const totalPrice = calculateTotalPrice();
 
   return (
-    <div className="w-[350px] rounded-lg shadow-md px-6 py-10">
+    <div className="w-[350px] rounded-lg shadow-md px-6 py-10 max-lg:mx-auto max-lg:mt-14">
       <div className="flex items-center mt-3 justify-between">
         <p>قیمت:</p>
         <div className="flex gap-1">

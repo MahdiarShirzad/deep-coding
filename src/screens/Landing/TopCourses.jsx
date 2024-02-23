@@ -28,7 +28,7 @@ const TopCourses = ({ courses }) => {
 
   return (
     <div className="mt-24 max-w-[1320px] mx-auto">
-      <div className="flex font-iransans items-center justify-between">
+      <div className="flex   max-md:flex-col max-md:gap-8 max-md:justify-start max-md:items-start max-md:pr-6 font-iransans items-center justify-between">
         <div>
           <h3 className="text-3xl font-semibold max-lg:text-xl">
             پرمخاطب ترین دوره ها را جستجو کنید

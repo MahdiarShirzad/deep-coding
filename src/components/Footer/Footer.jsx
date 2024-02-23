@@ -1,7 +1,9 @@
 import React from "react";
-import map from "../../assets/images/map.svg";
-import mail from "../../assets/images/mail.svg";
 import { Link } from "react-router-dom";
+import logo from "../../assets/images/general/logo-pure-white.svg";
+import namad from "../../assets/images/footer/footer-nashr.png";
+import namad2 from "../../assets/images/footer/footer-samandehi.png";
+import namad3 from "../../assets/images/footer/footer-sep.png";
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -12,189 +14,194 @@ const Footer = () => {
   };
 
   return (
-    <div className="  bg-[#1A064F] py-20">
-      <div className=" container max-w-[1320px] mx-auto font-iransans relative">
-        <img src={map} alt="" />
-        <div className=" bg-[#6440FB] w-[350px] flex flex-col items-center gap-5 py-8 rounded-tr-full rounded-tl-full  absolute -top-9 left-40">
-          <div className=" bg-zinc-500 p-4 rounded-full py-6">
-            <img src={mail} alt="" />
-          </div>
-          <input
-            className="px-2 py-3 rounded-3xl"
-            type="text"
-            name=""
-            id=""
-            placeholder="پست الکترونیکی"
-          />
-          <div>
-            <textarea
-              className=" px-3 py-5 rounded-3xl"
-              name=""
-              id=""
-              cols="30"
-              rows="7"
-              placeholder="پیام شما"
-            ></textarea>
-          </div>
+    <div className=" bg-slate-400 bg-[url('assets/images/pattern/04.png')] bg-cover mb-0 text-white font-iransans pb-10">
+      <div className=" container max-w-[1320px] mx-auto ">
+        <div className=" flex items-center gap-7 text-lg py-8 max-lg:mx-auto max-lg:justify-center">
+          <img src={logo} alt="" />
+          <Link>
+            <p>دوره های متخصص</p>
+          </Link>
+          <Link>
+            <p>وبلاگ</p>
+          </Link>
+          <Link>
+            <p>درباره ما</p>
+          </Link>
+          <Link>
+            <p>تماس با ما</p>
+          </Link>
         </div>
-      </div>
-      <div className=" container max-w-[1320px] mx-auto font-iransans  flex mt-14 text-white items-start justify-between">
-        <div>
-          <h6 className=" text-2xl font-extrabold">راه های ارتباطی</h6>
-          <p className="text-sm mt-3 mb-6">
-            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ .
+        <div className=" font-thin text-gray-600 max-lg:mx-auto max-lg:px-16">
+          <p className="my-4">
+            هدف مجموعه سون لرن افزایش سطح کیفیت آموزش و ساختن راهی برای ورود
+            دانشجویان به بازار کار تخصصی است
           </p>
-          <div className=" flex items-center gap-3">
-            <svg
-              class="w-6"
-              fill="#fff"
-              viewBox="0 0 32 32"
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-              <g
-                id="SVGRepo_tracerCarrier"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></g>
-              <g id="SVGRepo_iconCarrier">
-                {" "}
-                <path d="M16.114-0.011c-6.559 0-12.114 5.587-12.114 12.204 0 6.93 6.439 14.017 10.77 18.998 0.017 0.020 0.717 0.797 1.579 0.797h0.076c0.863 0 1.558-0.777 1.575-0.797 4.064-4.672 10-12.377 10-18.998 0-6.618-4.333-12.204-11.886-12.204zM16.515 29.849c-0.035 0.035-0.086 0.074-0.131 0.107-0.046-0.032-0.096-0.072-0.133-0.107l-0.523-0.602c-4.106-4.71-9.729-11.161-9.729-17.055 0-5.532 4.632-10.205 10.114-10.205 6.829 0 9.886 5.125 9.886 10.205 0 4.474-3.192 10.416-9.485 17.657zM16.035 6.044c-3.313 0-6 2.686-6 6s2.687 6 6 6 6-2.687 6-6-2.686-6-6-6zM16.035 16.044c-2.206 0-4.046-1.838-4.046-4.044s1.794-4 4-4c2.207 0 4 1.794 4 4 0.001 2.206-1.747 4.044-3.954 4.044z"></path>{" "}
-              </g>
-            </svg>
-            <p>میدان خزر،نرسیده به دانشگاه روزبهان،جنب دنیای آرزو</p>
-          </div>
-          <div className=" flex mt-7 justify-between items-center text-sm">
-            <div className=" flex items-center gap-2">
-              <svg
-                class="w-6"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                <g
-                  id="SVGRepo_tracerCarrier"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></g>
-                <g id="SVGRepo_iconCarrier">
-                  {" "}
-                  <path
-                    d="M14.05 6C15.0268 6.19057 15.9244 6.66826 16.6281 7.37194C17.3318 8.07561 17.8095 8.97326 18 9.95M14.05 2C16.0793 2.22544 17.9716 3.13417 19.4163 4.57701C20.8609 6.01984 21.7721 7.91101 22 9.94M18.5 21C9.93959 21 3 14.0604 3 5.5C3 5.11378 3.01413 4.73086 3.04189 4.35173C3.07375 3.91662 3.08968 3.69907 3.2037 3.50103C3.29814 3.33701 3.4655 3.18146 3.63598 3.09925C3.84181 3 4.08188 3 4.56201 3H7.37932C7.78308 3 7.98496 3 8.15802 3.06645C8.31089 3.12515 8.44701 3.22049 8.55442 3.3441C8.67601 3.48403 8.745 3.67376 8.88299 4.05321L10.0491 7.26005C10.2096 7.70153 10.2899 7.92227 10.2763 8.1317C10.2643 8.31637 10.2012 8.49408 10.0942 8.64506C9.97286 8.81628 9.77145 8.93713 9.36863 9.17882L8 10C9.2019 12.6489 11.3501 14.7999 14 16L14.8212 14.6314C15.0629 14.2285 15.1837 14.0271 15.3549 13.9058C15.5059 13.7988 15.6836 13.7357 15.8683 13.7237C16.0777 13.7101 16.2985 13.7904 16.74 13.9509L19.9468 15.117C20.3262 15.255 20.516 15.324 20.6559 15.4456C20.7795 15.553 20.8749 15.6891 20.9335 15.842C21 16.015 21 16.2169 21 16.6207V19.438C21 19.9181 21 20.1582 20.9007 20.364C20.8185 20.5345 20.663 20.7019 20.499 20.7963C20.3009 20.9103 20.0834 20.9262 19.6483 20.9581C19.2691 20.9859 18.8862 21 18.5 21Z"
-                    stroke="#fff"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>{" "}
-                </g>
-              </svg>
-              <p>09123456789</p>
-            </div>
-            <div className=" flex items-center gap-2">
-              <svg
-                class="w-6"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                <g
-                  id="SVGRepo_tracerCarrier"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></g>
-                <g id="SVGRepo_iconCarrier">
-                  {" "}
-                  <path
-                    d="M17 20.5H7C4 20.5 2 19 2 15.5V8.5C2 5 4 3.5 7 3.5H17C20 3.5 22 5 22 8.5V15.5C22 19 20 20.5 17 20.5Z"
-                    stroke="#fff"
-                    stroke-width="1.5"
-                    stroke-miterlimit="10"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>{" "}
-                  <path
-                    d="M17 9L13.87 11.5C12.84 12.32 11.15 12.32 10.12 11.5L7 9"
-                    stroke="#fff"
-                    stroke-width="1.5"
-                    stroke-miterlimit="10"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>{" "}
-                </g>
-              </svg>
-              <p>info@deep-coding.com</p>
-            </div>
-          </div>
+          <p>:: سون لرن توسط سرورهای اختصاصی پارس‌پک پشتیبانی شده است.</p>
         </div>
-        <div>
-          <h6 className="text-2xl font-extrabold">پیوند ها</h6>
-          <ul className=" text-sm mt-5 flex flex-col gap-4">
-            <Link onClick={scrollToTop} to="/">
-              <li>صفحه اصلی</li>
-            </Link>
-            <Link onClick={scrollToTop} to="/courses">
-              <li>دوره ها</li>
-            </Link>
-            <Link onClick={scrollToTop} to="/about-us">
-              <li>درباره ما</li>
-            </Link>
-            <Link onClick={scrollToTop} to="/contact-us">
-              <li>تماس با ما</li>
-            </Link>
-          </ul>
-        </div>
-        <div className=" bg-[#6440FB] px-8 py-5 rounded-3xl">
-          <p className=" text-xl">ما را در فضای مجازی دنبال کنید</p>
-          <div className=" flex items-center justify-between mt-6 mb-4 px-8">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="w-8 h-8"
-            >
-              <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
-            </svg>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="w-8 h-8"
-            >
-              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-              <rect width="4" height="12" x="2" y="9"></rect>
-              <circle cx="4" cy="4" r="2"></circle>
-            </svg>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="w-8 h-8"
-            >
-              <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
-            </svg>
+        <div className=" flex max-lg:flex-col max-lg:justify-center max-lg:items-center justify-between items-end">
+          <div className=" mt-14">
+            <p className="text-xl font-thin max-md:mr-16">
+              ::تهران-خیابان انقلاب-امیر آباد
+            </p>
+            <div className=" flex flex-wrap max-lg:justify-center items-center gap-8 mt-4">
+              <div className=" flex gap-1">
+                <p>تلفن : </p>
+                <p>021-123456789</p>
+              </div>
+              <div className=" flex gap-1">
+                <p>واتس آپ : </p>
+                <p>09123456789</p>
+              </div>
+              <div className=" flex gap-1">
+                <p>تلگرام : </p>
+                <p className="text-left">@sup_deepcoding</p>
+              </div>
+            </div>
+            <div className=" flex gap-7 mt-9 max-lg:justify-center">
+              <Link>
+                <svg
+                  className="w-[30px]"
+                  viewBox="0 -2 20 20"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  fill="#000000"
+                >
+                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g
+                    id="SVGRepo_tracerCarrier"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></g>
+                  <g id="SVGRepo_iconCarrier">
+                    {" "}
+                    <title>twitter [#154]</title>{" "}
+                    <desc>Created with Sketch.</desc> <defs> </defs>{" "}
+                    <g
+                      id="Page-1"
+                      stroke="none"
+                      stroke-width="1"
+                      fill="none"
+                      fill-rule="evenodd"
+                    >
+                      {" "}
+                      <g
+                        id="Dribbble-Light-Preview"
+                        transform="translate(-60.000000, -7521.000000)"
+                        fill="#000000"
+                      >
+                        {" "}
+                        <g
+                          id="icons"
+                          transform="translate(56.000000, 160.000000)"
+                        >
+                          {" "}
+                          <path
+                            d="M10.29,7377 C17.837,7377 21.965,7370.84365 21.965,7365.50546 C21.965,7365.33021 21.965,7365.15595 21.953,7364.98267 C22.756,7364.41163 23.449,7363.70276 24,7362.8915 C23.252,7363.21837 22.457,7363.433 21.644,7363.52751 C22.5,7363.02244 23.141,7362.2289 23.448,7361.2926 C22.642,7361.76321 21.761,7362.095 20.842,7362.27321 C19.288,7360.64674 16.689,7360.56798 15.036,7362.09796 C13.971,7363.08447 13.518,7364.55538 13.849,7365.95835 C10.55,7365.79492 7.476,7364.261 5.392,7361.73762 C4.303,7363.58363 4.86,7365.94457 6.663,7367.12996 C6.01,7367.11125 5.371,7366.93797 4.8,7366.62489 L4.8,7366.67608 C4.801,7368.5989 6.178,7370.2549 8.092,7370.63591 C7.488,7370.79836 6.854,7370.82199 6.24,7370.70483 C6.777,7372.35099 8.318,7373.47829 10.073,7373.51078 C8.62,7374.63513 6.825,7375.24554 4.977,7375.24358 C4.651,7375.24259 4.325,7375.22388 4,7375.18549 C5.877,7376.37088 8.06,7377 10.29,7376.99705"
+                            id="twitter-[#154]"
+                          >
+                            {" "}
+                          </path>{" "}
+                        </g>{" "}
+                      </g>{" "}
+                    </g>{" "}
+                  </g>
+                </svg>
+              </Link>
+              <Link>
+                <svg
+                  className="w-[30px]"
+                  fill="#000000"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g
+                    id="SVGRepo_tracerCarrier"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></g>
+                  <g id="SVGRepo_iconCarrier">
+                    <path d="M6.975,20.667H3.117V9.059H6.975ZM5.072,3.462a2.011,2.011,0,1,0-.051,4.012h.026a2.012,2.012,0,1,0,.025-4.012ZM9.111,20.667h3.858V14.185a2.639,2.639,0,0,1,.127-.941,2.111,2.111,0,0,1,1.98-1.411c1.4,0,1.955,1.064,1.955,2.625v6.209h3.858V14.011c0-3.565-1.9-5.225-4.442-5.225A3.828,3.828,0,0,0,12.97,10.7V9.059H9.111c.051,1.089,0,11.609,0,11.609Z"></path>
+                  </g>
+                </svg>
+              </Link>
+              <Link>
+                <svg
+                  className="w-[30px]"
+                  fill="#000000"
+                  viewBox="0 0 32 32"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g
+                    id="SVGRepo_tracerCarrier"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></g>
+                  <g id="SVGRepo_iconCarrier">
+                    {" "}
+                    <path d="M22.122 10.040c0.006-0 0.014-0 0.022-0 0.209 0 0.403 0.065 0.562 0.177l-0.003-0.002c0.116 0.101 0.194 0.243 0.213 0.403l0 0.003c0.020 0.122 0.031 0.262 0.031 0.405 0 0.065-0.002 0.129-0.007 0.193l0-0.009c-0.225 2.369-1.201 8.114-1.697 10.766-0.21 1.123-0.623 1.499-1.023 1.535-0.869 0.081-1.529-0.574-2.371-1.126-1.318-0.865-2.063-1.403-3.342-2.246-1.479-0.973-0.52-1.51 0.322-2.384 0.221-0.23 4.052-3.715 4.127-4.031 0.004-0.019 0.006-0.040 0.006-0.062 0-0.078-0.029-0.149-0.076-0.203l0 0c-0.052-0.034-0.117-0.053-0.185-0.053-0.045 0-0.088 0.009-0.128 0.024l0.002-0.001q-0.198 0.045-6.316 4.174c-0.445 0.351-1.007 0.573-1.619 0.599l-0.006 0c-0.867-0.105-1.654-0.298-2.401-0.573l0.074 0.024c-0.938-0.306-1.683-0.467-1.619-0.985q0.051-0.404 1.114-0.827 6.548-2.853 8.733-3.761c1.607-0.853 3.47-1.555 5.429-2.010l0.157-0.031zM15.93 1.025c-8.302 0.020-15.025 6.755-15.025 15.060 0 8.317 6.742 15.060 15.060 15.060s15.060-6.742 15.060-15.060c0-8.305-6.723-15.040-15.023-15.060h-0.002q-0.035-0-0.070 0z"></path>{" "}
+                  </g>
+                </svg>
+              </Link>
+              <Link>
+                <svg
+                  className="w-[30px]"
+                  viewBox="0 0 20 20"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  fill="#000000"
+                >
+                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g
+                    id="SVGRepo_tracerCarrier"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></g>
+                  <g id="SVGRepo_iconCarrier">
+                    {" "}
+                    <title>instagram [#167]</title>{" "}
+                    <desc>Created with Sketch.</desc> <defs> </defs>{" "}
+                    <g
+                      id="Page-1"
+                      stroke="none"
+                      stroke-width="1"
+                      fill="none"
+                      fill-rule="evenodd"
+                    >
+                      {" "}
+                      <g
+                        id="Dribbble-Light-Preview"
+                        transform="translate(-340.000000, -7439.000000)"
+                        fill="#000000"
+                      >
+                        {" "}
+                        <g
+                          id="icons"
+                          transform="translate(56.000000, 160.000000)"
+                        >
+                          {" "}
+                          <path
+                            d="M289.869652,7279.12273 C288.241769,7279.19618 286.830805,7279.5942 285.691486,7280.72871 C284.548187,7281.86918 284.155147,7283.28558 284.081514,7284.89653 C284.035742,7285.90201 283.768077,7293.49818 284.544207,7295.49028 C285.067597,7296.83422 286.098457,7297.86749 287.454694,7298.39256 C288.087538,7298.63872 288.809936,7298.80547 289.869652,7298.85411 C298.730467,7299.25511 302.015089,7299.03674 303.400182,7295.49028 C303.645956,7294.859 303.815113,7294.1374 303.86188,7293.08031 C304.26686,7284.19677 303.796207,7282.27117 302.251908,7280.72871 C301.027016,7279.50685 299.5862,7278.67508 289.869652,7279.12273 M289.951245,7297.06748 C288.981083,7297.0238 288.454707,7296.86201 288.103459,7296.72603 C287.219865,7296.3826 286.556174,7295.72155 286.214876,7294.84312 C285.623823,7293.32944 285.819846,7286.14023 285.872583,7284.97693 C285.924325,7283.83745 286.155174,7282.79624 286.959165,7281.99226 C287.954203,7280.99968 289.239792,7280.51332 297.993144,7280.90837 C299.135448,7280.95998 300.179243,7281.19026 300.985224,7281.99226 C301.980262,7282.98483 302.473801,7284.28014 302.071806,7292.99991 C302.028024,7293.96767 301.865833,7294.49274 301.729513,7294.84312 C300.829003,7297.15085 298.757333,7297.47145 289.951245,7297.06748 M298.089663,7283.68956 C298.089663,7284.34665 298.623998,7284.88065 299.283709,7284.88065 C299.943419,7284.88065 300.47875,7284.34665 300.47875,7283.68956 C300.47875,7283.03248 299.943419,7282.49847 299.283709,7282.49847 C298.623998,7282.49847 298.089663,7283.03248 298.089663,7283.68956 M288.862673,7288.98792 C288.862673,7291.80286 291.150266,7294.08479 293.972194,7294.08479 C296.794123,7294.08479 299.081716,7291.80286 299.081716,7288.98792 C299.081716,7286.17298 296.794123,7283.89205 293.972194,7283.89205 C291.150266,7283.89205 288.862673,7286.17298 288.862673,7288.98792 M290.655732,7288.98792 C290.655732,7287.16159 292.140329,7285.67967 293.972194,7285.67967 C295.80406,7285.67967 297.288657,7287.16159 297.288657,7288.98792 C297.288657,7290.81525 295.80406,7292.29716 293.972194,7292.29716 C292.140329,7292.29716 290.655732,7290.81525 290.655732,7288.98792"
+                            id="instagram-[#167]"
+                          >
+                            {" "}
+                          </path>{" "}
+                        </g>{" "}
+                      </g>{" "}
+                    </g>{" "}
+                  </g>
+                </svg>
+              </Link>
+            </div>
+          </div>
+          <div className=" flex h-[90px] gap-12 max-lg:mt-12">
+            <img src={namad} alt="" />
+            <img src={namad2} alt="" />
+            <img src={namad3} alt="" />
           </div>
         </div>
       </div>

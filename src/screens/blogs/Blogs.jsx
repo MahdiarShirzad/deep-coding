@@ -61,12 +61,12 @@ const Blogs = ({ blogs }) => {
   }, [visibleBlogs, loading]);
   return (
     <div className=" mt-[100px] mb-24 font-iransans container max-w-[1320px] mx-auto">
-      <h3 className=" mt-36 text-2xl font-medium">لیست وبلاگ</h3>
-      <p className=" mt-4 text-gray-700">
+      <h3 className=" mt-36 text-2xl font-medium max-lg:mr-10">لیست وبلاگ</h3>
+      <p className=" mt-4 text-gray-700 max-lg:mr-10">
         با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
       </p>
-      <div className=" flex items-start justify-between mt-32 gap-7">
-        <div className="w-4/5 flex flex-wrap gap-9 max-lg: justify-center">
+      <div className=" flex items-start  justify-between mt-32 gap-7">
+        <div className="w-4/5 flex flex-wrap gap-9 lg:justify-start justify-center max-lg:mx-auto">
           {blog.map((blog, i) => (
             <BlogCard blog={blog} key={i} />
           ))}

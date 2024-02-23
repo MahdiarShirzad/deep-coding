@@ -55,13 +55,13 @@ const StudentsComments = () => {
   };
 
   return (
-    <div className=" mt-36 max-lg:mt-96 container max-w-[1320px] mx-auto mb-32">
+    <div className=" mt-36 max-lg:mt-96 container max-w-[1320px] mx-auto mb-32  max-md:mt-[830px]">
       <p className=" text-2xl text-center max-lg:pt-36">دیدگاه هنرجویان</p>
       <p className=" text-center mt-4">
         لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم است.
       </p>
       <div>
-        <div className=" relative w-[700px] mt-14 mx-auto">
+        <div className=" relative w-[650px] mt-14 mx-auto">
           <div className=" overflow-hidden relative flex items-center justify-center w-full h-[300px]">
             {slides.map((slide, index) => (
               <div

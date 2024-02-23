@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
-import loginimg from "../../assets/images/home-9/hero/1.png";
 import LoginHeader from "./LoginHeader";
 import logo from "../../assets/images/general/logo2.png";
 import SignUPForm from "./SignUPForm";
 import { Link } from "react-router-dom";
+import login from "../../assets/images/login/Designer4.png";
 
 const SignUp = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -27,7 +27,7 @@ const SignUp = () => {
         <Link to="/">
           <img className="w-40 fixed top-6 right-10" src={logo} alt="" />
         </Link>
-        <img src={loginimg} alt="" />
+        <img src={login} alt="" />
       </div>
       <div className="bg-blue-100 w-3/5 flex justify-center items-center font-iransans max-lg:w-full">
         <LoginHeader />

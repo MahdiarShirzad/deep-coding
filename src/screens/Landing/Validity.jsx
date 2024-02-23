@@ -41,11 +41,11 @@ const Validity = () => {
             <ValidityCarousel />
           </div>
         </div>
-        <div className=" mt-20">
+        <div className=" mt-20 max-md:hidden">
           <h6 className=" text-center text-xl mb-8">
             مورد اعتماد بهترین های جهان
           </h6>
-          <div className=" flex items-center justify-between px-10">
+          <div className=" flex items-center justify-between px-10 max-md:hidden">
             <img src={client1} alt="" />
             <img src={client2} alt="" />
             <img src={client3} alt="" />

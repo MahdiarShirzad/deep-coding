@@ -49,8 +49,10 @@ const CoursePreview = ({ selectedCourse }) => {
   return (
     <div
       className={` ${
-        !isScrolled ? `absolute top-14 left-14` : "fixed top-20 left-[155px]"
-      } rounded-lg bg-white text-black w-[350px] shadow-md shadow-gray-100 z-[300] transition-none`}
+        !isScrolled
+          ? `lg:absolute lg:top-14 lg:left-[70px] max-lg:block `
+          : "lg:fixed top-20 max-2xl:left-[115px] max-lg:block"
+      } rounded-lg bg-white text-black w-[350px] shadow-md shadow-gray-100 z-[300] mx-auto mt-16   max-lg:w-[600px] max-md:w-[500px] transition-none`}
     >
       <div>
         <ReactPlayer

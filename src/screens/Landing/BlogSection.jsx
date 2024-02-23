@@ -24,7 +24,7 @@ const BlogSection = ({ blogs }) => {
           <Button>مشاهده همه</Button>
         </Link>
       </div>
-      <div className="flex items-center flex-wrap max-lg:px-16 justify-between mt-16">
+      <div className="flex items-center flex-wrap max-lg:px-16 max-lg:flex-col max-lg:justify-center max-lg:items-center justify-between mt-16">
         {blogs.slice(-4).map((blog, index) => (
           <BlogCard blog={blog} key={index} />
         ))}

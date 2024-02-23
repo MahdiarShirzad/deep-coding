@@ -1,6 +1,5 @@
 import React from "react";
-
-import loginimg from "../../assets/images/home-9/hero/1.png";
+import login from "../../assets/images/login/Designer4.png";
 import LoginForm from "./LoginForm";
 import LoginHeader from "./LoginHeader";
 import logo from "../../assets/images/general/logo2.png";
@@ -13,7 +12,7 @@ const Login = () => {
         <Link to="/">
           <img className=" w-40 fixed top-6 right-10" src={logo} alt="" />
         </Link>
-        <img src={loginimg} alt="" />
+        <img className=" w-[200px" src={login} alt="" />
       </div>
       <div className=" bg-blue-200 w-3/5 max-lg:w-full flex justify-center items-center font-iransans">
         <LoginHeader />
