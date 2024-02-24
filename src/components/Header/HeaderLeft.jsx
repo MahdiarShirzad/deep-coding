@@ -83,7 +83,7 @@ const HeaderLeft = () => {
         <div className="relative">
           <div
             onClick={toggleDropdown}
-            className=" bg-zinc-100 px-5 min-w-[200px] py-1 rounded-full flex items-center justify-between cursor-pointer"
+            className=" bg-zinc-100 px-5 min-w-[200px] py-1 rounded-full flex items-center justify-between cursor-pointer duration-500"
           >
             <div className=" flex items-center gap-2">
               <svg
@@ -111,7 +111,7 @@ const HeaderLeft = () => {
               <p>{username}</p>
             </div>
             <svg
-              className=" w-[17px]"
+              className=" w-[17px] duration-500"
               viewBox="0 0 1024 1024"
               class="icon"
               version="1.1"

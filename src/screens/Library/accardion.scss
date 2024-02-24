@@ -1,0 +1,80 @@
+h1 {
+  margin: 0;
+  line-height: 2;
+  text-align: center;
+}
+h2 {
+  margin: 0 0 0.5em;
+  font-weight: normal;
+}
+input#chck1,
+input#chck11,
+input#chck22,
+input#chck3,
+input#chck33,
+input#chck5,
+input#chck55,
+input#chck44,
+input#chck4,
+input#chck2 {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+.row {
+  display: flex;
+  .col {
+    flex: 1;
+    &:last-child {
+      margin-left: 1em;
+    }
+  }
+}
+.tabs {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.5);
+}
+.tab {
+  width: 100%;
+  color: black;
+  overflow: hidden;
+  &-label {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    &:hover {
+    }
+    &::after {
+      content: "\276F";
+      width: 1em;
+      height: 1em;
+      text-align: center;
+      transition: all 0.35s;
+    }
+  }
+  &-content {
+    max-height: 100vh;
+    padding: 0 1em;
+    transition: all 0.35s;
+  }
+  &-close {
+    transition: all 0.35s;
+    &:hover {
+    }
+  }
+}
+
+input:checked {
+  + .tab-label {
+    &::after {
+      transform: rotate(90deg);
+    }
+  }
+  ~ .tab-content {
+    height: 0;
+    transition: all 0.5s;
+  }
+}

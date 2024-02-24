@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const NotFound = () => {
   return (
-    <div className="flex bg-blue-100 py-4 items-center font-iransans justify-center gap-10">
+    <div className="flex py-4 items-center font-iransans justify-center gap-10">
       <div className="">
         <p className=" text-[45px] text-sky-700 ">صفحه مورد نظر یافت نشد !!!</p>
         <Link to="/">

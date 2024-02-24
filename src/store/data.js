@@ -18,9 +18,14 @@ const fetchTeachers = createAsyncThunk("data/fetchTeachers", async () => {
   return response.data;
 });
 
+const fetchBooks = createAsyncThunk("data/fetchBooks", async () => {
+  const response = await axios.get(`${BASE_URL}/books`);
+  return response.data;
+});
+
 const dataSlice = createSlice({
   name: "data",
-  initialState: { courses: [], blogs: [], teachers: [] },
+  initialState: { courses: [], blogs: [], teachers: [], books: [] },
   reducers: {},
   extraReducers: (builder) => {
     builder
@@ -32,9 +37,12 @@ const dataSlice = createSlice({
       })
       .addCase(fetchTeachers.fulfilled, (state, action) => {
         state.teachers = action.payload;
+      })
+      .addCase(fetchBooks.fulfilled, (state, action) => {
+        state.books = action.payload;
       });
   },
 });
 
-export { fetchCourses, fetchBlogs, fetchTeachers };
+export { fetchCourses, fetchBlogs, fetchTeachers, fetchBooks };
 export default dataSlice.reducer;

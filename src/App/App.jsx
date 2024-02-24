@@ -16,7 +16,12 @@ import TeachersInfo from "../screens/TeachersInfo/TeachersInfo";
 import BlogDetail from "../screens/BlogDetail/BlogDetail";
 
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCourses, fetchBlogs, fetchTeachers } from "../store/data";
+import {
+  fetchCourses,
+  fetchBlogs,
+  fetchTeachers,
+  fetchBooks,
+} from "../store/data";
 import NotFound from "../screens/notfound/NotFound";
 import UserPanel from "../screens/userpanel/UserPanel";
 import Library from "../screens/Library/Library";
@@ -48,6 +53,7 @@ const App = () => {
   const blogs = useSelector((state) => state.data.blogs);
   const teachers = useSelector((state) => state.data.teachers);
   const cartItems = useSelector((state) => state.cart.items);
+  const books = useSelector((state) => state.data.books);
 
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
 
@@ -55,6 +61,7 @@ const App = () => {
     dispatch(fetchCourses());
     dispatch(fetchBlogs());
     dispatch(fetchTeachers());
+    dispatch(fetchBooks());
   }, [dispatch]);
 
   useEffect(() => {
@@ -93,7 +100,7 @@ const App = () => {
           ></Route>
           <Route path="/blogs" index element={<Blogs blogs={blogs} />} />
           <Route path="/blog-detail" index element={<BlogDetail />} />
-          <Route path="/library" index element={<Library />} />
+          <Route path="/library" index element={<Library books={books} />} />
           <Route path="/about-us" index element={<AboutUs />} />
           {isAuth && (
             <Route

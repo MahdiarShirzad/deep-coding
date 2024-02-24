@@ -393,6 +393,141 @@
       "about": "به اشتراک گذاشتن چیزی است که من هستم، و تدریس جایی است که در بهترین حالتم هستم، زیرا من در هر دو طرف این معادله بوده ام، و دریافت آموزش های مفید راه معنادار من برای عضویت در جامعه خلاق است. زمان زیادی را صرف تماشای یادگیری و آموزش دیگران کردم تا نحوه کار من با شما را اصلاح کنم تا کارآمد، مفید و مهمتر از همه به یاد ماندنی باشم. من می خواهم آنچه را که به شما نشان داده ام به آینده ای روشن منتقل کنید. من یک همسر (دختر دوست داشتنی ایرلندی) و بچه دارم. من در بسیاری از مکان‌ها زندگی و کار کرده‌ام (همانطور که کیوی‌ها تمایل دارند) - اما بیشتر ۱۴ سال خلق و تدریس من یک موضوع مهم داشته است: همراهی دیگران برای سوار شدن در حالی که همه ما سعی می‌کنیم دنیا را با داستان‌هایمان تغییر دهیم. من یک مربی معتبر Adobe (ACI) در ایرلند هستم. من همچنین یک متخصص Adobe Certified (ACE) هستم و دوره آموزشی Adobe Certified Associate (ACA) را گذرانده ام. و من فقط Adobe کار نمی کنم. به یاد داشته باشید، رسانه یک اصطلاح بسیار گسترده است - دیجیتال مرزها را منفجر کرد، بنابراین همه ما دائماً در حال یادگیری هستیم."
     }
   ],
+  "books": [
+    {
+      "id": 1,
+      "img": "../src/assets/images/books/ai.jpg",
+      "title": "AI Book 1",
+      "category": "AI",
+      "dec": "با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است."
+    },
+    {
+      "id": 2,
+      "img": "../src/assets/images/books/ai4.jpg",
+      "title": "AI Book 2",
+      "category": "AI",
+      "dec": "با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است."
+    },
+    {
+      "id": 3,
+      "img": "../src/assets/images/books/algorithm.jpg",
+      "title": "Algorithm Book ",
+      "category": "Algorithm",
+      "dec": "با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است."
+    },
+    {
+      "id": 4,
+      "img": "../src/assets/images/books/backend.jpg",
+      "title": "backend Book ",
+      "category": "backend",
+      "dec": "با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است."
+    },
+    {
+      "id": 5,
+      "img": "../src/assets/images/books/front3.jpg",
+      "title": "front Book 1",
+      "category": "front",
+      "dec": "با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است."
+    },
+    {
+      "id": 6,
+      "img": "../src/assets/images/books/front.jpg",
+      "title": "front Book 2",
+      "category": "front",
+      "dec": "با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است."
+    },
+    {
+      "id": 7,
+      "img": "../src/assets/images/books/front2.jpg",
+      "title": "front Book 3",
+      "category": "front",
+      "dec": "با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است."
+    },
+    {
+      "id": 8,
+      "img": "../src/assets/images/books/hack.jpg",
+      "title": "hacking Book 1",
+      "category": "hacking",
+      "dec": "با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است."
+    },
+    {
+      "id": 9,
+      "img": "../src/assets/images/books/hack3.jpg",
+      "title": "hacking Book 2",
+      "category": "hacking",
+      "dec": "با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است."
+    },
+    {
+      "id": 10,
+      "img": "../src/assets/images/books/java.jpg",
+      "title": "java Book ",
+      "category": "java",
+      "dec": "با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است."
+    },
+    {
+      "id": 11,
+      "img": "../src/assets/images/books/javascript.jpg",
+      "title": "javascript Book ",
+      "category": "javascript",
+      "dec": "با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است."
+    },
+    {
+      "id": 12,
+      "img": "../src/assets/images/books/kali4.jpg",
+      "title": "kali Book ",
+      "category": "kali",
+      "dec": "با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است."
+    },
+    {
+      "id": 13,
+      "img": "../src/assets/images/books/linux2.jpg",
+      "title": "linux Book",
+      "category": "linux",
+      "dec": "با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است."
+    },
+    {
+      "id": 14,
+      "img": "../src/assets/images/books/mobile.jpg",
+      "title": "mobile Book 1",
+      "category": "mobile",
+      "dec": "با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است."
+    },
+    {
+      "id": 15,
+      "img": "../src/assets/images/books/mobile2.jpg",
+      "title": "mobile Book 2",
+      "category": "mobile",
+      "dec": "با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است."
+    },
+    {
+      "id": 16,
+      "img": "../src/assets/images/books/programming2.jpg",
+      "title": "programming Book 1",
+      "category": "programming",
+      "dec": "با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است."
+    },
+    {
+      "id": 17,
+      "img": "../src/assets/images/books/python.jpg",
+      "title": "python Book 1",
+      "category": "python",
+      "dec": "با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است."
+    },
+    {
+      "id": 18,
+      "img": "../src/assets/images/books/ubuntu3.jpg",
+      "title": "ubuntu Book 1",
+      "category": "ubuntu",
+      "dec": "با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است."
+    },
+    {
+      "id": 19,
+      "img": "../src/assets/images/books/web3.jpg",
+      "title": "web Book 1",
+      "category": "web",
+      "dec": "با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است."
+    }
+  ],
   "users": [
     {
       "id": "17c0",
