@@ -1,13 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import img1 from "../../assets/images/home-3/works/1.svg";
 import img2 from "../../assets/images/home-3/works/2.svg";
 import img3 from "../../assets/images/home-3/works/3.svg";
 import line1 from "../../assets/images/misc/lines/1.svg";
 import line2 from "../../assets/images/misc/lines/2.svg";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const HowWeWorkSection = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1200, // Specify the animation duration
+      once: true, // Only play the animation once
+    });
+  }, []);
+
   return (
-    <div className=" mt-24 mb-20 container max-w-[1320px] mx-auto">
+    <div
+      className=" mt-24 mb-20 container max-w-[1320px] mx-auto"
+      data-aos="fade-left"
+    >
       <p className=" text-2xl font-medium text-center">ما چگونه کار میکنیم؟</p>
       <p className=" text-center mt-6">
         بیش از 12000 طرح منحصر به فرد در لیست دوره های آنلاین

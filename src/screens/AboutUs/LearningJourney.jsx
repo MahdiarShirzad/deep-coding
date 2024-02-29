@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import img1 from "../../assets/images/home-5/learning/1.svg";
 import img2 from "../../assets/images/home-5/learning/2.svg";
 import img3 from "../../assets/images/home-5/learning/3.svg";
 import img4 from "../../assets/images/home-5/learning/4.svg";
 
 const LearningJourney = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1200, // Specify the animation duration
+      once: true, // Only play the animation once
+    });
+  }, []);
   return (
-    <div className=" bg-[#282664] w-full h-[400px]">
+    <div className=" bg-[#282664] w-full h-[400px]" data-aos="fade-left">
       <div className=" container max-w-[1320px] mx-auto pt-28">
         <p className=" text-white text-3xl text-center font-bold">
           سفر یادگیری خود را از همین امروز شروع کنید!

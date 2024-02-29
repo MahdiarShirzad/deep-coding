@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import lecture from "../../assets/images/coursesCards/icons/1.svg";
 import timesvg from "../../assets/images/coursesCards/icons/2.svg";
 import levelsvg from "../../assets/images/coursesCards/icons/3.svg";
 import styles from "./MemberCard.module.css";
 import RenderStars from "../RenderStars/RenderStars";
 import { Link } from "react-router-dom";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const CourseCard = ({ posts }) => {
   const { id, name, teacher, price, level, star, time, img } = posts;
@@ -17,10 +19,16 @@ const CourseCard = ({ posts }) => {
       behavior: "smooth",
     });
   };
+  useEffect(() => {
+    AOS.init({
+      duration: 1200, // Specify the animation duration
+      once: true, // Only play the animation once
+    });
+  }, []);
 
   return (
     <Link to={`/courses/${id}`} onClick={scrollToTop}>
-      <div className={styles.card_section}>
+      <div className={styles.card_section} data-aos="fade-left">
         <div className={`${styles.card_item} ${styles.card_users}`}>
           <div className=" w-[300px] mb-8 px-4 py-5 rounded-xl shadow-sm shadow-gray-200">
             <img className=" rounded-lg w-full h-[210px]" src={img} alt="" />

@@ -1,5 +1,7 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import TopCoursesCard from "../../components/common/TopCoursesCard/TopCoursesCard";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const categoryReducer = (state, action) => {
   switch (action.type) {
@@ -11,6 +13,12 @@ const categoryReducer = (state, action) => {
 };
 
 const TopCourses = ({ courses }) => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1200, // Specify the animation duration
+      once: true, // Only play the animation once
+    });
+  }, []);
   const [selectedCategory, dispatch] = useReducer(categoryReducer, "all");
 
   const categories = ["all", "طراحی وب", "برنامه نویسی", "گرافیک"];
@@ -27,7 +35,7 @@ const TopCourses = ({ courses }) => {
       : coursesData.filter((course) => course.category === selectedCategory);
 
   return (
-    <div className="mt-24 max-w-[1320px] mx-auto">
+    <div className="mt-24 max-w-[1320px] mx-auto" data-aos="fade-left">
       <div className="flex   max-md:flex-col max-md:gap-8 max-md:justify-start max-md:items-start max-md:pr-6 font-iransans items-center justify-between">
         <div>
           <h3 className="text-3xl font-semibold max-lg:text-xl">

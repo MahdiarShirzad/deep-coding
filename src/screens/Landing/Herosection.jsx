@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import heroimg from "../../assets/images/home-7/hero/image.png";
 import { Link } from "react-router-dom";
 import Button from "../../components/common/Button/Button";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Herosection = () => {
   const scrollToTop = () => {
@@ -11,8 +13,15 @@ const Herosection = () => {
     });
   };
 
+  useEffect(() => {
+    AOS.init({
+      duration: 1200, // Specify the animation duration
+      once: true, // Only play the animation once
+    });
+  }, []);
+
   return (
-    <>
+    <div data-aos="fade-left">
       <div className="bg-[url('assets/images/home-6/hero/bg.png')] bg-no-repeat absolute -z-20   w-full right-0 h-[780px]"></div>
       <div className="flex  items-center py-20 px-10 font-iransans z-20 max-w-[1320px]  container mx-auto">
         <div className="w-1/2 max-lg:mr-20 max-lg:w-3/4 max-lg:mt-16">
@@ -217,7 +226,7 @@ const Herosection = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

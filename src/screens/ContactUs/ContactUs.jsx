@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import Map from "./Map";
 import contact1 from "../../assets/images/contact-1/1.svg";
 import contact2 from "../../assets/images/contact-1/2.svg";
@@ -7,10 +9,20 @@ import ContactUsForm from "./ContactUsForm";
 import Collapse from "../../components/Collapse/Collapse";
 
 const ContactUs = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1200, // Specify the animation duration
+      once: true, // Only play the animation once
+    });
+  }, []);
+
   return (
     <div className="mt-36">
       <Map />
-      <div className=" mt-20 max-w-[1320px] mx-auto flex max-lg:flex-wrap-reverse font-iransans gap-16">
+      <div
+        className=" mt-20 max-w-[1320px] mx-auto flex max-lg:flex-wrap-reverse font-iransans gap-16"
+        data-aos="fade-left"
+      >
         <div className=" w-1/3 max-lg:w-1/2 max-lg:mx-auto">
           <p className=" text-2xl">با ما در ارتباط باشید</p>
           <p className=" mt-4 text-gray-500">
@@ -46,7 +58,10 @@ const ContactUs = () => {
         </div>
       </div>
       <div className="bg-[#F7F8FB] py-12 mt-10">
-        <div className=" max-w-[1320px] mx-auto font-iransans ">
+        <div
+          className=" max-w-[1320px] mx-auto font-iransans "
+          data-aos="fade-left"
+        >
           <p className=" text-2xl text-center font-medium">سوالات متداول</p>
           <p className=" text-center mt-3 mb-12 text-gray-600">
             لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با

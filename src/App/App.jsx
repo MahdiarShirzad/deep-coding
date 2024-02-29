@@ -25,6 +25,12 @@ import {
 import NotFound from "../screens/notfound/NotFound";
 import UserPanel from "../screens/userpanel/UserPanel";
 import Library from "../screens/Library/Library";
+import Dashboard from "../screens/userpanel/dashboard/Dashboard";
+import CourseList from "../screens/userpanel/CoursesList/CourseList";
+import Exams from "../screens/userpanel/exams/Exams";
+import EditProfile from "../screens/userpanel/editprofile/EditProfile";
+import CartInformation from "../screens/userpanel/cartinformation/CartInformation";
+import Favorites from "../screens/userpanel/Favorites/Favorites";
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -118,8 +124,27 @@ const App = () => {
             index
             element={<TeachersInfo teachers={teachers} courses={courses} />}
           />
+          {isAuth && (
+            <Route path="/user-panel" element={<UserPanel />}>
+              <Route path="/user-panel/dashboard" element={<Dashboard />} />
+              <Route path="/user-panel/course-list" element={<CourseList />} />
+              <Route path="/user-panel/exams" element={<Exams />} />
+              <Route
+                path="/user-panel/edit-profile"
+                element={<EditProfile />}
+              />
+              <Route
+                path="/user-panel/cart-info"
+                element={<CartInformation />}
+              />
+              <Route path="/user-panel/favorites" element={<Favorites />} />
+              <Route
+                path="/user-panel/edit-profile"
+                element={<EditProfile />}
+              />
+            </Route>
+          )}
           <Route path="*" index element={<NotFound />} />
-          {isAuth && <Route path="/user-panel" element={<UserPanel />}></Route>}
         </Routes>
       </Layout>
     </BrowserRouter>

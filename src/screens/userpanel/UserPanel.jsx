@@ -1,7 +1,8 @@
 import React from "react";
 import UserPanelAvatar from "./UserPanelAvatar";
 import SidebarPanel from "./SidebarPanel";
-import Dashboard from "./Dashboard";
+import Dashboard from "./dashboard/Dashboard";
+import { Outlet } from "react-router-dom";
 
 const UserPanel = () => {
   return (
@@ -10,7 +11,7 @@ const UserPanel = () => {
       <div className=" container max-w-[1320px] mx-auto flex items-start mt-6 justify-between">
         <SidebarPanel />
         <div className=" w-3/4">
-          <Dashboard />
+          <Outlet />
         </div>
       </div>
     </div>

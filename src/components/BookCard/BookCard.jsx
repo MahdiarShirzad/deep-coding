@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const BookCard = ({ book }) => {
   const { id } = book;
 
+  useEffect(() => {
+    AOS.init({
+      duration: 1200, // Specify the animation duration
+      once: true, // Only play the animation once
+    });
+  }, []);
+
   return (
-    <div className="bg-white w-[310px] mb-8 group border-2 border-cyan-600  rounded-3xl p-4 cursor-pointer transition-all duration-300 transform-gpu hover:-translate-y-2">
+    <div
+      className="bg-white w-[310px] mb-8 group border-2 border-cyan-600  rounded-3xl p-4 cursor-pointer transition-all duration-300 transform-gpu hover:-translate-y-2"
+      data-aos="fade-left"
+    >
       <img className="rounded-tr-3xl rounded-tl-3xl" src={book.img} alt="" />
       <div className="relative mt-10">
         <p className="absolute top-[-60px] text-[13px] flex items-center justify-center gap-1 font-yekanSemiBold text-[#0548E8] right-0 left-0 mx-14 bg-white z-20 shadow-lg shadow-gray-300 rounded-xl px-3 py-2">

@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 import Herosection from "./Herosection";
 import TopCourses from "./TopCourses";
 import TopCategory from "./TopCategory";
@@ -8,13 +11,20 @@ import BlogSection from "./BlogSection";
 import ProgramDownloadSection from "./ProgramDownloadSection";
 
 const Landing = ({ courses, blogs }) => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1200, // Specify the animation duration
+      once: true, // Only play the animation once
+    });
+  }, []);
+
   return (
     <div className=" mx-auto">
       <Herosection />
       <TopCourses courses={courses} />
       <TopCategory items={courses} />
       <Validity />
-      <div className=" w-full flex flex-row-reverse">
+      <div className=" w-full flex flex-row-reverse" data-aos="fade-left">
         <svg
           class="img-svg"
           viewBox="0 0 1925 261"

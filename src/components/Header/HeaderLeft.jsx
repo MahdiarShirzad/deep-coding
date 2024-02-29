@@ -201,7 +201,7 @@ const HeaderLeft = () => {
                   <p>آمار</p>
                 </NavLink>
                 <NavLink
-                  to="/user-panel"
+                  to="/user-panel/dashboard"
                   className="flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 rounded-md"
                 >
                   <svg

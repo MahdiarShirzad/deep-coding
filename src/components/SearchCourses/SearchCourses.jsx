@@ -47,7 +47,7 @@ const SearchCourses = ({ products }) => {
         onChange={handleInputChange}
       />
       {searchQuery && (
-        <div className="max-h-80 absolute w-[1000px] top-20  rounded-xl bg-slate-100 overflow-y-auto border border-gray-300  z-50">
+        <div className="max-h-80 absolute w-[100%] top-20  rounded-xl bg-slate-100 overflow-y-auto border border-gray-300  z-50">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
               <>

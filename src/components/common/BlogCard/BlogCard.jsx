@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import img from "../../../assets/images/blog/Designer.png";
 import { Link } from "react-router-dom";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const BlogCard = ({ blog }) => {
   const { name, category, date } = blog;
@@ -11,10 +13,20 @@ const BlogCard = ({ blog }) => {
       behavior: "smooth",
     });
   };
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1200, // Specify the animation duration
+      once: true, // Only play the animation once
+    });
+  }, []);
   return (
-    <div className="w-[800px] px-4 flex justify-between gap-10 py-4 rounded-lg shadow-md shadow-gray-200 mb-4 group transition-all duration-300 transform-gpu hover:-translate-y-2">
-      <div className=" w-1/3 h-[200px]">
-        <img className=" rounded-md w-full h-full" src={img} alt="" />
+    <div
+      className="w-[600px] px-4 flex justify-between gap-10 py-4 rounded-lg shadow-md shadow-gray-200 my-4 group transition-all duration-300 transform-gpu hover:-translate-y-2"
+      data-aos="fade-left"
+    >
+      <div className=" w-1/3 h-[140px]">
+        <img className=" rounded-md w-full h-full " src={img} alt="" />
       </div>
       <div className=" w-2/3">
         <h5 className=" text-black text-2xl mt-3 font-medium">{name}</h5>

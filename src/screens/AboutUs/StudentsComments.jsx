@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import avatar1 from "../../assets/images/home-3/testimonials/1.png";
 import avatar2 from "../../assets/images/home-3/testimonials/2.png";
 import avatar3 from "../../assets/images/home-3/testimonials/3.png";
@@ -54,8 +56,18 @@ const StudentsComments = () => {
     setCurrentSlide(index);
   };
 
+  useEffect(() => {
+    AOS.init({
+      duration: 1200, // Specify the animation duration
+      once: true, // Only play the animation once
+    });
+  }, []);
+
   return (
-    <div className=" mt-36 max-lg:mt-96 container max-w-[1320px] mx-auto mb-32  max-md:mt-[830px]">
+    <div
+      className=" mt-36 max-lg:mt-96 container max-w-[1320px] mx-auto mb-32  max-md:mt-[830px]"
+      data-aos="fade-left"
+    >
       <p className=" text-2xl text-center max-lg:pt-36">دیدگاه هنرجویان</p>
       <p className=" text-center mt-4">
         لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم است.

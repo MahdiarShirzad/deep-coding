@@ -1,13 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import img1 from "../../assets/images/about-1/1.png";
 import img2 from "../../assets/images/about-1/2.png";
 import img3 from "../../assets/images/about-1/3.png";
 import { Link } from "react-router-dom";
 import Button from "../../components/common/Button/Button";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const AboutUsLogin = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1200, // Specify the animation duration
+      once: true, // Only play the animation once
+    });
+  }, []);
+
   return (
-    <div className="container max-w-[1320px] mx-auto flex max-lg:flex-wrap-reverse items-center justify-between mt-12 gap-14">
+    <div
+      className="container max-w-[1320px] mx-auto flex max-lg:flex-wrap-reverse items-center justify-between mt-12 gap-14"
+      data-aos="fade-left"
+    >
       <div className=" w-1/2 flex items-center gap-7 max-lg:mx-auto">
         <div>
           <img src={img1} alt="" />

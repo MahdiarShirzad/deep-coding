@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import img from "../../assets/images/home-6/learn/1.png";
 import { Link } from "react-router-dom";
 import Button from "../../components/common/Button/Button";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Enroll = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1200, // Specify the animation duration
+      once: true, // Only play the animation once
+    });
+  }, []);
   return (
-    <div className="container max-w-[1320px] mx-auto flex max-lg:flex-wrap items-center justify-between font-iransans mt-20 gap-16">
+    <div
+      className="container max-w-[1320px] mx-auto flex max-lg:flex-wrap items-center justify-between font-iransans mt-20 gap-16"
+      data-aos="fade-left"
+    >
       <div className=" w-1/2 max-lg:mx-auto">
         <p className="text-3xl w-3/4 leading-[50px] font-semibold text-[#140342]">
           <span className="text-[#6440FB]">یادگیری</span> مهارت های جدید در زمان

@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ValidityCarousel from "./ValidityCarousel";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 import client1 from "../../assets/images/clients/1.svg";
 import client2 from "../../assets/images/clients/2.svg";
@@ -9,8 +11,14 @@ import client5 from "../../assets/images/clients/5.svg";
 import client6 from "../../assets/images/clients/6.svg";
 
 const Validity = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1200, // Specify the animation duration
+      once: true, // Only play the animation once
+    });
+  }, []);
   return (
-    <div className=" bg-[#1A064F] mt-10">
+    <div className=" bg-[#1A064F] mt-10" data-aos="fade-left">
       <div className=" container max-w-[1320px] mx-auto text-white font-iransans pt-20">
         <div className=" flex flex-wrap items-center gap-14">
           <div className="w-1/2 max-lg:mx-auto">

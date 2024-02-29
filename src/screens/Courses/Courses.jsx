@@ -15,6 +15,8 @@ import CoursePriceSm from "./CoursePriceSm";
 import CourseLevelSm from "./CourseLevelsm";
 import CourseTimeSm from "./CourseTimeSm";
 import SearchCourses from "../../components/SearchCourses/SearchCourses";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Courses = ({ items, teachers }) => {
   const [posts, setPosts] = useState(items);
@@ -26,6 +28,12 @@ const Courses = ({ items, teachers }) => {
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+  useEffect(() => {
+    AOS.init({
+      duration: 1200, // Specify the animation duration
+      once: true, // Only play the animation once
+    });
+  }, []);
 
   return (
     <div className=" mt-[100px]  mb-24 font-iransans container max-w-[1320px] mx-auto">
@@ -65,7 +73,10 @@ const Courses = ({ items, teachers }) => {
             </div>
           </div>
           <div>
-            <div className=" min-h-[700px] flex items-start justify-start lg:gap-5 max-xl:justify-between max-xl:px-32 px-5 flex-wrap mt-7 max-lg:justify-center max-lg:gap-12 max-xl:mx-auto">
+            <div
+              className=" min-h-[700px] flex items-start justify-start lg:gap-5 max-xl:justify-between max-xl:px-32 px-5 flex-wrap mt-7 max-lg:justify-center max-lg:gap-12 max-xl:mx-auto"
+              data-aos="fade-left"
+            >
               {currentPosts.map((course, index) => (
                 <CourseCard key={index} posts={course} />
               ))}

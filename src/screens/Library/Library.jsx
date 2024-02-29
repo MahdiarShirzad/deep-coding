@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from "react";
 import BookCard from "../../components/BookCard/BookCard";
 import BooksCategory from "./BooksCategory";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Library = ({ books }) => {
   const [book, setBook] = useState(books);
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1200, // Specify the animation duration
+      once: true, // Only play the animation once
+    });
+  }, []);
 
   console.log(books);
   return (
@@ -14,7 +23,10 @@ const Library = ({ books }) => {
         مسیر رو برای خودت پیدا کن
       </p>
       <div className=" flex items-start  justify-between mt-32 gap-12">
-        <div className="w-4/5  flex flex-wrap justify-between max-lg:mx-auto">
+        <div
+          className="w-4/5  flex flex-wrap justify-between max-lg:mx-auto"
+          data-aos="fade-left"
+        >
           {book.map((book) => (
             <BookCard book={book} key={book.id} />
           ))}

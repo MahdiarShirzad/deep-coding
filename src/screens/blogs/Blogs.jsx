@@ -3,6 +3,8 @@ import BlogCard from "../../components/common/BlogCard/BlogCard";
 import BlogCategory from "./BlogCategory";
 import LastBlogs from "./LastBlogs";
 import SearchCourses from "../../components/SearchCourses/SearchCourses";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Blogs = ({ blogs }) => {
   const [blog, setBlog] = useState(blogs);
@@ -59,26 +61,42 @@ const Blogs = ({ blogs }) => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [visibleBlogs, loading]);
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1200, // Specify the animation duration
+      once: true, // Only play the animation once
+    });
+  }, []);
+
   return (
     <div className=" mt-[100px] mb-24 font-iransans container max-w-[1320px] mx-auto">
       <h3 className=" mt-36 text-2xl font-medium max-lg:mr-10">لیست وبلاگ</h3>
       <p className=" mt-4 text-gray-700 max-lg:mr-10">
         با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
       </p>
-      <SearchCourses products={blogs} />
+      <div className=" flex justify-between items-center">
+        <div className=" w-3/5">
+          <SearchCourses products={blogs} />
+        </div>
+        <div>filter</div>
+      </div>
       <div className=" flex items-start  justify-between mt-32 gap-7">
-        <div className="w-4/5  max-lg:mx-auto">
+        <div
+          className="w-full justify-between px-10 flex flex-wrap  max-lg:mx-auto"
+          data-aos="fade-left"
+        >
           {blog.map((blog, i) => (
             <BlogCard blog={blog} key={i} />
           ))}
         </div>
-        <div className="w-1/4 px-2 max-lg:hidden">
+        {/* <div className="w-1/4 px-2 max-lg:hidden">
           <BlogCategory
             categories={blogCategories}
             handleCategoryToggle={handleCategoryToggle}
           />
           <LastBlogs blogs={blogs} />
-        </div>
+        </div> */}
       </div>
     </div>
   );
