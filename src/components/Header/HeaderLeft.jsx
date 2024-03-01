@@ -136,12 +136,60 @@ const HeaderLeft = () => {
           <>
             {dropdownVisible && (
               <div className="absolute top-full right-0 w-[240px] flex flex-col gap-1 py-3 px-4 bg-white shadow-md rounded-md mt-1">
-                <NavLink className="flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 rounded-md">
+                <NavLink
+                  to="/user-panel/course-list"
+                  className="flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 rounded-md"
+                >
                   <svg
-                    className=" w-[24px]"
-                    viewBox="0 0 18 18"
+                    class=" w-[25px]"
+                    viewBox="0 -4.5 31 31"
+                    version="1.1"
                     xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"
                     fill="#000000"
+                  >
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g
+                      id="SVGRepo_tracerCarrier"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></g>
+                    <g id="SVGRepo_iconCarrier">
+                      <g
+                        id="Page-1"
+                        stroke="none"
+                        stroke-width="1"
+                        fill="none"
+                        fill-rule="evenodd"
+                        sketch:type="MSPage"
+                      >
+                        <g
+                          id="Icon-Set-Filled"
+                          sketch:type="MSLayerGroup"
+                          transform="translate(-206.000000, -626.000000)"
+                          fill="#000"
+                        >
+                          <path
+                            d="M235,643 L216,643 C214.896,643 214,643.896 214,645 C214,646.104 214.896,647 216,647 L235,647 C236.104,647 237,646.104 237,645 C237,643.896 236.104,643 235,643 L235,643 Z M235,635 L216,635 C214.896,635 214,635.896 214,637 C214,638.104 214.896,639 216,639 L235,639 C236.104,639 237,638.104 237,637 C237,635.896 236.104,635 235,635 L235,635 Z M216,631 L235,631 C236.104,631 237,630.104 237,629 C237,627.896 236.104,627 235,627 L216,627 C214.896,627 214,627.896 214,629 C214,630.104 214.896,631 216,631 L216,631 Z M209,642 C207.343,642 206,643.343 206,645 C206,646.657 207.343,648 209,648 C210.657,648 212,646.657 212,645 C212,643.343 210.657,642 209,642 L209,642 Z M209,634 C207.343,634 206,635.343 206,637 C206,638.657 207.343,640 209,640 C210.657,640 212,638.657 212,637 C212,635.343 210.657,634 209,634 L209,634 Z M209,626 C207.343,626 206,627.343 206,629 C206,630.657 207.343,632 209,632 C210.657,632 212,630.657 212,629 C212,627.343 210.657,626 209,626 L209,626 Z"
+                            id="list"
+                            sketch:type="MSShapeGroup"
+                          ></path>{" "}
+                        </g>{" "}
+                      </g>{" "}
+                    </g>
+                  </svg>
+                  <p>دوره های من</p>
+                </NavLink>
+                <NavLink
+                  to="/user-panel/edit-profile"
+                  className="flex items-center gap-1 px-4 py-2 text-gray-800 hover:bg-gray-200 rounded-md"
+                >
+                  <svg
+                    class="w-[30px]"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                     <g
@@ -152,53 +200,15 @@ const HeaderLeft = () => {
                     <g id="SVGRepo_iconCarrier">
                       {" "}
                       <path
-                        fill="none"
+                        d="M14 6L8 12V16H12L18 10M14 6L17 3L21 7L18 10M14 6L18 10M10 4L4 4L4 20L20 20V14"
                         stroke="#000"
-                        stroke-width="2"
+                        stroke-width="1.5"
                         stroke-linecap="round"
                         stroke-linejoin="round"
-                        stroke-miterlimit="10"
-                        d="M1 2h16v11H1z"
-                      ></path>{" "}
-                      <path
-                        fill="none"
-                        stroke="#000"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-miterlimit="10"
-                        d="M4 5.5v5s3-1 5 0v-5s-2-2-5 0zM9 5.5v5s3-1 5 0v-5s-2-2-5 0z"
-                      ></path>{" "}
-                      <path
-                        fill="#000"
-                        stroke="#000"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-miterlimit="10"
-                        d="M8.5 14l-3 3h7l-3-3z"
                       ></path>{" "}
                     </g>
                   </svg>
-                  <p>دوره های من</p>
-                </NavLink>
-                <NavLink className="flex items-center gap-1 px-4 py-2 text-gray-800 hover:bg-gray-200 rounded-md">
-                  <svg
-                    className=" w-[35px] -mr-1"
-                    fill="#000000"
-                    viewBox="-3.5 0 19 19"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g
-                      id="SVGRepo_tracerCarrier"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    ></g>
-                    <g id="SVGRepo_iconCarrier">
-                      <path d="M10.05 3.828a1.112 1.112 0 0 1 1.11 1.108v10.562a1.112 1.112 0 0 1-1.11 1.108h-8.1a1.112 1.112 0 0 1-1.11-1.108V4.936a1.112 1.112 0 0 1 1.11-1.108h.415v1.108h-.414l-.002.002v10.558l.002.002h8.098l.002-.002V4.938l-.002-.002h-.414V3.828h.416zm-.98 4.076H2.82v1.108h6.25zm0 2.337H2.82v1.108h6.25zm0 2.337H2.82v1.108h6.25zm-.543-8.935v1.25a.476.476 0 0 1-.475.476H3.948a.476.476 0 0 1-.475-.475v-1.25a.476.476 0 0 1 .475-.476h.697V1.87a.476.476 0 0 1 .475-.475h1.76a.476.476 0 0 1 .475.475v1.3h.697a.476.476 0 0 1 .475.474zM6.55 2.67a.554.554 0 1 0-.554.554.554.554 0 0 0 .554-.554z"></path>
-                    </g>
-                  </svg>
-                  <p>آمار</p>
+                  <p>ویرایش پروفایل</p>
                 </NavLink>
                 <NavLink
                   to="/user-panel/dashboard"

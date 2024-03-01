@@ -42,6 +42,7 @@
     text-align: right;
     overflow-x: hidden;
     z-index: 50;
+    height: 10000px;
   }
 
   .labelToggleNav {

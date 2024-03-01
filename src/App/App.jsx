@@ -29,8 +29,8 @@ import Dashboard from "../screens/userpanel/dashboard/Dashboard";
 import CourseList from "../screens/userpanel/CoursesList/CourseList";
 import Exams from "../screens/userpanel/exams/Exams";
 import EditProfile from "../screens/userpanel/editprofile/EditProfile";
-import CartInformation from "../screens/userpanel/cartinformation/CartInformation";
 import Favorites from "../screens/userpanel/Favorites/Favorites";
+import CourseResume from "../screens/userpanel/CourseResume/CourseResume";
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -96,25 +96,18 @@ const App = () => {
           />
           <Route
             path="/courses"
-            index
             element={<Courses items={courses} teachers={teachers} />}
           />
           <Route
             path="/courses/:id"
-            index
             element={<CourseDetail items={courses} teachers={teachers} />}
           ></Route>
-          <Route path="/blogs" index element={<Blogs blogs={blogs} />} />
-          <Route path="/blog-detail" index element={<BlogDetail />} />
-          <Route path="/library" index element={<Library books={books} />} />
-          <Route path="/about-us" index element={<AboutUs />} />
+          <Route path="/blogs" element={<Blogs blogs={blogs} />} />
+          <Route path="/blog-detail" element={<BlogDetail />} />
+          <Route path="/library" element={<Library books={books} />} />
+          <Route path="/about-us" element={<AboutUs />} />
           {isAuth && (
-            <Route
-              path="/cart"
-              index
-              element={<Cart courses={courses} />}
-              // finalizePurchase={finalizePurchase}
-            />
+            <Route path="/cart" element={<Cart courses={courses} />} />
           )}
           <Route path="/contact-us" index element={<ContactUs />} />
           <Route path="/login" element={<Login />} />
@@ -133,14 +126,14 @@ const App = () => {
                 path="/user-panel/edit-profile"
                 element={<EditProfile />}
               />
-              <Route
-                path="/user-panel/cart-info"
-                element={<CartInformation />}
-              />
               <Route path="/user-panel/favorites" element={<Favorites />} />
               <Route
                 path="/user-panel/edit-profile"
                 element={<EditProfile />}
+              />
+              <Route
+                path="/user-panel/student-course-resume"
+                element={<CourseResume />}
               />
             </Route>
           )}

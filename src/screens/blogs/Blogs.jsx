@@ -76,10 +76,9 @@ const Blogs = ({ blogs }) => {
         با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
       </p>
       <div className=" flex justify-between items-center">
-        <div className=" w-3/5">
+        <div className=" w-full px-10">
           <SearchCourses products={blogs} />
         </div>
-        <div>filter</div>
       </div>
       <div className=" flex items-start  justify-between mt-32 gap-7">
         <div
