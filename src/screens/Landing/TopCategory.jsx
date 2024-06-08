@@ -3,7 +3,7 @@ import TopCategoriesSlider from "./TopCategoriesSlider";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-const TopCategory = ({ items }) => {
+const TopCategory = ({ items, isLoading }) => {
   const uniqueCategories = [...new Set(items.map((item) => item.category))];
 
   useEffect(() => {
@@ -12,6 +12,10 @@ const TopCategory = ({ items }) => {
       once: true, // Only play the animation once
     });
   }, []);
+
+  if (isLoading) {
+    return <p>is loading ...</p>;
+  }
 
   return (
     <div

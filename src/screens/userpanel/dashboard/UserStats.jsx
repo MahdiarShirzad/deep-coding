@@ -204,7 +204,7 @@ const UserStats = () => {
           </div>
         </div>
       </div>
-      <Calender />
+      {/* <Calender /> */}
     </div>
   );
 };

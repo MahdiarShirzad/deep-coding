@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import RenderStars from "../../components/RenderStars/RenderStars";
 import CoursePreview from "./CoursePreview";
 import { Link } from "react-router-dom";

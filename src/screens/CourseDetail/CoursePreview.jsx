@@ -54,10 +54,10 @@ const CoursePreview = ({ selectedCourse }) => {
           : "md:fixed top-2 max-2xl:left-[65px] left-[180px] max-lg:block"
       } rounded-lg bg-white text-black w-[350px] shadow-md shadow-gray-100 z-[300] mx-auto mt-16   max-lg:w-[600px] max-md:w-[500px] transition-none`}
     >
-      <div>
+      <div className=" w-full h-48  ">
         <ReactPlayer
           ref={playerRef}
-          className=" w-full rounded-xl"
+          className=" w-full rounded-xl h-full block"
           url={selectedCourse.video}
           playing={isPlaying}
           controls={true}

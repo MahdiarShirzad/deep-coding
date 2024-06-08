@@ -31,6 +31,8 @@ import Exams from "../screens/userpanel/exams/Exams";
 import EditProfile from "../screens/userpanel/editprofile/EditProfile";
 import Favorites from "../screens/userpanel/Favorites/Favorites";
 import CourseResume from "../screens/userpanel/CourseResume/CourseResume";
+import { useQuery } from "@tanstack/react-query";
+import { getCourses } from "../services/apiCourses";
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -55,7 +57,7 @@ const Layout = ({ children }) => {
 
 const App = () => {
   const dispatch = useDispatch();
-  const courses = useSelector((state) => state.data.courses);
+  // const courses = useSelector((state) => state.data.courses);
   const blogs = useSelector((state) => state.data.blogs);
   const teachers = useSelector((state) => state.data.teachers);
   const cartItems = useSelector((state) => state.cart.items);
@@ -74,14 +76,12 @@ const App = () => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  // const finalizePurchase = () => {
-  //   const user = useSelector((state) => state.auth.user);
-  //   const courseIds = cartItems.map((item) => item.itemId);
+  const { data: courses, isLoading } = useQuery({
+    queryKey: ["courses"],
+    queryFn: getCourses,
+  });
 
-  //   user.courses.push(...courseIds);
-
-  //   dispatch();
-  // };
+  console.log(courses);
 
   return (
     <BrowserRouter>
@@ -91,13 +91,15 @@ const App = () => {
             path="/"
             index
             element={
-              <Landing courses={courses} blogs={blogs} teachers={teachers} />
+              <Landing
+                courses={courses}
+                blogs={blogs}
+                teachers={teachers}
+                isLoading={isLoading}
+              />
             }
           />
-          <Route
-            path="/courses"
-            element={<Courses items={courses} teachers={teachers} />}
-          />
+          <Route path="/courses" element={<Courses />} />
           <Route
             path="/courses/:id"
             element={<CourseDetail items={courses} teachers={teachers} />}

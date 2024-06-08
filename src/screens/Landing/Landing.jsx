@@ -9,8 +9,10 @@ import Validity from "./Validity";
 import Enroll from "./Enroll";
 import BlogSection from "./BlogSection";
 import ProgramDownloadSection from "./ProgramDownloadSection";
+import { useQuery } from "@tanstack/react-query";
+import { getCourses } from "../../services/apiCourses";
 
-const Landing = ({ courses, blogs }) => {
+const Landing = ({ blogs }) => {
   useEffect(() => {
     AOS.init({
       duration: 100, // Specify the animation duration
@@ -18,11 +20,34 @@ const Landing = ({ courses, blogs }) => {
     });
   }, []);
 
+  const { data: courses, isLoading } = useQuery({
+    queryKey: ["courses"],
+    queryFn: getCourses,
+  });
+
   return (
     <div className=" mx-auto">
       <Herosection />
-      <TopCourses courses={courses} />
-      <TopCategory items={courses} />
+      {isLoading ? (
+        <p>loading</p>
+      ) : (
+        <>
+          {courses ? (
+            <TopCourses courses={courses} isLoading={isLoading} />
+          ) : (
+            <p>no course found</p>
+          )}
+        </>
+      )}
+      {isLoading ? (
+        <p>loading</p>
+      ) : (
+        <>
+          {courses ? (
+            <TopCategory items={courses} isLoading={isLoading} />
+          ) : null}
+        </>
+      )}
       <>
         <Validity />
         <div className=" w-full flex flex-row-reverse" data-aos="fade-left">

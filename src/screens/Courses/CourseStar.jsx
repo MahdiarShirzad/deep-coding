@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "./accardion.scss";
 import RenderStars from "../../components/RenderStars/RenderStars";
+import { useQuery } from "@tanstack/react-query";
+import { getCourses } from "../../services/apiCourses";
 
-const CourseStar = ({ setPosts, items }) => {
+const CourseStar = ({ setPosts }) => {
+  const { data: items, isLoading } = useQuery({
+    queryKey: ["courses"],
+    queryFn: getCourses,
+  });
+
   const starRanges = [
     { min: 4.5, max: 5 },
     { min: 4, max: 5 },

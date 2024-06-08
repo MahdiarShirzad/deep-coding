@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./accardion.scss";
+import { useQuery } from "@tanstack/react-query";
+import { getCourses } from "../../services/apiCourses";
 
-const CourseCategory = ({ items, setPosts }) => {
+const CourseCategory = ({ setPosts }) => {
+  const { data: items, isLoading } = useQuery({
+    queryKey: ["courses"],
+    queryFn: getCourses,
+  });
+
   const uniqueCategories = [...new Set(items.map((item) => item.category))];
   const [selectedCategory, setSelectedCategory] = useState([]);
 
