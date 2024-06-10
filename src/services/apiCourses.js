@@ -6,7 +6,6 @@ export async function getCourses() {
   if (error) {
     console.log(error);
   }
-  console.log(data);
 
   return data;
 }

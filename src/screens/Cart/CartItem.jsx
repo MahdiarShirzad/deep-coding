@@ -5,19 +5,10 @@ import lectureSvg from "../../assets/images/coursesCards/icons/1.svg";
 import timeSvg from "../../assets/images/coursesCards/icons/2.svg";
 import levelSvg from "../../assets/images/coursesCards/icons/3.svg";
 
-import { removeFromCart } from "../../store/cart";
-
 const CartItem = ({ item }) => {
   const dispatch = useDispatch();
 
-  const handleRemoveFromCart = () => {
-    console.log("Removing from cart:", item);
-    dispatch(
-      removeFromCart({
-        itemIdToRemove: item.id, // استفاده از همان شناسه مشخص (مثلاً `id`)
-      })
-    );
-  };
+  const handleRemoveFromCart = () => {};
 
   const coursePrice = item.price === 0 ? <p>رایگان</p> : item.price;
 

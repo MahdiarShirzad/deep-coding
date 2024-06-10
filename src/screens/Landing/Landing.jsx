@@ -67,7 +67,7 @@ const Landing = ({ blogs }) => {
         </div>
       </>
       <Enroll />
-      <BlogSection blogs={blogs} />
+      {/* <BlogSection blogs={blogs} /> */}
       <ProgramDownloadSection />
     </div>
   );

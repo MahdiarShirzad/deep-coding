@@ -15,13 +15,6 @@ import CourseDetail from "../screens/CourseDetail/CourseDetail";
 import TeachersInfo from "../screens/TeachersInfo/TeachersInfo";
 import BlogDetail from "../screens/BlogDetail/BlogDetail";
 
-import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchCourses,
-  fetchBlogs,
-  fetchTeachers,
-  fetchBooks,
-} from "../store/data";
 import NotFound from "../screens/notfound/NotFound";
 import UserPanel from "../screens/userpanel/UserPanel";
 import Library from "../screens/Library/Library";
@@ -33,6 +26,8 @@ import Favorites from "../screens/userpanel/Favorites/Favorites";
 import CourseResume from "../screens/userpanel/CourseResume/CourseResume";
 import { useQuery } from "@tanstack/react-query";
 import { getCourses } from "../services/apiCourses";
+import { useSelector } from "react-redux";
+import { getTeachers } from "../services/apiTeachers";
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -56,32 +51,17 @@ const Layout = ({ children }) => {
 };
 
 const App = () => {
-  const dispatch = useDispatch();
-  // const courses = useSelector((state) => state.data.courses);
-  const blogs = useSelector((state) => state.data.blogs);
-  const teachers = useSelector((state) => state.data.teachers);
-  const cartItems = useSelector((state) => state.cart.items);
-  const books = useSelector((state) => state.data.books);
-
-  const isAuth = useSelector((state) => state.auth.isAuthenticated);
-
-  useEffect(() => {
-    dispatch(fetchCourses());
-    dispatch(fetchBlogs());
-    dispatch(fetchTeachers());
-    dispatch(fetchBooks());
-  }, [dispatch]);
-
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cartItems));
-  }, [cartItems]);
-
   const { data: courses, isLoading } = useQuery({
     queryKey: ["courses"],
     queryFn: getCourses,
   });
 
-  console.log(courses);
+  const { data: teachers, isLoading: teachersLoading } = useQuery({
+    queryKey: ["teachers"],
+    queryFn: getTeachers,
+  });
+
+  const { user, isAuth } = useSelector((state) => state.user);
 
   return (
     <BrowserRouter>
@@ -93,7 +73,7 @@ const App = () => {
             element={
               <Landing
                 courses={courses}
-                blogs={blogs}
+                // blogs={blogs}
                 teachers={teachers}
                 isLoading={isLoading}
               />
@@ -104,9 +84,9 @@ const App = () => {
             path="/courses/:id"
             element={<CourseDetail items={courses} teachers={teachers} />}
           ></Route>
-          <Route path="/blogs" element={<Blogs blogs={blogs} />} />
+          {/* <Route path="/blogs" element={<Blogs blogs={blogs} />} /> */}
           <Route path="/blog-detail" element={<BlogDetail />} />
-          <Route path="/library" element={<Library books={books} />} />
+          {/* <Route path="/library" element={<Library books={books} />} /> */}
           <Route path="/about-us" element={<AboutUs />} />
           {isAuth && (
             <Route path="/cart" element={<Cart courses={courses} />} />

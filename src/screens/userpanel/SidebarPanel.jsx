@@ -1,13 +1,13 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { authActions } from "../../store/auth";
+// import { authActions } from "../../store/auth";
 import { NavLink } from "react-router-dom";
 
 const SidebarPanel = () => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    dispatch(authActions.logout());
+    // dispatch(authActions.logout());
   };
 
   const activeClass = ({ isActive }) =>

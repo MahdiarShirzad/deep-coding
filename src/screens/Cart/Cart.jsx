@@ -4,7 +4,6 @@ import { Form, Formik } from "formik";
 import CartCheckout from "./CartCheckout";
 
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCourses } from "../../store/data";
 import EmptyCart from "./EmptyCart";
 
 const Cart = ({ courses }) => {
@@ -12,10 +11,6 @@ const Cart = ({ courses }) => {
   const cartItems = useSelector((state) => state.cart.items) || {};
 
   const [showEmptyCart, setShowEmptyCart] = useState(false);
-
-  useEffect(() => {
-    dispatch(fetchCourses());
-  }, [dispatch]);
 
   useEffect(() => {
     const isEmpty = Object.values(cartItems).every(

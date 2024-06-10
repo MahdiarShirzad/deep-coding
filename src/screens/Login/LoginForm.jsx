@@ -1,15 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
-import { authActions } from "../../store/auth";
+import { useLogin } from "./useLogin";
 
 const LoginForm = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const errorMessage = useSelector((state) => state.auth.errorMessage);
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const { login, isPending } = useLogin();
+
+  const [passwordIsVisible, setPasswordIsVisible] = useState(false);
 
   const validation = yup.object().shape({
     username: yup.string().required("لطفاً نام کاربری یا ایمیل را وارد کنید."),
@@ -17,7 +15,13 @@ const LoginForm = () => {
   });
 
   const onSubmit = (values) => {
-    dispatch(authActions.loginUser(values));
+    const { email, password } = values;
+
+    if (!email || !password) {
+      return;
+    }
+
+    login({ email, password });
   };
 
   return (
@@ -74,13 +78,10 @@ const LoginForm = () => {
           >
             ورود
           </button>
+          {isPending && <p>صبر کنید</p>}
         </Form>
       </Formik>
-      {isAuthenticated && !errorMessage && (
-        <div className="text-green-500 text-sm text-center mt-4">
-          با موفقیت وارد شدید.
-        </div>
-      )}
+
       <Link className=" inline-block mt-6 text-sm text-end text-gray-700">
         رمز عبور خود را فراموش کرده اید؟
       </Link>

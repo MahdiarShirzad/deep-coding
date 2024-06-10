@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import Button from "../common/Button/Button";
-import { authActions } from "../../store/auth";
+// import { authActions } from "../../store/auth";
+import { logout } from "../../services/apiAuth";
 
 const HeaderLeft = () => {
   const dispatch = useDispatch();
-  const isAuth = useSelector((state) => state.auth.isAuthenticated);
-  const username = useSelector((state) => state.auth.username);
+  const { user, isAuth } = useSelector((state) => state.user);
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [rotate, setRotate] = useState(0);
-
-  const cartItems = useSelector((state) => state.cart.items) || {};
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
@@ -19,16 +17,8 @@ const HeaderLeft = () => {
   };
 
   const handleLogout = () => {
-    dispatch(authActions.logout());
+    logout();
   };
-
-  useEffect(() => {
-    const savedUser = localStorage.getItem("savedUser");
-    if (savedUser) {
-      const parsedUser = JSON.parse(savedUser);
-      dispatch(authActions.setSavedUser(parsedUser));
-    }
-  }, [dispatch]);
 
   return (
     <div className="flex items-center gap-10 justify-end w-96">
@@ -55,7 +45,7 @@ const HeaderLeft = () => {
                 ></path>{" "}
               </g>
             </svg>
-            {Object.values(cartItems).reduce(
+            {/* {Object.values(cartItems).reduce(
               (total, userCart) => total + userCart.length,
               0
             ) > 0 && (
@@ -65,7 +55,7 @@ const HeaderLeft = () => {
                   0
                 )}
               </div>
-            )}
+            )} */}
           </button>
         </NavLink>
       )}
@@ -108,7 +98,7 @@ const HeaderLeft = () => {
                   ></path>{" "}
                 </g>
               </svg>
-              <p>{username}</p>
+              {/* <p>{username}</p> */}
             </div>
             <svg
               className=" w-[17px] duration-500"

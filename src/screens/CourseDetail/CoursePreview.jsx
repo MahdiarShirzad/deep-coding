@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import ReactPlayer from "react-player";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../store/cart";
 
 const CoursePreview = ({ selectedCourse }) => {
   const dispatch = useDispatch();
@@ -9,7 +8,7 @@ const CoursePreview = ({ selectedCourse }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const playerRef = useRef(null);
 
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const { user, isAuthenticated } = useSelector((state) => state.user);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,26 +24,7 @@ const CoursePreview = ({ selectedCourse }) => {
     };
   }, []);
 
-  const userId = useSelector((state) => state.auth.user && state.auth.user.id);
-
-  const handleAddToCartClick = () => {
-    if (isAuthenticated) {
-      const item = {
-        itemId: selectedCourse.id,
-        img: selectedCourse.img,
-        name: selectedCourse.name,
-        teacher: selectedCourse.teacher,
-        star: selectedCourse.star,
-
-        time: selectedCourse.time,
-        level: selectedCourse.level,
-        price: selectedCourse.price,
-      };
-      dispatch(addToCart({ userId, newItem: item }));
-
-      console.log("adding item ", item);
-    }
-  };
+  const handleAddToCartClick = () => {};
 
   return (
     <div
