@@ -63,6 +63,8 @@ const App = () => {
 
   const { user, isAuth } = useSelector((state) => state.user);
 
+  console.log(isAuth);
+
   return (
     <BrowserRouter>
       <Layout>
