@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./accardion.scss";
 import { useQuery } from "@tanstack/react-query";
 import { getCourses } from "../../services/apiCourses";
+import { useSearchParams } from "react-router-dom";
 
 const CourseCategory = ({ setPosts }) => {
   const { data: items, isLoading } = useQuery({
@@ -9,47 +10,47 @@ const CourseCategory = ({ setPosts }) => {
     queryFn: getCourses,
   });
 
-  const uniqueCategories = [...new Set(items.map((item) => item.category))];
-  const [selectedCategory, setSelectedCategory] = useState([]);
+  const uniqueCategories = [...new Set(items?.map((item) => item.category))];
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedCategoriesFromParams =
+    searchParams.get("categories")?.split(",") || [];
+
+  const [selectedCategory, setSelectedCategory] = useState(
+    selectedCategoriesFromParams
+  );
 
   const handleCategoryToggle = (category) => {
-    if (selectedCategory.includes(category)) {
-      setSelectedCategory(
-        selectedCategory.filter(
+    const newSelectedCategory = selectedCategory.includes(category)
+      ? selectedCategory.filter(
           (selectedCategory) => selectedCategory !== category
         )
-      );
+      : [...selectedCategory, category];
+
+    setSelectedCategory(newSelectedCategory);
+    if (newSelectedCategory.length > 0) {
+      setSearchParams({ categories: newSelectedCategory.join(",") });
     } else {
-      setSelectedCategory([...selectedCategory, category]);
+      setSearchParams({});
     }
   };
 
   useEffect(() => {
     if (selectedCategory.length > 0) {
-      const filteredItems = items.filter((item) =>
+      const filteredItems = items?.filter((item) =>
         selectedCategory.includes(item.category)
       );
       setPosts(filteredItems);
-
-      const counts = {};
-      uniqueCategories.forEach((category) => {
-        const categoryCount = filteredItems.filter(
-          (item) => item.category === category
-        ).length;
-        counts[category] = categoryCount;
-      });
     } else {
       setPosts(items);
-
-      const counts = {};
-      uniqueCategories.forEach((category) => {
-        const categoryCount = items.filter(
-          (item) => item.category === category
-        ).length;
-        counts[category] = categoryCount;
-      });
     }
   }, [selectedCategory, items]);
+
+  useEffect(() => {
+    const newSelectedCategory =
+      searchParams.get("categories")?.split(",") || [];
+    setSelectedCategory(newSelectedCategory);
+  }, [searchParams]);
+
   return (
     <div className="tab mb-4">
       <input type="checkbox" id="chck11" />
@@ -65,6 +66,7 @@ const CourseCategory = ({ setPosts }) => {
                 type="checkbox"
                 name={category}
                 id={category}
+                checked={selectedCategory.includes(category)}
                 onChange={() => handleCategoryToggle(category)}
               />
               <label

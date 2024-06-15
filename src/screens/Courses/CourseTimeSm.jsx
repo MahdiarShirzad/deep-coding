@@ -1,7 +1,21 @@
 import React, { useEffect, useState } from "react";
 import "./accardion.scss";
+import { useSearchParams } from "react-router-dom";
 
-const CourseTimeSm = ({ items, setPosts }) => {
+const CourseTime = ({ items, setPosts }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedTimesFromParams = searchParams.get("times")?.split(",") || [];
+
+  const [selectedTimeRange, setSelectedTimeRange] = useState(
+    selectedTimesFromParams.map((time) => {
+      const [min, max] = time.split("-");
+      return {
+        min: Number(min),
+        max: Number(max) === Infinity ? Infinity : Number(max),
+      };
+    })
+  );
+
   const timeRanges = [
     { min: 0, max: 3 },
     { min: 4, max: 7 },
@@ -9,26 +23,44 @@ const CourseTimeSm = ({ items, setPosts }) => {
     { min: 20, max: Infinity }, // Use Infinity for the last range
   ];
 
-  const [selectedTimeRange, setSelectedTimeRange] = useState([]);
-
   const handleTimeRangeToggle = (min, max) => {
     const isRangeSelected = selectedTimeRange.some(
       (range) => range.min === min && range.max === max
     );
 
+    let newSelectedTimeRange;
+
     if (isRangeSelected) {
-      setSelectedTimeRange(
-        selectedTimeRange.filter(
-          (range) => range.min !== min || range.max !== max
-        )
+      newSelectedTimeRange = selectedTimeRange.filter(
+        (range) => range.min !== min || range.max !== max
       );
     } else {
-      setSelectedTimeRange([...selectedTimeRange, { min, max }]);
+      newSelectedTimeRange = [...selectedTimeRange, { min, max }];
+    }
+
+    setSelectedTimeRange(newSelectedTimeRange);
+
+    if (newSelectedTimeRange.length > 0) {
+      setSearchParams({
+        ...Object.fromEntries(searchParams.entries()),
+        times: newSelectedTimeRange
+          .map(
+            (range) =>
+              `${range.min}-${range.max === Infinity ? "Infinity" : range.max}`
+          )
+          .join(","),
+      });
+    } else {
+      const newParams = new URLSearchParams(searchParams);
+      newParams.delete("times");
+      setSearchParams(newParams);
     }
   };
 
   const applyTimeFilter = () => {
-    let filteredItems = [...items];
+    if (items && items.length > 0) {
+      var filteredItems = [...items];
+    }
 
     if (selectedTimeRange.length > 0) {
       filteredItems = filteredItems.filter((course) =>
@@ -45,12 +77,28 @@ const CourseTimeSm = ({ items, setPosts }) => {
 
   useEffect(() => {
     applyTimeFilter();
-  }, [selectedTimeRange]);
+  }, [selectedTimeRange, items]);
+
+  useEffect(() => {
+    const newSelectedTimeRange = searchParams.get("times")
+      ? searchParams
+          .get("times")
+          .split(",")
+          .map((time) => {
+            const [min, max] = time.split("-");
+            return {
+              min: Number(min),
+              max: max === "Infinity" ? Infinity : Number(max),
+            };
+          })
+      : [];
+    setSelectedTimeRange(newSelectedTimeRange);
+  }, [searchParams]);
 
   return (
     <div className="tab border-t-2">
-      <input type="checkbox" id="chck55" />
-      <label className="tab-label" htmlFor="chck55">
+      <input type="checkbox" id="chck5" />
+      <label className="tab-label" htmlFor="chck5">
         مدت دوره
       </label>
       <div className="tab-content text-sm">
@@ -64,10 +112,13 @@ const CourseTimeSm = ({ items, setPosts }) => {
                 className="checked:accent-zinc-500 w-3 h-3"
                 type="checkbox"
                 name="sortByTime"
-                id={`${min}-${max}5`}
+                id={`${min}-${max}`}
+                checked={selectedTimeRange.some(
+                  (range) => range.min === min && range.max === max
+                )}
                 onChange={() => handleTimeRangeToggle(min, max)}
               />
-              <label htmlFor={`${min}-${max}5`}>
+              <label className=" cursor-pointer" htmlFor={`${min}-${max}`}>
                 {max === Infinity
                   ? `بیشتر از ${min} ساعت`
                   : `${min}-${max} ساعت`}
@@ -80,4 +131,4 @@ const CourseTimeSm = ({ items, setPosts }) => {
   );
 };
 
-export default CourseTimeSm;
+export default CourseTime;

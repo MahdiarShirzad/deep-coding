@@ -1,6 +1,5 @@
 import React from "react";
 import UserStats from "./UserStats";
-import LatestCourses from "./LatestCourses";
 import LatestAnnouncements from "./LatestAnnouncements";
 
 const Dashboard = () => {
@@ -9,7 +8,6 @@ const Dashboard = () => {
       <UserStats />
       <div className=" flex">
         <LatestAnnouncements />
-        <LatestCourses />
       </div>
     </div>
   );

@@ -3,8 +3,15 @@ import BookCard from "../../components/BookCard/BookCard";
 import BooksCategory from "./BooksCategory";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { useQuery } from "@tanstack/react-query";
+import { getBooks } from "../../services/apiBooks";
 
-const Library = ({ books }) => {
+const Library = () => {
+  const { data: books } = useQuery({
+    queryKey: ["books"],
+    queryFn: getBooks,
+  });
+
   const [book, setBook] = useState(books);
 
   useEffect(() => {
@@ -14,7 +21,6 @@ const Library = ({ books }) => {
     });
   }, []);
 
-  console.log(books);
   return (
     <div className=" my-36 font-iransans container max-w-[1320px] mx-auto">
       <h3 className=" mt-36 text-2xl font-medium max-lg:mr-10">کتابخانه</h3>

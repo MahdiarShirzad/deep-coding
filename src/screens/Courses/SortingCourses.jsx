@@ -1,45 +1,58 @@
 import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 const SortingCourses = ({ setPosts, posts, items }) => {
   const [defaultCourses, setDefaultCourses] = useState([]);
-  const [sortingOption, setSortingOption] = useState("");
-  const [selectedOption, setSelectedOption] = useState("پیش فرض");
   const [isOpen, setIsOpen] = useState(false);
 
-  const sortPosts = (sortBy) => {
-    if (sortBy === "محبوبیت") {
-      const sortedPosts = [...posts].sort((a, b) => {
-        const scoreA = parseFloat(a.star);
-        const scoreB = parseFloat(b.star);
-        return scoreB - scoreA;
-      });
-      setPosts(sortedPosts);
-    }
-    // if (sortBy === "جدید ترین") {
-    //   sortedPosts = sortedPosts.sort(
-    //     (a, b) => new Date(b.date) - new Date(a.date)
-    //   );
-    //   setPosts(sortedPosts);
-    // }
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sortingOptionFromParams = searchParams.get("sortBy") || "پیش فرض";
+  const [sortingOption, setSortingOption] = useState(sortingOptionFromParams);
 
-    setSortingOption(sortBy);
+  const sortPosts = (sortBy) => {
+    let sortedPosts = [...posts];
+    switch (sortBy) {
+      case "محبوبیت":
+        sortedPosts.sort((a, b) => parseFloat(b.star) - parseFloat(a.star));
+        break;
+      case "جدید ترین":
+        sortedPosts.sort(
+          (a, b) => new Date(b.created_at) - new Date(a.created_at)
+        );
+        break;
+      case "قیمت از کم به زیاد":
+        sortedPosts.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+        break;
+      case "قیمت از زیاد به کم":
+        sortedPosts.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+        break;
+      default:
+        sortedPosts = [...defaultCourses];
+        break;
+    }
+    setPosts(sortedPosts);
   };
 
   const resetToDefault = () => {
     setPosts(defaultCourses);
     setSortingOption("پیش فرض");
-    setSelectedOption("پیش فرض");
+    setSearchParams((params) => {
+      params.delete("sortBy");
+      return params;
+    });
     setIsOpen(false);
   };
 
   useEffect(() => {
     setDefaultCourses(items);
-    setSortingOption("");
-  }, [items]);
+    if (sortingOption) {
+      sortPosts(sortingOption);
+    }
+  }, [items, sortingOption]);
 
   const handleSort = (sortBy) => {
-    sortPosts(sortBy);
-    setSelectedOption(sortBy);
+    setSortingOption(sortBy);
+    setSearchParams({ ...Object.fromEntries(searchParams.entries()), sortBy });
     setIsOpen(false);
   };
 
@@ -52,13 +65,13 @@ const SortingCourses = ({ setPosts, posts, items }) => {
       <div>
         <button
           type="button"
-          className="inline-flex justify-end gap-2  rounded-md border border-gray-300 shadow-sm bg-gray-200 w-36 px-4 py-2 text-sm font-medium  focus:outline-none focus:border-blue-300  focus:ring-0"
+          className="inline-flex justify-end gap-2  rounded-md border border-gray-300 shadow-sm bg-gray-200 w-40 text-right px-4 py-2 text-sm font-medium  focus:outline-none focus:border-blue-300  focus:ring-0"
           id="options-menu"
           aria-expanded={isOpen}
           aria-haspopup="true"
           onClick={toggleDropdown}
         >
-          {selectedOption}
+          {sortingOption}
           <svg
             className="w-4"
             viewBox="0 0 24 24"
@@ -96,22 +109,41 @@ const SortingCourses = ({ setPosts, posts, items }) => {
             >
               پیش فرض
             </li>
-
             <li
               onClick={() => handleSort("محبوبیت")}
               className={`block px-4 py-2 text-sm  hover:bg-gray-500 rounded-lg cursor-pointer ${
-                selectedOption === "محبوبیت" ? "bg-gray-600 text-white" : ""
-              } `}
+                sortingOption === "محبوبیت" ? "bg-gray-600 text-white" : ""
+              }`}
             >
               محبوبیت
             </li>
             <li
               onClick={() => handleSort("جدید ترین")}
               className={`block px-4 py-2 text-sm  hover:bg-gray-500 rounded-lg cursor-pointer ${
-                selectedOption === "جدید ترین" ? "bg-gray-600 text-white" : ""
-              } `}
+                sortingOption === "جدید ترین" ? "bg-gray-600 text-white" : ""
+              }`}
             >
               جدید ترین
+            </li>
+            <li
+              onClick={() => handleSort("قیمت از کم به زیاد")}
+              className={`block px-4 py-2 text-sm  hover:bg-gray-500 rounded-lg cursor-pointer ${
+                sortingOption === "قیمت از کم به زیاد"
+                  ? "bg-gray-600 text-white"
+                  : ""
+              }`}
+            >
+              قیمت از کم به زیاد
+            </li>
+            <li
+              onClick={() => handleSort("قیمت از زیاد به کم")}
+              className={`block px-4 py-2 text-sm  hover:bg-gray-500 rounded-lg cursor-pointer ${
+                sortingOption === "قیمت از زیاد به کم"
+                  ? "bg-gray-600 text-white"
+                  : ""
+              }`}
+            >
+              قیمت از زیاد به کم
             </li>
           </ul>
         </div>

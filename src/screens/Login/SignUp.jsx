@@ -29,7 +29,7 @@ const SignUp = () => {
         </Link>
         <img src={login} alt="" />
       </div>
-      <div className="bg-blue-100 my-20 w-3/5 flex justify-center items-center font-iransans max-lg:w-full">
+      <div className="bg-sky-600 my-20 w-3/5 flex justify-center items-center font-iransans max-lg:w-full">
         <LoginHeader />
         {windowWidth <= 1024 && <Header />}
         <SignUPForm />

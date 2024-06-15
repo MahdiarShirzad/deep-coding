@@ -14,7 +14,7 @@ const Login = () => {
         </Link>
         <img className=" w-[200px" src={login} alt="" />
       </div>
-      <div className=" bg-sky-900 w-3/5 max-lg:w-full flex justify-center items-center font-iransans">
+      <div className=" bg-sky-600 w-3/5 max-lg:w-full flex justify-center items-center font-iransans">
         <LoginHeader />
         <LoginForm />
       </div>

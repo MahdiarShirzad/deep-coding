@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Landing from "../screens/Landing/Landing";
 import Header from "../components/Header/Header";
@@ -51,46 +51,38 @@ const Layout = ({ children }) => {
 };
 
 const App = () => {
-  const { data: courses, isLoading } = useQuery({
+  const { data: courses, isPending: coursesLoading } = useQuery({
     queryKey: ["courses"],
     queryFn: getCourses,
   });
 
-  const { data: teachers, isLoading: teachersLoading } = useQuery({
+  const { data: teachers } = useQuery({
     queryKey: ["teachers"],
     queryFn: getTeachers,
   });
 
-  const { user, isAuth } = useSelector((state) => state.user);
+  const { isAuthenticated } = useSelector((state) => state.user);
 
-  console.log(isAuth);
+  console.log(isAuthenticated);
 
   return (
     <BrowserRouter>
       <Layout>
         <Routes>
+          <Route path="/" index element={<Landing />} />
           <Route
-            path="/"
-            index
-            element={
-              <Landing
-                courses={courses}
-                // blogs={blogs}
-                teachers={teachers}
-                isLoading={isLoading}
-              />
-            }
+            path="/courses"
+            element={<Courses courses={courses} isLoading={coursesLoading} />}
           />
-          <Route path="/courses" element={<Courses />} />
           <Route
             path="/courses/:id"
             element={<CourseDetail items={courses} teachers={teachers} />}
           ></Route>
-          {/* <Route path="/blogs" element={<Blogs blogs={blogs} />} /> */}
+          <Route path="/blogs" element={<Blogs />} />
           <Route path="/blog-detail" element={<BlogDetail />} />
-          {/* <Route path="/library" element={<Library books={books} />} /> */}
+          <Route path="/library" element={<Library />} />
           <Route path="/about-us" element={<AboutUs />} />
-          {isAuth && (
+          {isAuthenticated && (
             <Route path="/cart" element={<Cart courses={courses} />} />
           )}
           <Route path="/contact-us" index element={<ContactUs />} />
@@ -101,7 +93,7 @@ const App = () => {
             index
             element={<TeachersInfo teachers={teachers} courses={courses} />}
           />
-          {isAuth && (
+          {isAuthenticated && (
             <Route path="/user-panel" element={<UserPanel />}>
               <Route path="/user-panel/dashboard" element={<Dashboard />} />
               <Route path="/user-panel/course-list" element={<CourseList />} />

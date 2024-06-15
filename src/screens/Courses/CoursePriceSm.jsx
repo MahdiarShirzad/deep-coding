@@ -16,7 +16,9 @@ const CoursePriceSm = ({ items, setPosts }) => {
   };
 
   const applyPriceFilter = () => {
-    let filteredItems = [...items];
+    if (items && items.length > 0) {
+      var filteredItems = [...items];
+    }
 
     if (selectedPriceType.includes("پولی")) {
       filteredItems = filteredItems.filter((course) => course.price !== 0);

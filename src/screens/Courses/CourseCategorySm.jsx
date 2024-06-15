@@ -1,52 +1,60 @@
 import React, { useEffect, useState } from "react";
 import "./accardion.scss";
+import { useQuery } from "@tanstack/react-query";
+import { getCourses } from "../../services/apiCourses";
+import { useSearchParams } from "react-router-dom";
 
-const CourseCategorySm = ({ items, setPosts }) => {
-  const uniqueCategories = [...new Set(items.map((item) => item.category))];
-  const [selectedCategory, setSelectedCategory] = useState([]);
+const CourseCategory = ({ setPosts }) => {
+  const { data: items, isLoading } = useQuery({
+    queryKey: ["courses"],
+    queryFn: getCourses,
+  });
+
+  const uniqueCategories = [...new Set(items?.map((item) => item.category))];
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedCategoriesFromParams =
+    searchParams.get("categories")?.split(",") || [];
+
+  const [selectedCategory, setSelectedCategory] = useState(
+    selectedCategoriesFromParams
+  );
 
   const handleCategoryToggle = (category) => {
-    if (selectedCategory.includes(category)) {
-      setSelectedCategory(
-        selectedCategory.filter(
+    const newSelectedCategory = selectedCategory.includes(category)
+      ? selectedCategory.filter(
           (selectedCategory) => selectedCategory !== category
         )
-      );
+      : [...selectedCategory, category];
+
+    setSelectedCategory(newSelectedCategory);
+    if (newSelectedCategory.length > 0) {
+      setSearchParams({ categories: newSelectedCategory.join(",") });
     } else {
-      setSelectedCategory([...selectedCategory, category]);
+      setSearchParams({});
     }
   };
 
   useEffect(() => {
     if (selectedCategory.length > 0) {
-      const filteredItems = items.filter((item) =>
+      const filteredItems = items?.filter((item) =>
         selectedCategory.includes(item.category)
       );
       setPosts(filteredItems);
-
-      const counts = {};
-      uniqueCategories.forEach((category) => {
-        const categoryCount = filteredItems.filter(
-          (item) => item.category === category
-        ).length;
-        counts[category] = categoryCount;
-      });
     } else {
       setPosts(items);
-
-      const counts = {};
-      uniqueCategories.forEach((category) => {
-        const categoryCount = items.filter(
-          (item) => item.category === category
-        ).length;
-        counts[category] = categoryCount;
-      });
     }
   }, [selectedCategory, items]);
+
+  useEffect(() => {
+    const newSelectedCategory =
+      searchParams.get("categories")?.split(",") || [];
+    setSelectedCategory(newSelectedCategory);
+  }, [searchParams]);
+
   return (
     <div className="tab mb-4">
-      <input type="checkbox" id="chck1" />
-      <label className="tab-label" htmlFor="chck1">
+      <input type="checkbox" id="chck11" />
+      <label className="tab-label" htmlFor="chck11">
         دسته بندی ها
       </label>
       <div className="tab-content text-sm">
@@ -57,12 +65,13 @@ const CourseCategorySm = ({ items, setPosts }) => {
                 className="checked:accent-gray-800 rounded-full w-3 h-4 cursor-pointer"
                 type="checkbox"
                 name={category}
-                id={`${category}1`}
+                id={category}
+                checked={selectedCategory.includes(category)}
                 onChange={() => handleCategoryToggle(category)}
               />
               <label
                 className="text-gray-800 cursor-pointer"
-                htmlFor={`${category}1`}
+                htmlFor={category}
               >
                 {category}
               </label>
@@ -74,4 +83,4 @@ const CourseCategorySm = ({ items, setPosts }) => {
   );
 };
 
-export default CourseCategorySm;
+export default CourseCategory;

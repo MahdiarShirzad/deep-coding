@@ -1,7 +1,6 @@
 import React from "react";
 import UserPanelAvatar from "./UserPanelAvatar";
 import SidebarPanel from "./SidebarPanel";
-import Dashboard from "./dashboard/Dashboard";
 import { Outlet } from "react-router-dom";
 
 const UserPanel = () => {

@@ -1,11 +1,10 @@
 import React from "react";
-import Calender from "./Calender";
 
 const UserStats = () => {
   return (
-    <div className=" w-full flex gap-8 h-[370px]">
-      <div className=" flex flex-wrap justify-between w-full">
-        <div className=" w-[290px] h-[140px] bg-orange-100  py-6 gap-3 rounded-lg flex justify-between px-20 items-center">
+    <div className=" w-full flex gap-8 ">
+      <div className=" flex  justify-between w-full gap-12">
+        <div className=" w-1/3 h-[140px] bg-orange-100  py-6 gap-3 rounded-lg flex justify-between px-20 items-center">
           <svg
             className="w-[60px]"
             viewBox="0 0 24 24"
@@ -33,7 +32,7 @@ const UserStats = () => {
             <p className="text-center mt-1">دوره</p>
           </div>
         </div>
-        <div className=" w-[290px] h-[140px] bg-purple-100 flex rounded-lg justify-center px- items-center">
+        <div className=" w-1/3 h-[140px] bg-purple-100 flex rounded-lg justify-center px- items-center">
           <svg
             className=" w-[60px] "
             viewBox="0 0 24 24"
@@ -61,51 +60,7 @@ const UserStats = () => {
             <p className="text-center mt-1">با deep-coding</p>
           </div>
         </div>
-        <div className=" w-[290px] h-[140px] bg-lime-300 flex rounded-lg justify-center px- items-center text-lime-800 ">
-          <svg
-            className="w-[60px]"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-            <g
-              id="SVGRepo_tracerCarrier"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            ></g>
-            <g id="SVGRepo_iconCarrier">
-              {" "}
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="#2A5E1A"
-                stroke-width="1.5"
-              ></circle>{" "}
-              <path
-                d="M12 6V18"
-                stroke="#2A5E1A"
-                stroke-width="1.5"
-                stroke-linecap="round"
-              ></path>{" "}
-              <path
-                d="M15 9.5C15 8.11929 13.6569 7 12 7C10.3431 7 9 8.11929 9 9.5C9 10.8807 10.3431 12 12 12C13.6569 12 15 13.1193 15 14.5C15 15.8807 13.6569 17 12 17C10.3431 17 9 15.8807 9 14.5"
-                stroke="#2A5E1A"
-                stroke-width="1.5"
-                stroke-linecap="round"
-              ></path>{" "}
-            </g>
-          </svg>
-          <div className=" text-lg">
-            <p className="text-center">موجودی :</p>
-            <div className="flex items-center gap-2">
-              <p className="font-bold text-center">3 میلیون</p>
-              <p className="text-center">تومان</p>
-            </div>
-          </div>
-        </div>{" "}
-        <div className=" w-[290px] h-[140px] bg-cyan-300 flex rounded-lg justify-center gap-3 items-center text-cyan-800 ">
+        <div className=" w-1/3 h-[140px] bg-cyan-300 flex rounded-lg justify-center gap-3 items-center text-cyan-800 ">
           <svg
             className="w-[60px]"
             fill="#3f7273"
@@ -204,7 +159,6 @@ const UserStats = () => {
           </div>
         </div>
       </div>
-      {/* <Calender /> */}
     </div>
   );
 };

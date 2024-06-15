@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import CourseCard from "../../components/CourseCard/CourseCard";
 import CourseCategory from "./CourseCategory";
 import CourseStar from "./CourseStar";
-import CoursePrice from "./CoursePrice";
 import CourseTime from "./CourseTime";
 import CourseLevel from "./CourseLevel";
 import Pagination from "../../components/Pagination/Pagination";
@@ -18,14 +17,21 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { useQuery } from "@tanstack/react-query";
 import { getCourses } from "../../services/apiCourses";
+import { Spinner } from "../../components/Spinner/Spinner";
 
-const Courses = () => {
-  const { data: courses, isLoading } = useQuery({
+const Courses = ({}) => {
+  const { data: courses, isPending: isLoading } = useQuery({
     queryKey: ["courses"],
     queryFn: getCourses,
   });
 
-  const [posts, setPosts] = useState(courses);
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    if (courses) {
+      setPosts(courses);
+    }
+  }, [courses]);
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,6 +39,7 @@ const Courses = () => {
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = posts?.slice(indexOfFirstPost, indexOfLastPost);
+
   useEffect(() => {
     AOS.init({
       duration: 1200,
@@ -46,63 +53,75 @@ const Courses = () => {
       <p className="mt-4 max-lg:mr-10">
         با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
       </p>
-      {!isLoading ? <SearchCourses products={courses} /> : null}
+      {posts && posts.length > 0 && (
+        <>{!isLoading ? <SearchCourses products={courses} /> : null}</>
+      )}
       {isLoading ? (
-        <p>Loading</p>
+        <Spinner />
       ) : (
         <div className="flex items-start justify-between mt-24 gap-8">
-          <div className={`w-1/4 max-lg:hidden max-xl:mr-10 `}>
-            <CourseCategory setPosts={setPosts} />
-            <CourseStar setPosts={setPosts} items={posts} />
-            <CoursePrice items={posts} setPosts={setPosts} />
-            <CourseLevel setPosts={setPosts} items={posts} />
-            <CourseTime items={posts} setPosts={setPosts} />
-          </div>
+          {posts && posts.length > 0 && (
+            <div className={`w-1/4 max-lg:hidden max-xl:mr-10 `}>
+              <CourseCategory setPosts={setPosts} />
+              <CourseStar setPosts={setPosts} items={courses} />
+              <CourseLevel setPosts={setPosts} items={courses} />
+              <CourseTime items={courses} setPosts={setPosts} />
+            </div>
+          )}
           <div className=" w-4/5 max-lg:mx-auto max-lg:w-full">
-            <div className=" flex items-center justify-between lg:px-10">
-              <p className="text-gray-600 text-sm">
-                نمایش
-                <span className=" text-gray-800 font-semibold ml-2 mr-3 ">
-                  {posts?.length}
-                </span>
-                نتیجه
-              </p>
-              <div className=" flex gap-3 items-center">
-                <p className=" text-gray-600 text-sm">مرتب سازی :</p>
-                <div>
-                  <div className="relative inline-block text-left">
-                    <SortingCourses
-                      setPosts={setPosts}
-                      posts={posts}
-                      items={courses}
-                    />
+            {posts && posts.length > 0 && (
+              <div className=" flex items-center justify-between gap-1 lg:px-10">
+                <p className="text-gray-600 text-sm">
+                  <span> نمایش</span>
+                  {courses && (
+                    <span className=" text-gray-800 font-semibold ml-2 mr-3 ">
+                      {posts?.length}
+                    </span>
+                  )}
+                  <span> نتیجه</span>
+                </p>
+
+                <div className=" flex gap-3 items-center">
+                  <p className=" text-gray-600 text-sm">مرتب سازی :</p>
+                  <div>
+                    <div className="relative inline-block text-left">
+                      <SortingCourses
+                        setPosts={setPosts}
+                        posts={posts}
+                        items={courses}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
             <div>
               <div
                 className=" min-h-[700px] flex items-start justify-start lg:gap-5 max-xl:justify-between max-xl:px-32 px-5 flex-wrap mt-7 max-lg:justify-center max-lg:gap-12 max-xl:mx-auto"
                 data-aos="fade-left"
               >
-                {courses ? (
+                {posts && posts.length > 0 ? (
                   <>
                     {currentPosts?.map((course, index) => (
                       <CourseCard key={index} posts={course} />
                     ))}
                   </>
                 ) : (
-                  <p>no course found</p>
+                  <p className="text-center w-full mt-20 text-3xl">
+                    دوره ای یافت نشد !
+                  </p>
                 )}
               </div>
-              <div className="flex items-center justify-center">
-                <Pagination
-                  setCurrentPage={setCurrentPage}
-                  postsPerPage={postsPerPage}
-                  totalPosts={posts?.length}
-                  currentPage={currentPage}
-                />
-              </div>
+              {posts && posts.length > 0 && (
+                <div className="flex items-center justify-center">
+                  <Pagination
+                    setCurrentPage={setCurrentPage}
+                    postsPerPage={postsPerPage}
+                    totalPosts={posts?.length}
+                    currentPage={currentPage}
+                  />
+                </div>
+              )}
             </div>
           </div>
           <div className=" lg:hidden fixed bottom-10 left-5 bg-[#140342] p-4 text-white rounded-full">
@@ -135,15 +154,16 @@ const Courses = () => {
                 </g>
               </svg>
             </label>
-            <ul
-              className={`w-[350px]  lg:hidden overflow-scroll z-20 ${styles.listFilter} ${styles.toggleX} min-h-[700px]`}
-            >
-              <CourseCategorySm items={courses} setPosts={setPosts} />
-              <CourseStarSm setPosts={setPosts} items={posts} />
-              <CoursePriceSm items={posts} setPosts={setPosts} />
-              <CourseLevelSm setPosts={setPosts} items={posts} />
-              <CourseTimeSm items={posts} setPosts={setPosts} />
-            </ul>
+            {posts && posts.length > 0 && (
+              <ul
+                className={`w-[350px]  lg:hidden overflow-scroll z-20 ${styles.listFilter} ${styles.toggleX} min-h-[700px]`}
+              >
+                <CourseCategorySm items={courses} setPosts={setPosts} />
+                <CourseStarSm setPosts={setPosts} items={posts} />
+                <CourseLevelSm setPosts={setPosts} items={posts} />
+                <CourseTimeSm items={posts} setPosts={setPosts} />
+              </ul>
+            )}
           </div>
         </div>
       )}

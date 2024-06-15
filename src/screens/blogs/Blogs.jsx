@@ -1,28 +1,35 @@
 import React, { useEffect, useState } from "react";
 import BlogCard from "../../components/common/BlogCard/BlogCard";
-import BlogCategory from "./BlogCategory";
-import LastBlogs from "./LastBlogs";
+// import BlogCategory from "./BlogCategory";
+// import LastBlogs from "./LastBlogs";
 import SearchCourses from "../../components/SearchCourses/SearchCourses";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { useQuery } from "@tanstack/react-query";
+import { getBlogs } from "../../services/apiBlogs";
 
-const Blogs = ({ blogs }) => {
+const Blogs = () => {
+  const { data: blogs } = useQuery({
+    queryKey: ["blogs"],
+    queryFn: getBlogs,
+  });
+
   const [blog, setBlog] = useState(blogs);
-  const blogCategories = [...new Set(blogs.map((blog) => blog.category))];
+  // const blogCategories = [...new Set(blogs.map((blog) => blog.category))];
 
   const [selectedCategory, setSelectedCategory] = useState([]);
 
-  const handleCategoryToggle = (category) => {
-    if (selectedCategory.includes(category)) {
-      setSelectedCategory(
-        selectedCategory.filter(
-          (selectedCategory) => selectedCategory !== category
-        )
-      );
-    } else {
-      setSelectedCategory([...selectedCategory, category]);
-    }
-  };
+  // const handleCategoryToggle = (category) => {
+  //   if (selectedCategory.includes(category)) {
+  //     setSelectedCategory(
+  //       selectedCategory.filter(
+  //         (selectedCategory) => selectedCategory !== category
+  //       )
+  //     );
+  //   } else {
+  //     setSelectedCategory([...selectedCategory, category]);
+  //   }
+  // };
 
   useEffect(() => {
     if (selectedCategory.length > 0) {
@@ -35,32 +42,32 @@ const Blogs = ({ blogs }) => {
     }
   }, [selectedCategory, blogs]);
 
-  const [visibleBlogs, setVisibleBlogs] = useState(15);
-  const [loading, setLoading] = useState(false);
+  // const [visibleBlogs, setVisibleBlogs] = useState(15);
+  // const [loading, setLoading] = useState(false);
 
-  const loadMoreBlogs = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setVisibleBlogs((prevVisibleBlogs) => prevVisibleBlogs + 15);
-      setLoading(false);
-    }, 2000);
-  };
+  // const loadMoreBlogs = () => {
+  //   setLoading(true);
+  //   setTimeout(() => {
+  //     setVisibleBlogs((prevVisibleBlogs) => prevVisibleBlogs + 15);
+  //     setLoading(false);
+  //   }, 2000);
+  // };
 
-  const handleScroll = () => {
-    const footerTopPosition = document
-      .querySelector("footer")
-      .getBoundingClientRect().top;
-    const windowHeight = window.innerHeight;
+  // const handleScroll = () => {
+  //   const footerTopPosition = document
+  //     .querySelector("footer")
+  //     .getBoundingClientRect().top;
+  //   const windowHeight = window.innerHeight;
 
-    if (footerTopPosition < windowHeight && !loading) {
-      loadMoreBlogs();
-    }
-  };
+  //   if (footerTopPosition < windowHeight && !loading) {
+  //     loadMoreBlogs();
+  //   }
+  // };
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [visibleBlogs, loading]);
+  // useEffect(() => {
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, [visibleBlogs, loading]);
 
   useEffect(() => {
     AOS.init({

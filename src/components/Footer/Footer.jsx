@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "../../assets/images/general/logo-pure-white.svg";
 import namad from "../../assets/images/footer/footer-nashr.png";
 import namad2 from "../../assets/images/footer/footer-samandehi.png";
 import namad3 from "../../assets/images/footer/footer-sep.png";

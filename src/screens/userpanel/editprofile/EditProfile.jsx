@@ -21,22 +21,6 @@ const EditProfile = () => {
         </div>
         <div className=" flex flex-wrap justify-between mt-8">
           <div className=" flex flex-col gap-2 my-3">
-            <label htmlFor="">نام</label>
-            <input
-              className=" border w-[450px] py-3 rounded-lg px-3"
-              type="text"
-              value="مهدیار"
-            />
-          </div>
-          <div className=" flex flex-col gap-2 my-3">
-            <label htmlFor="">نام خانوادگی</label>
-            <input
-              className="border w-[450px] py-3 rounded-lg px-3"
-              type="text"
-              value="شیرزاد"
-            />
-          </div>
-          <div className=" flex flex-col gap-2 my-3">
             <label htmlFor="">نام کاربری</label>
             <input
               className=" border w-[450px] py-3 rounded-lg px-3"

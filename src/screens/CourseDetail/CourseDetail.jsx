@@ -9,8 +9,8 @@ import CourseHeadline from "./CourseHeadline";
 import { useQuery } from "@tanstack/react-query";
 import { getCourses } from "../../services/apiCourses";
 
-const CourseDetail = ({ items, teachers }) => {
-  const { data: courses, isLoading } = useQuery({
+const CourseDetail = ({ teachers }) => {
+  const { data: courses } = useQuery({
     queryKey: ["courses"],
     queryFn: getCourses,
   });

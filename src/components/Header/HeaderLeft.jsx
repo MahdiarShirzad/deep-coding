@@ -2,18 +2,20 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import Button from "../common/Button/Button";
+import { useLogout } from "../../screens/Login/useLogout";
 // import { authActions } from "../../store/auth";
-import { logout } from "../../services/apiAuth";
+// import { logout } from "../../services/apiAuth";
 
 const HeaderLeft = () => {
   const dispatch = useDispatch();
-  const { user, isAuth } = useSelector((state) => state.user);
+  const { user, isAuthenticated } = useSelector((state) => state.user);
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [rotate, setRotate] = useState(0);
 
+  const { logout } = useLogout();
+
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
-    setRotate(dropdownVisible ? 0 : 180);
   };
 
   const handleLogout = () => {
@@ -22,7 +24,7 @@ const HeaderLeft = () => {
 
   return (
     <div className="flex items-center gap-10 justify-end w-96">
-      {isAuth && (
+      {isAuthenticated && (
         <NavLink to="/cart">
           <button className=" bg-gray-100 p-2 rounded-full relative">
             <svg
@@ -59,7 +61,7 @@ const HeaderLeft = () => {
           </button>
         </NavLink>
       )}
-      {!isAuth && (
+      {!isAuthenticated && (
         <>
           <NavLink to="/login">
             <button>ورود</button>
@@ -69,11 +71,11 @@ const HeaderLeft = () => {
           </NavLink>
         </>
       )}
-      {isAuth && (
+      {isAuthenticated && (
         <div className="relative">
           <div
             onClick={toggleDropdown}
-            className=" bg-zinc-100 px-5 min-w-[200px] py-1 rounded-full flex items-center justify-between cursor-pointer duration-500"
+            className=" bg-zinc-100 px-5 min-w-[250px] py-1 rounded-full flex items-center justify-between cursor-pointer duration-500"
           >
             <div className=" flex items-center gap-2">
               <svg
@@ -98,7 +100,7 @@ const HeaderLeft = () => {
                   ></path>{" "}
                 </g>
               </svg>
-              {/* <p>{username}</p> */}
+              <p>{user.user.user_metadata.fullName}</p>
             </div>
             <svg
               className=" w-[17px] duration-500"
@@ -252,9 +254,9 @@ const HeaderLeft = () => {
                   </svg>
                   <p>داشبورد</p>
                 </NavLink>
-                <button
+                <div
                   onClick={handleLogout}
-                  className=" w-full flex items-center gap-2 text-right px-4 py-2 text-red-600 hover:bg-gray-200 rounded-md"
+                  className=" w-full flex cursor-pointer items-center gap-2 text-right px-4 py-2 text-red-600 hover:bg-gray-200 rounded-md"
                 >
                   <svg
                     className=" w-[25px]"
@@ -327,7 +329,7 @@ const HeaderLeft = () => {
                     </g>
                   </svg>
                   <p>خروج</p>
-                </button>
+                </div>
               </div>
             )}
           </>

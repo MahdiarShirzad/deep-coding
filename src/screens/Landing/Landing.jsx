@@ -11,8 +11,10 @@ import BlogSection from "./BlogSection";
 import ProgramDownloadSection from "./ProgramDownloadSection";
 import { useQuery } from "@tanstack/react-query";
 import { getCourses } from "../../services/apiCourses";
+import { Spinner } from "../../components/Spinner/Spinner";
+import { getBlogs } from "../../services/apiBlogs";
 
-const Landing = ({ blogs }) => {
+const Landing = () => {
   useEffect(() => {
     AOS.init({
       duration: 100, // Specify the animation duration
@@ -25,22 +27,29 @@ const Landing = ({ blogs }) => {
     queryFn: getCourses,
   });
 
+  const { data: blogs, isLoading: blogLoading } = useQuery({
+    queryKey: ["blogs"],
+    queryFn: getBlogs,
+  });
+
   return (
     <div className=" mx-auto">
       <Herosection />
       {isLoading ? (
-        <p>loading</p>
+        <Spinner />
       ) : (
         <>
           {courses ? (
             <TopCourses courses={courses} isLoading={isLoading} />
           ) : (
-            <p>no course found</p>
+            <p className="text-center font-iransans my-20 text-xl">
+              دوره ای یافت نشد !
+            </p>
           )}
         </>
       )}
       {isLoading ? (
-        <p>loading</p>
+        <p></p>
       ) : (
         <>
           {courses ? (
@@ -50,7 +59,7 @@ const Landing = ({ blogs }) => {
       )}
       <>
         <Validity />
-        <div className=" w-full flex flex-row-reverse" data-aos="fade-left">
+        <div className=" w-full flex flex-row-reverse " data-aos="fade-left">
           <svg
             class="img-svg"
             viewBox="0 0 1925 261"
@@ -67,7 +76,19 @@ const Landing = ({ blogs }) => {
         </div>
       </>
       <Enroll />
-      {/* <BlogSection blogs={blogs} /> */}
+      {blogLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          {blogs ? (
+            <BlogSection blogs={blogs} />
+          ) : (
+            <p className="text-center font-iransans my-20 text-xl">
+              بلاگ یافت نشد !
+            </p>
+          )}
+        </>
+      )}
       <ProgramDownloadSection />
     </div>
   );

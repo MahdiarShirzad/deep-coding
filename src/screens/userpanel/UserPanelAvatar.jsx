@@ -4,7 +4,8 @@ import avatar from "../../assets/images//userpanel/avatar.jpg";
 import { useSelector } from "react-redux";
 
 const UserPanelAvatar = () => {
-  const username = useSelector((state) => state.auth.username);
+  const { user, isAuthenticated } = useSelector((state) => state.user);
+
   return (
     <div className=" bg-[url('assets/images/pattern/04.png')] bg-cover bg-slate-700	flex bg h-[230px] py-6">
       <div className=" container max-w-[1320px] mx-auto flex items-center gap-6 ">
@@ -13,7 +14,7 @@ const UserPanelAvatar = () => {
         </div>
         <div>
           <div className="flex text-4xl gap-2 font-bold text-white">
-            <p>{username}</p>
+            <p>{user.user.user_metadata.fullName}</p>
             <p>عزیز</p>
           </div>
           <p className="text-white mt-3">خوش آمدید ...!</p>

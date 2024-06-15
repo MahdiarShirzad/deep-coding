@@ -21,8 +21,8 @@ const Herosection = () => {
   }, []);
 
   return (
-    <div data-aos="fade-left">
-      <div className="bg-[url('assets/images/home-6/hero/bg.png')] bg-no-repeat absolute -z-20   w-full right-0 h-[780px]"></div>
+    <div className=" relative" data-aos="fade-left">
+      <div className="bg-[url('assets/images/home-6/hero/bg.png')] bg-no-repeat absolute -z-20  bg-cover w-full  h-[780px]"></div>
       <div className="flex  items-center py-20 px-10 font-iransans z-20 max-w-[1320px]  container mx-auto">
         <div className="w-1/2 max-lg:mr-20 max-lg:w-3/4 max-lg:mt-16">
           <h1 className="text-4xl font-extrabold leading-[60px] text-right">
