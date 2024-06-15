@@ -9,27 +9,19 @@ import { useQuery } from "@tanstack/react-query";
 import { getBlogs } from "../../services/apiBlogs";
 
 const Blogs = () => {
-  const { data: blogs } = useQuery({
+  const { data: blogs, isLoading } = useQuery({
     queryKey: ["blogs"],
     queryFn: getBlogs,
   });
 
-  const [blog, setBlog] = useState(blogs);
-  // const blogCategories = [...new Set(blogs.map((blog) => blog.category))];
-
+  const [blog, setBlog] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState([]);
 
-  // const handleCategoryToggle = (category) => {
-  //   if (selectedCategory.includes(category)) {
-  //     setSelectedCategory(
-  //       selectedCategory.filter(
-  //         (selectedCategory) => selectedCategory !== category
-  //       )
-  //     );
-  //   } else {
-  //     setSelectedCategory([...selectedCategory, category]);
-  //   }
-  // };
+  useEffect(() => {
+    if (blogs) {
+      setBlog(blogs);
+    }
+  }, [blogs]);
 
   useEffect(() => {
     if (selectedCategory.length > 0) {
@@ -42,33 +34,6 @@ const Blogs = () => {
     }
   }, [selectedCategory, blogs]);
 
-  // const [visibleBlogs, setVisibleBlogs] = useState(15);
-  // const [loading, setLoading] = useState(false);
-
-  // const loadMoreBlogs = () => {
-  //   setLoading(true);
-  //   setTimeout(() => {
-  //     setVisibleBlogs((prevVisibleBlogs) => prevVisibleBlogs + 15);
-  //     setLoading(false);
-  //   }, 2000);
-  // };
-
-  // const handleScroll = () => {
-  //   const footerTopPosition = document
-  //     .querySelector("footer")
-  //     .getBoundingClientRect().top;
-  //   const windowHeight = window.innerHeight;
-
-  //   if (footerTopPosition < windowHeight && !loading) {
-  //     loadMoreBlogs();
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => window.removeEventListener("scroll", handleScroll);
-  // }, [visibleBlogs, loading]);
-
   useEffect(() => {
     AOS.init({
       duration: 1200, // Specify the animation duration
@@ -76,23 +41,39 @@ const Blogs = () => {
     });
   }, []);
 
+  const handleCategoryToggle = (category) => {
+    if (selectedCategory.includes(category)) {
+      setSelectedCategory(
+        selectedCategory.filter(
+          (selectedCategory) => selectedCategory !== category
+        )
+      );
+    } else {
+      setSelectedCategory([...selectedCategory, category]);
+    }
+  };
+
+  const blogCategories = blogs
+    ? [...new Set(blogs.map((blog) => blog.category))]
+    : [];
+
   return (
-    <div className=" mt-[100px] mb-24 font-iransans container max-w-[1320px] mx-auto">
-      <h3 className=" mt-36 text-2xl font-medium max-lg:mr-10">لیست وبلاگ</h3>
-      <p className=" mt-4 text-gray-700 max-lg:mr-10">
+    <div className="mt-[100px] mb-24 font-iransans container max-w-[1320px] mx-auto">
+      <h3 className="mt-36 text-2xl font-medium max-lg:mr-10">لیست وبلاگ</h3>
+      <p className="mt-4 text-gray-700 max-lg:mr-10">
         با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
       </p>
-      <div className=" flex justify-between items-center">
-        <div className=" w-full px-10">
+      <div className="flex justify-between items-center">
+        <div className="w-full px-10">
           <SearchCourses products={blogs} />
         </div>
       </div>
-      <div className=" flex items-start  justify-between mt-32 gap-7">
+      <div className="flex items-start justify-between mt-32 gap-7">
         <div
-          className="w-full justify-between px-10 flex flex-wrap  max-lg:mx-auto"
+          className="w-full justify-between px-10 flex flex-wrap max-lg:mx-auto"
           data-aos="fade-left"
         >
-          {blog.map((blog, i) => (
+          {blog?.map((blog, i) => (
             <BlogCard blog={blog} key={i} />
           ))}
         </div>
@@ -100,6 +81,7 @@ const Blogs = () => {
           <BlogCategory
             categories={blogCategories}
             handleCategoryToggle={handleCategoryToggle}
+            selectedCategory={selectedCategory}
           />
           <LastBlogs blogs={blogs} />
         </div> */}

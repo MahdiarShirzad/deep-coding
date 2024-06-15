@@ -12,6 +12,8 @@ const Library = () => {
     queryFn: getBooks,
   });
 
+  console.log(books);
+
   const [book, setBook] = useState(books);
 
   useEffect(() => {
@@ -33,12 +35,12 @@ const Library = () => {
           className="w-4/5  flex flex-wrap justify-between max-lg:mx-auto"
           data-aos="fade-left"
         >
-          {book.map((book) => (
+          {book?.map((book) => (
             <BookCard book={book} key={book.id} />
           ))}
         </div>
         <div className="w-1/4 px-2 max-lg:hidden">
-          <BooksCategory items={books} setBooks={setBook} />
+          {/* <BooksCategory items={books} setBooks={setBook} /> */}
         </div>
       </div>
     </div>
