@@ -31,7 +31,9 @@ const Header = () => {
 
   return (
     <div
-      className={`fixed top-0 right-0 left-0 border-b z-[10000] transition-none bg-${
+      className={`fixed top-0 right-0 left-0 border-b ${
+        isScrolled ? "z-[100]" : ""
+      } transition-none bg-${
         isScrolled ? "white" : "transparent"
       } transition-all`}
       // data-aos="fade-left"

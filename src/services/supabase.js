@@ -8,3 +8,5 @@ const supabaseKey = KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default supabase;
+
+export { supabaseUrl };

@@ -1,14 +1,15 @@
 import React, { useEffect, useState, useRef } from "react";
 import ReactPlayer from "react-player";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { updateUser } from "../../services/apiAuth";
+import { toast } from "react-toastify";
 
-const CoursePreview = ({ selectedCourse }) => {
-  const dispatch = useDispatch();
+const CoursePreview = ({ selectedCourse, user }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const playerRef = useRef(null);
 
-  const { user, isAuthenticated } = useSelector((state) => state.user);
+  const { isAuthenticated } = useSelector((state) => state.user);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,7 +25,35 @@ const CoursePreview = ({ selectedCourse }) => {
     };
   }, []);
 
-  const handleAddToCartClick = () => {};
+  const handleAddToCartClick = async () => {
+    const currentCart = user?.user_metadata.cart || [];
+
+    const courseExists = currentCart.some(
+      (course) => course.id === selectedCourse.id
+    );
+
+    if (courseExists) {
+      toast.error("این دوره قبلاً به سبد خرید افزوده شده است!", {
+        position: "top-center",
+      });
+      return;
+    }
+
+    const updatedCourses = [...currentCart, selectedCourse];
+
+    const updates = {
+      cart: updatedCourses,
+    };
+
+    if (user) {
+      updateUser(updates);
+      toast.success("دوره به سبد خرید افزوده شد!", {
+        position: "top-center",
+      });
+    } else {
+      toast.error("خطا در افزودن به سبد خرید!");
+    }
+  };
 
   return (
     <div
@@ -38,7 +67,7 @@ const CoursePreview = ({ selectedCourse }) => {
         <ReactPlayer
           ref={playerRef}
           className=" w-full rounded-xl h-full block"
-          url={selectedCourse.video}
+          url={selectedCourse?.video}
           playing={isPlaying}
           controls={true}
           width="100%"
@@ -49,9 +78,9 @@ const CoursePreview = ({ selectedCourse }) => {
       </div>
       <div className=" flex mt-3 gap-2 text-xl font-medium mr-3">
         <span className=" font-semibold">
-          {selectedCourse.price === 0 ? "رایگان" : selectedCourse.price}
+          {selectedCourse?.price === 0 ? "رایگان" : selectedCourse?.price}
         </span>
-        {selectedCourse.price !== 0 && <span>تومان</span>}
+        {selectedCourse?.price !== 0 && <span>تومان</span>}
       </div>
       <button
         onClick={handleAddToCartClick}
@@ -64,7 +93,7 @@ const CoursePreview = ({ selectedCourse }) => {
       <div className=" mr-3 mt-8 mb-6">
         <p>این دوره شامل:</p>
         <ul className=" text-[13px] mt-2 mr-2">
-          <li>{selectedCourse.time} ساعت آموزش</li>
+          <li>{selectedCourse?.time} ساعت آموزش</li>
           <li>20 تمرین</li>
           <li>گواهی پایان دوره</li>
         </ul>

@@ -2,35 +2,71 @@ import React from "react";
 import RenderStars from "../../components/RenderStars/RenderStars";
 import CoursePreview from "./CoursePreview";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { updateUser } from "../../services/apiAuth";
 
-const CourseHero = ({ selectedCourse, teachers }) => {
-  const teacher = teachers.find((t) => t.name === selectedCourse.teacher);
+const CourseHero = ({ selectedCourse, teachers, user }) => {
+  if (teachers && teachers.length > 0) {
+    var teacher = teachers?.find((t) => t.name === selectedCourse?.teacher);
+  }
+
+  const handleAddToWishList = () => {
+    const currentWishList = user?.user_metadata.wishlist || [];
+
+    const courseExists = currentWishList.some(
+      (course) => course.id === selectedCourse.id
+    );
+    if (courseExists) {
+      toast.error("این دوره قبلاً به سبد خرید افزوده شده است!", {
+        position: "top-center",
+      });
+      return;
+    }
+
+    const updatedCourses = [...currentWishList, selectedCourse];
+
+    const updates = {
+      wishlist: updatedCourses,
+    };
+
+    if (user) {
+      updateUser(updates);
+      toast.success("دوره به غلاقه مندی ها  افزوده شد!", {
+        position: "top-center",
+      });
+    } else {
+      toast.error("خطا در افزودن به علاقه مندی ها !");
+    }
+  };
 
   return (
     <div className=" bg-gray-800 text-white font-iransans py-14">
       <div className=" max-w-[1320px] container mx-auto relative max-xl:px-8 max-lg:flex-col max-lg:items-center max-lg:justify-center max-lg:gap-10">
         <div className=" w-3/5 max-lg:mx-auto">
           <h1 className=" text-right text-3xl font-bold">
-            {selectedCourse.name}
+            {selectedCourse?.name}
           </h1>
           <p className=" mt-5 text-gray-300 text-justify">
-            {selectedCourse.desc}
+            {selectedCourse?.desc}
           </p>
           <div className=" flex gap-2 items-center  mt-12">
             <div className="flex gap-1 items-center">
-              <RenderStars rating={selectedCourse.star} />
+              <RenderStars rating={selectedCourse?.star} />
             </div>
-            <p className=" text-[#fcc419]">{selectedCourse.star}</p>
+            <p className=" text-[#fcc419]">{selectedCourse?.star}</p>
             <p className=" text-sm mr-2">(581 رای)</p>
             <p className="text-sm mr-3">1376 دانش آموز</p>
           </div>
           <div className=" flex items-center gap-2 mt-4">
             <p>مدرس :</p>
-            <Link to={`/teacher-info/${teacher.id}`}>
-              <p className=" text-fuchsia-400">{selectedCourse.teacher}</p>
+            <Link to={`/teacher-info/${teacher?.id}`}>
+              <p className=" text-fuchsia-400">{selectedCourse?.teacher}</p>
             </Link>
           </div>
-          <button className=" mt-4  flex gap-2 items-center border px-3 py-2 rounded-lg bg-slate-200 text-black">
+          <button
+            onClick={handleAddToWishList}
+            className=" mt-4  flex gap-2 items-center border px-3 py-2 rounded-lg bg-slate-200 text-black"
+          >
             <svg
               className="w-[30px]"
               viewBox="0 0 64 64"
@@ -57,7 +93,7 @@ const CourseHero = ({ selectedCourse, teachers }) => {
             <p>افزودن به علاقه مندی ها</p>
           </button>
         </div>
-        <CoursePreview selectedCourse={selectedCourse} />
+        <CoursePreview selectedCourse={selectedCourse} user={user} />
       </div>
     </div>
   );

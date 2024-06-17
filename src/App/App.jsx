@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Landing from "../screens/Landing/Landing";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
-import "@fortawesome/fontawesome-free/css/all.css";
 import Courses from "../screens/Courses/Courses";
 import Blogs from "../screens/blogs/Blogs";
 import AboutUs from "../screens/AboutUs/AboutUs";
@@ -28,6 +27,9 @@ import { useQuery } from "@tanstack/react-query";
 import { getCourses } from "../services/apiCourses";
 import { useSelector } from "react-redux";
 import { getTeachers } from "../services/apiTeachers";
+import { ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -63,11 +65,12 @@ const App = () => {
 
   const { isAuthenticated } = useSelector((state) => state.user);
 
-  console.log(isAuthenticated);
+  // console.log(isAuthenticated);
 
   return (
     <BrowserRouter>
       <Layout>
+        <ToastContainer />
         <Routes>
           <Route path="/" index element={<Landing />} />
           <Route
@@ -96,7 +99,6 @@ const App = () => {
           {isAuthenticated && (
             <Route path="/user-panel" element={<UserPanel />}>
               <Route path="/user-panel/dashboard" element={<Dashboard />} />
-              <Route path="/user-panel/course-list" element={<CourseList />} />
               <Route path="/user-panel/exams" element={<Exams />} />
               <Route
                 path="/user-panel/edit-profile"
