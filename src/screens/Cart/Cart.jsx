@@ -5,12 +5,15 @@ import EmptyCart from "./EmptyCart";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCurrentUser, updateUser } from "../../services/apiAuth";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const { data: user } = useQuery({
     queryKey: ["user"],
     queryFn: getCurrentUser,
   });
+
+  const navigate = useNavigate();
 
   const queryClient = useQueryClient();
 
@@ -23,6 +26,17 @@ const Cart = () => {
 
   const handleCheckout = async () => {
     const currentCourses = user?.user_metadata.courses || [];
+
+    const courseExists = currentCourses.some((course) =>
+      userCart.some((cartCourse) => cartCourse.id === course.id)
+    );
+    if (courseExists) {
+      toast.error("شما قبلا در این دوره ثبت نام کرده اید !", {
+        position: "top-center",
+      });
+      return;
+    }
+
     const updatedCourses = [...currentCourses, ...userCart];
 
     const updates = {
@@ -31,11 +45,12 @@ const Cart = () => {
     };
 
     if (user) {
-      await updateUser(updates);
+      updateUser(updates);
       queryClient.invalidateQueries(["user"]);
       toast.success("پرداخت با موفقیت انجام شد!", {
         position: "top-center",
       });
+      navigate("/user-panel/dashboard");
     } else {
       toast.error("خطا در پردازش پرداخت!");
     }

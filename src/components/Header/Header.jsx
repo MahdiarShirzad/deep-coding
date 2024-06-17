@@ -31,7 +31,7 @@ const Header = () => {
 
   return (
     <div
-      className={`fixed top-0 right-0 left-0 border-b ${
+      className={`fixed top-0 right-0 left-0 z-10 border-b ${
         isScrolled ? "z-[100]" : ""
       } transition-none bg-${
         isScrolled ? "white" : "transparent"

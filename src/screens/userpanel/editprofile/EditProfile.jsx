@@ -15,7 +15,7 @@ const EditProfile = () => {
 
   const { mutate: updateUser, isPending: isUpdating } = useUpdateUser();
 
-  console.log(user?.user_metadata.email);
+  // console.log(user?.user_metadata.email);
 
   const initialValues = {
     fullName: user?.user_metadata.fullName,

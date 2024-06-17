@@ -1,6 +1,22 @@
-import React from "react";
+const calculateLoginDays = (userSignUpDate) => {
+  if (!userSignUpDate) return 0; // Handle cases where userSignUpDate is missing
+
+  const today = new Date();
+  const signUpDate = new Date(userSignUpDate);
+
+  // Get the difference in milliseconds
+  const timeDifference = today.getTime() - signUpDate.getTime();
+
+  // Convert milliseconds to days and round down to get whole days
+  const daysLoggedIn = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  return daysLoggedIn;
+};
 
 const UserStats = ({ user }) => {
+  const userSignUpDate = user?.created_at;
+  const daysLoggedIn = calculateLoginDays(userSignUpDate);
+
   return (
     <div className=" w-full flex gap-8 ">
       <div className=" flex  justify-between w-full gap-12">
@@ -58,8 +74,10 @@ const UserStats = ({ user }) => {
             </g>
           </svg>
           <div className=" text-lg text-[#fff] mt-8">
-            <p className=" font-bold text-2xl text-center">1234</p>
-            <p className="text-center mt-1">با deep-coding</p>
+            <p className=" font-bold text-2xl text-center">
+              {daysLoggedIn === 0 ? "1" : daysLoggedIn + 1}
+            </p>
+            <p className="text-center mt-1"> روز با deep-coding</p>
           </div>
         </div>
         <div className=" w-1/3 h-[140px] bg-blue-950 flex rounded-lg justify-center gap-3 items-center text-white ">
@@ -156,7 +174,7 @@ const UserStats = ({ user }) => {
             </g>
           </svg>
           <div className=" text-lg flex gap-1">
-            <p className="font-bold">4</p>
+            <p className="font-bold">5</p>
             <p>امتحان</p>
           </div>
         </div>

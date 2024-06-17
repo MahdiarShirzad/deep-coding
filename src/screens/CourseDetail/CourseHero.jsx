@@ -17,7 +17,7 @@ const CourseHero = ({ selectedCourse, teachers, user }) => {
       (course) => course.id === selectedCourse.id
     );
     if (courseExists) {
-      toast.error("این دوره قبلاً به سبد خرید افزوده شده است!", {
+      toast.error("این دوره قبلاً به علاقه مندی ها افزوده شده است!", {
         position: "top-center",
       });
       return;

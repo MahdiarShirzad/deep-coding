@@ -313,7 +313,7 @@ const HeaderLeft = () => {
                       </g>{" "}
                     </g>
                   </svg>
-                  <span>خروج</span>
+                  <span className=" text-red-400">خروج</span>
                 </button>
               </div>
             )}
