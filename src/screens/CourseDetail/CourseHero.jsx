@@ -31,7 +31,7 @@ const CourseHero = ({ selectedCourse, teachers, user }) => {
 
     if (user) {
       updateUser(updates);
-      toast.success("دوره به غلاقه مندی ها  افزوده شد!", {
+      toast.success("دوره به علاقه مندی ها  افزوده شد!", {
         position: "top-center",
       });
     } else {
