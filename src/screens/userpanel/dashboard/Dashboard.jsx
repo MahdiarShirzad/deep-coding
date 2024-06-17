@@ -1,14 +1,17 @@
 import React from "react";
 import UserStats from "./UserStats";
-import LatestAnnouncements from "./LatestAnnouncements";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Dashboard = () => {
+  const queryClient = useQueryClient();
+
+  const user = queryClient.getQueryData(["user"]);
+
+  // console.log(user);
   return (
     <div className=" w-full">
-      <UserStats />
-      <div className=" flex">
-        <LatestAnnouncements />
-      </div>
+      <UserStats user={user} />
+      <div className=" flex"></div>
     </div>
   );
 };

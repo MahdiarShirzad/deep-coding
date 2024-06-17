@@ -1,22 +1,44 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import Button from "../common/Button/Button";
 import { useLogout } from "../../screens/Login/useLogout";
-// import { authActions } from "../../store/auth";
-// import { logout } from "../../services/apiAuth";
+import { useQuery } from "@tanstack/react-query";
+import { getCurrentUser } from "../../services/apiAuth";
 
 const HeaderLeft = () => {
-  const dispatch = useDispatch();
-  const { user, isAuthenticated } = useSelector((state) => state.user);
+  const { data: user } = useQuery({
+    queryKey: ["user"],
+    queryFn: getCurrentUser,
+  });
+
+  const { isAuthenticated } = useSelector((state) => state.user);
   const [dropdownVisible, setDropdownVisible] = useState(false);
-  const [rotate, setRotate] = useState(0);
+  const dropdownRef = useRef(null);
 
   const { logout } = useLogout();
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
   };
+
+  const closeDropdown = () => {
+    setDropdownVisible(false);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownVisible(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleLogout = () => {
     logout();
@@ -40,24 +62,17 @@ const HeaderLeft = () => {
                 stroke-linejoin="round"
               ></g>
               <g id="SVGRepo_iconCarrier">
-                {" "}
                 <path
                   d="M4.20853 17.8104L3.46191 17.7393L4.20853 17.8104ZM19.7915 17.8104L20.5381 17.7393L19.7915 17.8104ZM19.0296 9.81038L18.2829 9.88149L19.0296 9.81038ZM4.97043 9.81038L5.71705 9.88149L4.97043 9.81038ZM7.24999 11C7.24999 11.4142 7.58578 11.75 7.99999 11.75C8.41421 11.75 8.74999 11.4142 8.74999 11H7.24999ZM15.25 11C15.25 11.4142 15.5858 11.75 16 11.75C16.4142 11.75 16.75 11.4142 16.75 11H15.25ZM6.96142 8.75H17.0386V7.25H6.96142V8.75ZM18.2829 9.88149L19.0448 17.8815L20.5381 17.7393L19.7762 9.73928L18.2829 9.88149ZM17.8005 19.25H6.19952V20.75H17.8005V19.25ZM4.95515 17.8815L5.71705 9.88149L4.22381 9.73928L3.46191 17.7393L4.95515 17.8815ZM6.19952 19.25C5.46234 19.25 4.88526 18.6153 4.95515 17.8815L3.46191 17.7393C3.30815 19.3538 4.57773 20.75 6.19952 20.75V19.25ZM19.0448 17.8815C19.1147 18.6153 18.5376 19.25 17.8005 19.25V20.75C19.4223 20.75 20.6918 19.3538 20.5381 17.7393L19.0448 17.8815ZM17.0386 8.75C17.683 8.75 18.2218 9.23994 18.2829 9.88149L19.7762 9.73928C19.6418 8.32788 18.4563 7.25 17.0386 7.25V8.75ZM6.96142 7.25C5.54364 7.25 4.35823 8.32788 4.22381 9.73928L5.71705 9.88149C5.77815 9.23994 6.31698 8.75 6.96142 8.75V7.25ZM8.74999 7C8.74999 5.20507 10.2051 3.75 12 3.75V2.25C9.37664 2.25 7.24999 4.37665 7.24999 7H8.74999ZM12 3.75C13.7949 3.75 15.25 5.20507 15.25 7H16.75C16.75 4.37665 14.6233 2.25 12 2.25V3.75ZM7.24999 7V11H8.74999V7H7.24999ZM15.25 7V11H16.75V7H15.25Z"
                   fill="#000"
-                ></path>{" "}
+                ></path>
               </g>
             </svg>
-            {/* {Object.values(cartItems).reduce(
-              (total, userCart) => total + userCart.length,
-              0
-            ) > 0 && (
+            {user && user?.user_metadata.cart.length > 0 && (
               <div className="bg-[#1A064F] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center absolute -top-1 pt-1 -right-0">
-                {Object.values(cartItems).reduce(
-                  (total, userCart) => total + userCart.length,
-                  0
-                )}
+                {user?.user_metadata.cart.length}
               </div>
-            )} */}
+            )}
           </button>
         </NavLink>
       )}
@@ -72,35 +87,13 @@ const HeaderLeft = () => {
         </>
       )}
       {isAuthenticated && (
-        <div className="relative">
+        <div className="relative" ref={dropdownRef}>
           <div
             onClick={toggleDropdown}
             className=" bg-zinc-100 px-5 min-w-[250px] py-1 rounded-full flex items-center justify-between cursor-pointer duration-500"
           >
-            <div className=" flex items-center gap-2">
-              <svg
-                className=" w-[40px] p-0"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                <g
-                  id="SVGRepo_tracerCarrier"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></g>
-                <g id="SVGRepo_iconCarrier">
-                  {" "}
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM15 9C15 10.6569 13.6569 12 12 12C10.3431 12 9 10.6569 9 9C9 7.34315 10.3431 6 12 6C13.6569 6 15 7.34315 15 9ZM12 20.5C13.784 20.5 15.4397 19.9504 16.8069 19.0112C17.4108 18.5964 17.6688 17.8062 17.3178 17.1632C16.59 15.8303 15.0902 15 11.9999 15C8.90969 15 7.40997 15.8302 6.68214 17.1632C6.33105 17.8062 6.5891 18.5963 7.19296 19.0111C8.56018 19.9503 10.2159 20.5 12 20.5Z"
-                    fill="#1C274C"
-                  ></path>{" "}
-                </g>
-              </svg>
-              <p>{user.user.user_metadata.fullName}</p>
+            <div className=" flex items-center gap-2 py-2 capitalize">
+              <p>{user?.user_metadata.fullName}</p>
             </div>
             <svg
               className=" w-[17px] duration-500"
@@ -109,7 +102,7 @@ const HeaderLeft = () => {
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
               fill="#000000"
-              style={{ transform: `rotate(${rotate}deg)`, width: "17px" }}
+              style={{ width: "17px" }}
             >
               <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
               <g
@@ -131,6 +124,7 @@ const HeaderLeft = () => {
                 <NavLink
                   to="/user-panel/dashboard"
                   className="flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 rounded-md"
+                  onClick={closeDropdown}
                 >
                   <svg
                     className=" w-[23px]"
@@ -178,11 +172,12 @@ const HeaderLeft = () => {
                       </g>{" "}
                     </g>
                   </svg>
-                  <p>داشبورد</p>
+                  <span>داشبورد</span>
                 </NavLink>
                 <NavLink
                   to="/user-panel/favorites"
                   className="flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 rounded-md"
+                  onClick={closeDropdown}
                 >
                   <svg
                     class="w-[23px]"
@@ -213,7 +208,8 @@ const HeaderLeft = () => {
                 </NavLink>
                 <NavLink
                   to="/user-panel/edit-profile"
-                  className="flex items-center gap-1 px-4 py-2 text-gray-800 hover:bg-gray-200 rounded-md"
+                  className="flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 rounded-md"
+                  onClick={closeDropdown}
                 >
                   <svg
                     class="w-[30px]"
@@ -240,9 +236,12 @@ const HeaderLeft = () => {
                   </svg>
                   <p>ویرایش پروفایل</p>
                 </NavLink>
-                <div
-                  onClick={handleLogout}
-                  className=" w-full flex cursor-pointer items-center gap-2 text-right px-4 py-2 text-red-600 hover:bg-gray-200 rounded-md"
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    closeDropdown();
+                  }}
+                  className="flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 rounded-md"
                 >
                   <svg
                     className=" w-[25px]"
@@ -314,8 +313,8 @@ const HeaderLeft = () => {
                       </g>{" "}
                     </g>
                   </svg>
-                  <p>خروج</p>
-                </div>
+                  <span>خروج</span>
+                </button>
               </div>
             )}
           </>

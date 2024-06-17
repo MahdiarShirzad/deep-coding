@@ -3,6 +3,7 @@ import ReactPlayer from "react-player";
 import { useSelector } from "react-redux";
 import { updateUser } from "../../services/apiAuth";
 import { toast } from "react-toastify";
+import { useQueryClient } from "@tanstack/react-query";
 
 const CoursePreview = ({ selectedCourse, user }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -10,6 +11,8 @@ const CoursePreview = ({ selectedCourse, user }) => {
   const playerRef = useRef(null);
 
   const { isAuthenticated } = useSelector((state) => state.user);
+
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,6 +53,7 @@ const CoursePreview = ({ selectedCourse, user }) => {
       toast.success("دوره به سبد خرید افزوده شد!", {
         position: "top-center",
       });
+      queryClient.invalidateQueries({ queryKey: ["user"] });
     } else {
       toast.error("خطا در افزودن به سبد خرید!");
     }

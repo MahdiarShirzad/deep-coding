@@ -1,6 +1,6 @@
 import React from "react";
 
-const UserStats = () => {
+const UserStats = ({ user }) => {
   return (
     <div className=" w-full flex gap-8 ">
       <div className=" flex  justify-between w-full gap-12">
@@ -28,7 +28,9 @@ const UserStats = () => {
             </g>
           </svg>
           <div className="  text-lg text-[#fff]">
-            <p className=" font-bold text-2xl text-center">9</p>
+            <p className=" font-bold text-2xl text-center">
+              {user?.user_metadata.courses.length}
+            </p>
             <p className="text-center mt-1">دوره</p>
           </div>
         </div>
