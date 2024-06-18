@@ -6,9 +6,11 @@ const EmptyCart = () => {
   return (
     <>
       <div className=" mt-20 flex items-center justify-center gap-10">
-        <p className=" text-4xl font-black">سبد خرید شما خالی است !!!</p>
+        <p className=" text-4xl font-black max-lg:text-2xl">
+          سبد خرید شما خالی است !!!
+        </p>
         <svg
-          className="w-[100px]"
+          className="w-[100px] max-lg:w-[60px]"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

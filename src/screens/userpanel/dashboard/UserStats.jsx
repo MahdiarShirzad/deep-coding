@@ -18,11 +18,11 @@ const UserStats = ({ user }) => {
   const daysLoggedIn = calculateLoginDays(userSignUpDate);
 
   return (
-    <div className=" w-full flex gap-8 ">
-      <div className=" flex  justify-between w-full gap-12">
-        <div className=" w-1/3 h-[140px] bg-blue-950  py-6 gap-3 rounded-lg flex justify-between px-20 items-center">
+    <div className=" w-full flex gap-8 max-md:gap-1 max-md:px-2 max-sm:text-xs max-sm:mt-4">
+      <div className=" flex  justify-between w-full gap-12 max-md:gap-1">
+        <div className=" w-1/3 h-[140px] max-md:h-[100px] bg-blue-950  py-6 gap-3 rounded-lg flex justify-between px-20 items-center">
           <svg
-            className="w-[60px]"
+            className="w-[60px] max-sm:hidden"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -43,16 +43,16 @@ const UserStats = ({ user }) => {
               ></path>{" "}
             </g>
           </svg>
-          <div className="  text-lg text-[#fff]">
+          <div className="  text-lg text-[#fff] max-sm:flex gap-2 items-center justify-center">
             <p className=" font-bold text-2xl text-center">
               {user?.user_metadata.courses.length}
             </p>
             <p className="text-center mt-1">دوره</p>
           </div>
         </div>
-        <div className=" w-1/3 h-[140px] bg-blue-950 flex rounded-lg justify-center px- items-center">
+        <div className=" w-1/3 h-[140px] max-md:h-[100px] bg-blue-950 flex rounded-lg justify-center px- items-center">
           <svg
-            className=" w-[60px] "
+            className=" w-[60px] max-sm:hidden"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -73,16 +73,16 @@ const UserStats = ({ user }) => {
               ></path>{" "}
             </g>
           </svg>
-          <div className=" text-lg text-[#fff] mt-8">
+          <div className=" text-lg text-[#fff] mt-8 max-md:flex max-sm:px-2">
             <p className=" font-bold text-2xl text-center">
               {daysLoggedIn === 0 ? "1" : daysLoggedIn + 1}
             </p>
             <p className="text-center mt-1"> روز با deep-coding</p>
           </div>
         </div>
-        <div className=" w-1/3 h-[140px] bg-blue-950 flex rounded-lg justify-center gap-3 items-center text-white ">
+        <div className=" w-1/3 h-[140px] max-md:h-[100px] bg-blue-950 flex rounded-lg justify-center gap-3 items-center text-white ">
           <svg
-            className="w-[60px]"
+            className="w-[60px] max-sm:hidden"
             fill="#fff"
             height="200px"
             width="200px"

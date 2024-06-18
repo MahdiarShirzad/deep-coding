@@ -70,7 +70,7 @@ const Courses = ({}) => {
           )}
           <div className=" w-4/5 max-lg:mx-auto max-lg:w-full">
             {posts && posts.length > 0 && (
-              <div className=" flex items-center justify-between gap-1 lg:px-10">
+              <div className=" flex items-center justify-between gap-1 max-md:mx-3 lg:px-10">
                 <p className="text-gray-600 text-sm">
                   <span> نمایش</span>
                   {courses && (
@@ -97,7 +97,7 @@ const Courses = ({}) => {
             )}
             <div>
               <div
-                className=" min-h-[700px] flex items-start justify-start lg:gap-5 max-xl:justify-between max-xl:px-32 px-5 flex-wrap mt-7 max-lg:justify-center max-lg:gap-12 max-xl:mx-auto"
+                className=" min-h-[700px] flex items-start justify-start lg:gap-5 max-xl:justify-between max-xl:px-32 max-md:mt-16 px-5 flex-wrap mt-7 max-lg:justify-center max-lg:gap-12 max-xl:mx-auto"
                 data-aos="fade-left"
               >
                 {posts && posts.length > 0 ? (

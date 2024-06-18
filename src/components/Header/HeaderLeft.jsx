@@ -55,7 +55,7 @@ const HeaderLeft = () => {
   };
 
   return (
-    <div className="flex items-center gap-10 justify-end w-96">
+    <div className="flex items-center gap-10 justify-end max-w-96 max-md:gap-3">
       {isAuthenticated && (
         <NavLink to="/cart">
           <button className=" bg-gray-100 p-2 rounded-full relative">
@@ -100,7 +100,7 @@ const HeaderLeft = () => {
         <div className="relative" ref={dropdownRef}>
           <div
             onClick={toggleDropdown}
-            className=" bg-zinc-100 px-5 min-w-[250px] py-1 rounded-full flex items-center justify-between cursor-pointer duration-500"
+            className=" bg-zinc-100 px-5 min-w-[200px] py-1 rounded-full flex items-center justify-between cursor-pointer duration-500"
           >
             <div className=" flex items-center gap-2 py-2 capitalize">
               <p>{user?.user_metadata.fullName}</p>

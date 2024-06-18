@@ -23,8 +23,8 @@ const Herosection = () => {
   return (
     <div className=" relative" data-aos="fade-left">
       <div className="bg-[url('assets/images/home-6/hero/bg.png')] bg-no-repeat absolute -z-20  bg-cover w-full  h-[780px]"></div>
-      <div className="flex  items-center py-20 px-10 font-iransans z-20 max-w-[1320px]  container mx-auto">
-        <div className="w-1/2 max-lg:mr-20 max-lg:w-3/4 max-lg:mt-16">
+      <div className="flex  items-center py-20 px-10 max-md:px-3 font-iransans z-20 max-w-[1320px]  container mx-auto">
+        <div className="w-1/2  max-lg:mr-20 max-lg:w-3/4 max-lg:mt-16 max-md:w-full">
           <h1 className="text-4xl font-extrabold leading-[60px] text-right">
             دوره های مورد نظر را پیدا کنید و مهارت ها را بهبود ببخشید
           </h1>
@@ -32,12 +32,12 @@ const Herosection = () => {
             لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
             استفاده از طراحان گرافیک است. چاپگرها و متون است.
           </p>
-          <div className="flex items-center justify-center w-3/4 mt-20 gap-5 max-lg:w-full">
+          <div className="flex items-center justify-center mt-20 gap-5 max-lg:w-full">
             <Link onClick={scrollToTop} to="/sign-up">
               <Button>ثبت نام رایگان</Button>
             </Link>
             <Link onClick={scrollToTop} to="/courses">
-              <button className="border-2 border-[#140342] hover:bg-[#140342] hover:text-white px-9 py-3 rounded-2xl">
+              <button className="border-2 border-[#140342] min-w-24 max-md:px-3 max-md:py-2 hover:bg-[#140342] hover:text-white px-9 py-3 rounded-2xl">
                 جستجوی دوره
               </button>
             </Link>

@@ -135,21 +135,21 @@ const EditProfile = () => {
       </div>
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         <Form>
-          <div className=" flex flex-wrap justify-between mt-8">
-            <div className=" flex flex-col gap-2 my-3">
+          <div className=" flex flex-wrap justify-between mt-8 mx-4 w-full px-4">
+            <div className=" flex flex-col gap-2 my-3 w-full">
               <label htmlFor="fullName">نام کاربری</label>
               <Field
-                className=" border w-[450px] py-3 rounded-lg px-3 capitalize"
+                className=" border max-w-[450px] py-3 rounded-lg px-3 capitalize"
                 type="text"
                 name="fullName"
                 id="fullName"
                 placeholder="نام کاربری"
               />
             </div>
-            <div className=" flex flex-col gap-2 my-3">
+            <div className=" flex flex-col gap-2 my-3 w-full">
               <label htmlFor="email">ایمیل</label>
               <Field
-                className=" border w-[450px] py-3 rounded-lg px-3"
+                className=" border maxw-w-[450px] py-3 rounded-lg px-3"
                 type="email"
                 name="email"
                 id="email"
@@ -157,20 +157,20 @@ const EditProfile = () => {
                 disabled
               />
             </div>
-            <div className=" flex flex-col gap-2 my-3">
+            <div className=" flex flex-col gap-2 my-3  w-full">
               <label htmlFor="phone">شماره تماس</label>
               <Field
-                className=" border w-[450px] py-3 rounded-lg px-3"
+                className=" border max-w-[450px] py-3 rounded-lg px-3"
                 type="text"
                 name="phone"
                 id="phone"
                 placeholder="شماره تماس"
               />
             </div>
-            <div className=" flex flex-col gap-2 my-3">
+            <div className=" flex flex-col gap-2 my-3  w-full">
               <label htmlFor="address">آدرس</label>
               <Field
-                className=" border w-[450px] py-3 rounded-lg px-3"
+                className=" border max-w-[450px] py-3 rounded-lg px-3"
                 type="text"
                 name="address"
                 id="address"
@@ -178,12 +178,12 @@ const EditProfile = () => {
               />
             </div>
           </div>
-          <div className=" flex flex-col mt-6 gap-7">
+          <div className=" flex flex-col mt-6 gap-7  w-full">
             <label className=" text-lg " htmlFor="aboutMe">
               درباره ی من
             </label>
             <Field
-              className=" border rounded-lg w-[1000px] px-5 py-4 h-[200px]"
+              className=" border rounded-lg max-w-[1000px] px-5 py-4 h-[200px]"
               component="textarea"
               name="aboutMe"
               id="aboutMe"

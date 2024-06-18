@@ -15,7 +15,7 @@ const SearchCourses = ({ products }) => {
   };
 
   return (
-    <div className="mt-8 border border-slate-300 transition-none px-4 flex items-center gap-4 py-3 rounded-3xl relative mb-2">
+    <div className="mt-8 border max-md:mx-3 border-slate-300 transition-none px-4 flex items-center gap-4 py-3 rounded-3xl relative mb-2">
       <svg
         className="w-[20px]"
         viewBox="0 0 24 24"

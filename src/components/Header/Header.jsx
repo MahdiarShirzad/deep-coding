@@ -31,14 +31,14 @@ const Header = () => {
 
   return (
     <div
-      className={`fixed top-0 right-0 left-0 z-10 border-b ${
+      className={`fixed top-0 right-0 left-0 z-10  ${
         isScrolled ? "z-[100]" : ""
       } transition-none bg-${
         isScrolled ? "white" : "transparent"
       } transition-all`}
       // data-aos="fade-left"
     >
-      <div className="container max-w-[1320px] flex max-lg:justify-between max-lg:px-8 mx-auto items-center py-4 font-iransans pr-6">
+      <div className="container max-w-[1320px] flex max-lg:w-[420px] max-lg:px-8 max-lg:-0 mx-auto items-center py-4 font-iransans pr-6">
         <MobileNav />
         <Logo />
         <HeaderNav />

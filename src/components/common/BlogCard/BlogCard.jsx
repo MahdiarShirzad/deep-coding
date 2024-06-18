@@ -22,15 +22,15 @@ const BlogCard = ({ blog }) => {
   }, []);
   return (
     <div
-      className="w-[600px] px-4 flex justify-between gap-10 py-4 rounded-lg shadow-md shadow-gray-200 my-4 group transition-all duration-300 transform-gpu hover:-translate-y-2"
+      className="max-w-[600px] px-4 flex max-md:flex-col justify-between gap-10 py-4 rounded-lg shadow-md shadow-gray-200 my-4 group transition-all duration-300 transform-gpu hover:-translate-y-2"
       data-aos="fade-left"
     >
-      <div className=" w-1/3 h-[140px]">
+      <div className=" w-1/3 h-[140px] max-md:w-4/5 max-md:mx-auto">
         <img className=" rounded-md w-full h-full " src={img} alt="" />
       </div>
-      <div className=" w-2/3">
+      <div className=" w-2/3 max-md:w-4/5 max-md:mx-auto">
         <h5 className=" text-black text-2xl mt-3 font-medium">{name}</h5>
-        <p className="text-sm mt-5 font-thin text-gray-500">
+        <p className="text-sm mt-5 font-thin text-gray-500 ">
           در این مقاله می‌خواهیم تا به بررسی مجدد کد یا Refactoringدر برنامه
           نویسی به عنوان راهی برای کاهش مشکلات فنی بپردازیم. اگر به طور جدی به
         </p>
@@ -65,7 +65,7 @@ const BlogCard = ({ blog }) => {
           </h6>
           <p className="text-xs text-gray-500  font-thin">{date}</p>
         </div>
-        <div className=" flex justify-end">
+        <div className=" flex justify-end max-md:justify-center">
           <Link to="/blog-detail" onClick={scrollToTop}>
             <div className="bg-[#140342] flex items-center text-white gap-2 text-sm w-[130px] justify-center py-2 rounded-xl mt-5">
               <p>مشاهده بیشتر</p>

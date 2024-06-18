@@ -15,10 +15,10 @@ const Footer = () => {
   return (
     <div className=" bg-slate-700 bg-[url('assets/images/pattern/04.png')] bg-cover mb-0 text-white font-iransans pb-10">
       <div className=" container max-w-[1320px] mx-auto ">
-        <div className=" flex items-center gap-7 text-lg py-8 max-lg:mx-auto max-lg:justify-center">
+        <div className=" flex items-center gap-7 text-lg max-md:text-sm max-md:px-6 py-8 max-lg:mx-auto max-lg:justify-center">
           {/* <img src={logo} alt="" /> */}
           <svg
-            className=" -mr-24"
+            className=" -mr-24 max-md:w-24"
             xmlns="http://www.w3.org/2000/svg"
             width="140"
             height="50"

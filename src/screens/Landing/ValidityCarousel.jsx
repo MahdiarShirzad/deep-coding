@@ -45,7 +45,7 @@ const ValidityCarousel = () => {
 
   return (
     <div className=" relative w-full ">
-      <div className=" overflow-hidden relative flex items-center justify-center w-[550px] h-[300px] mx-4 ">
+      <div className=" overflow-hidden relative flex items-center justify-center w-[550px] max-sm:w-[400px] h-[300px] mx-4 ">
         {slides.map((slide, index) => (
           <div
             key={index}

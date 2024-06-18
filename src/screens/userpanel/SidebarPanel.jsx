@@ -23,11 +23,11 @@ const SidebarPanel = () => {
       ? "bg-slate-500  px-3 py-1 flex gap-1 rounded-md"
       : "   px-3 py-1 rounded-md flex gap-1";
   return (
-    <ul className="w-[295px] bg-slate-900 text-white px-5 py-3 flex flex-col gap-5 rounded-md">
+    <ul className="w-[295px] max-md:w-full max-md:flex-row bg-slate-900 text-white px-5 py-3 flex flex-col max-sm:gap-0 gap-5 rounded-md">
       <NavLink to="/user-panel/dashboard" className={activeClass}>
-        <li className=" flex gap-1 px-3 py-1">
+        <li className=" flex gap-1 px-3 max-sm:px-1 max-sm: py-1 items-center max-sm:text-xs">
           <svg
-            className=" w-[25px]"
+            className=" w-[25px] max-sm:hidden"
             viewBox="0 -0.5 25 25"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -81,11 +81,10 @@ const SidebarPanel = () => {
           <p>داشبورد</p>
         </li>
       </NavLink>
-
       <NavLink to="/user-panel/exams" className={activeClass}>
-        <li className=" px-3 py-2 flex gap-2">
+        <li className=" flex gap-1 px-3 max-sm:px-1 max-sm: py-1 items-center max-sm:text-xs">
           <svg
-            className="w-[20px]"
+            className="w-[20px] max-sm:hidden"
             fill="#fff"
             version="1.1"
             id="Layer_1"
@@ -163,9 +162,9 @@ const SidebarPanel = () => {
         </li>
       </NavLink>
       <NavLink to="/user-panel/favorites" className={activeClass}>
-        <li className=" px-3 py-1 flex gap-2">
+        <li className=" flex gap-1 px-3 max-sm:px-1 max-sm: py-1 items-center max-sm:text-xs">
           <svg
-            className="w-[20px]"
+            className="w-[20px] max-sm:hidden"
             fill="#fff"
             version="1.1"
             id="Capa_1"
@@ -193,9 +192,9 @@ const SidebarPanel = () => {
         </li>
       </NavLink>
       <NavLink to="/user-panel/edit-profile" className={activeClass}>
-        <li className=" px-3 py-1 flex gap-2">
+        <li className=" flex gap-1 px-3 max-sm:px-1 max-sm: py-1 items-center max-sm:text-xs">
           <svg
-            className="w-[20px]"
+            className="w-[20px] max-sm:hidden"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -222,10 +221,10 @@ const SidebarPanel = () => {
       </NavLink>
       <button
         onClick={handleLogout}
-        className=" px-3 py-2 flex mt-20 gap-2 text-red-600"
+        className=" px-3 py-2 flex mt-20 max-md:mt-0 gap-2 items-center text-red-600 max-sm:text-xs"
       >
         <svg
-          className=" w-[25px]"
+          className=" w-[25px] max-sm:w-[20px]"
           viewBox="0 0 24 24"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"

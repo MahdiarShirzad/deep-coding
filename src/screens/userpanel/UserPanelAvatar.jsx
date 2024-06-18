@@ -13,7 +13,7 @@ const UserPanelAvatar = () => {
           <img className=" w-[110px] rounded-full" src={avatar} alt="" />
         </div>
         <div>
-          <div className="flex text-4xl gap-2 font-bold text-white capitalize">
+          <div className="flex text-4xl gap-2 font-bold max-md:text-xl text-white capitalize">
             <p>{user?.user_metadata.fullName}</p>
             <p>عزیز</p>
           </div>

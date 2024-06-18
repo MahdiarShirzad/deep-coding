@@ -21,7 +21,7 @@ const Validity = () => {
     <div className=" bg-[#1A064F] mt-10" data-aos="fade-left">
       <div className=" container max-w-[1320px] mx-auto text-white font-iransans pt-20">
         <div className=" flex flex-wrap items-center gap-14">
-          <div className="w-1/2 max-lg:mx-auto">
+          <div className="w-1/2 max-lg:mx-auto max-sm:w-3/4">
             <div>
               <p className="text-3xl font-bold">
                 مردم دوست دارند با ما یاد بگیرند

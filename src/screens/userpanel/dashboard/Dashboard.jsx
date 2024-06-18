@@ -16,7 +16,7 @@ const Dashboard = () => {
     <div className=" w-full">
       <UserStats user={user} />
       <div className="">
-        <p className=" text-2xl mt-7 font-bold">دوره های شما</p>
+        <p className=" text-2xl mt-7 font-bold max-md:mx-2">دوره های شما</p>
         {userCourses?.length > 0 ? (
           <div className=" mt-10">
             {userCourses.map((course) => (

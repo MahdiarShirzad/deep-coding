@@ -19,7 +19,7 @@ const TopCategory = ({ items, isLoading }) => {
 
   return (
     <div
-      className="mt-12 font-iransans max-w-[1320px]  container mx-auto"
+      className="mt-12 font-iransans max-w-[1320px] max-md:hidden  container mx-auto"
       data-aos="fade-left"
     >
       <h3 className="text-2xl font-semibold text-center">دسته بندی های برتر</h3>

@@ -25,10 +25,12 @@ const BlogSection = ({ blogs }) => {
       className=" container mx-auto max-w-[1320px] font-iransans mt-20"
       data-aos="fade-left"
     >
-      <div className="flex max-lg:px-10 items-center justify-between ">
+      <div className="flex max-lg:px-10 items-center justify-between max-md:gap-4 ">
         <div className="">
-          <h3 className=" text-3xl font-bold">وبلاگ</h3>
-          <p className="mt-5 text-slate-500">
+          <h3 className=" text-3xl font-bold max-lg:text-xl max-sm:text-base">
+            وبلاگ
+          </h3>
+          <p className="mt-5 text-slate-500 max-md:text-sm max-md:mt-2">
             لورم ایپسوم متن ساختگی با تولید سادگی است.
           </p>
         </div>

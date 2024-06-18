@@ -5,9 +5,9 @@ export const UserCoursesCard = ({ course }) => {
     var { id } = course;
   }
   return (
-    <div className=" flex justify-between items-center bg-gray-50 my-3 px-3 py-2 rounded-xl shadow-lg">
+    <div className=" flex justify-between max-md:flex-col items-center bg-gray-50 my-3 px-3 py-2 rounded-xl max-md:w-64 max-md:mx-auto max-md:gap-1 max-md:my-5 shadow-lg">
       <img src={course?.img} className=" w-28 h-20 rounded-xl my-3" alt="" />
-      <p className=" w-1/6">{course?.name}</p>
+      <p className=" w-1/6 max-md:w-full text-center">{course?.name}</p>
       <p className=" w-1/6">{course?.teacher}</p>
       <div className=" w-1/6">{course?.level}</div>
       <div className=" flex w-1/6 items-center gap-1">
