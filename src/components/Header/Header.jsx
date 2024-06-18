@@ -40,7 +40,7 @@ const Header = () => {
       // data-aos="fade-left"
     >
       <div className="container max-w-[1320px] flex  max-lg:px-8 max-md:justify-between max-lg:justify-between  mx-auto items-center py-4 font-iransans pr-6">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
           <MobileNav />
           {/* <Logo /> */}
           <img
