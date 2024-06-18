@@ -66,9 +66,9 @@ const CoursePreview = ({ selectedCourse, user }) => {
         !isScrolled
           ? `lg:absolute lg:top-14 lg:left-[70px] max-lg:block `
           : "md:fixed top-2 max-2xl:left-[65px] left-[180px] max-lg:block"
-      } rounded-lg bg-white text-black w-[350px] shadow-md shadow-gray-100 z-[300] mx-auto mt-16   max-lg:w-[600px] max-md:w-[500px] transition-none`}
+      } rounded-lg bg-white text-black w-[350px] shadow-md shadow-gray-100 z-[300] mx-auto mt-16   max-lg:w-[600px]  transition-none max-md:w-96`}
     >
-      <div className=" w-full h-48  ">
+      <div className=" w-full h-48 max-md:w-96 ">
         <ReactPlayer
           ref={playerRef}
           className=" w-full rounded-xl h-full block"

@@ -55,7 +55,7 @@ const HeaderLeft = () => {
   };
 
   return (
-    <div className="flex items-center gap-10 justify-end max-w-96 max-md:gap-3">
+    <div className="flex items-center gap-10 justify-end w-96 max-md:gap-3">
       {isAuthenticated && (
         <NavLink to="/cart">
           <button className=" bg-gray-100 p-2 rounded-full relative">

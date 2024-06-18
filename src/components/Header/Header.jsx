@@ -5,6 +5,7 @@ import HeaderLeft from "./HeaderLeft";
 import MobileNav from "./MobileNav";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import logoSm from "../../assets/images/general/logo-title.png";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -38,8 +39,16 @@ const Header = () => {
       } transition-all`}
       // data-aos="fade-left"
     >
-      <div className="container max-w-[1320px] flex max-lg:w-[420px] max-lg:px-8 max-lg:-0 mx-auto items-center py-4 font-iransans pr-6">
-        <MobileNav />
+      <div className="container max-w-[1320px] flex  max-lg:px-8 max-md:justify-between max-lg:justify-between  mx-auto items-center py-4 font-iransans pr-6">
+        <div className="flex items-center gap-4">
+          <MobileNav />
+          {/* <Logo /> */}
+          <img
+            className="w-[45px] h-auto lg:hidden mr-3"
+            src={logoSm}
+            alt="Logo"
+          />
+        </div>
         <Logo />
         <HeaderNav />
         <HeaderLeft />

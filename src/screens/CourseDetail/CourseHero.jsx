@@ -44,7 +44,7 @@ const CourseHero = ({ selectedCourse, teachers, user }) => {
   return (
     <div className=" bg-gray-800 text-white font-iransans py-14">
       <div className=" max-w-[1320px] container mx-auto relative max-xl:px-8 max-lg:flex-col max-lg:items-center max-lg:justify-center max-lg:gap-10">
-        <div className=" w-3/5 max-lg:mx-auto">
+        <div className=" w-3/5 max-lg:mx-auto max-md:w-full">
           <h1 className=" text-right text-3xl font-bold">
             {selectedCourse?.name}
           </h1>

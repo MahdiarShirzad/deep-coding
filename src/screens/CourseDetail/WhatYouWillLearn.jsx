@@ -4,7 +4,7 @@ const WhatYouWillLearn = () => {
   return (
     <div className=" mt-10 font-iransans">
       <div className=" container max-w-[1320px] mx-auto">
-        <div className=" border w-3/5 px-5 py-7">
+        <div className=" border w-3/5 px-5 py-7 max-md:w-full max-md:mx-4">
           <p className=" text-xl font-semibold">چیزی که یاد خواهید گرفت</p>
           <ul className=" mt-4 flex flex-col gap-2 mr-3 text-sm text-gray-800">
             <li>
