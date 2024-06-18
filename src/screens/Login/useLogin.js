@@ -8,7 +8,11 @@ export function useLogin() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { mutate: login, isPending } = useMutation({
+  const {
+    mutate: login,
+    isPending,
+    isError,
+  } = useMutation({
     mutationFn: ({ email, password }) => loginApi({ email, password }),
     onSuccess: (data) => {
       dispatch(setUser(data));
@@ -17,5 +21,5 @@ export function useLogin() {
     },
   });
 
-  return { login, isPending };
+  return { login, isPending, isError };
 }

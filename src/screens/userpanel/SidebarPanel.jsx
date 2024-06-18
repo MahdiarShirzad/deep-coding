@@ -1,7 +1,22 @@
 import { NavLink } from "react-router-dom";
+import { useLogout } from "../Login/useLogout";
+import { toast } from "react-toastify";
 
 const SidebarPanel = () => {
-  const handleLogout = () => {};
+  const { logout, isError } = useLogout();
+
+  const handleLogout = () => {
+    logout();
+    if (!isError) {
+      toast.success("با موفقیت خارج شدید!", {
+        position: "top-center",
+      });
+    } else {
+      toast.error("خطا در خروج !", {
+        position: "top-center",
+      });
+    }
+  };
 
   const activeClass = ({ isActive }) =>
     isActive

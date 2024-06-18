@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as yup from "yup";
 import { useLogin } from "./useLogin";
+import { toast } from "react-toastify";
 
 const LoginForm = () => {
-  const { login, isPending } = useLogin();
+  const { login, isPending, isError } = useLogin();
 
   const [passwordIsVisible, setPasswordIsVisible] = useState(false);
 
@@ -25,6 +26,16 @@ const LoginForm = () => {
     }
 
     login({ email, password });
+
+    if (!isError) {
+      toast.success("با موفقیت وارد شدید !", {
+        position: "top-center",
+      });
+    } else {
+      toast.error("خطا در ورود !", {
+        position: "top-center",
+      });
+    }
   };
 
   return (

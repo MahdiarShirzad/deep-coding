@@ -62,7 +62,7 @@ export async function logout() {
 }
 
 export async function updateUser(updates, avatar) {
-  const { data, error } = await supabase.auth.updateUser({
+  const { data, error, isError } = await supabase.auth.updateUser({
     data: updates,
   });
 
@@ -93,5 +93,5 @@ export async function updateUser(updates, avatar) {
     throw new Error(updateError.message);
   }
 
-  return { user: updatedUser, avatarUrl };
+  return { user: updatedUser, avatarUrl, isError };
 }

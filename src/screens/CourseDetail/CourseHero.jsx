@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import { updateUser } from "../../services/apiAuth";
 
 const CourseHero = ({ selectedCourse, teachers, user }) => {
+  const { isError } = updateUser();
+
   if (teachers && teachers.length > 0) {
     var teacher = teachers?.find((t) => t.name === selectedCourse?.teacher);
   }
@@ -29,7 +31,7 @@ const CourseHero = ({ selectedCourse, teachers, user }) => {
       wishlist: updatedCourses,
     };
 
-    if (user) {
+    if (!isError) {
       updateUser(updates);
       toast.success("دوره به علاقه مندی ها  افزوده شد!", {
         position: "top-center",

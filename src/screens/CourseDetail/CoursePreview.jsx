@@ -11,6 +11,7 @@ const CoursePreview = ({ selectedCourse, user }) => {
   const playerRef = useRef(null);
 
   const { isAuthenticated } = useSelector((state) => state.user);
+  const { isError } = updateUser();
 
   const queryClient = useQueryClient();
 
@@ -48,7 +49,7 @@ const CoursePreview = ({ selectedCourse, user }) => {
       cart: updatedCourses,
     };
 
-    if (user) {
+    if (!isError) {
       updateUser(updates);
       toast.success("دوره به سبد خرید افزوده شد!", {
         position: "top-center",

@@ -3,7 +3,7 @@ import avatar from "../../../assets/images/userpanel/avatar.jpg";
 // import Button from "../../../components/common/Button/Button";
 import { Field, Form, Formik } from "formik";
 import { useQuery } from "@tanstack/react-query";
-import { getCurrentUser } from "../../../services/apiAuth";
+import { getCurrentUser, updateUser } from "../../../services/apiAuth";
 import { useUpdateUser } from "../useUpdateUser";
 import { toast } from "react-toastify";
 
@@ -13,9 +13,9 @@ const EditProfile = () => {
     queryFn: getCurrentUser,
   });
 
-  const { mutate: updateUser, isPending: isUpdating } = useUpdateUser();
+  const { mutate: updateUserMutation, isPending: isUpdating } = useUpdateUser();
 
-  // console.log(user?.user_metadata.email);
+  const { isError } = updateUser();
 
   const initialValues = {
     fullName: user?.user_metadata.fullName,
@@ -33,10 +33,16 @@ const EditProfile = () => {
       aboutMe: values.aboutMe,
     };
 
-    updateUser(updates);
-    toast.success("پروفایل با موفقیت آپدیت شد !", {
-      position: "top-center",
-    });
+    updateUserMutation(updates);
+    if (!isError) {
+      toast.success("پروفایل با موفقیت آپدیت شد !", {
+        position: "top-center",
+      });
+    } else {
+      toast.error("خطا در آپدیت پروفایل !", {
+        position: "top-center",
+      });
+    }
   };
 
   return (

@@ -5,6 +5,7 @@ import Button from "../common/Button/Button";
 import { useLogout } from "../../screens/Login/useLogout";
 import { useQuery } from "@tanstack/react-query";
 import { getCurrentUser } from "../../services/apiAuth";
+import { toast } from "react-toastify";
 
 const HeaderLeft = () => {
   const { data: user } = useQuery({
@@ -16,7 +17,7 @@ const HeaderLeft = () => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);
 
-  const { logout } = useLogout();
+  const { logout, isError } = useLogout();
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
@@ -42,6 +43,15 @@ const HeaderLeft = () => {
 
   const handleLogout = () => {
     logout();
+    if (!isError) {
+      toast.success("با موفقیت خارج شدید!", {
+        position: "top-center",
+      });
+    } else {
+      toast.error("خطا در خروج !", {
+        position: "top-center",
+      });
+    }
   };
 
   return (

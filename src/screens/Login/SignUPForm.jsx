@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as yup from "yup";
 import { useSignUp } from "./useSignUp";
+import { toast } from "react-toastify";
 
 const SignUpForm = () => {
   const [passwordIsVisible, setPasswordIsVisible] = useState(false);
@@ -11,7 +12,7 @@ const SignUpForm = () => {
 
   const darkMode = false;
 
-  const { signUp, isPending } = useSignUp();
+  const { signUp, isPending, isError } = useSignUp();
 
   const initialValues = {
     email: "",
@@ -50,6 +51,16 @@ const SignUpForm = () => {
     }
 
     signUp({ email, password, fullName });
+
+    if (!isError) {
+      toast.success(" با موفقیت ثبت نام کردید !", {
+        position: "top-center",
+      });
+    } else {
+      toast.error("خطا در ثبت نام !", {
+        position: "top-center",
+      });
+    }
   };
 
   return (
