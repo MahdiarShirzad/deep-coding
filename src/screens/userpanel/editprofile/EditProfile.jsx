@@ -1,11 +1,48 @@
 import React from "react";
-import avatar from "../../../assets/images/userpanel/avatar.jpg";
-// import Button from "../../../components/common/Button/Button";
 import { Field, Form, Formik } from "formik";
 import { useQuery } from "@tanstack/react-query";
 import { getCurrentUser, updateUser } from "../../../services/apiAuth";
 import { useUpdateUser } from "../useUpdateUser";
 import { toast } from "react-toastify";
+
+const svgProfile = (
+  <svg
+    className=" w-20"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+    <g
+      id="SVGRepo_tracerCarrier"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    ></g>
+    <g id="SVGRepo_iconCarrier">
+      {" "}
+      <circle
+        cx="12"
+        cy="9"
+        r="3"
+        stroke="#000000"
+        stroke-width="1.5"
+      ></circle>{" "}
+      <circle
+        cx="12"
+        cy="12"
+        r="10"
+        stroke="#000000"
+        stroke-width="1.5"
+      ></circle>{" "}
+      <path
+        d="M17.9691 20C17.81 17.1085 16.9247 15 11.9999 15C7.07521 15 6.18991 17.1085 6.03076 20"
+        stroke="#000000"
+        stroke-width="1.5"
+        stroke-linecap="round"
+      ></path>{" "}
+    </g>
+  </svg>
+);
 
 const EditProfile = () => {
   const { data: user } = useQuery({
@@ -48,20 +85,56 @@ const EditProfile = () => {
   return (
     <div>
       <p className="text-2xl font-semibold">ویرایش پروفایل</p>
+      <div className=" mt-7">
+        <p className="text-gray-600">تصویر</p>
+        <div className=" flex items-center gap-4 mt-3">
+          {/* <img className=" w-[90px] rounded-full" src={svgProfile} alt="" /> */}
+          <svg
+            className=" w-20"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g
+              id="SVGRepo_tracerCarrier"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></g>
+            <g id="SVGRepo_iconCarrier">
+              {" "}
+              <circle
+                cx="12"
+                cy="9"
+                r="3"
+                stroke="#333"
+                stroke-width="1.5"
+              ></circle>{" "}
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="#555"
+                stroke-width="1.5"
+              ></circle>{" "}
+              <path
+                d="M17.9691 20C17.81 17.1085 16.9247 15 11.9999 15C7.07521 15 6.18991 17.1085 6.03076 20"
+                stroke="#555"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              ></path>{" "}
+            </g>
+          </svg>
+          <button className=" bg-blue-200 text-blue-600 h-[40px] px-4 rounded-md">
+            تغییر
+          </button>
+          <button className=" bg-green-300 text-green-800 h-[40px] px-4 rounded-md">
+            ثبت
+          </button>
+        </div>
+      </div>
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         <Form>
-          <div className=" mt-7">
-            <p className="text-gray-600">تصویر</p>
-            <div className=" flex items-center gap-4 mt-3">
-              <img className=" w-[90px] rounded-full" src={avatar} alt="" />
-              <button className=" bg-blue-200 text-blue-600 h-[40px] px-4 rounded-md">
-                تغییر
-              </button>
-              <button className=" bg-red-300 text-red-600 h-[40px] px-4 rounded-md">
-                حذف
-              </button>
-            </div>
-          </div>
           <div className=" flex flex-wrap justify-between mt-8">
             <div className=" flex flex-col gap-2 my-3">
               <label htmlFor="fullName">نام کاربری</label>

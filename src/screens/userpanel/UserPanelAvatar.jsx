@@ -14,7 +14,7 @@ const UserPanelAvatar = () => {
         </div>
         <div>
           <div className="flex text-4xl gap-2 font-bold text-white capitalize">
-            <p>{user.user_metadata.fullName}</p>
+            <p>{user?.user_metadata.fullName}</p>
             <p>عزیز</p>
           </div>
           <p className="text-white mt-3">خوش آمدید ...!</p>

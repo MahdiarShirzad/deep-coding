@@ -110,7 +110,7 @@ const App = () => {
                 element={<EditProfile />}
               />
               <Route
-                path="/user-panel/student-course-resume"
+                path="/user-panel/student-course-resume/:id"
                 element={<CourseResume />}
               />
             </Route>

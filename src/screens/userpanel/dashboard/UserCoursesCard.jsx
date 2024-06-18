@@ -1,7 +1,9 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 export const UserCoursesCard = ({ course }) => {
+  if (course) {
+    var { id } = course;
+  }
   return (
     <div className=" flex justify-between items-center bg-gray-50 my-3 px-3 py-2 rounded-xl shadow-lg">
       <img src={course?.img} className=" w-28 h-20 rounded-xl my-3" alt="" />
@@ -14,7 +16,7 @@ export const UserCoursesCard = ({ course }) => {
       </div>
 
       <Link
-        to={`/user-panel/student-course-resume`}
+        to={`/user-panel/student-course-resume/${id}`}
         className=" bg-sky-100 p-2 rounded-3xl cursor-pointer"
       >
         <svg
