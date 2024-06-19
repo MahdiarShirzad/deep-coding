@@ -20,7 +20,7 @@ const TopCoursesCard = ({ course }) => {
     <Link to={`/courses/${id}`} onClick={scrollToTop}>
       <div className={styles.card_section}>
         <div className={`${styles.card_item} ${styles.card_users}`}>
-          <div className="max-w-[580px] h-44 flex font-iransans mb-8 gap-8 rounded-2xl px-6 py-4 shadow-sm shadow-slate-300">
+          <div className="w-[580px] max-xl:w-[550px] max-md:w-[500px] max-sm:w-[428px]  h-44 flex font-iransans mb-8 gap-8 rounded-2xl px-6 py-4 shadow-sm shadow-slate-300">
             <div>
               <img className="w-52 rounded-xl h-full" src={img} alt="" />
             </div>

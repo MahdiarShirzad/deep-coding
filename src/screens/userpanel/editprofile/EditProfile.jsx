@@ -146,7 +146,7 @@ const EditProfile = () => {
                 placeholder="نام کاربری"
               />
             </div>
-            <div className=" flex flex-col gap-2 my-3 w-full">
+            <div className=" flex flex-col gap-2 my-3 w-full lg:w-1/2 lg:pl-6 ">
               <label htmlFor="email">ایمیل</label>
               <Field
                 className=" border maxw-w-[450px] py-3 rounded-lg px-3"

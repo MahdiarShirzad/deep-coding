@@ -11,8 +11,8 @@ const Favorites = () => {
   const wishlist = user?.user_metadata.wishlist;
 
   return (
-    <div>
-      <p className=" text-2xl font-semibold">مورد علاقه ها</p>
+    <div className="max-md:px-5">
+      <p className=" text-2xl font-semibold max-md:mt-6">مورد علاقه ها</p>
       {wishlist && wishlist?.length > 0 ? (
         <div className=" h-[1000px] mt-14">
           {wishlist?.map((item) => (
