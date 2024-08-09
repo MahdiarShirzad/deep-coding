@@ -8,7 +8,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 const Map = () => {
-  const location = [36.547993380527124, 53.0467722859122];
+  const location = [36.5974697143203, 53.06468470700604];
 
   const customIcon = new icon({
     iconUrl: "https://cdn-icons-png.flaticon.com/128/2776/2776000.png",
