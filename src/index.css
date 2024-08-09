@@ -53,3 +53,9 @@
   text-align: right !important;
   direction: rtl !important;
 }
+.blog-content p {
+  margin-top: 1rem;
+}
+.blog-content div {
+  margin-top: 7px;
+}

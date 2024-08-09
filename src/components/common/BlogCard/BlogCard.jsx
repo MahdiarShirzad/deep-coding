@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
-import img from "../../../assets/images/blog/Designer.png";
 import { Link } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
 const BlogCard = ({ blog }) => {
-  const { name, category, date } = blog;
+  // const { name, category, date } = blog;
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -26,13 +25,14 @@ const BlogCard = ({ blog }) => {
       data-aos="fade-left"
     >
       <div className=" w-1/3 h-[140px] max-md:w-4/5 max-md:mx-auto">
-        <img className=" rounded-md w-full h-full " src={img} alt="" />
+        <img className=" rounded-md w-full h-full " src={blog?.img} alt="" />
       </div>
       <div className=" w-2/3 max-md:w-4/5 max-md:mx-auto">
-        <h5 className=" text-black text-2xl mt-3 font-medium">{name}</h5>
-        <p className="text-sm mt-5 font-thin text-gray-500 ">
-          در این مقاله می‌خواهیم تا به بررسی مجدد کد یا Refactoringدر برنامه
-          نویسی به عنوان راهی برای کاهش مشکلات فنی بپردازیم. اگر به طور جدی به
+        <h5 className=" text-black text-xl mt-3 font-bold h-[56px]">
+          {blog?.name}
+        </h5>
+        <p className="text-sm mt-5 font-thin text-gray-500 text-justify h-[60px]">
+          {blog?.summary}
         </p>
         <div className=" flex mt-8 items-center justify-start gap-7 px-3">
           <h6 className=" text-gray-500 flex gap-1 text-xs font-thin">
@@ -61,12 +61,12 @@ const BlogCard = ({ blog }) => {
                 ></path>{" "}
               </g>
             </svg>
-            {category}
+            {blog?.category}
           </h6>
-          <p className="text-xs text-gray-500  font-thin">{date}</p>
+          <p className="text-xs text-gray-500  font-thin">{blog?.date}</p>
         </div>
         <div className=" flex justify-end max-md:justify-center">
-          <Link to="/blog-detail" onClick={scrollToTop}>
+          <Link to={`/blogs/${blog?.id}`} onClick={scrollToTop}>
             <div className="bg-[#140342] flex items-center text-white gap-2 text-sm w-[130px] justify-center py-2 rounded-xl mt-5">
               <p>مشاهده بیشتر</p>
               <svg
