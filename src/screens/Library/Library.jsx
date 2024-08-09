@@ -12,16 +12,7 @@ const Library = () => {
     queryFn: getBooks,
   });
 
-  console.log(books);
-
   const [book, setBook] = useState(books);
-
-  useEffect(() => {
-    AOS.init({
-      duration: 1200, // Specify the animation duration
-      once: true, // Only play the animation once
-    });
-  }, []);
 
   return (
     <div className=" my-36 font-iransans container max-w-[1320px] mx-auto">
@@ -32,7 +23,7 @@ const Library = () => {
       </p>
       <div className=" flex items-start  justify-between mt-32 gap-12">
         <div
-          className="w-4/5  flex flex-wrap justify-between max-lg:mx-auto"
+          className="w-4/5  flex flex-wrap justify-start gap-3 max-lg:mx-auto"
           data-aos="fade-left"
         >
           {book?.map((book) => (
@@ -40,7 +31,7 @@ const Library = () => {
           ))}
         </div>
         <div className="w-1/4 px-2 max-lg:hidden">
-          {/* <BooksCategory items={books} setBooks={setBook} /> */}
+          <BooksCategory items={books} setBooks={setBook} />
         </div>
       </div>
     </div>

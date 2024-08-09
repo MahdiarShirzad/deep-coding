@@ -15,10 +15,14 @@ const BookCard = ({ book }) => {
 
   return (
     <div
-      className="bg-white w-[310px] mb-8 group border-2 border-cyan-600  rounded-3xl p-4 cursor-pointer transition-all duration-300 transform-gpu hover:-translate-y-2"
+      className="bg-white w-[310px] h-[575px] mb-8 group border-2 border-cyan-600  rounded-3xl p-4 cursor-pointer transition-all duration-300 transform-gpu hover:-translate-y-2"
       data-aos="fade-left"
     >
-      <img className="rounded-tr-3xl rounded-tl-3xl" src={book.img} alt="" />
+      <img
+        className="rounded-tr-3xl rounded-tl-3xl h-[275px] w-full"
+        src={book.img}
+        alt=""
+      />
       <div className="relative mt-10">
         <p className="absolute top-[-60px] text-[13px] flex items-center justify-center gap-1 font-yekanSemiBold text-[#0548E8] right-0 left-0 mx-14 bg-white z-20 shadow-lg shadow-gray-300 rounded-xl px-3 py-2">
           <svg
@@ -56,11 +60,11 @@ const BookCard = ({ book }) => {
           </svg>
           <p> {book.category}</p>
         </p>
-        <h4 className="text-[#2b2626] font-bold font-yekanBold text-lg my-3">
-          {book.title}
+        <h4 className="text-[#2b2626] font-bold font-yekanBold text-lg my-3 h-[56px]">
+          {book.name}
         </h4>
-        <p className="font-yekanReg text-[#444] text-sm leading-9">
-          {book.dec}
+        <p className="font-yekanReg text-[#444] text-sm leading-6 h-[96px] text-justify">
+          {book.summary}
         </p>
         <div className="flex justify-end">
           <Link to={`${id}`}>

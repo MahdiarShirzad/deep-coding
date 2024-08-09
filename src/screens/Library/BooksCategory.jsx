@@ -1,60 +1,63 @@
 import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import "./accardion.scss";
 
 const BooksCategory = ({ items, setBooks }) => {
-  const uniqueCategories = [...new Set(items.map((item) => item.category))];
-  const [selectedCategory, setSelectedCategory] = useState([]);
+  const uniqueCategories = [...new Set(items?.map((item) => item.category))];
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedCategoriesFromParams =
+    searchParams.get("categories")?.split(",") || [];
+
+  const [selectedCategory, setSelectedCategory] = useState(
+    selectedCategoriesFromParams
+  );
 
   const handleCategoryToggle = (category) => {
-    if (selectedCategory.includes(category)) {
-      setSelectedCategory(
-        selectedCategory.filter(
+    const newSelectedCategory = selectedCategory.includes(category)
+      ? selectedCategory.filter(
           (selectedCategory) => selectedCategory !== category
         )
-      );
+      : [...selectedCategory, category];
+
+    setSelectedCategory(newSelectedCategory);
+
+    if (newSelectedCategory.length > 0) {
+      setSearchParams({ categories: newSelectedCategory.join(",") });
     } else {
-      setSelectedCategory([...selectedCategory, category]);
+      setSearchParams({});
     }
   };
 
   useEffect(() => {
     if (selectedCategory.length > 0) {
-      const filteredItems = items.filter((item) =>
+      const filteredItems = items?.filter((item) =>
         selectedCategory.includes(item.category)
       );
       setBooks(filteredItems);
-
-      const counts = {};
-      uniqueCategories.forEach((category) => {
-        const categoryCount = filteredItems.filter(
-          (item) => item.category === category
-        ).length;
-        counts[category] = categoryCount;
-      });
     } else {
       setBooks(items);
-
-      const counts = {};
-      uniqueCategories.forEach((category) => {
-        const categoryCount = items.filter(
-          (item) => item.category === category
-        ).length;
-        counts[category] = categoryCount;
-      });
     }
   }, [selectedCategory, items]);
+
+  useEffect(() => {
+    const newSelectedCategory =
+      searchParams.get("categories")?.split(",") || [];
+    setSelectedCategory(newSelectedCategory);
+  }, [searchParams]);
+
   return (
     <div className="tab mb-4">
-      <p className=" mb-4 text-xl font-bold">دسته بندی ها</p>
+      <p className="mb-4 text-xl font-bold">دسته بندی ها</p>
       <div className="tab-content text-sm">
         {uniqueCategories.map((category, index) => (
           <div className="flex items-center justify-between" key={index}>
             <div className="flex items-center my-1 gap-3 text-base">
               <input
-                className="checked:accent-gray-800 rounded-full w-3 h-4 cursor-pointer "
+                className="checked:accent-gray-800 rounded-full w-3 h-4 cursor-pointer"
                 type="checkbox"
                 name={category}
                 id={category}
+                checked={selectedCategory.includes(category)}
                 onChange={() => handleCategoryToggle(category)}
               />
               <label

@@ -40,3 +40,16 @@
   border-radius: 30px;
   cursor: pointer !important;
 }
+
+.custom-content p {
+  @apply mt-2 text-gray-700 leading-relaxed;
+}
+
+.custom-content h4 {
+  @apply mt-5 text-lg text-gray-800 font-semibold;
+}
+
+.Toastify {
+  text-align: right !important;
+  direction: rtl !important;
+}

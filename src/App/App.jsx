@@ -30,6 +30,7 @@ import { getTeachers } from "../services/apiTeachers";
 import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
+import Book from "../screens/Library/Book";
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -84,6 +85,7 @@ const App = () => {
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blog-detail" element={<BlogDetail />} />
           <Route path="/library" element={<Library />} />
+          <Route path="/library/:id" element={<Book />} />
           <Route path="/about-us" element={<AboutUs />} />
           {isAuthenticated && (
             <Route path="/cart" element={<Cart courses={courses} />} />
