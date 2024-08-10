@@ -100,16 +100,19 @@ const Courses = ({}) => {
                 className=" min-h-[700px] flex items-start justify-start lg:gap-5 max-xl:justify-between max-xl:px-32 max-md:mt-16 px-5 flex-wrap mt-7 max-lg:justify-center max-lg:gap-12 max-xl:mx-auto"
                 data-aos="fade-left"
               >
-                {posts && posts.length > 0 ? (
+                {posts && posts.length > 0 && !isLoading ? (
                   <>
                     {currentPosts?.map((course, index) => (
                       <CourseCard key={index} posts={course} />
                     ))}
                   </>
                 ) : (
-                  <p className="text-center w-full mt-20 text-3xl">
-                    دوره ای یافت نشد !
-                  </p>
+                  posts.length === 0 &&
+                  !isLoading && (
+                    <p className="text-center w-full mt-20 text-3xl">
+                      دوره ای یافت نشد !
+                    </p>
+                  )
                 )}
               </div>
               {posts && posts.length > 0 && (
