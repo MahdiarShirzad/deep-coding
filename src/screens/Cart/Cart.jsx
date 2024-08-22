@@ -48,10 +48,10 @@ const Cart = () => {
 
     if (user) {
       await updateUser(updates);
-      await queryClient.invalidateQueries(["user"]);
       toast.success("پرداخت با موفقیت انجام شد!", {
         position: "top-center",
       });
+      await queryClient.invalidateQueries(["user"]);
       navigate("/user-panel/dashboard");
     } else {
       toast.error("خطا در پردازش پرداخت!", {
