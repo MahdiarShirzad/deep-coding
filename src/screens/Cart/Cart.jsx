@@ -47,25 +47,12 @@ const Cart = () => {
     };
 
     if (user) {
-      try {
-        // Update the user
-        await updateUser(updates);
-
-        // Invalidate the 'user' query to refetch the updated data
-        await queryClient.invalidateQueries(["user"]);
-
-        // Show success message
-        toast.success("پرداخت با موفقیت انجام شد!", {
-          position: "top-center",
-        });
-
-        // Navigate to the dashboard
-        navigate("/user-panel/dashboard");
-      } catch (error) {
-        toast.error("خطا در پردازش پرداخت!", {
-          position: "top-center",
-        });
-      }
+      await updateUser(updates);
+      await queryClient.invalidateQueries(["user"]);
+      toast.success("پرداخت با موفقیت انجام شد!", {
+        position: "top-center",
+      });
+      navigate("/user-panel/dashboard");
     } else {
       toast.error("خطا در پردازش پرداخت!", {
         position: "top-center",
