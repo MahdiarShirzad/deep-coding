@@ -45,8 +45,8 @@ const Cart = () => {
     };
 
     if (user) {
-      updateUser(updates);
       queryClient.invalidateQueries(["user"]);
+      updateUser(updates);
       toast.success("پرداخت با موفقیت انجام شد!", {
         position: "top-center",
       });
