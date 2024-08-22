@@ -16,7 +16,7 @@ const CourseCard = ({ posts }) => {
 
   // Truncate the name if it exceeds 20 characters
   const truncatedName =
-    name.length > 20 ? name.substring(0, 31) + " ..." : name;
+    name.length > 31 ? name.substring(0, 31) + " ..." : name;
 
   const coursePrice = price === 0 ? <p>رایگان</p> : formattedPrice;
 
