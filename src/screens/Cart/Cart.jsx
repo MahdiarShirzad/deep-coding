@@ -27,11 +27,9 @@ const Cart = () => {
   const handleCheckout = async () => {
     const currentCourses = user?.user_metadata.courses || [];
 
-    // Check if the course already exists in the user's courses
     const courseExists = currentCourses.some((course) =>
       userCart.some((cartCourse) => cartCourse.id === course.id)
     );
-
     if (courseExists) {
       toast.error("شما قبلا در این دوره ثبت نام کرده اید !", {
         position: "top-center",
@@ -47,16 +45,14 @@ const Cart = () => {
     };
 
     if (user) {
-      await updateUser(updates);
+      updateUser(updates);
+      queryClient.invalidateQueries(["user"]);
       toast.success("پرداخت با موفقیت انجام شد!", {
         position: "top-center",
       });
-      await queryClient.invalidateQueries(["user"]);
       navigate("/user-panel/dashboard");
     } else {
-      toast.error("خطا در پردازش پرداخت!", {
-        position: "top-center",
-      });
+      toast.error("خطا در پردازش پرداخت!");
     }
   };
 
