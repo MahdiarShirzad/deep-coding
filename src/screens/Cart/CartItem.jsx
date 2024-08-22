@@ -25,8 +25,11 @@ const CartItem = ({ item }) => {
       position: "top-center",
     });
   };
+  const formattedPrice = item.price
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
-  const coursePrice = item?.price === 0 ? <p>رایگان</p> : item?.price;
+  const coursePrice = item?.price === 0 ? <p>رایگان</p> : formattedPrice;
 
   return (
     <div className="flex items-center justify-between w-[700px] px-3 py-2 rounded-lg shadow-md">

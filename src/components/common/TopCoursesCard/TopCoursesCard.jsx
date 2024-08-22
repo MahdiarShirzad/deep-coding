@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 const TopCoursesCard = ({ course }) => {
   const { id, name, star, level, time, img, teacher, price } = course;
 
+  const formattedPrice = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -14,7 +16,7 @@ const TopCoursesCard = ({ course }) => {
     });
   };
 
-  const coursePrice = price === 0 ? <p>رایگان</p> : price;
+  const coursePrice = price === 0 ? <p>رایگان</p> : formattedPrice;
 
   return (
     <Link to={`/courses/${id}`} onClick={scrollToTop}>

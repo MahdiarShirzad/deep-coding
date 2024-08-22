@@ -13,6 +13,12 @@ const BookCard = ({ book }) => {
     });
   }, []);
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+    });
+  };
+
   return (
     <div
       className="bg-white w-[310px] h-[575px] mb-8 group border-2 border-cyan-600  rounded-3xl p-4 cursor-pointer transition-all duration-300 transform-gpu hover:-translate-y-2"
@@ -67,7 +73,7 @@ const BookCard = ({ book }) => {
           {book.summary}
         </p>
         <div className="flex justify-end">
-          <Link to={`${id}`}>
+          <Link onClick={scrollToTop} to={`${id}`}>
             <button className="flex group-hover:bg-[#0f6ffe1a] my-3 py-2 mb-3 mr-2 px-2 rounded-xl items-center font-yekanReg gap-1 text-[#2b2626] text-sm">
               <p>ادامه مطلب</p>
               <svg

@@ -15,6 +15,10 @@ const CoursePreview = ({ selectedCourse, user }) => {
 
   const queryClient = useQueryClient();
 
+  const formattedPrice = selectedCourse.price
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
@@ -83,7 +87,7 @@ const CoursePreview = ({ selectedCourse, user }) => {
       </div>
       <div className=" flex mt-3 gap-2 text-xl font-medium mr-3">
         <span className=" font-semibold">
-          {selectedCourse?.price === 0 ? "رایگان" : selectedCourse?.price}
+          {selectedCourse?.price === 0 ? "رایگان" : formattedPrice}
         </span>
         {selectedCourse?.price !== 0 && <span>تومان</span>}
       </div>
