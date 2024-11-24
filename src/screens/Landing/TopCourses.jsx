@@ -1,7 +1,6 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useReducer, useRef } from "react";
 import TopCoursesCard from "../../components/common/TopCoursesCard/TopCoursesCard";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import { motion, useInView } from "framer-motion";
 
 const categoryReducer = (state, action) => {
   switch (action.type) {
@@ -11,14 +10,66 @@ const categoryReducer = (state, action) => {
       return state;
   }
 };
+const titleVariants = {
+  hidden: {
+    opacity: 0,
+    x: -200,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.3,
+      type: "spring",
+      stiffness: 110,
+      damping: 12,
+    },
+  },
+};
+
+const filterVariants = {
+  hidden: {
+    opacity: 0,
+    x: 200,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.3,
+      type: "spring",
+      stiffness: 110,
+      damping: 12,
+    },
+  },
+};
+
+const cardVariants = (isEven) => ({
+  hidden: {
+    opacity: 0,
+    x: isEven ? 200 : -200,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.5,
+      delay: 0.25,
+      type: "spring",
+      stiffness: 110,
+      damping: 12,
+    },
+  },
+});
 
 const TopCourses = ({ courses }) => {
-  useEffect(() => {
-    AOS.init({
-      duration: 1200, // Specify the animation duration
-      once: true, // Only play the animation once
-    });
-  }, []);
+  const titleRef = useRef(null);
+  const filterRef = useRef(null);
+  const cardRef = useRef(null);
+  const titleInView = useInView(titleRef, { once: true });
+  const filterInView = useInView(titleRef, { once: true });
+  const cardInView = useInView(titleRef, { once: true });
+
   const [selectedCategory, dispatch] = useReducer(categoryReducer, "all");
 
   const categories = ["all", "طراحی وب", "برنامه نویسی", "گرافیک"];
@@ -35,17 +86,28 @@ const TopCourses = ({ courses }) => {
       : coursesData.filter((course) => course.category === selectedCategory);
 
   return (
-    <div className="mt-24 max-w-[1320px] mx-auto" data-aos="fade-left">
+    <div className="mt-24 max-w-[1320px] mx-auto">
       <div className="flex   max-md:flex-col max-md:gap-8 max-md:justify-start max-md:items-start max-md:pr-6 font-iransans items-center justify-between">
-        <div>
+        <motion.div
+          ref={titleRef}
+          initial="hidden"
+          animate={titleInView ? "visible" : "hidden"}
+          variants={titleVariants}
+        >
           <h3 className="text-3xl font-semibold max-lg:text-xl">
             پرمخاطب ترین دوره ها را جستجو کنید
           </h3>
           <p className="text-sm mt-3 text-slate-600 max-lg:text-xs">
             بیش از 10000 طرح منحصر به فرد در لیست دوره های آنلاین
           </p>
-        </div>
-        <ul className="flex items-center justify-center gap-3 p-2 rounded-full bg-gray-200 max-lg:text-sm">
+        </motion.div>
+        <motion.ul
+          ref={filterRef}
+          initial="hidden"
+          animate={filterInView ? "visible" : "hidden"}
+          variants={filterVariants}
+          className="flex items-center justify-center gap-3 p-2 rounded-full bg-gray-200 max-lg:text-sm"
+        >
           {categories.map((category) => (
             <li
               key={category}
@@ -57,11 +119,19 @@ const TopCourses = ({ courses }) => {
               {category === "all" ? "همه" : category}
             </li>
           ))}
-        </ul>
+        </motion.ul>
       </div>
       <div className="flex flex-wrap max-xl:mx-auto justify-between mt-10">
         {filteredCourses.slice(0, 6).map((course, index) => (
-          <TopCoursesCard key={index} course={course} />
+          <motion.div
+            ref={cardRef}
+            key={index}
+            initial="hidden"
+            animate={cardInView ? "visible" : "hidden"}
+            variants={cardVariants(index % 2 === 0)}
+          >
+            <TopCoursesCard key={index} course={course} />
+          </motion.div>
         ))}
       </div>
     </div>

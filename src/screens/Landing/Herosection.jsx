@@ -1,30 +1,101 @@
-import React, { useEffect } from "react";
+import React, { useRef } from "react";
 import heroimg from "../../assets/images/home-7/hero/image.png";
 import { Link } from "react-router-dom";
+import { motion, useInView } from "framer-motion";
 import Button from "../../components/common/Button/Button";
-import AOS from "aos";
-import "aos/dist/aos.css";
 
 const Herosection = () => {
+  const titleRef = useRef(null);
+  const itemsRef = useRef(null);
+  const titleInView = useInView(titleRef, { once: true });
+  const itemsInView = useInView(titleRef, { once: true });
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
     });
   };
 
-  useEffect(() => {
-    AOS.init({
-      duration: 1200, // Specify the animation duration
-      once: true, // Only play the animation once
-    });
-  }, []);
+  const textVariants = {
+    hidden: {
+      opacity: 0,
+      y: -500,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.3,
+        delay: 0.3,
+        type: "spring",
+        stiffness: 110,
+        damping: 9,
+      },
+    },
+  };
+
+  const imageVariants = {
+    hidden: {
+      opacity: 0,
+      y: 500,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.3,
+        delay: 0.3,
+        type: "spring",
+        stiffness: 110,
+        damping: 9,
+      },
+    },
+  };
+
+  const titleVariants = {
+    hidden: {
+      opacity: 0,
+      y: 100,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.3,
+        type: "spring",
+        stiffness: 110,
+        damping: 12,
+      },
+    },
+  };
+  const ItemsVariants = {
+    hidden: {
+      opacity: 0,
+      y: -100,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.3,
+        delay: 0.3,
+        type: "spring",
+        stiffness: 110,
+        damping: 12,
+      },
+    },
+  };
 
   return (
-    <div className=" relative" data-aos="fade-left">
+    <div className=" relative">
       <div className="bg-[url('assets/images/home-6/hero/bg.png')] bg-no-repeat absolute -z-20  bg-cover w-full  h-[780px]"></div>
       <div className="flex  items-center py-20 px-10 max-md:px-3 font-iransans z-20 max-w-[1320px]  container mx-auto">
-        <div className="w-1/2  max-lg:mr-20 max-lg:w-3/4 max-lg:mt-16 max-md:w-full">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={textVariants}
+          className="w-1/2  max-lg:mr-20 max-lg:w-3/4 max-lg:mt-16 max-md:w-full"
+        >
           <h1 className="text-4xl font-extrabold leading-[60px] text-right">
             دوره های مورد نظر را پیدا کنید و مهارت ها را بهبود ببخشید
           </h1>
@@ -42,20 +113,38 @@ const Herosection = () => {
               </button>
             </Link>
           </div>
-        </div>
-        <div className=" max-lg:hidden">
-          <img src={heroimg} alt="" />
-        </div>
+        </motion.div>
+        <motion.div
+          className="max-lg:hidden"
+          initial="hidden"
+          animate="visible"
+          variants={imageVariants}
+        >
+          <img src={heroimg} alt="Hero Section" />
+        </motion.div>
       </div>
       <div className="font-iransans max-w-[1320px]  container mx-auto ">
-        <h2 className="text-center mb-7 text-3xl font-semibold">
-          چرا برای آینده یاد بگیریم؟
-        </h2>
-        <p className="text-center">
-          یادگیری مداوم به ما کمک می‌کند تا برای چالش‌های آینده آماده‌تر باشیم و
-          موفقیت بیشتری کسب کنیم.{" "}
-        </p>
-        <div className="flex flex-wrap max-lg:flex-col max-lg:gap-6 justify-between items-center mt-9">
+        <motion.div
+          ref={titleRef}
+          initial="hidden"
+          animate={titleInView ? "visible" : "hidden"}
+          variants={titleVariants}
+        >
+          <h2 className="text-center mb-7 text-3xl font-semibold">
+            چرا برای آینده یاد بگیریم؟
+          </h2>
+          <p className="text-center">
+            یادگیری مداوم به ما کمک می‌کند تا برای چالش‌های آینده آماده‌تر باشیم
+            و موفقیت بیشتری کسب کنیم.
+          </p>
+        </motion.div>
+        <motion.div
+          ref={itemsRef}
+          initial="hidden"
+          animate={itemsInView ? "visible" : "hidden"}
+          variants={ItemsVariants}
+          className="flex flex-wrap max-lg:flex-col max-lg:gap-6 justify-between items-center mt-9"
+        >
           <div className="flex flex-col items-center justify-center w-[300px] gap-4">
             <div className="p-7 rounded-full shadow-gray-200 shadow-sm">
               <svg
@@ -119,7 +208,7 @@ const Herosection = () => {
               مهارت‌های جدید و متنوعی را در هر زمینه‌ای که به آن علاقه دارید، از
               برنامه‌نویسی تا طراحی، فرا بگیرید
             </p>
-          </div>{" "}
+          </div>
           <div className="flex flex-col items-center justify-center w-[300px] gap-4">
             <div className="p-7 rounded-full shadow-gray-200 shadow-sm">
               <svg
@@ -162,7 +251,7 @@ const Herosection = () => {
               با دوره‌های ما، توانایی‌های خود را کشف و شکوفا کنید و به مرحله
               بعدی حرفه‌ای خود قدم بگذارید
             </p>
-          </div>{" "}
+          </div>
           <div className="flex flex-col items-center justify-center w-[300px] gap-4 max-lg:mt-8">
             <div className="p-7 rounded-full shadow-gray-200 shadow-sm">
               <svg
@@ -289,7 +378,7 @@ const Herosection = () => {
               از بهترین متخصصان صنعت یاد بگیرید و با دانش و تجربیات ارزشمند
               آن‌ها به اهداف خود نزدیک‌تر شوید
             </p>
-          </div>{" "}
+          </div>
           <div className="flex flex-col items-center justify-center w-[300px] gap-4 max-lg:mt-8">
             <div className="p-7 rounded-full shadow-gray-200 shadow-sm">
               <svg
@@ -334,7 +423,7 @@ const Herosection = () => {
               هر زمان که خواستید بازبینی کنید.
             </p>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

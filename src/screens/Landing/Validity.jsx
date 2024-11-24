@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import { motion, useInView } from "framer-motion";
+
 import ValidityCarousel from "./ValidityCarousel";
-import AOS from "aos";
-import "aos/dist/aos.css";
 
 import client1 from "../../assets/images/clients/1.svg";
 import client2 from "../../assets/images/clients/2.svg";
@@ -9,19 +8,58 @@ import client3 from "../../assets/images/clients/3.svg";
 import client4 from "../../assets/images/clients/4.svg";
 import client5 from "../../assets/images/clients/5.svg";
 import client6 from "../../assets/images/clients/6.svg";
+import { useRef } from "react";
+
+const textVariants = {
+  hidden: {
+    opacity: 0,
+    x: -200,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.3,
+      type: "spring",
+      stiffness: 130,
+      damping: 8,
+    },
+  },
+};
+const sliderVariants = {
+  hidden: {
+    opacity: 0,
+    x: 200,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.3,
+      type: "spring",
+      stiffness: 130,
+      damping: 8,
+    },
+  },
+};
 
 const Validity = () => {
-  useEffect(() => {
-    AOS.init({
-      duration: 1200, // Specify the animation duration
-      once: true, // Only play the animation once
-    });
-  }, []);
+  const textRef = useRef(null);
+  const sliderRef = useRef(null);
+  const textInView = useInView(textRef, { once: true });
+  const sliderInView = useInView(sliderRef, { once: true });
+
   return (
-    <div className=" bg-[#1A064F] mt-10" data-aos="fade-left">
+    <div className=" bg-[#1A064F] mt-10">
       <div className=" container max-w-[1320px] mx-auto text-white font-iransans pt-20">
         <div className=" flex flex-wrap items-center gap-14">
-          <div className="w-1/2 max-lg:mx-auto max-sm:w-3/4">
+          <motion.div
+            ref={textRef}
+            initial="hidden"
+            animate={textInView ? "visible" : "hidden"}
+            variants={textVariants}
+            className="w-1/2 max-lg:mx-auto max-sm:w-3/4"
+          >
             <div>
               <p className="text-3xl font-bold">
                 مردم دوست دارند با ما یاد بگیرند
@@ -44,10 +82,16 @@ const Validity = () => {
                 </p>
               </div>
             </div>
-          </div>
-          <div className=" max-lg:mx-auto">
+          </motion.div>
+          <motion.div
+            ref={sliderRef}
+            initial="hidden"
+            animate={sliderInView ? "visible" : "hidden"}
+            variants={sliderVariants}
+            className=" max-lg:mx-auto"
+          >
             <ValidityCarousel />
-          </div>
+          </motion.div>
         </div>
         <div className=" mt-20 max-md:hidden">
           <h6 className=" text-center text-xl mb-8">

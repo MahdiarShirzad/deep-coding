@@ -1,7 +1,3 @@
-import React, { useEffect } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
-
 import Herosection from "./Herosection";
 import TopCourses from "./TopCourses";
 import TopCategory from "./TopCategory";
@@ -15,13 +11,6 @@ import { Spinner } from "../../components/Spinner/Spinner";
 import { getBlogs } from "../../services/apiBlogs";
 
 const Landing = () => {
-  useEffect(() => {
-    AOS.init({
-      duration: 100, // Specify the animation duration
-      once: true, // Only play the animation once
-    });
-  }, []);
-
   const { data: courses, isLoading } = useQuery({
     queryKey: ["courses"],
     queryFn: getCourses,
@@ -59,7 +48,7 @@ const Landing = () => {
       )}
       <>
         <Validity />
-        <div className=" w-full flex flex-row-reverse " data-aos="fade-left">
+        <div className=" w-full flex flex-row-reverse ">
           <svg
             class="img-svg"
             viewBox="0 0 1925 261"
