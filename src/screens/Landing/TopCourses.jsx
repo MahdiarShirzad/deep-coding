@@ -54,7 +54,7 @@ const cardVariants = (isEven) => ({
     x: 0,
     transition: {
       duration: 0.5,
-      delay: 0.25,
+      // delay: 0.25,
       type: "spring",
       stiffness: 110,
       damping: 12,
@@ -67,8 +67,8 @@ const TopCourses = ({ courses }) => {
   const filterRef = useRef(null);
   const cardRef = useRef(null);
   const titleInView = useInView(titleRef, { once: true });
-  const filterInView = useInView(titleRef, { once: true });
-  const cardInView = useInView(titleRef, { once: true });
+  const filterInView = useInView(filterRef, { once: true });
+  const cardInView = useInView(cardRef, { once: true });
 
   const [selectedCategory, dispatch] = useReducer(categoryReducer, "all");
 

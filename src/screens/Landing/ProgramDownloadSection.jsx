@@ -1,21 +1,34 @@
-import React, { useEffect } from "react";
+import { motion, useInView } from "framer-motion";
 import app from "../../assets/images/home-6/app/1.png";
 import apple from "../../assets/images/app/buttons/1.svg";
 import googleplay from "../../assets/images/app/buttons/2.svg";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import { useRef } from "react";
+
+const imageVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+
+    transition: {
+      duration: 1.4,
+      type: "spring",
+    },
+  },
+};
 
 const ProgramDownloadSection = () => {
-  useEffect(() => {
-    AOS.init({
-      duration: 1200, // Specify the animation duration
-      once: true, // Only play the animation once
-    });
-  }, []);
+  const imageRef = useRef(null);
+  const imageInView = useInView(imageRef, { once: true });
+
   return (
-    <div
+    <motion.div
       className=" container max-w-[1320px] max-lg:hidden mx-auto flex bg-sky-100 mt-32 justify-between items-center font-iransans px-20 py-24 rounded-2xl mb-20"
-      data-aos="fade-up"
+      ref={imageRef}
+      initial="hidden"
+      animate={imageInView ? "visible" : "hidden"}
+      variants={imageVariants}
     >
       <div>
         <p className="text-3xl font-medium">برنامه را دانلود کنید</p>
@@ -34,7 +47,7 @@ const ProgramDownloadSection = () => {
       <div>
         <img src={app} alt="" />
       </div>
-    </div>
+    </motion.div>
   );
 };
 
