@@ -1,28 +1,14 @@
-import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import AOS from "aos";
-import "aos/dist/aos.css";
 
 const BlogCard = ({ blog }) => {
-  // const { name, category, date } = blog;
-
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
     });
   };
 
-  useEffect(() => {
-    AOS.init({
-      duration: 1200, // Specify the animation duration
-      once: true, // Only play the animation once
-    });
-  }, []);
   return (
-    <div
-      className="max-w-[600px] px-4 flex max-md:flex-col justify-between gap-10 py-4 rounded-lg shadow-md shadow-gray-200 my-4 group transition-all duration-300 transform-gpu hover:-translate-y-2"
-      data-aos="fade-left"
-    >
+    <div className="max-w-[600px] px-4 flex max-md:flex-col justify-between gap-10 py-4 rounded-lg shadow-md shadow-gray-200 my-4 group transition-all duration-300 transform-gpu hover:-translate-y-2">
       <div className=" w-1/3 h-[140px] max-md:w-4/5 max-md:mx-auto">
         <img className=" rounded-md w-full h-full " src={blog?.img} alt="" />
       </div>

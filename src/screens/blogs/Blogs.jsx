@@ -1,10 +1,10 @@
 import React from "react";
 import BlogCard from "../../components/common/BlogCard/BlogCard";
-import SearchCourses from "../../components/SearchCourses/SearchCourses";
 import { useQuery } from "@tanstack/react-query";
 import { getBlogs } from "../../services/apiBlogs";
 import { Spinner } from "../../components/Spinner/Spinner";
 import { motion } from "framer-motion";
+import SearchBlogs from "../../components/SearchBlogs/SearchBlogs";
 
 const Blogs = () => {
   const { data: blogs, isLoading } = useQuery({
@@ -33,7 +33,7 @@ const Blogs = () => {
       </p>
       <div className="flex justify-between items-center">
         <div className="w-full px-10">
-          <SearchCourses products={blogs} />
+          <SearchBlogs products={blogs} />
         </div>
       </div>
 

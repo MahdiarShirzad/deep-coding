@@ -4,7 +4,7 @@ import BooksCategory from "./BooksCategory";
 import { useQuery } from "@tanstack/react-query";
 import { getBooks } from "../../services/apiBooks";
 import { motion } from "framer-motion";
-import SearchCourses from "../../components/SearchCourses/SearchCourses";
+import SearchBooks from "../../components/SearchBooks/SearchBooks";
 
 const Library = () => {
   const { data: books } = useQuery({
@@ -37,7 +37,7 @@ const Library = () => {
 
       <div className="flex justify-between items-center">
         <div className="w-full px-10">
-          <SearchCourses products={books} />
+          <SearchBooks products={books} />
         </div>
       </div>
 

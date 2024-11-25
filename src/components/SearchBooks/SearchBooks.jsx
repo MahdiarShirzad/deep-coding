@@ -8,7 +8,7 @@ const scrollToTop = () => {
   });
 };
 
-const SearchCourses = ({ products }) => {
+const SearchBooks = ({ products }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
 
@@ -49,30 +49,23 @@ const SearchCourses = ({ products }) => {
       <input
         className=" transition-none block relative w-full px-3 py-3 rounded-3xl focus:outline-none placeholder:text-base focus:bg-white focus:placeholder:opacity-0"
         type="text"
-        placeholder=" دوره مورد نظر را جستوجوی کنید"
+        placeholder="کتاب مورد نظر را جستوجوی کنید"
         value={searchQuery}
         onChange={handleInputChange}
       />
       {searchQuery && (
         <div className="max-h-80 absolute w-[100%] top-20  rounded-xl bg-white overflow-y-auto border border-gray-300  z-50">
           {filteredProducts.length > 0 ? (
-            filteredProducts.map((course) => (
+            filteredProducts.map((book) => (
               <>
                 <Link
-                  to={`/courses/${course?.id}`}
+                  to={`/library/${book?.id}`}
                   onClick={scrollToTop}
                   className=" flex gap-4 py-2 items-center px-10"
                 >
-                  <img
-                    className="w-20 h-20 rounded-lg"
-                    src={course.img}
-                    alt=""
-                  />
-                  <div key={course.id} className="p-2 py-8 ">
-                    <p>{course.name}</p>
-                    <p className=" text-sm font-light mt-3">
-                      مدرس: {course.teacher}
-                    </p>
+                  <img className="w-20 h-20 rounded-lg" src={book.img} alt="" />
+                  <div key={book.id} className="p-2 py-8 ">
+                    {book.name}
                   </div>
                 </Link>
                 <Separator />
@@ -80,7 +73,7 @@ const SearchCourses = ({ products }) => {
             ))
           ) : (
             <div className=" h-20 flex my-4 justify-center items-center ">
-              دوره مورد نظر یافت نشد
+              کتاب مورد نظر یافت نشد
             </div>
           )}
         </div>
@@ -89,4 +82,4 @@ const SearchCourses = ({ products }) => {
   );
 };
 
-export default SearchCourses;
+export default SearchBooks;
