@@ -1,4 +1,5 @@
 import React from "react";
+
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Landing from "../screens/Landing/Landing";
 import Header from "../components/Header/Header";
@@ -54,7 +55,7 @@ const Layout = ({ children }) => {
 };
 
 const App = () => {
-  const { data: courses, isPending: coursesLoading } = useQuery({
+  const { data: courses } = useQuery({
     queryKey: ["courses"],
     queryFn: getCourses,
   });
@@ -74,13 +75,10 @@ const App = () => {
         <ToastContainer />
         <Routes>
           <Route path="/" index element={<Landing />} />
-          <Route
-            path="/courses"
-            element={<Courses courses={courses} isLoading={coursesLoading} />}
-          />
+          <Route path="/courses" element={<Courses />} />
           <Route
             path="/courses/:id"
-            element={<CourseDetail items={courses} teachers={teachers} />}
+            element={<CourseDetail teachers={teachers} />}
           ></Route>
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blogs/:id" element={<BlogDetail />} />
