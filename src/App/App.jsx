@@ -34,17 +34,17 @@ import "react-toastify/dist/ReactToastify.css";
 import Book from "../screens/Library/Book";
 
 const Layout = ({ children }) => {
-  const location = useLocation();
+  // const location = useLocation();
 
-  const isLoginPage = location.pathname === "/login";
-  const isSignUpPage = location.pathname === "/sign-up";
+  // const isLoginPage = location.pathname === "/login";
+  // const isSignUpPage = location.pathname === "/sign-up";
 
-  if (isLoginPage) {
-    return <>{children}</>;
-  }
-  if (isSignUpPage) {
-    return <>{children}</>;
-  }
+  // if (isLoginPage) {
+  //   return <>{children}</>;
+  // }
+  // if (isSignUpPage) {
+  //   return <>{children}</>;
+  // }
   return (
     <>
       <Header />
