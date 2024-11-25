@@ -5,6 +5,12 @@ import * as yup from "yup";
 import { useSignUp } from "./useSignUp";
 import { toast } from "react-toastify";
 
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+  });
+};
+
 const SignUpForm = () => {
   const [passwordIsVisible, setPasswordIsVisible] = useState(false);
   const [confirmPasswordIsVisible, setConfirmPasswordIsVisible] =
@@ -68,7 +74,7 @@ const SignUpForm = () => {
       <p className="text-3xl font-bold">ورود</p>
       <div className="flex gap-2 mt-3">
         <span className="text-gray-500">آیا قبلا ثبت نام کرده اید؟</span>
-        <Link to="/login" className="text-indigo-500">
+        <Link onClick={scrollToTop} to="/login" className="text-indigo-500">
           ورود
         </Link>
       </div>

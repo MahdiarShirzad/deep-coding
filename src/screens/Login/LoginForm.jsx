@@ -5,6 +5,12 @@ import * as yup from "yup";
 import { useLogin } from "./useLogin";
 import { toast } from "react-toastify";
 
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+  });
+};
+
 const LoginForm = () => {
   const { login, isPending, isError } = useLogin();
 
@@ -43,7 +49,7 @@ const LoginForm = () => {
       <p className="text-3xl font-bold">ورود</p>
       <div className="flex gap-2 mt-3">
         <span className="text-gray-500">آیا هنوز ثبت نام نکرده اید؟</span>
-        <Link to="/sign-up" className="text-indigo-500">
+        <Link onClick={scrollToTop} to="/sign-up" className="text-indigo-500">
           ثبت نام رایگان
         </Link>
       </div>

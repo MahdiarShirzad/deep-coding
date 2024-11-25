@@ -7,6 +7,12 @@ import { useQuery } from "@tanstack/react-query";
 import { getCurrentUser } from "../../services/apiAuth";
 import { toast } from "react-toastify";
 
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+  });
+};
+
 const HeaderLeft = () => {
   const { data: user } = useQuery({
     queryKey: ["user"],
@@ -88,10 +94,10 @@ const HeaderLeft = () => {
       )}
       {!isAuthenticated && (
         <>
-          <NavLink to="/login">
+          <NavLink onClick={scrollToTop} to="/login">
             <button>ورود</button>
           </NavLink>
-          <NavLink to="sign-up">
+          <NavLink onClick={scrollToTop} to="sign-up">
             <Button>ثبت نام</Button>
           </NavLink>
         </>
