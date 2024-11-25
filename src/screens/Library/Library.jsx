@@ -4,6 +4,7 @@ import BooksCategory from "./BooksCategory";
 import { useQuery } from "@tanstack/react-query";
 import { getBooks } from "../../services/apiBooks";
 import { motion } from "framer-motion";
+import SearchCourses from "../../components/SearchCourses/SearchCourses";
 
 const Library = () => {
   const { data: books } = useQuery({
@@ -13,7 +14,6 @@ const Library = () => {
 
   const [book, setBook] = useState(books);
 
-  // Animation Variants
   const bookCardVariants = {
     hidden: { opacity: 0, y: -100 },
     visible: {
@@ -34,8 +34,14 @@ const Library = () => {
         با کتاب های راهنمای مسیر یادگیری زبان های برنامه نویسی مختلف، بهترین
         مسیر رو برای خودت پیدا کن
       </p>
+
+      <div className="flex justify-between items-center">
+        <div className="w-full px-10">
+          <SearchCourses products={books} />
+        </div>
+      </div>
+
       <div className="flex items-start justify-between mt-32 gap-12">
-        {/* Book Cards */}
         <div className="w-4/5 flex flex-wrap justify-start gap-3 max-lg:mx-auto">
           {book?.map((book) => (
             <motion.div
