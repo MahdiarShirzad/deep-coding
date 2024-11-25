@@ -47,10 +47,14 @@ const Footer = () => {
         </div>
         <div className=" font-thin text-gray-300 max-lg:mx-auto max-lg:px-16">
           <p className="my-4">
-            هدف مجموعه deep coding افزایش سطح کیفیت آموزش و ساختن راهی برای ورود
-            دانشجویان به بازار کار تخصصی است
+            تیم متخصص و با تجربه‌ی deep coding همواره در تلاش است تا بهترین
+            دوره‌های آموزشی را ارائه دهد و به دانشجویان کمک کند تا مهارت‌های
+            لازم برای موفقیت در دنیای حرفه‌ای را کسب کنند.
           </p>
-          <p>:: deep-coding توسط سرورهای اختصاصی پارس‌پک پشتیبانی شده است.</p>
+          <p>
+            :: ما در deep coding به کیفیت و محتوای به روز دوره‌ها اهمیت ویژه‌ای
+            می‌دهیم تا هر دانشجویی با اعتماد به نفس وارد بازار کار شود.
+          </p>
         </div>
         <div className=" flex max-lg:flex-col max-lg:justify-center max-lg:items-center justify-between items-end">
           <div className=" mt-14">

@@ -52,16 +52,16 @@ const Enroll = () => {
         variants={textVariants}
         className=" w-1/2 max-lg:w-4/5 max-lg:mx-auto"
       >
-        <p className="text-3xl w-3/4 leading-[50px] font-semibold  text-[#140342]">
-          <span className="text-[#6440FB]">یادگیری</span> مهارت های جدید در زمان
-          و مکانی که دوست دارید.
+        <p className="text-3xl w-3/4 leading-[50px] font-semibold text-[#140342]">
+          <span className="text-[#6440FB]">مهارت‌آموزی</span> در هر زمان و مکانی
+          که برای شما مناسب باشد.
         </p>
         <p className="text-slate-500 w-3/4 mt-5">
-          لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده
-          از طراحان گرافیک است.
+          شروع مسیر پیشرفت شخصی و حرفه‌ای شما به سادگی چند کلیک است. با دوره‌های
+          متنوع ما، مهارت‌های خود را به سطح بالاتری ارتقا دهید.
         </p>
         <Link to="/sign-up" className=" mt-12 block">
-          <Button>ثبت نام رایگان</Button>
+          <Button>شروع یادگیری</Button>
         </Link>
       </motion.div>
       <motion.div
@@ -74,10 +74,10 @@ const Enroll = () => {
         <div className=" relative">
           <img className="" src={img} alt="" />
           <div className=" absolute bg-[#140342] text-white top-40 -right-20 rounded-xl px-8 py-6 flex flex-col gap-4">
-            <p>نویسندگان دستچین شده</p>
-            <p>آسان برای پیگیری برنامه درسی</p>
-            <p>دوره های رایگان</p>
-            <p>تضمین بازگشت پول</p>
+            <p>اساتید برجسته و حرفه‌ای</p>
+            <p>برنامه‌های یادگیری آسان و کاربردی</p>
+            <p>دوره‌های رایگان برای شروع</p>
+            <p>ضمانت بازگشت وجه</p>
           </div>
         </div>
       </motion.div>

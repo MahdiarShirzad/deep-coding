@@ -72,7 +72,7 @@ const BlogSection = ({ blogs }) => {
 
   return (
     <div className=" container mx-auto max-w-[1320px] font-iransans mt-20">
-      <div className="flex max-lg:px-10 items-center justify-between max-md:gap-4 ">
+      <div className="flex max-lg:px-10 items-center justify-between max-md:gap-4">
         <motion.div
           ref={titleRef}
           initial="hidden"
@@ -81,10 +81,10 @@ const BlogSection = ({ blogs }) => {
           className=""
         >
           <h3 className=" text-3xl font-bold max-lg:text-xl max-sm:text-base">
-            وبلاگ
+            آخرین مطالب وبلاگ
           </h3>
           <p className="mt-5 text-slate-500 max-md:text-sm max-md:mt-2">
-            لورم ایپسوم متن ساختگی با تولید سادگی است.
+            کاوش در جدیدترین مطالب و نکات آموزشی برای پیشرفت شما.
           </p>
         </motion.div>
         <motion.div
@@ -94,7 +94,7 @@ const BlogSection = ({ blogs }) => {
           variants={linkVariants}
         >
           <Link onClick={scrollToTop} to="/blogs">
-            <Button>مشاهده همه</Button>
+            <Button>مشاهده همه مقالات</Button>
           </Link>
         </motion.div>
       </div>

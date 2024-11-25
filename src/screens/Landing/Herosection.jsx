@@ -97,12 +97,13 @@ const Herosection = () => {
           className="w-1/2  max-lg:mr-20 max-lg:w-3/4 max-lg:mt-16 max-md:w-full"
         >
           <h1 className="text-4xl font-extrabold leading-[60px] text-right">
-            دوره های مورد نظر را پیدا کنید و مهارت ها را بهبود ببخشید
+            مسیر یادگیری خود را بسازید و مهارت‌هایتان را متحول کنید
           </h1>
-          <p className="mt-8 w-3/4 leading-8 text-lg text-right max-lg:text-justify">
-            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-            استفاده از طراحان گرافیک است. چاپگرها و متون است.
+          <p className="mt-8 w-3/4 leading-8 text-lg max-lg:text-justify text-justify">
+            به دنیایی از دوره‌های تخصصی دسترسی پیدا کنید و قدمی مؤثر در مسیر رشد
+            و پیشرفت خود بردارید. شروع یادگیری هرگز این‌قدر آسان نبوده است!
           </p>
+
           <div className="flex items-center justify-center mt-20 gap-5 max-lg:w-full">
             <Link onClick={scrollToTop} to="/sign-up">
               <Button>ثبت نام رایگان</Button>

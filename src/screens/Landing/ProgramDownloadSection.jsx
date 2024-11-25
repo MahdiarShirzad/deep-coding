@@ -31,21 +31,22 @@ const ProgramDownloadSection = () => {
       variants={imageVariants}
     >
       <div>
-        <p className="text-3xl font-medium">برنامه را دانلود کنید</p>
+        <p className="text-3xl font-medium">دریافت برنامه موبایل</p>
         <p className="text-gray-500 mt-4">
-          لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم است.
+          به راحتی و با سرعت بالا برنامه ما را نصب کنید و از امکانات ویژه آن
+          بهره‌مند شوید.
         </p>
         <div className="flex items-center gap-6 mt-8">
           <button>
-            <img src={apple} alt="" />
+            <img src={apple} alt="Apple App Store" />
           </button>
           <button>
-            <img src={googleplay} alt="" />
+            <img src={googleplay} alt="Google Play Store" />
           </button>
         </div>
       </div>
       <div>
-        <img src={app} alt="" />
+        <img src={app} alt="App preview" />
       </div>
     </motion.div>
   );
