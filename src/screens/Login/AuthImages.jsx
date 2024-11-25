@@ -28,7 +28,7 @@ const variants = {
 
 const AuthImages = () => {
   return (
-    <div className=" w-2/5 relative">
+    <div className=" w-2/5 relative max-lg:hidden">
       {floatingImages.map((image, index) => (
         <motion.div
           key={index}
