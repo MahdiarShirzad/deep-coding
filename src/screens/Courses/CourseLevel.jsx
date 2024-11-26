@@ -42,7 +42,7 @@ const CourseLevel = ({ setPosts, items }) => {
     }
   };
 
-  const applyLevelFilter = () => {
+  useEffect(() => {
     if (items && items.length > 0) {
       var filteredItems = [...items];
     }
@@ -54,11 +54,7 @@ const CourseLevel = ({ setPosts, items }) => {
     }
 
     setPosts(filteredItems);
-  };
-
-  useEffect(() => {
-    applyLevelFilter();
-  }, [selectedLevelType, items]);
+  }, [selectedLevelType, items, setPosts]);
 
   useEffect(() => {
     const newSelectedLevelType = searchParams.get("levels")?.split(",") || [];

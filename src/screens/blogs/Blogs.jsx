@@ -12,15 +12,14 @@ const Blogs = () => {
     queryFn: getBlogs,
   });
 
-  // Animation Variants
   const blogCardVariants = {
-    hidden: { opacity: 0, x: 50 }, // Start invisible and below the viewport
+    hidden: { opacity: 0, x: 50 },
     visible: {
       opacity: 1,
       x: 0,
       transition: {
         duration: 0.5,
-        ease: "easeOut", // Smooth easing for slide-in
+        ease: "easeOut",
       },
     },
   };
@@ -29,7 +28,9 @@ const Blogs = () => {
     <div className="mt-[100px] mb-24 font-iransans container max-w-[1320px] mx-auto">
       <h3 className="mt-36 text-2xl font-medium max-lg:mr-10">لیست وبلاگ</h3>
       <p className="mt-4 text-gray-700 max-lg:mr-10">
-        با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
+        با خواندن مقالات آموزشی و به روز در حوزه برنامه نویسی و تکنولوژی، از
+        جدیدترین ترندها و بهترین روش های کدنویسی مطلع شو و دانش خود را به روز
+        نگه دار
       </p>
       <div className="flex justify-between items-center">
         <div className="w-full px-10">
@@ -37,14 +38,12 @@ const Blogs = () => {
         </div>
       </div>
 
-      {/* Spinner while loading */}
       {isLoading && (
         <div className="flex justify-center mt-10">
           <Spinner />
         </div>
       )}
 
-      {/* No Blogs Found */}
       {!isLoading && (!blogs || blogs.length === 0) && (
         <p className="text-center mt-10 text-2xl text-gray-600">
           وبلاگی یافت نشد!
@@ -61,7 +60,7 @@ const Blogs = () => {
                 variants={blogCardVariants}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }} // Trigger animation when 20% is visible
+                viewport={{ once: true, amount: 0.2 }}
               >
                 <BlogCard blog={blog} />
               </motion.div>

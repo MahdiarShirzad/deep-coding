@@ -61,7 +61,8 @@ const Courses = () => {
     <div className="mt-[100px] mb-24 font-iransans container max-w-[1320px] mx-auto">
       <h2 className="text-2xl mt-36 font-medium max-lg:mr-10">لیست دوره ها</h2>
       <p className="mt-4 max-lg:mr-10">
-        با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
+        با انتخاب دوره های آموزشی تخصصی و متنوع در زمینه برنامه نویسی، مهارت های
+        خود را در دنیای فناوری ارتقا بده و به یک برنامه نویس حرفه ای تبدیل شو
       </p>
       {posts && posts.length > 0 && (
         <>{!isLoading ? <SearchCourses products={courses} /> : null}</>
