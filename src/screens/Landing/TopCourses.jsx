@@ -47,7 +47,7 @@ const filterVariants = {
 const cardVariants = (isEven) => ({
   hidden: {
     opacity: 0,
-    x: isEven ? 200 : -200,
+    x: isEven ? 90 : -90,
   },
   visible: {
     opacity: 1,

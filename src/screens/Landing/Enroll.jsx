@@ -7,7 +7,7 @@ import { motion, useInView } from "framer-motion";
 const textVariants = {
   hidden: {
     opacity: 0,
-    x: 200,
+    x: 90,
   },
   visible: {
     opacity: 1,
@@ -23,7 +23,7 @@ const textVariants = {
 const imageVariants = {
   hidden: {
     opacity: 0,
-    x: -200,
+    x: -90,
   },
   visible: {
     opacity: 1,
