@@ -71,7 +71,7 @@ const SignUpForm = () => {
 
   return (
     <div className="bg-white w-[630px] font-iransans px-16 py-10 rounded-xl">
-      <p className="text-3xl font-bold">ورود</p>
+      <p className="text-3xl font-bold">ثبت نام</p>
       <div className="flex gap-2 mt-3">
         <span className="text-gray-500">آیا قبلا ثبت نام کرده اید؟</span>
         <Link onClick={scrollToTop} to="/login" className="text-indigo-500">

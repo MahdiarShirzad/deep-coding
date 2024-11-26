@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import CourseCard from "../../components/CourseCard/CourseCard";
 import CourseCategory from "./CourseCategory";
 import CourseStar from "./CourseStar";
@@ -9,7 +9,6 @@ import SortingCourses from "./SortingCourses";
 import styles from "./Courses.module.css";
 import CourseCategorySm from "./CourseCategorySm";
 import CourseStarSm from "./CourseStarSm";
-import CoursePriceSm from "./CoursePriceSm";
 import CourseLevelSm from "./CourseLevelsm";
 import CourseTimeSm from "./CourseTimeSm";
 import SearchCourses from "../../components/SearchCourses/SearchCourses";
@@ -19,7 +18,7 @@ import { Spinner } from "../../components/Spinner/Spinner";
 import { motion } from "framer-motion";
 import { useSearchParams } from "react-router-dom";
 
-const Courses = ({}) => {
+const Courses = () => {
   const { data: courses, isPending: isLoading } = useQuery({
     queryKey: ["courses"],
     queryFn: getCourses,
@@ -28,19 +27,22 @@ const Courses = ({}) => {
   const [posts, setPosts] = useState([]);
   const [searchParams] = useSearchParams();
 
-  useEffect(() => {
+  const filteredCourses = useMemo(() => {
     const selectedCategories = searchParams.get("categories")?.split(",") || [];
     if (courses) {
       if (selectedCategories.length > 0) {
-        const filteredCourses = courses.filter((course) =>
+        return courses.filter((course) =>
           selectedCategories.includes(course.category)
         );
-        setPosts(filteredCourses);
-      } else {
-        setPosts(courses);
       }
+      return courses;
     }
+    return [];
   }, [courses, searchParams]);
+
+  useEffect(() => {
+    setPosts(filteredCourses);
+  }, [filteredCourses]);
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
