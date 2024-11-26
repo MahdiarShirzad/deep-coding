@@ -1,6 +1,7 @@
 import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { useNavigate } from "react-router-dom";
 
 const responsive = {
   desktop: {
@@ -20,7 +21,6 @@ const responsive = {
   },
 };
 
-// Function to return SVG based on category name
 const getCategoryIcon = (category) => {
   switch (category) {
     case "گرافیک":
@@ -303,8 +303,20 @@ const getCategoryIcon = (category) => {
 };
 
 const TopCategoriesSlider = ({ uniqueCategories }) => {
+  const navigate = useNavigate();
+
+  const handleCategoryClick = (category) => {
+    const scrollToTop = () => {
+      window.scrollTo({
+        top: 0,
+      });
+    };
+    scrollToTop();
+    navigate(`/courses?categories=${encodeURIComponent(category)}`);
+  };
+
   return (
-    <div className="parent mt-8 relative ">
+    <div className="parent mt-8 relative">
       <Carousel
         responsive={responsive}
         autoPlay={true}
@@ -319,13 +331,14 @@ const TopCategoriesSlider = ({ uniqueCategories }) => {
       >
         {uniqueCategories.map((category, index) => (
           <div
-            className="slider flex flex-col items-center justify-center gap-5 w-48 border-2 border-slate-100 rounded-lg"
             key={index}
+            className="slider flex flex-col items-center justify-center gap-5 w-48 border-2 border-slate-100 rounded-lg cursor-pointer"
+            onClick={() => handleCategoryClick(category)}
           >
             <div className="p-6 bg-slate-300 rounded-full b-5">
               {getCategoryIcon(category)}
             </div>
-            <h5 className="text-lg text-cyan-950 font-medium ">{category}</h5>
+            <h5 className="text-lg text-cyan-950 font-medium">{category}</h5>
           </div>
         ))}
       </Carousel>

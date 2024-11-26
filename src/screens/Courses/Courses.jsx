@@ -17,6 +17,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getCourses } from "../../services/apiCourses";
 import { Spinner } from "../../components/Spinner/Spinner";
 import { motion } from "framer-motion";
+import { useSearchParams } from "react-router-dom";
 
 const Courses = ({}) => {
   const { data: courses, isPending: isLoading } = useQuery({
@@ -25,12 +26,21 @@ const Courses = ({}) => {
   });
 
   const [posts, setPosts] = useState([]);
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
+    const selectedCategories = searchParams.get("categories")?.split(",") || [];
     if (courses) {
-      setPosts(courses);
+      if (selectedCategories.length > 0) {
+        const filteredCourses = courses.filter((course) =>
+          selectedCategories.includes(course.category)
+        );
+        setPosts(filteredCourses);
+      } else {
+        setPosts(courses);
+      }
     }
-  }, [courses]);
+  }, [courses, searchParams]);
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);

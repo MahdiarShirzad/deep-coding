@@ -39,10 +39,33 @@ const Pagination = ({
       <ul className="flex gap-2 mt-7">
         <li
           onClick={scrollToTop}
-          className="border-1 px-4 p-2 bg-blue-200  flex items-center justify-center rounded-full text-xl font-bold"
+          className="border-1  p-2 bg-blue-200  flex items-center justify-center rounded-full text-xl font-bold"
         >
           <button onClick={handlePreviousPage} disabled={currentPage === 1}>
-            {`<`}
+            <svg
+              className="w-6"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              transform="matrix(-1, 0, 0, 1, 0, 0)"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                {" "}
+                <path
+                  d="M14.9991 19L9.83911 14C9.56672 13.7429 9.34974 13.433 9.20142 13.0891C9.0531 12.7452 8.97656 12.3745 8.97656 12C8.97656 11.6255 9.0531 11.2548 9.20142 10.9109C9.34974 10.567 9.56672 10.2571 9.83911 10L14.9991 5"
+                  stroke="#000000"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>{" "}
+              </g>
+            </svg>
           </button>
         </li>
         {pageNumbers.map((number) => (
@@ -60,12 +83,34 @@ const Pagination = ({
             </button>
           </li>
         ))}
-        <li className="border-1 p-2 px-4 bg-blue-200 text-xl font-bold flex items-center justify-center rounded-full">
+        <li className="border-1 p-2  bg-blue-200 text-xl font-bold flex items-center justify-center rounded-full">
           <button
             onClick={handleNextPage}
             disabled={currentPage === Math.ceil(totalPosts / postsPerPage)}
           >
-            {`>`}
+            <svg
+              className="w-6"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                {" "}
+                <path
+                  d="M14.9991 19L9.83911 14C9.56672 13.7429 9.34974 13.433 9.20142 13.0891C9.0531 12.7452 8.97656 12.3745 8.97656 12C8.97656 11.6255 9.0531 11.2548 9.20142 10.9109C9.34974 10.567 9.56672 10.2571 9.83911 10L14.9991 5"
+                  stroke="#000000"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>{" "}
+              </g>
+            </svg>
           </button>
         </li>
       </ul>
