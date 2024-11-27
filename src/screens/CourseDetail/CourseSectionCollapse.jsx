@@ -1,34 +1,35 @@
 import React, { useEffect, useRef, useState } from "react";
+import parse from "html-react-parser";
 
-const CourseSectionCollapse = ({ topics }) => {
-  console.log(topics);
+const CourseSectionCollapse = ({ topics: data }) => {
+  console.log(data);
 
-  const data = [
-    {
-      title: "توسعه وب فرانت اند",
-      desc: "محتوای بخش",
-    },
-    {
-      title: "مقدمه ای بر HTML",
-      desc: "محتوای بخش",
-    },
-    {
-      title: "مقدمات جبرخطی و جبررابطه‌ای در پایتون",
-      desc: "محتوای بخش",
-    },
-    {
-      title: "آمار توصیفی بر روی داده‌ها",
-      desc: "محتوای بخش",
-    },
-    {
-      title: "نمایش و بصری‌سازی داده‌ها",
-      desc: "محتوای بخش",
-    },
-    {
-      title: "پیش‌پردازش داده‌ها",
-      desc: "محتوای بخش",
-    },
-  ];
+  // const data = [
+  //   {
+  //     title: "توسعه وب فرانت اند",
+  //     desc: "محتوای بخش",
+  //   },
+  //   {
+  //     title: "مقدمه ای بر HTML",
+  //     desc: "محتوای بخش",
+  //   },
+  //   {
+  //     title: "مقدمات جبرخطی و جبررابطه‌ای در پایتون",
+  //     desc: "محتوای بخش",
+  //   },
+  //   {
+  //     title: "آمار توصیفی بر روی داده‌ها",
+  //     desc: "محتوای بخش",
+  //   },
+  //   {
+  //     title: "نمایش و بصری‌سازی داده‌ها",
+  //     desc: "محتوای بخش",
+  //   },
+  //   {
+  //     title: "پیش‌پردازش داده‌ها",
+  //     desc: "محتوای بخش",
+  //   },
+  // ];
 
   return (
     data &&
@@ -54,6 +55,7 @@ const Unit = (props) => {
   const onClickHandler = () => {
     setOpen(!open);
   };
+
   return (
     <div className=" block">
       <section className="wrapper w-full bg-gray-200  text-black px-10 py-3 rounded-md my-2   font-yekanReg text-base cursor-pointer ">
@@ -61,7 +63,7 @@ const Unit = (props) => {
           className=" flex items-center justify-between "
           onClick={onClickHandler}
         >
-          <h4 className="m-0 ">{item.title}</h4>
+          <h4 className="m-0  text-lg">{item.title}</h4>
           <div>
             <svg
               className="w-[24px] transition-transform transform"
@@ -88,12 +90,16 @@ const Unit = (props) => {
             </svg>
           </div>
         </div>
-        <article
-          className="mt-4 text-sm h-0 overflow-hidden transition-[0.5s] text-gray-600  ease-in"
+        <ul
+          className="mt-4 text-sm h-0 overflow-hidden transition-[0.5s] text-gray-700  ease-in"
           ref={contentRef}
         >
-          {item.desc}
-        </article>
+          {item.content.map((content, index) => (
+            <li key={index} className="my-2">
+              {index + 1}. {content}
+            </li>
+          ))}
+        </ul>
       </section>
     </div>
   );
