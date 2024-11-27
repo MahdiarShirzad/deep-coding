@@ -23,8 +23,6 @@ const CourseDetail = ({ teachers }) => {
   const { id } = useParams();
   const selectedCourse = courses?.find((item) => item.id == id);
 
-  // console.log(selectedCourse);
-
   return (
     <div className=" my-36">
       <CourseHero
@@ -32,10 +30,10 @@ const CourseDetail = ({ teachers }) => {
         teachers={teachers}
         user={user}
       />
-      <WhatYouWillLearn />
+      <WhatYouWillLearn selectedCourse={selectedCourse} />
       <IntroduceCourse selectedCourse={selectedCourse} />
-      <CourseRequirements />
-      <CourseHeadline />
+      <CourseRequirements selectedCourse={selectedCourse} />
+      <CourseHeadline selectedCourse={selectedCourse} />
     </div>
   );
 };

@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 
-const CourseSectionCollapse = () => {
+const CourseSectionCollapse = ({ topics }) => {
+  console.log(topics);
+
   const data = [
     {
       title: "توسعه وب فرانت اند",

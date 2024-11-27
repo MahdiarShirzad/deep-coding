@@ -4,6 +4,7 @@ import CoursePreview from "./CoursePreview";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { updateUser } from "../../services/apiAuth";
+import parse from "html-react-parser";
 
 const CourseHero = ({ selectedCourse, teachers, user }) => {
   const { isError } = updateUser();
@@ -49,7 +50,7 @@ const CourseHero = ({ selectedCourse, teachers, user }) => {
             {selectedCourse?.name}
           </h1>
           <p className=" mt-5 text-gray-300 text-justify">
-            {selectedCourse?.desc}
+            {parse(selectedCourse?.desc)}
           </p>
           <div className=" flex gap-2 items-center  mt-12">
             <div className="flex gap-1 items-center">
