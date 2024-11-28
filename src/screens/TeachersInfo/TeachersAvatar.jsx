@@ -6,7 +6,7 @@ const TeachersAvatar = ({ teacher }) => {
     <div
       className={` ${styles.avatar} border-2 border-[#140342] mx-auto w-[230px] h-[230px] rounded-xl `}
     >
-      <img src={teacher.avatar} className=" p-3 w-full h-full" alt="" />
+      <img src={teacher?.avatar} className=" p-3 w-full h-full" alt="" />
     </div>
   );
 };

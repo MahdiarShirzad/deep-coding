@@ -26,17 +26,18 @@ const TopCoursesCard = ({ course }) => {
               <img className="w-52 rounded-xl h-full" src={img} alt="" />
             </div>
             <div className=" w-3/5">
+              <h3 className="text-xl font-medium mb-3 mt-2">
+                <h3 className="text-xl font-medium mb-3 mt-2">
+                  {name.length > 28 ? name.slice(0, 28) + "..." : name}
+                </h3>
+              </h3>
               <p className="flex items-center gap-1 text-gray-500">
                 <div className="flex items-center justify-between w-[90px]">
                   <RenderStars rating={star} />
                 </div>
                 <span className=" text-amber-400">{star}</span>
               </p>
-              <h3 className="text-xl font-medium mb-3 mt-2">
-                <h3 className="text-xl font-medium mb-3 mt-2">
-                  {name.length > 28 ? name.slice(0, 28) + "..." : name}
-                </h3>
-              </h3>
+
               <div className="flex items-center gap-5 mb-2">
                 <p className="flex items-center justify-center text-gray-500 text-sm gap-1">
                   <svg

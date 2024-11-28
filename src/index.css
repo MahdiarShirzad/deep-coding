@@ -59,3 +59,9 @@
 .blog-content div {
   margin-top: 7px;
 }
+
+.will-Learn > ul {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}

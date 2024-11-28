@@ -6,7 +6,7 @@ const TeachersCourse = ({ selectedCourses }) => {
     <div className="mt-8">
       <p className="mb-6 text-2xl font-black">دوره های مدرس</p>
       <div className="flex items-center flex-wrap justify-between">
-        {selectedCourses.map((course) => (
+        {selectedCourses?.map((course) => (
           <CourseCard key={course.id} posts={course} />
         ))}
       </div>

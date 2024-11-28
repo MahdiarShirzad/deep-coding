@@ -7,11 +7,11 @@ import TeachersCourse from "./TeachersCourse";
 
 const TeachersInfo = ({ teachers, courses }) => {
   const { id } = useParams();
-  const selectedTeacher = teachers.find((teacher) => teacher.id == id);
+  const selectedTeacher = teachers?.find((teacher) => teacher.id == id);
 
-  const teacherName = selectedTeacher.name;
+  const teacherName = selectedTeacher?.name;
 
-  const selectedCourses = courses.filter(
+  const selectedCourses = courses?.filter(
     (course) => course.teacher === teacherName
   );
 
@@ -20,10 +20,10 @@ const TeachersInfo = ({ teachers, courses }) => {
       <div className="w-[60%]">
         <div>
           <p className=" text-violet-600 text-lg font-black">مدرس</p>
-          <p className="text-4xl font-black mt-3">{selectedTeacher.name}</p>
+          <p className="text-4xl font-black mt-3">{selectedTeacher?.name}</p>
         </div>
         <div className="mt-6 text-lg text-zinc-600 font-extralight">
-          {selectedTeacher.speciality}
+          {selectedTeacher?.speciality}
         </div>
         <div className="flex mt-14  items-center justify-between max-w-[70%]">
           <div className="flex flex-col gap-3 items-center">
@@ -32,7 +32,7 @@ const TeachersInfo = ({ teachers, courses }) => {
           </div>
           <div className="flex flex-col gap-3 items-center">
             <p className="text-gray-500 text-lg">تعداد دوره ها</p>
-            <p className="text-xl font-extrabold">{selectedCourses.length}</p>
+            <p className="text-xl font-extrabold">{selectedCourses?.length}</p>
           </div>
         </div>
         <AboutTeacher teacher={selectedTeacher} />

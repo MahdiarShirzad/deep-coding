@@ -1,9 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import parse from "html-react-parser";
 
 const CourseSectionCollapse = ({ topics: data }) => {
-  console.log(data);
-
   // const data = [
   //   {
   //     title: "توسعه وب فرانت اند",
@@ -33,7 +30,7 @@ const CourseSectionCollapse = ({ topics: data }) => {
 
   return (
     data &&
-    data.map((item, idx) => {
+    data?.map((item, idx) => {
       return <Unit item={item} key={idx} />;
     })
   );
@@ -63,7 +60,7 @@ const Unit = (props) => {
           className=" flex items-center justify-between "
           onClick={onClickHandler}
         >
-          <h4 className="m-0  text-lg">{item.title}</h4>
+          <h4 className="m-0  text-lg">{item?.title}</h4>
           <div>
             <svg
               className="w-[24px] transition-transform transform"
@@ -94,7 +91,7 @@ const Unit = (props) => {
           className="mt-4 text-sm h-0 overflow-hidden transition-[0.5s] text-gray-700  ease-in"
           ref={contentRef}
         >
-          {item.content.map((content, index) => (
+          {item?.content.map((content, index) => (
             <li key={index} className="my-2">
               {index + 1}. {content}
             </li>
