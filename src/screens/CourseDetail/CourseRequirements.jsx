@@ -11,7 +11,7 @@ const CourseRequirements = ({ selectedCourse }) => {
         </li>
         <li>یک کامپیوتر با دسترسی به اینترنت</li>
         <li>بدون نیاز به نرم افزار پولی</li> */}
-        {parse(selectedCourse?.requirements)}
+        {selectedCourse && parse(selectedCourse?.requirements)}
       </ul>
     </div>
   );
