@@ -19,8 +19,8 @@ const reducer = (state, action) => {
     case "SET_FILTERED_BOOKS":
       return {
         ...state,
-        filteredBooks: action.payload,
-        visibleBooksCount: Math.min(action.payload.length, 12),
+        filteredBooks: action?.payload,
+        visibleBooksCount: Math.min(action?.payload?.length, 12),
       };
     case "LOAD_MORE":
       return {
@@ -51,7 +51,7 @@ const Library = () => {
   const { filteredBooks, visibleBooksCount } = state;
 
   // Determine whether to show "Load More" button
-  const showLoadMoreButton = visibleBooksCount < filteredBooks.length;
+  const showLoadMoreButton = visibleBooksCount < filteredBooks?.length;
 
   // Handle category filter updates from BooksCategory
   const handleSetFilteredBooks = (filtered) => {
@@ -97,7 +97,7 @@ const Library = () => {
           )}
 
           {/* No books found */}
-          {!isLoading && filteredBooks.length === 0 && (
+          {!isLoading && filteredBooks?.length === 0 && (
             <p className="text-center mt-10 text-2xl text-gray-600 w-full">
               کتابی یافت نشد!
             </p>
@@ -105,7 +105,7 @@ const Library = () => {
 
           {/* Books grid */}
           {!isLoading &&
-            filteredBooks.slice(0, visibleBooksCount).map((book) => (
+            filteredBooks?.slice(0, visibleBooksCount).map((book) => (
               <motion.div
                 key={book.id}
                 variants={bookCardVariants}
