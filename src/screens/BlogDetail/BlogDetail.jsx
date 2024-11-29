@@ -52,7 +52,7 @@ const BlogDetail = () => {
           src={selectedBlog?.img || algorithm}
           alt=""
         />
-        <div className="mt-10 pl-8">
+        {/* <div className="mt-10 pl-8">
           <p className="text-lg text-blue-500 font-semibold">
             راهنمای مقاله و فهرست مطالب
           </p>
@@ -66,14 +66,18 @@ const BlogDetail = () => {
               </li>
             ))}
           </ul>
-        </div>
+        </div> */}
+
+        {/* <div className=" mt-12">
+          <StarRating size={30} />
+        </div> */}
       </div>
       <div className="w-2/3 max-lg:w-full">
         <h3 className="text-3xl font-black pr-0">{selectedBlog?.name}</h3>
         <div className="w-[500px] mx-auto mt-10 lg:hidden">
           <img className="w-full rounded-2xl" src={algorithm} alt="" />
         </div>
-        <div className="blog-content px-6">
+        <div className="blog-content px-6 mt-10">
           <div dangerouslySetInnerHTML={{ __html: selectedBlog?.text }}></div>
         </div>
       </div>
