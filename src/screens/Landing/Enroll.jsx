@@ -1,4 +1,4 @@
-import img from "../../assets/images/home-6/learn/1.png";
+import img from "../../assets/images/landing/enroll.png";
 import { Link } from "react-router-dom";
 import Button from "../../components/common/Button/Button";
 import { useRef } from "react";
@@ -72,8 +72,12 @@ const Enroll = () => {
         className=" w-1/2 max-lg:mx-auto max-sm:hidden"
       >
         <div className=" relative">
-          <img className="" src={img} alt="" />
-          <div className=" absolute bg-[#140342] text-white top-40 -right-20 rounded-xl px-8 py-6 flex flex-col gap-4">
+          <img
+            className="mt-12 rounded-xl shadow-gray-400 shadow-lg"
+            src={img}
+            alt=""
+          />
+          <div className=" absolute bg-[#140342] text-white top-40 -right-48 rounded-xl px-8 py-6 flex flex-col gap-4">
             <p>اساتید برجسته و حرفه‌ای</p>
             <p>برنامه‌های یادگیری آسان و کاربردی</p>
             <p>دوره‌های رایگان برای شروع</p>
