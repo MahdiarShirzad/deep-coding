@@ -1,97 +1,72 @@
-import supabase, { supabaseUrl } from "./supabase";
+import { apiRequest } from "./apiClient";
 
-export async function signUp({ email, password, fullName }) {
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      data: {
-        fullName,
-        avatar: "",
-        address: "",
-        wishlist: [],
-        courses: [],
-        cart: [],
-        phone: "",
-      },
+// const API_URL = import.meta.env.VITE_API_URL;
+
+export async function signUp({ fullName, email, password, confirmPassword }) {
+  const data = await apiRequest("/users/signup", {
+    method: "POST",
+    skipAuth: true,
+    body: {
+      fullName,
+      email,
+      password,
+      passwordConfirm: confirmPassword,
     },
   });
 
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  return data;
+  localStorage.setItem("token", data.token);
+  return data.data.user;
 }
 
 export async function login({ email, password }) {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
+  const data = await apiRequest("/users/login", {
+    method: "POST",
+    skipAuth: true,
+    body: { email, password },
   });
 
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  return data;
+  localStorage.setItem("token", data.token);
+  return data.data.user;
 }
 
 export async function getCurrentUser() {
-  const storedSession = JSON.parse(localStorage.getItem("session") || "null");
+  const token = localStorage.getItem("token");
+  if (!token) return null;
 
-  if (!storedSession) {
+  try {
+    const data = await apiRequest("/users/getMe");
+    return data.data.user;
+  } catch (err) {
+    if (err.status === 401) {
+      localStorage.removeItem("token");
+    }
     return null;
   }
-
-  const { data, error } = await supabase.auth.getUser();
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  return data?.user;
 }
 
-export async function logout() {
-  const { error } = await supabase.auth.signOut();
-
-  if (error) {
-    throw new Error(error.message);
-  }
+export function logout() {
+  localStorage.removeItem("token");
 }
 
-export async function updateUser(updates, avatar) {
-  const { data, error, isError } = await supabase.auth.updateUser({
-    data: updates,
-  });
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  const fileName = `avatar-${data.user.id}-${Math.random()}`;
-
-  const { error: storageError } = await supabase.storage
-    .from("avatars")
-    .upload(fileName, avatar);
-
-  if (storageError) {
-    throw new Error(storageError.message);
-  }
-
-  const avatarUrl = `${supabaseUrl}/storage/v1/object/public/avatars/${fileName}`;
-
-  const { data: updatedUser, error: updateError } =
-    await supabase.auth.updateUser({
-      data: {
-        avatar: avatarUrl,
-      },
+export async function updateUser(updates, avatarFile) {
+  if (avatarFile) {
+    const formData = new FormData();
+    Object.entries(updates).forEach(([key, value]) => {
+      if (value !== undefined && value !== null) formData.append(key, value);
     });
+    formData.append("avatar", avatarFile);
 
-  if (updateError) {
-    throw new Error(updateError.message);
+    const data = await apiRequest("/users/updateMe", {
+      method: "PATCH",
+      body: formData,
+      isFormData: true,
+    });
+    return data.data.user;
   }
 
-  return { user: updatedUser, avatarUrl, isError };
+  const data = await apiRequest("/users/updateMe", {
+    method: "PATCH",
+    body: updates,
+  });
+  return data.data.user;
 }

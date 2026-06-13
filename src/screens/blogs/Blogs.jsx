@@ -1,16 +1,16 @@
 import React from "react";
 import BlogCard from "../../components/common/BlogCard/BlogCard";
 import { useQuery } from "@tanstack/react-query";
-import { getBlogs } from "../../services/apiBlogs";
+// import { getBlogs } from "../../services/apiBlogs";
 import { Spinner } from "../../components/Spinner/Spinner";
 import { motion } from "framer-motion";
 import SearchBlogs from "../../components/SearchBlogs/SearchBlogs";
 
 const Blogs = () => {
-  const { data: blogs, isLoading } = useQuery({
-    queryKey: ["blogs"],
-    queryFn: getBlogs,
-  });
+  //   const { data: blogs, isLoading } = useQuery({
+  //     queryKey: ["blogs"],
+  //     queryFn: getBlogs,
+  //   });
 
   const blogCardVariants = {
     hidden: { opacity: 0, x: 50 },
@@ -34,24 +34,24 @@ const Blogs = () => {
       </p>
       <div className="flex justify-between items-center">
         <div className="w-full px-10">
-          <SearchBlogs products={blogs} />
+          {/* <SearchBlogs products={blogs} /> */}
         </div>
       </div>
-
+      {/* 
       {isLoading && (
         <div className="flex justify-center mt-10">
           <Spinner />
         </div>
-      )}
+      )} */}
 
-      {!isLoading && (!blogs || blogs.length === 0) && (
+      {/* {!isLoading && (!blogs || blogs.length === 0) && (
         <p className="text-center mt-10 text-2xl text-gray-600">
           وبلاگی یافت نشد!
         </p>
-      )}
+      )} */}
 
       {/* Blogs List */}
-      {!isLoading && blogs && blogs.length > 0 && (
+      {/* {!isLoading && blogs && blogs.length > 0 && (
         <div className="flex items-start justify-between mt-32 gap-7">
           <div className="w-full justify-between px-10 flex flex-wrap max-lg:mx-auto">
             {blogs.map((blog, i) => (
@@ -67,7 +67,7 @@ const Blogs = () => {
             ))}
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

@@ -1,25 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./accardion.scss";
 import RenderStars from "../../components/RenderStars/RenderStars";
-import { useQuery } from "@tanstack/react-query";
-import { getCourses } from "../../services/apiCourses";
 import { useSearchParams } from "react-router-dom";
 
-const CourseStar = ({ setPosts, items }) => {
-  // const { data: items, isLoading } = useQuery({
-  //   queryKey: ["courses"],
-  //   queryFn: getCourses,
-  // });
+const starRanges = [
+  { min: 4.5, max: 5 },
+  { min: 4, max: 5 },
+  { min: 3.5, max: 5 },
+  { min: 3, max: 5 },
+];
 
-  const starRanges = [
-    { min: 4.5, max: 5 },
-    { min: 4, max: 5 },
-    { min: 3.5, max: 5 },
-    { min: 3, max: 5 },
-  ];
-
+const CourseStar = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const selectedStarRangesFromParams =
+  const selectedStarRange =
     searchParams
       .get("stars")
       ?.split(",")
@@ -28,74 +21,33 @@ const CourseStar = ({ setPosts, items }) => {
         return { min, max };
       }) || [];
 
-  const [selectedStarRange, setSelectedStarRange] = useState(
-    selectedStarRangesFromParams
-  );
-
   const handleStarRangeToggle = (min, max) => {
-    const isRangeSelected = selectedStarRange.some(
-      (range) => range.min === min && range.max === max
+    const isSelected = selectedStarRange.some(
+      (r) => r.min === min && r.max === max,
     );
 
-    const newSelectedStarRange = isRangeSelected
-      ? selectedStarRange.filter(
-          (range) => range.min !== min || range.max !== max
-        )
+    const newSelectedStarRange = isSelected
+      ? selectedStarRange.filter((r) => r.min !== min || r.max !== max)
       : [...selectedStarRange, { min, max }];
 
-    setSelectedStarRange(newSelectedStarRange);
+    const newParams = new URLSearchParams(searchParams);
 
     if (newSelectedStarRange.length > 0) {
-      const starRangesString = newSelectedStarRange
-        .map((range) => `${range.min}-${range.max}`)
-        .join(",");
-      setSearchParams({
-        ...Object.fromEntries(searchParams.entries()),
-        stars: starRangesString,
-      });
+      newParams.set(
+        "stars",
+        newSelectedStarRange.map((r) => `${r.min}-${r.max}`).join(","),
+      );
     } else {
-      const newParams = new URLSearchParams(searchParams);
       newParams.delete("stars");
-      setSearchParams(newParams);
     }
+
+    newParams.delete("page");
+    setSearchParams(newParams);
   };
-
-  const applyStarFilter = () => {
-    if (items && items.length > 0) {
-      let filteredItems = [...items];
-
-      if (selectedStarRange.length > 0) {
-        filteredItems = filteredItems.filter((course) =>
-          selectedStarRange.some(
-            (range) => course.star >= range.min && course.star <= range.max
-          )
-        );
-      }
-
-      setPosts(filteredItems);
-    }
-  };
-
-  useEffect(() => {
-    applyStarFilter();
-  }, [selectedStarRange, items]);
-
-  useEffect(() => {
-    const newSelectedStarRange =
-      searchParams
-        .get("stars")
-        ?.split(",")
-        .map((range) => {
-          const [min, max] = range.split("-").map(Number);
-          return { min, max };
-        }) || [];
-    setSelectedStarRange(newSelectedStarRange);
-  }, [searchParams]);
 
   return (
     <div className="tab border-t-2 mb-4">
       <input type="checkbox" id="chck2" />
-
       <label className="tab-label" htmlFor="chck2">
         امتیاز
       </label>
@@ -112,11 +64,10 @@ const CourseStar = ({ setPosts, items }) => {
                 name="sortBy"
                 id={`${min}-${max}`}
                 checked={selectedStarRange.some(
-                  (range) => range.min === min && range.max === max
+                  (r) => r.min === min && r.max === max,
                 )}
                 onChange={() => handleStarRangeToggle(min, max)}
               />
-
               <label
                 className="flex items-center gap-2 cursor-pointer"
                 htmlFor={`${min}-${max}`}

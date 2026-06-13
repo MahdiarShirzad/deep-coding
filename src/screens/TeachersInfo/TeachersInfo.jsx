@@ -12,7 +12,7 @@ const TeachersInfo = ({ teachers, courses }) => {
   const teacherName = selectedTeacher?.name;
 
   const selectedCourses = courses?.filter(
-    (course) => course.teacher === teacherName
+    (course) => course.teacher === teacherName,
   );
 
   return (
@@ -23,7 +23,7 @@ const TeachersInfo = ({ teachers, courses }) => {
           <p className="text-4xl font-black mt-3">{selectedTeacher?.name}</p>
         </div>
         <div className="mt-6 text-lg text-zinc-600 font-extralight">
-          {selectedTeacher?.speciality}
+          {selectedTeacher?.specialty}
         </div>
         <div className="flex mt-14  items-center justify-between max-w-[70%]">
           <div className="flex flex-col gap-3 items-center">

@@ -1,38 +1,44 @@
-import supabase from "./supabase";
+const API_URL = import.meta.env.VITE_API_URL;
 
-export async function getCourses() {
-  let { data, error } = await supabase.from("courses").select("*");
+export const getCourses = async (queryParams = {}) => {
+  const params = new URLSearchParams();
 
-  if (error) {
-    console.log(error);
+  Object.entries(queryParams).forEach(([key, value]) => {
+    if (value !== undefined && value !== null && value !== "") {
+      params.append(key, value);
+    }
+  });
+
+  const queryString = params.toString();
+  const url = queryString
+    ? `${API_URL}/courses?${queryString}`
+    : `${API_URL}/courses`;
+
+  const res = await fetch(url);
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || "خطا در دریافت دوره‌ها");
   }
 
-  return data;
-}
+  const result = await res.json();
 
-// Fetch courses by teacher name
-export async function getCoursesByTeacherName(teacherName) {
-  const { data, error } = await supabase
-    .from("courses")
-    .select("*")
-    .eq("teacher", teacherName);
+  return {
+    courses: result.data.courses,
+    totalCount: result.totalCount,
+    totalPages: result.totalPages,
+    currentPage: result.currentPage,
+  };
+};
 
-  if (error) {
-    console.error("Error fetching courses by teacher name:", error);
-    return null;
+export const getCourse = async (slug) => {
+  const res = await fetch(`${API_URL}/courses/${slug}`);
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || "دوره‌ای یافت نشد");
   }
-  return data;
-}
 
-export async function getTeacherByCourseName(courseName) {
-  const { data, error } = await supabase
-    .from("teachers")
-    .select("*")
-    .eq("course_name", courseName);
-
-  if (error) {
-    console.error("Error fetching teacher by course name:", error);
-    return null;
-  }
-  return data;
-}
+  const result = await res.json();
+  return result.data.course;
+};

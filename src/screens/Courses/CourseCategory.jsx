@@ -1,55 +1,37 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./accardion.scss";
-import { useQuery } from "@tanstack/react-query";
-import { getCourses } from "../../services/apiCourses";
 import { useSearchParams } from "react-router-dom";
 
-const CourseCategory = ({ setPosts }) => {
-  const { data: items, isLoading } = useQuery({
-    queryKey: ["courses"],
-    queryFn: getCourses,
-  });
+const courseCategories = [
+  "برنامه نویسی وب",
+  "برنامه نویسی موبایل",
+  "هوش مصنوعی و یادگیری ماشین",
+  "دیتا ساینس",
+  "بک‌اند و پایگاه داده",
+  "DevOps و Cloud",
+  "امنیت و شبکه",
+];
 
-  const uniqueCategories = [...new Set(items?.map((item) => item.category))];
+const CourseCategory = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const selectedCategoriesFromParams =
-    searchParams.get("categories")?.split(",") || [];
-
-  const [selectedCategory, setSelectedCategory] = useState(
-    selectedCategoriesFromParams
-  );
+  const selectedCategory = searchParams.get("categories")?.split(",") || [];
 
   const handleCategoryToggle = (category) => {
     const newSelectedCategory = selectedCategory.includes(category)
-      ? selectedCategory.filter(
-          (selectedCategory) => selectedCategory !== category
-        )
+      ? selectedCategory.filter((c) => c !== category)
       : [...selectedCategory, category];
 
-    setSelectedCategory(newSelectedCategory);
+    const newParams = new URLSearchParams(searchParams);
+
     if (newSelectedCategory.length > 0) {
-      setSearchParams({ categories: newSelectedCategory.join(",") });
+      newParams.set("categories", newSelectedCategory.join(","));
     } else {
-      setSearchParams({});
+      newParams.delete("categories");
     }
+
+    newParams.delete("page");
+    setSearchParams(newParams);
   };
-
-  useEffect(() => {
-    if (selectedCategory.length > 0) {
-      const filteredItems = items?.filter((item) =>
-        selectedCategory.includes(item.category)
-      );
-      setPosts(filteredItems);
-    } else {
-      setPosts(items);
-    }
-  }, [selectedCategory, items]);
-
-  useEffect(() => {
-    const newSelectedCategory =
-      searchParams.get("categories")?.split(",") || [];
-    setSelectedCategory(newSelectedCategory);
-  }, [searchParams]);
 
   return (
     <div className="tab mb-4">
@@ -58,7 +40,7 @@ const CourseCategory = ({ setPosts }) => {
         دسته بندی ها
       </label>
       <div className="tab-content text-sm">
-        {uniqueCategories.map((category, index) => (
+        {courseCategories.map((category, index) => (
           <div className="flex items-center justify-between" key={index}>
             <div className="flex items-center my-1 gap-3 text-base">
               <input

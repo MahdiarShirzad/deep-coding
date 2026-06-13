@@ -1,99 +1,53 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./accardion.scss";
 import { useSearchParams } from "react-router-dom";
 
-const CourseTime = ({ items, setPosts }) => {
+const timeRanges = [
+  { min: 3, max: 12 },
+  { min: 13, max: 20 },
+  { min: 20, max: 40 },
+  { min: 40, max: Infinity },
+];
+
+const CourseTime = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const selectedTimesFromParams = searchParams.get("times")?.split(",") || [];
-
-  const [selectedTimeRange, setSelectedTimeRange] = useState(
-    selectedTimesFromParams.map((time) => {
-      const [min, max] = time.split("-");
-      return {
-        min: Number(min),
-        max: Number(max) === Infinity ? Infinity : Number(max),
-      };
-    })
-  );
-
-  const timeRanges = [
-    { min: 0, max: 3 },
-    { min: 4, max: 7 },
-    { min: 8, max: 18 },
-    { min: 20, max: Infinity }, // Use Infinity for the last range
-  ];
+  const selectedTimeRange =
+    searchParams
+      .get("times")
+      ?.split(",")
+      .map((time) => {
+        const [min, max] = time.split("-");
+        return {
+          min: Number(min),
+          max: max === "Infinity" ? Infinity : Number(max),
+        };
+      }) || [];
 
   const handleTimeRangeToggle = (min, max) => {
-    const isRangeSelected = selectedTimeRange.some(
-      (range) => range.min === min && range.max === max
+    const isSelected = selectedTimeRange.some(
+      (r) => r.min === min && r.max === max,
     );
 
-    let newSelectedTimeRange;
+    const newSelectedTimeRange = isSelected
+      ? selectedTimeRange.filter((r) => r.min !== min || r.max !== max)
+      : [...selectedTimeRange, { min, max }];
 
-    if (isRangeSelected) {
-      newSelectedTimeRange = selectedTimeRange.filter(
-        (range) => range.min !== min || range.max !== max
-      );
-    } else {
-      newSelectedTimeRange = [...selectedTimeRange, { min, max }];
-    }
-
-    setSelectedTimeRange(newSelectedTimeRange);
+    const newParams = new URLSearchParams(searchParams);
 
     if (newSelectedTimeRange.length > 0) {
-      setSearchParams({
-        ...Object.fromEntries(searchParams.entries()),
-        times: newSelectedTimeRange
-          .map(
-            (range) =>
-              `${range.min}-${range.max === Infinity ? "Infinity" : range.max}`
-          )
+      newParams.set(
+        "times",
+        newSelectedTimeRange
+          .map((r) => `${r.min}-${r.max === Infinity ? "Infinity" : r.max}`)
           .join(","),
-      });
-    } else {
-      const newParams = new URLSearchParams(searchParams);
-      newParams.delete("times");
-      setSearchParams(newParams);
-    }
-  };
-
-  const applyTimeFilter = () => {
-    if (items && items.length > 0) {
-      var filteredItems = [...items];
-    }
-
-    if (selectedTimeRange.length > 0) {
-      filteredItems = filteredItems.filter((course) =>
-        selectedTimeRange.some(
-          (range) =>
-            course.time >= range.min &&
-            (course.time <= range.max || range.max === Infinity)
-        )
       );
+    } else {
+      newParams.delete("times");
     }
 
-    setPosts(filteredItems);
+    newParams.delete("page");
+    setSearchParams(newParams);
   };
-
-  useEffect(() => {
-    applyTimeFilter();
-  }, [selectedTimeRange, items]);
-
-  useEffect(() => {
-    const newSelectedTimeRange = searchParams.get("times")
-      ? searchParams
-          .get("times")
-          .split(",")
-          .map((time) => {
-            const [min, max] = time.split("-");
-            return {
-              min: Number(min),
-              max: max === "Infinity" ? Infinity : Number(max),
-            };
-          })
-      : [];
-    setSelectedTimeRange(newSelectedTimeRange);
-  }, [searchParams]);
 
   return (
     <div className="tab border-t-2">
@@ -114,11 +68,11 @@ const CourseTime = ({ items, setPosts }) => {
                 name="sortByTime"
                 id={`${min}-${max}`}
                 checked={selectedTimeRange.some(
-                  (range) => range.min === min && range.max === max
+                  (r) => r.min === min && r.max === max,
                 )}
                 onChange={() => handleTimeRangeToggle(min, max)}
               />
-              <label className=" cursor-pointer" htmlFor={`${min}-${max}`}>
+              <label className="cursor-pointer" htmlFor={`${min}-${max}`}>
                 {max === Infinity
                   ? `بیشتر از ${min} ساعت`
                   : `${min}-${max} ساعت`}

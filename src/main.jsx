@@ -10,7 +10,11 @@ import store from "./features/store";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 0,
+      staleTime: 5 * 60 * 1000,
+      gcTime: 10 * 60 * 1000,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      retry: 1,
     },
   },
 });
@@ -23,5 +27,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <App />
       </Provider>
     </QueryClientProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

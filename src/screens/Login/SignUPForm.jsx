@@ -13,7 +13,7 @@ const scrollToTop = () => {
 
 const SignUpForm = () => {
   const [passwordIsVisible, setPasswordIsVisible] = useState(false);
-  const [confirmPasswordIsVisible, setConfirmPasswordIsVisible] =
+  const [passwordConfirmIsVisible, setpasswordConfirmIsVisible] =
     useState(false);
 
   const darkMode = false;
@@ -38,35 +38,31 @@ const SignUpForm = () => {
       .min(8, "رمز عبور باید حداقل 8 کاراکتر باشد.")
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d)/,
-        "رمز عبور باید شامل حروف و اعداد باشد."
+        "رمز عبور باید شامل حروف و اعداد باشد.",
       ),
-    confirmPassword: yup
+    passwordConfirm: yup
       .string()
       .oneOf(
         [yup.ref("password"), null],
-        "رمز عبور و تکرار آن باید یکسان باشند."
+        "رمز عبور و تکرار آن باید یکسان باشند.",
       )
       .required("لطفاً تکرار رمز عبور را وارد کنید."),
   });
 
   const handleSubmit = (values) => {
-    const { email, password, fullName } = values;
+    const { email, password, fullName, passwordConfirm } = values;
+    if (!email || !password || !fullName) return;
+    signUp({ email, password, fullName, confirmPassword: passwordConfirm });
 
-    if (!email || !password || !fullName) {
-      return;
-    }
-
-    signUp({ email, password, fullName });
-
-    if (!isError) {
-      toast.success(" با موفقیت ثبت نام کردید !", {
-        position: "top-center",
-      });
-    } else {
-      toast.error("خطا در ثبت نام !", {
-        position: "top-center",
-      });
-    }
+    // if (!isError) {
+    //   toast.success(" با موفقیت ثبت نام کردید !", {
+    //     position: "top-center",
+    //   });
+    // } else {
+    //   toast.error("خطا در ثبت نام !", {
+    //     position: "top-center",
+    //   });
+    // }
   };
 
   return (
@@ -308,7 +304,7 @@ const SignUpForm = () => {
               className={`text-lg mt-4 block ${
                 darkMode ? "text-slate-200" : "text-slate-600"
               } font-inter`}
-              htmlFor="confirmPassword"
+              htmlFor="passwordConfirm"
             >
               تایید رمز عبور
             </label>
@@ -340,20 +336,20 @@ const SignUpForm = () => {
                 className={`block w-full  px-1 focus:outline-none font-inter ${
                   darkMode ? "text-gray-200" : "text-slate-800"
                 } bg-transparent`}
-                type={confirmPasswordIsVisible ? "text" : "password"}
-                title="confirmPassword"
-                id="confirmPassword"
-                name="confirmPassword"
+                type={passwordConfirmIsVisible ? "text" : "password"}
+                title="passwordConfirm"
+                id="passwordConfirm"
+                name="passwordConfirm"
                 placeholder="تایید رمز عبور"
                 disabled={isPending}
               />
               <div
                 onClick={() =>
-                  setConfirmPasswordIsVisible(!confirmPasswordIsVisible)
+                  setpasswordConfirmIsVisible(!passwordConfirmIsVisible)
                 }
                 className="absolute left-3 cursor-pointer"
               >
-                {confirmPasswordIsVisible ? (
+                {passwordConfirmIsVisible ? (
                   <svg
                     className=" w-6"
                     viewBox="0 0 24 24"
@@ -413,7 +409,7 @@ const SignUpForm = () => {
             </div>
             <ErrorMessage
               component="div"
-              name="confirmPassword"
+              name="passwordConfirm"
               className="text-red-500 text-sm mt-1"
             />
           </div>

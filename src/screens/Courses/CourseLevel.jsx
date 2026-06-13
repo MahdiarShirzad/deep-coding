@@ -1,67 +1,28 @@
-import { useQuery } from "@tanstack/react-query";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSearchParams } from "react-router-dom";
-import { getCourses } from "../../services/apiCourses";
 
-const CourseLevel = ({ setPosts, items }) => {
-  // const { data: items, isLoading } = useQuery({
-  //   queryKey: ["courses"],
-  //   queryFn: getCourses,
-  // });
+const courseLevelTypes = ["همه سطوح", "مقدماتی", "متوسط", "پیشرفته"];
 
+const CourseLevel = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const selectedLevelsFromParams = searchParams.get("levels")?.split(",") || [];
-
-  const [selectedLevelType, setSelectedLevelType] = useState(
-    selectedLevelsFromParams
-  );
+  const selectedLevelType = searchParams.get("levels")?.split(",") || [];
 
   const handleLevelTypeToggle = (levelType) => {
-    const isLevelSelected = selectedLevelType.includes(levelType);
-    let newSelectedLevelType;
+    const newSelectedLevelType = selectedLevelType.includes(levelType)
+      ? selectedLevelType.filter((type) => type !== levelType)
+      : [...selectedLevelType, levelType];
 
-    if (isLevelSelected) {
-      newSelectedLevelType = selectedLevelType.filter(
-        (type) => type !== levelType
-      );
-    } else {
-      newSelectedLevelType = [...selectedLevelType, levelType];
-    }
-
-    setSelectedLevelType(newSelectedLevelType);
+    const newParams = new URLSearchParams(searchParams);
 
     if (newSelectedLevelType.length > 0) {
-      setSearchParams({
-        ...Object.fromEntries(searchParams.entries()),
-        levels: newSelectedLevelType.join(","),
-      });
+      newParams.set("levels", newSelectedLevelType.join(","));
     } else {
-      const newParams = new URLSearchParams(searchParams);
       newParams.delete("levels");
-      setSearchParams(newParams);
     }
+
+    newParams.delete("page");
+    setSearchParams(newParams);
   };
-
-  useEffect(() => {
-    if (items && items.length > 0) {
-      var filteredItems = [...items];
-    }
-
-    if (selectedLevelType.length) {
-      filteredItems = filteredItems.filter((course) =>
-        selectedLevelType.includes(course.level)
-      );
-    }
-
-    setPosts(filteredItems);
-  }, [selectedLevelType, items, setPosts]);
-
-  useEffect(() => {
-    const newSelectedLevelType = searchParams.get("levels")?.split(",") || [];
-    setSelectedLevelType(newSelectedLevelType);
-  }, [searchParams]);
-
-  const courseLevelTypes = ["همه سطوح", "مقدماتی", "متوسط", "پیشرفته"];
 
   return (
     <div className="tab border-t-2 mb-4">
@@ -81,10 +42,9 @@ const CourseLevel = ({ setPosts, items }) => {
                 checked={selectedLevelType.includes(levelType)}
                 onChange={() => handleLevelTypeToggle(levelType)}
               />
-              <label
-                className=" cursor-pointer"
-                htmlFor={levelType}
-              >{`${levelType}`}</label>
+              <label className="cursor-pointer" htmlFor={levelType}>
+                {levelType}
+              </label>
             </div>
           </div>
         ))}

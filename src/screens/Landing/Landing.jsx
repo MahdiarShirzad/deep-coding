@@ -3,23 +3,23 @@ import TopCourses from "./TopCourses";
 import TopCategory from "./TopCategory";
 import Validity from "./Validity";
 import Enroll from "./Enroll";
-import BlogSection from "./BlogSection";
+// import BlogSection from "./BlogSection";
 import ProgramDownloadSection from "./ProgramDownloadSection";
 import { useQuery } from "@tanstack/react-query";
 import { getCourses } from "../../services/apiCourses";
 import { Spinner } from "../../components/Spinner/Spinner";
-import { getBlogs } from "../../services/apiBlogs";
+// import { getBlogs } from "../../services/apiBlogs";
 
 const Landing = () => {
-  const { data: courses, isLoading } = useQuery({
+  const { data: courses, isPending: isLoading } = useQuery({
     queryKey: ["courses"],
     queryFn: getCourses,
   });
 
-  const { data: blogs, isLoading: blogLoading } = useQuery({
-    queryKey: ["blogs"],
-    queryFn: getBlogs,
-  });
+  // const { data: blogs, isLoading: blogLoading } = useQuery({
+  //   queryKey: ["blogs"],
+  //   queryFn: getBlogs,
+  // });
 
   return (
     <div className=" mx-auto">
@@ -28,16 +28,16 @@ const Landing = () => {
         <Spinner />
       ) : (
         <>
-          {courses ? (
+          {/* {courses ? (
             <TopCourses courses={courses} isLoading={isLoading} />
           ) : (
             <p className="text-center font-iransans my-20 text-xl">
               دوره ای یافت نشد !
             </p>
-          )}
+          )} */}
         </>
       )}
-      {isLoading ? (
+      {/* {isLoading ? (
         <p></p>
       ) : (
         <>
@@ -45,7 +45,7 @@ const Landing = () => {
             <TopCategory items={courses} isLoading={isLoading} />
           ) : null}
         </>
-      )}
+      )} */}
       <>
         <Validity />
         <div className=" w-full flex flex-row-reverse ">
@@ -65,7 +65,7 @@ const Landing = () => {
         </div>
       </>
       <Enroll />
-      {blogLoading ? (
+      {/* {blogLoading ? (
         <Spinner />
       ) : (
         <>
@@ -77,7 +77,7 @@ const Landing = () => {
             </p>
           )}
         </>
-      )}
+      )} */}
       <ProgramDownloadSection />
     </div>
   );

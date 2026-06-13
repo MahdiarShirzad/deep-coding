@@ -3,6 +3,7 @@ import { login as loginApi } from "../../services/apiAuth";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../features/userSlice";
+import { toast } from "react-toastify";
 
 export function useLogin() {
   const navigate = useNavigate();
@@ -17,7 +18,11 @@ export function useLogin() {
     onSuccess: (data) => {
       dispatch(setUser(data));
       localStorage.setItem("session", JSON.stringify(data.session));
+      toast.success("با موفقیت وارد شدید !", { position: "top-center" });
       navigate("/");
+    },
+    onError: () => {
+      toast.error("خطا در ورود !", { position: "top-center" });
     },
   });
 
