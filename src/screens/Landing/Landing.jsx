@@ -5,16 +5,16 @@ import Validity from "./Validity";
 import Enroll from "./Enroll";
 // import BlogSection from "./BlogSection";
 import ProgramDownloadSection from "./ProgramDownloadSection";
-import { useQuery } from "@tanstack/react-query";
-import { getCourses } from "../../services/apiCourses";
+// import { useQuery } from "@tanstack/react-query";
+// import { getCourses } from "../../services/apiCourses";
 import { Spinner } from "../../components/Spinner/Spinner";
 // import { getBlogs } from "../../services/apiBlogs";
 
 const Landing = () => {
-  const { data: courses, isPending: isLoading } = useQuery({
-    queryKey: ["courses"],
-    queryFn: getCourses,
-  });
+  // const { data: courses, isPending: isLoading } = useQuery({
+  //   queryKey: ["courses"],
+  //   queryFn: getCourses,
+  // });
 
   // const { data: blogs, isLoading: blogLoading } = useQuery({
   //   queryKey: ["blogs"],
@@ -24,19 +24,19 @@ const Landing = () => {
   return (
     <div className=" mx-auto">
       <Herosection />
-      {isLoading ? (
+      <TopCourses />
+      {/* {isLoading ? (
         <Spinner />
-      ) : (
-        <>
-          {/* {courses ? (
-            <TopCourses courses={courses} isLoading={isLoading} />
+      ) : ( */}
+      <>
+        {/* {courses ? (
           ) : (
             <p className="text-center font-iransans my-20 text-xl">
               دوره ای یافت نشد !
             </p>
           )} */}
-        </>
-      )}
+      </>
+      {/* )} */}
       {/* {isLoading ? (
         <p></p>
       ) : (

@@ -5,7 +5,10 @@ import RenderStars from "../../RenderStars/RenderStars";
 import { Link } from "react-router-dom";
 
 const TopCoursesCard = ({ course }) => {
-  const { id, name, star, level, time, img, teacher, price } = course;
+  const { _id, name, level, time, img, price, ratingsAverage, teacher } =
+    course;
+
+  // console.log(teacher);
 
   const formattedPrice = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
@@ -18,7 +21,7 @@ const TopCoursesCard = ({ course }) => {
   const coursePrice = price === 0 ? <p>رایگان</p> : formattedPrice;
 
   return (
-    <Link to={`/courses/${id}`} onClick={scrollToTop}>
+    <Link to={`/courses/${_id}`} onClick={scrollToTop}>
       <div className={styles.card_section}>
         <div className={`${styles.card_item} ${styles.card_users}`}>
           <div className="w-[580px] max-xl:w-[550px] max-md:w-[500px] max-sm:w-[428px]  h-44 flex font-iransans mb-8 gap-8 rounded-2xl px-6 py-4 shadow-sm shadow-slate-300">
@@ -33,9 +36,9 @@ const TopCoursesCard = ({ course }) => {
               </h3>
               <p className="flex items-center gap-1 text-gray-500">
                 <div className="flex items-center justify-between w-[90px]">
-                  <RenderStars rating={star} />
+                  <RenderStars rating={ratingsAverage} />
                 </div>
-                <span className=" text-amber-400">{star}</span>
+                <span className=" text-amber-400">{ratingsAverage}</span>
               </p>
 
               <div className="flex items-center gap-5 mb-2">
@@ -109,7 +112,7 @@ const TopCoursesCard = ({ course }) => {
                       ></path>{" "}
                     </g>
                   </svg>
-                  <p className="text-sm">{teacher}</p>
+                  <p className="text-sm">{teacher?.fullName}</p>
                 </div>
                 <div className=" flex items-center gap-1">
                   <p className=" text-gray-700 font-semibold">{coursePrice}</p>

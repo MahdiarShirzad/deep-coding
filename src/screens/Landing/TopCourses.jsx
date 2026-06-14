@@ -1,15 +1,10 @@
-import React, { useReducer, useRef } from "react";
+import React, { useRef, useState } from "react";
 import TopCoursesCard from "../../components/common/TopCoursesCard/TopCoursesCard";
 import { motion, useInView } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { getCourses } from "../../services/apiCourses";
+import TopCoursesCardSkeleton from "../../components/TopCoursesCardSkeleton/TopCoursesCardSkeleton";
 
-const categoryReducer = (state, action) => {
-  switch (action.type) {
-    case "SET_CATEGORY":
-      return action.payload;
-    default:
-      return state;
-  }
-};
 const titleVariants = {
   hidden: {
     opacity: 0,
@@ -62,28 +57,32 @@ const cardVariants = (isEven) => ({
   },
 });
 
-const TopCourses = ({ courses }) => {
+const categories = ["all", "برنامه نویسی وب", "دیتا ساینس", "DevOps و Cloud"];
+
+const TopCourses = () => {
+  const [selectedCategory, setSelectedCategory] = useState("all");
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["courses", selectedCategory],
+    queryFn: () =>
+      getCourses({
+        limit: 4,
+        category: selectedCategory !== "all" ? selectedCategory : undefined,
+        sort: "-ratingsAverage",
+      }),
+  });
+
+  const courses = data?.courses ?? [];
+  const skeletons = Array.from({ length: 4 });
+
+  console.log("DATA:", data);
+
   const titleRef = useRef(null);
   const filterRef = useRef(null);
   const cardRef = useRef(null);
   const titleInView = useInView(titleRef, { once: true });
   const filterInView = useInView(filterRef, { once: true });
   const cardInView = useInView(cardRef, { once: true });
-
-  const [selectedCategory, dispatch] = useReducer(categoryReducer, "all");
-
-  const categories = ["all", "طراحی وب", "برنامه نویسی", "گرافیک"];
-
-  const setCategory = (category) => {
-    dispatch({ type: "SET_CATEGORY", payload: category });
-  };
-
-  const coursesData = courses;
-
-  const filteredCourses =
-    selectedCategory === "all"
-      ? coursesData
-      : coursesData.filter((course) => course.category === selectedCategory);
 
   return (
     <div className="mt-24 max-w-[1320px] mx-auto">
@@ -109,31 +108,29 @@ const TopCourses = ({ courses }) => {
           variants={filterVariants}
           className="flex items-center justify-center gap-3 p-2 rounded-full bg-gray-200 max-lg:text-sm"
         >
-          {categories.map((category) => (
+          {categories.map((cat) => (
             <li
-              key={category}
-              onClick={() => setCategory(category)}
-              className={`px-4 py-2 rounded-full cursor-pointer ${
-                selectedCategory === category ? "bg-white text-[#6440FB]" : ""
+              key={cat}
+              onClick={() => setSelectedCategory(cat)}
+              className={`px-4 py-2 rounded-full cursor-pointer transition ${
+                selectedCategory === cat
+                  ? "bg-white text-[#6440FB]"
+                  : "text-gray-600 hover:bg-white/50"
               }`}
             >
-              {category === "all" ? "همه" : category}
+              {cat === "all" ? "همه" : cat}
             </li>
           ))}
         </motion.ul>
       </div>
       <div className="flex flex-wrap max-xl:mx-auto justify-between mt-10">
-        {filteredCourses.slice(0, 6).map((course, index) => (
-          <motion.div
-            ref={cardRef}
-            key={index}
-            initial="hidden"
-            animate={cardInView ? "visible" : "hidden"}
-            variants={cardVariants(index % 2 === 0)}
-          >
-            <TopCoursesCard key={index} course={course} />
-          </motion.div>
-        ))}
+        {isLoading
+          ? skeletons.map((_, i) => <TopCoursesCardSkeleton key={i} />)
+          : courses.map((course, i) => (
+              <motion.div key={course._id}>
+                <TopCoursesCard course={course} />
+              </motion.div>
+            ))}
       </div>
     </div>
   );
