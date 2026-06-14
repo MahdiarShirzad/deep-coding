@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useRef } from "react";
 import CourseCard from "../../components/CourseCard/CourseCard";
 import CourseCategory from "./CourseCategory";
 import CourseTime from "./CourseTime";
@@ -9,9 +9,48 @@ import SearchCourses from "../../components/SearchCourses/SearchCourses";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { getCourses } from "../../services/apiCourses";
 import LoadingSkeleton from "../../components/loadingSkeleton/loadingSkeleton";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useSearchParams } from "react-router-dom";
 import { buildCourseQueryParams } from "../../utils/buildCourseQueryParams";
+
+const headerVariants = {
+  hidden: {
+    opacity: 0,
+    y: 16,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.45,
+      ease: "easeOut",
+    },
+  },
+};
+
+const cardsContainerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.04,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: {
+    opacity: 0,
+    y: 18,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.35,
+      ease: "easeOut",
+    },
+  },
+};
 
 const Courses = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -31,6 +70,13 @@ const Courses = () => {
     placeholderData: keepPreviousData,
   });
 
+  const headerRef = useRef(null);
+
+  const headerInView = useInView(headerRef, {
+    once: true,
+    margin: "-100px",
+  });
+
   const courses = data?.courses || [];
   const totalCount = data?.totalCount || 0;
   const totalPages = data?.totalPages || 1;
@@ -44,24 +90,26 @@ const Courses = () => {
     setSearchParams(newParams);
   };
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: -50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  };
-
   return (
     <div className="mt-[100px] mb-24 font-iransans container max-w-[1320px] mx-auto">
-      {/* Header */}
-      <h2 className="text-2xl mt-36 font-medium max-lg:mr-10">لیست دوره ها</h2>
+      <motion.div
+        ref={headerRef}
+        initial="hidden"
+        animate={headerInView ? "visible" : "hidden"}
+        variants={headerVariants}
+      >
+        <h2 className="text-2xl mt-36 font-medium max-lg:mr-10">
+          لیست دوره ها
+        </h2>
 
-      <p className="mt-4 max-lg:mr-10">
-        با انتخاب دوره های آموزشی تخصصی و متنوع در زمینه برنامه نویسی، مهارت های
-        خود را در دنیای فناوری ارتقا بده
-      </p>
+        <p className="mt-4 max-lg:mr-10">
+          با انتخاب دوره های آموزشی تخصصی و متنوع در زمینه برنامه نویسی، مهارت
+          های خود را در دنیای فناوری ارتقا بده
+        </p>
+      </motion.div>
 
       <SearchCourses />
 
-      {/* Main layout */}
       <div
         className={`flex items-start justify-between mt-24 gap-8 transition-opacity ${
           isFetching ? "opacity-60" : "opacity-100"

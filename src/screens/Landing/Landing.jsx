@@ -25,27 +25,9 @@ const Landing = () => {
     <div className=" mx-auto">
       <Herosection />
       <TopCourses />
-      {/* {isLoading ? (
-        <Spinner />
-      ) : ( */}
-      <>
-        {/* {courses ? (
-          ) : (
-            <p className="text-center font-iransans my-20 text-xl">
-              دوره ای یافت نشد !
-            </p>
-          )} */}
-      </>
-      {/* )} */}
-      {/* {isLoading ? (
-        <p></p>
-      ) : (
-        <>
-          {courses ? (
-            <TopCategory items={courses} isLoading={isLoading} />
-          ) : null}
-        </>
-      )} */}
+
+      <TopCategory />
+
       <>
         <Validity />
         <div className=" w-full flex flex-row-reverse ">

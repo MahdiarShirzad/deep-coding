@@ -19,17 +19,16 @@ const Herosection = () => {
   const textVariants = {
     hidden: {
       opacity: 0,
-      y: -500,
+      y: 30,
+      filter: "blur(8px)",
     },
     visible: {
       opacity: 1,
       y: 0,
+      filter: "blur(0px)",
       transition: {
-        duration: 0.3,
-        delay: 0.3,
-        type: "spring",
-        stiffness: 110,
-        damping: 9,
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1],
       },
     },
   };
@@ -37,17 +36,20 @@ const Herosection = () => {
   const imageVariants = {
     hidden: {
       opacity: 0,
-      y: 500,
+      scale: 0.92,
+      x: 40,
+      rotate: -3,
+      filter: "blur(12px)",
     },
     visible: {
       opacity: 1,
-      y: 0,
+      scale: 1,
+      x: 0,
+      rotate: 0,
+      filter: "blur(0px)",
       transition: {
-        duration: 0.3,
-        delay: 0.3,
-        type: "spring",
-        stiffness: 110,
-        damping: 9,
+        duration: 1,
+        ease: [0.16, 1, 0.3, 1],
       },
     },
   };
@@ -55,33 +57,32 @@ const Herosection = () => {
   const titleVariants = {
     hidden: {
       opacity: 0,
-      y: 100,
+      y: 25,
+      filter: "blur(6px)",
     },
     visible: {
       opacity: 1,
       y: 0,
+      filter: "blur(0px)",
       transition: {
-        duration: 0.3,
-        type: "spring",
-        stiffness: 110,
-        damping: 12,
+        duration: 0.7,
+        ease: [0.16, 1, 0.3, 1],
       },
     },
   };
   const ItemsVariants = {
     hidden: {
       opacity: 0,
-      y: -100,
+      y: 35,
+      scale: 0.96,
     },
     visible: {
       opacity: 1,
       y: 0,
+      scale: 1,
       transition: {
-        duration: 0.3,
-        delay: 0.3,
-        type: "spring",
-        stiffness: 110,
-        damping: 12,
+        duration: 0.65,
+        ease: [0.16, 1, 0.3, 1],
       },
     },
   };
@@ -240,7 +241,12 @@ const Herosection = () => {
                         <rect x="96" y="215.99" width="48" height="16"></rect>{" "}
                         <rect x="32" y="247.99" width="112" height="16"></rect>{" "}
                         <rect x="32" y="279.99" width="112" height="16"></rect>{" "}
-                        <rect x="32" y="311.99" width="64" height="16"></rect>{" "}
+                        <rect
+                          x="32"
+                          y="311.99"
+                          width="64"
+                          height="16"
+                        ></rect>{" "}
                       </g>{" "}
                     </g>{" "}
                   </g>{" "}
