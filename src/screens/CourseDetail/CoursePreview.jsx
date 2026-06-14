@@ -5,17 +5,17 @@ import { updateUser } from "../../services/apiAuth";
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
 
-const CoursePreview = ({ selectedCourse, user }) => {
+const CoursePreview = ({ selectedCourse }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const playerRef = useRef(null);
 
-  const { isAuthenticated } = useSelector((state) => state.user);
+  // const { isAuthenticated } = useSelector((state) => state.user);
   const { isError } = updateUser();
 
   const queryClient = useQueryClient();
 
-  const formattedPrice = selectedCourse.price
+  const formattedPrice = selectedCourse?.price
     .toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
@@ -33,37 +33,6 @@ const CoursePreview = ({ selectedCourse, user }) => {
     };
   }, []);
 
-  const handleAddToCartClick = async () => {
-    const currentCart = user?.user_metadata.cart || [];
-
-    const courseExists = currentCart.some(
-      (course) => course.id === selectedCourse.id
-    );
-
-    if (courseExists) {
-      toast.error("این دوره قبلاً به سبد خرید افزوده شده است!", {
-        position: "top-center",
-      });
-      return;
-    }
-
-    const updatedCourses = [...currentCart, selectedCourse];
-
-    const updates = {
-      cart: updatedCourses,
-    };
-
-    if (!isError) {
-      updateUser(updates);
-      toast.success("دوره به سبد خرید افزوده شد!", {
-        position: "top-center",
-      });
-      queryClient.invalidateQueries({ queryKey: ["user"] });
-    } else {
-      toast.error("خطا در افزودن به سبد خرید!");
-    }
-  };
-
   return (
     <div
       className={` ${
@@ -76,7 +45,7 @@ const CoursePreview = ({ selectedCourse, user }) => {
         <ReactPlayer
           ref={playerRef}
           className=" w-full rounded-xl h-full block"
-          url={selectedCourse?.video}
+          url={selectedCourse?.introductionVideo}
           playing={isPlaying}
           controls={true}
           width="100%"
@@ -92,19 +61,17 @@ const CoursePreview = ({ selectedCourse, user }) => {
         {selectedCourse?.price !== 0 && <span>تومان</span>}
       </div>
       <button
-        onClick={handleAddToCartClick}
-        className={`bg-violet-600 mt-3 w-[300px] block mx-auto py-3 rounded-md text-white ${
-          !isAuthenticated && `cursor-not-allowed`
-        }`}
+        // onClick={handleAddToCartClick}
+        className={`bg-violet-600 mt-3 w-[300px] block mx-auto py-3 rounded-md text-white `}
       >
         افزودن به سبد خرید
       </button>
       <div className=" mr-3 mt-8 mb-6">
         <p>این دوره شامل:</p>
         <ul className=" text-[13px] mt-2 mr-2">
-          <li>{selectedCourse?.time} ساعت آموزش</li>
-          <li>20 تمرین</li>
-          <li>گواهی پایان دوره</li>
+          <li>✔️{selectedCourse?.time} ساعت آموزش</li>
+          <li>✔️ پروژه‌های واقعی و کاربردی</li>
+          <li> ✔️ گواهی پایان دوره</li>
         </ul>
       </div>
     </div>

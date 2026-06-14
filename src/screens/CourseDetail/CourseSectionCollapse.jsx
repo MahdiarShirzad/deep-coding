@@ -1,39 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 
-const CourseSectionCollapse = ({ topics: data }) => {
-  // const data = [
-  //   {
-  //     title: "توسعه وب فرانت اند",
-  //     desc: "محتوای بخش",
-  //   },
-  //   {
-  //     title: "مقدمه ای بر HTML",
-  //     desc: "محتوای بخش",
-  //   },
-  //   {
-  //     title: "مقدمات جبرخطی و جبررابطه‌ای در پایتون",
-  //     desc: "محتوای بخش",
-  //   },
-  //   {
-  //     title: "آمار توصیفی بر روی داده‌ها",
-  //     desc: "محتوای بخش",
-  //   },
-  //   {
-  //     title: "نمایش و بصری‌سازی داده‌ها",
-  //     desc: "محتوای بخش",
-  //   },
-  //   {
-  //     title: "پیش‌پردازش داده‌ها",
-  //     desc: "محتوای بخش",
-  //   },
-  // ];
-
-  return (
-    data &&
-    data?.map((item, idx) => {
-      return <Unit item={item} key={idx} />;
-    })
-  );
+const CourseSectionCollapse = ({ sections }) => {
+  return sections?.map((item) => {
+    return <Unit item={item} key={item._id} />;
+  });
 };
 
 const Unit = (props) => {
@@ -88,12 +58,21 @@ const Unit = (props) => {
           </div>
         </div>
         <ul
-          className="mt-4 text-sm h-0 overflow-hidden transition-[0.5s] text-gray-700  ease-in"
+          className="mt-4 text-sm h-0 overflow-hidden transition-[0.5s] text-gray-700 ease-in"
           ref={contentRef}
         >
-          {item?.content.map((content, index) => (
-            <li key={index} className="my-2">
-              {index + 1}. {content}
+          {item?.lessons.map((lesson, index) => (
+            <li key={lesson._id} className="my-2 flex justify-between">
+              <span
+                className="textlg
+              "
+              >
+                {index + 1}. {lesson.title}
+              </span>
+
+              <span className="text-md text-gray-500">
+                {lesson.duration} دقیقه
+              </span>
             </li>
           ))}
         </ul>

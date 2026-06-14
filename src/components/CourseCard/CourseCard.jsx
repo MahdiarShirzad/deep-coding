@@ -26,6 +26,8 @@ const CourseCard = ({ posts }) => {
   const { _id, name, teacher, price, level, ratingsAverage, time, img, slug } =
     posts;
 
+  console.log("slug: ", slug);
+
   const formattedPrice =
     price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") || "0";
 

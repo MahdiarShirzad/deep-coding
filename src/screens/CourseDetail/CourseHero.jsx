@@ -2,45 +2,47 @@ import React from "react";
 import RenderStars from "../../components/RenderStars/RenderStars";
 import CoursePreview from "./CoursePreview";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
-import { updateUser } from "../../services/apiAuth";
-import parse from "html-react-parser";
+// import { toast } from "react-toastify";
+// import { updateUser } from "../../services/apiAuth";
+// import parse from "html-react-parser";
 
-const CourseHero = ({ selectedCourse, teachers, user }) => {
-  const { isError } = updateUser();
+const CourseHero = ({ selectedCourse, teacher }) => {
+  // console.log(teacher?.fullName);
 
-  if (teachers && teachers.length > 0) {
-    var teacher = teachers?.find((t) => t.name === selectedCourse?.teacher);
-  }
+  // const { isError } = updateUser();
 
-  const handleAddToWishList = () => {
-    const currentWishList = user?.user_metadata.wishlist || [];
+  // if (teachers && teachers.length > 0) {
+  //   var teacher = teachers?.find((t) => t.name === selectedCourse?.teacher);
+  // }
 
-    const courseExists = currentWishList.some(
-      (course) => course.id === selectedCourse.id
-    );
-    if (courseExists) {
-      toast.error("این دوره قبلاً به علاقه مندی ها افزوده شده است!", {
-        position: "top-center",
-      });
-      return;
-    }
+  // const handleAddToWishList = () => {
+  // const currentWishList = user?.user_metadata.wishlist || [];
 
-    const updatedCourses = [...currentWishList, selectedCourse];
+  // const courseExists = currentWishList.some(
+  //   (course) => course.id === selectedCourse.id
+  // );
+  // if (courseExists) {
+  //   toast.error("این دوره قبلاً به علاقه مندی ها افزوده شده است!", {
+  //     position: "top-center",
+  //   });
+  //   return;
+  // }
 
-    const updates = {
-      wishlist: updatedCourses,
-    };
+  // const updatedCourses = [...currentWishList, selectedCourse];
 
-    if (!isError) {
-      updateUser(updates);
-      toast.success("دوره به علاقه مندی ها  افزوده شد!", {
-        position: "top-center",
-      });
-    } else {
-      toast.error("خطا در افزودن به علاقه مندی ها !");
-    }
-  };
+  // const updates = {
+  //   wishlist: updatedCourses,
+  // };
+
+  //   if (!isError) {
+  //     updateUser(updates);
+  //     toast.success("دوره به علاقه مندی ها  افزوده شد!", {
+  //       position: "top-center",
+  //     });
+  //   } else {
+  //     toast.error("خطا در افزودن به علاقه مندی ها !");
+  //   }
+  // };
 
   return (
     <div className=" bg-gray-800 text-white font-iransans py-14">
@@ -50,24 +52,28 @@ const CourseHero = ({ selectedCourse, teachers, user }) => {
             {selectedCourse?.name}
           </h1>
           <p className=" mt-5 text-gray-300 text-justify">
-            {parse(selectedCourse?.desc)}
+            {selectedCourse?.desc}
           </p>
           <div className=" flex gap-2 items-center  mt-12">
             <div className="flex gap-1 items-center">
-              <RenderStars rating={selectedCourse?.star} />
+              <RenderStars rating={selectedCourse?.ratingsAverage} />
             </div>
-            <p className=" text-[#fcc419]">{selectedCourse?.star}</p>
-            <p className=" text-sm mr-2">(581 رای)</p>
+            <p className=" text-[#fcc419]">{selectedCourse?.ratingsAverage}</p>
+            <p className=" text-sm mr-2">
+              ({selectedCourse?.ratingsQuantity} رای)
+            </p>
             <p className="text-sm mr-3">1376 دانش آموز</p>
           </div>
           <div className=" flex items-center gap-2 mt-4">
             <p>مدرس :</p>
-            <Link to={`/teacher-info/${teacher?.id}`}>
-              <p className=" text-fuchsia-400">{selectedCourse?.teacher}</p>
+            <Link to={`/teacher-info/${teacher?._id}`}>
+              <p className=" text-fuchsia-400">
+                {selectedCourse?.teacher?.fullName}
+              </p>
             </Link>
           </div>
           <button
-            onClick={handleAddToWishList}
+            // onClick={handleAddToWishList}
             className=" mt-4  flex gap-2 items-center border px-3 py-2 rounded-lg bg-slate-200 text-black"
           >
             <svg
@@ -96,7 +102,7 @@ const CourseHero = ({ selectedCourse, teachers, user }) => {
             <p>افزودن به علاقه مندی ها</p>
           </button>
         </div>
-        <CoursePreview selectedCourse={selectedCourse} user={user} />
+        <CoursePreview selectedCourse={selectedCourse} />
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ import ContactUs from "../screens/ContactUs/ContactUs";
 import Login from "../screens/Login/Login";
 import SignUp from "../screens/Login/SignUp";
 import Cart from "../screens/Cart/Cart";
-// import CourseDetail from "../screens/CourseDetail/CourseDetail";
+import CourseDetail from "../screens/CourseDetail/CourseDetail";
 // import TeachersInfo from "../screens/TeachersInfo/TeachersInfo";
 // import BlogDetail from "../screens/BlogDetail/BlogDetail";
 
@@ -76,10 +76,7 @@ const App = () => {
         <Routes>
           <Route path="/" index element={<Landing />} />
           <Route path="/courses" element={<Courses />} />
-          {/* <Route
-            path="/courses/:id"
-            element={<CourseDetail teachers={teachers} />}
-          ></Route> */}
+          <Route path="/courses/:id" element={<CourseDetail />}></Route>
           {/* <Route path="/blogs" element={<Blogs />} />
           <Route path="/blogs/:id" element={<BlogDetail />} />
           <Route path="/library" element={<Library />} />
