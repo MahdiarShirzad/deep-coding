@@ -6,6 +6,7 @@ import styles from "./MemberCard.module.css";
 import RenderStars from "../RenderStars/RenderStars";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import scrrollToTop from "../../utils/scrollToTop.js";
 
 const cardVariants = {
   hidden: {
@@ -38,14 +39,8 @@ const CourseCard = ({ posts }) => {
 
   const teacherName = typeof teacher === "object" ? teacher?.fullName : teacher;
 
-  const scrollToTop = () =>
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-
   return (
-    <Link to={`/courses/${slug || _id}`} onClick={scrollToTop}>
+    <Link to={`/courses/${slug || _id}`} onClick={scrrollToTop}>
       <motion.div
         variants={cardVariants}
         initial="hidden"
@@ -68,6 +63,9 @@ const CourseCard = ({ posts }) => {
               className="rounded-lg w-full h-[210px] object-cover"
               src={img}
               alt={name}
+              loading="lazy"
+              decoding="async"
+              fetchPriority="low"
             />
 
             <div className="h-[96px]">

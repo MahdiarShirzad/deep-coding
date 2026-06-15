@@ -31,8 +31,8 @@ export const getCourses = async (queryParams = {}) => {
   };
 };
 
-export const getCourse = async (slug) => {
-  const res = await fetch(`${API_URL}/courses/${slug}`);
+export const getCourse = async (id) => {
+  const res = await fetch(`${API_URL}/courses/${id}`);
 
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
