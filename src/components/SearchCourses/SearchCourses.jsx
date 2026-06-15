@@ -102,7 +102,7 @@ const SearchCourses = () => {
             filteredProducts.map((course, index) => (
               <div key={course._id}>
                 <Link
-                  to={`/courses/${course.slug}`}
+                  to={`/courses/${course._id}`}
                   onClick={handleResultClick}
                   className="flex gap-4 py-2 items-center px-6 hover:bg-gray-50 transition-colors"
                 >

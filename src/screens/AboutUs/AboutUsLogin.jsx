@@ -7,74 +7,134 @@ import Button from "../../components/common/Button/Button";
 import { motion } from "framer-motion";
 
 const AboutUsLogin = () => {
-  const imageVariants = {
-    hidden: { opacity: 0, x: 100 },
+  // container برای stagger
+  const container = {
+    hidden: {},
     visible: {
-      opacity: 1,
-      x: 0,
       transition: {
-        type: "spring",
-        stiffness: 220,
-        damping: 15,
+        staggerChildren: 0.2,
       },
     },
   };
 
+  // آیتم‌ها (عکس‌ها)
+  const item = {
+    hidden: { opacity: 0, y: 80, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 120,
+        damping: 14,
+      },
+    },
+  };
+
+  // متن
   const textVariants = {
-    hidden: { opacity: 0, x: -100 },
+    hidden: { opacity: 0, x: -80 },
     visible: {
       opacity: 1,
       x: 0,
       transition: {
-        type: "spring",
-        stiffness: 220,
-        damping: 15,
+        duration: 0.7,
+        ease: "easeOut",
       },
     },
   };
 
   return (
-    <div className="container max-w-[1320px] mx-auto flex max-lg:flex-wrap-reverse items-center justify-between mt-12 gap-14">
+    <div className="container max-w-[1320px] mx-auto flex max-lg:flex-wrap-reverse items-center justify-between mt-16 gap-16">
       {/* Image Section */}
       <motion.div
-        className="w-1/2 flex items-center gap-7 max-lg:mx-auto"
-        variants={imageVariants}
+        className="w-3/5 flex items-center gap-7 max-lg:mx-auto"
+        variants={container}
         initial="hidden"
-        animate="visible"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
       >
+        <motion.div variants={item}>
+          <motion.img
+            whileHover={{ scale: 1.05, rotate: 1 }}
+            transition={{ type: "spring", stiffness: 200 }}
+            className="rounded-xl "
+            src={img1}
+            alt="About us illustration 1"
+          />
+        </motion.div>
+
         <div>
-          <img src={img1} alt="About us illustration 1" />
-        </div>
-        <div>
-          <img className="mb-7" src={img2} alt="About us illustration 2" />
-          <img src={img3} alt="About us illustration 3" />
+          <motion.img
+            variants={item}
+            whileHover={{ scale: 1.05, rotate: -1 }}
+            transition={{ type: "spring", stiffness: 200 }}
+            className="rounded-xl mb-7 "
+            src={img2}
+            alt="About us illustration 2"
+          />
+
+          <motion.img
+            variants={item}
+            whileHover={{ scale: 1.05, rotate: 1 }}
+            transition={{ type: "spring", stiffness: 200 }}
+            className="rounded-xl "
+            src={img3}
+            alt="About us illustration 3"
+          />
         </div>
       </motion.div>
 
       {/* Text Section */}
       <motion.div
-        className="w-1/2 max-lg:mx-auto"
+        className="w-2/5 max-lg:mx-auto"
         variants={textVariants}
         initial="hidden"
-        animate="visible"
+        whileInView="visible"
+        viewport={{ once: true }}
       >
-        <p className="text-2xl font-medium">
+        <motion.p
+          className="text-2xl font-bold leading-9"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
           مهارت های خود را با بهترین دوره های آنلاین افزایش دهید
-        </p>
-        <p className="mt-9 text-sm leading-6">
+        </motion.p>
+
+        <motion.p
+          className="mt-9 text-sm leading-6"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+        >
           می توانید یکی از این دوره های محبوب را در کمتر از یک روز شروع و به
-          پایان برسانید - به صورت رایگان! لیست زیر را بررسی کنید. دوره را به
-          صورت رایگان شرکت کنید.
-        </p>
-        <p className="mt-10 text-sm leading-6 text-gray-600">
-          لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده
-          از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و
-          سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای
-          متنوع با هدف بهبود ابزارهای کاربردی می باشد.
-        </p>
-        <Link to="/sign-up" className="block mt-20">
-          <Button>آموزش رایگان را شروع کنید</Button>
-        </Link>
+          پایان برسانید - به صورت رایگان!
+        </motion.p>
+
+        <motion.p
+          className="mt-10 text-sm leading-6 text-gray-600"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+        >
+          اینجا فقط کدنویسی یاد نمی‌گیری، یاد می‌گیری چطور مثل یک دولوپر واقعی
+          فکر کنی، مسئله حل کنی و پروژه‌های واقعی بسازی.{" "}
+        </motion.p>
+
+        <motion.div
+          className="mt-16"
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.8, type: "spring" }}
+        >
+          <Link to="/sign-up" className="block">
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button>آموزش رایگان را شروع کنید</Button>
+            </motion.div>
+          </Link>
+        </motion.div>
       </motion.div>
     </div>
   );

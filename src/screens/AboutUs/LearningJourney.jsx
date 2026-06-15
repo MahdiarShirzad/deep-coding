@@ -6,50 +6,112 @@ import img4 from "../../assets/images/home-5/learning/4.svg";
 import { motion } from "framer-motion";
 
 const LearningJourney = () => {
-  const boxVariants = {
-    hidden: { opacity: 0, y: 250 },
+  const container = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const card = {
+    hidden: { opacity: 0, y: 80, scale: 0.9 },
     visible: {
       opacity: 1,
       y: 0,
+      scale: 1,
       transition: {
         type: "spring",
-        duration: 0.3,
-        stiffness: 200,
-        damping: 12,
+        stiffness: 120,
+        damping: 14,
       },
     },
   };
 
   return (
-    <div className="bg-[#282664] w-full h-[400px]">
-      <div className="container max-w-[1320px] mx-auto pt-28">
-        <p className="text-white text-3xl text-center font-bold">
+    <div className="relative bg-gradient-to-r from-[#282664] to-[#1A064F] w-full py-28 overflow-hidden">
+      {/* glow background */}
+      <div className="absolute w-[400px] h-[400px] bg-purple-500/20 blur-[120px] top-[-100px] left-[-100px]" />
+      <div className="absolute w-[400px] h-[400px] bg-indigo-500/20 blur-[120px] bottom-[-100px] right-[-100px]" />
+
+      <div className="container max-w-[1320px] mx-auto relative z-10">
+        {/* Title */}
+        <motion.p
+          className="text-white text-3xl text-center font-bold"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
           سفر یادگیری خود را از همین امروز شروع کنید!
-        </p>
-        <p className="text-white text-center mt-6">
-          لورم ایپسوم متن ساختگی با تولید سادگی است.
-        </p>
-        <div className="flex max-lg:flex-wrap max-lg:justify-center items-center justify-between gap-8 mt-20">
+        </motion.p>
+
+        <motion.p
+          className="text-white text-center mt-6 opacity-80"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          viewport={{ once: true }}
+        >
+          فقط در چند قدم ساده، وارد مسیر حرفه‌ای برنامه‌نویسی شو
+        </motion.p>
+
+        {/* Cards */}
+        <motion.div
+          className="flex max-lg:flex-wrap max-lg:justify-center items-center justify-between gap-8 mt-20"
+          variants={container}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
           {[img1, img2, img3, img4].map((img, index) => (
             <motion.div
               key={index}
-              className="flex flex-col items-center justify-between bg-white w-[330px] gap-3 px-7 text-center py-5 rounded-lg shadow-md pb-10"
-              initial="hidden"
-              whileInView="visible"
-              variants={boxVariants}
-              viewport={{ once: true }}
-              style={
-                {
-                  // transitionDelay: `${0.2 * index}s`,
-                }
-              }
+              variants={card}
+              whileHover={{
+                y: -10,
+                scale: 1.04,
+                boxShadow: "0px 20px 40px rgba(0,0,0,0.2)",
+              }}
+              className="flex flex-col items-center bg-white w-[300px] gap-4 px-7 text-center py-6 rounded-xl shadow-md transition-all"
             >
-              <img className="mb-3" src={img} alt={`Step ${index + 1}`} />
-              <p className="text-lg">با کارشناسان بیاموزید</p>
-              <p>متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ است.</p>
+              <motion.img
+                src={img}
+                alt={`Step ${index + 1}`}
+                className="mb-2"
+                animate={{ y: [0, -5, 0] }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 3,
+                  delay: index * 0.3,
+                }}
+              />
+
+              <p className="text-lg font-semibold">
+                {
+                  [
+                    "یادگیری با بهترین‌ها",
+                    "مسیرهای هدفمند",
+                    "پروژه‌های واقعی",
+                    "ورود به بازار کار",
+                  ][index]
+                }
+              </p>
+
+              <p className="text-sm text-gray-600">
+                {
+                  [
+                    "با اساتید حرفه‌ای و با تجربه یاد بگیر",
+                    "مسیر مشخص و بدون سردرگمی داشته باش",
+                    "مهارتتو با پروژه‌های واقعی تقویت کن",
+                    "آماده ورود به دنیای کار شو",
+                  ][index]
+                }
+              </p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </div>
   );

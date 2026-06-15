@@ -5,166 +5,130 @@ import namad2 from "../../assets/images/footer/footer-samandehi.png";
 import namad3 from "../../assets/images/footer/footer-sep.png";
 
 const Footer = () => {
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-    });
-  };
+  const scrollToTop = () => window.scrollTo({ top: 0 });
 
   return (
-    <div className=" bg-slate-700 bg-[url('assets/images/pattern/04.png')] bg-cover mb-0 text-white font-iransans pb-10">
-      <div className=" container max-w-[1320px] mx-auto ">
-        <div className=" flex items-center gap-7 text-lg max-md:text-sm max-md:px-6 py-8 max-lg:mx-auto max-lg:justify-center">
-          {/* <img src={logo} alt="" /> */}
-          <svg
-            className=" -mr-24 max-md:w-24"
-            xmlns="http://www.w3.org/2000/svg"
-            width="140"
-            height="50"
-            viewBox="0 0 140 50"
-            fill="none"
-          >
-            <rect width="50" height="50" rx="22" fill="white" />
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M12.999 23.5386L14.4985 24.4175V26.1727V27.9304V29.6856V31.4407L15.998 32.3196L17.4975 33.1984L18.997 34.0773L20.4965 34.9561L21.9959 35.835L23.4954 36.7138L24.9949 37.5927L26.4944 36.7138L27.9939 35.835L29.4934 34.9561L30.9929 34.0773L32.4924 33.1984L33.9919 32.3196L35.4914 31.4407V29.6856V27.9304V26.1727V24.4175L36.9909 23.5386V26.7172C36.8668 26.7932 36.7832 26.9376 36.7832 27.0895C36.7832 27.2415 36.8541 27.363 36.9605 27.4416L36.9098 27.5961L36.6084 28.5382H37.2112H37.8141L37.5127 27.5961L37.462 27.4416C37.5709 27.363 37.6393 27.2567 37.6393 27.0895C37.6393 26.9224 37.5177 26.7375 37.3506 26.6767V23.3259L25.3622 16.3001L25.7244 16.0874L37.7254 23.1131L38.5005 22.6598L40 21.7809L38.5005 20.9021L37.001 20.0232L35.5015 19.1444L33.9995 18.2681L32.5 17.3892L31.0005 16.5103L29.501 15.634L28.0015 14.7552L26.502 13.8763L25 13L23.5005 13.8789L22.001 14.7577L20.499 15.634L18.9995 16.5129L17.5 17.3917L16.0005 18.2681L14.501 19.1469L13.0015 20.0258L11.502 20.9046L10 21.7809L11.4995 22.6598L12.999 23.5386ZM23.5005 20.9046L25 20.0258L26.4995 20.9046L27.999 21.7835L26.4995 22.6623L25 23.5412L23.5005 24.4175V26.1752L25 27.0541L26.4995 26.1752L27.999 25.2963L29.4985 24.4175L30.998 23.5386L32.4975 22.6598L33.5284 22.0545L33.997 21.7809L32.7229 21.0363L32.4975 20.9046L30.998 20.0258L29.4985 19.1469L28.0015 18.2681L26.502 17.3892L25.0025 16.5103L23.5005 17.3917L22.001 18.2681L20.5015 19.1469L19.002 20.0258L17.5025 20.9046L16.003 21.7835L17.5025 22.6623V24.4175V26.1727V27.9304V28.832V29.6856L19.002 30.5644L20.5015 31.4433L22.001 32.3221L23.5005 33.201L25 34.0798L26.4995 33.201L27.999 32.3221L29.4985 31.4433L30.998 30.5644L32.4975 29.6856V27.9304V26.1727L30.998 27.0515L29.4985 27.9304L27.999 28.8092L26.4995 29.6881L25 30.5669L23.5005 29.6856L22.001 28.8067L20.5015 27.9278V22.6598L22.001 21.7809L23.5005 20.9046Z"
-              fill="#6440FB"
-            />
-          </svg>
-          <Link to="/courses" onClick={scrollToTop}>
-            <p>دوره های متخصص</p>
-          </Link>
-          <Link to="/blogs" onClick={scrollToTop}>
-            <p>وبلاگ</p>
-          </Link>
-          <Link to="/about-us" onClick={scrollToTop}>
-            <p>درباره ما</p>
-          </Link>
-          <Link to="contact-us" onClick={scrollToTop}>
-            <p>تماس با ما</p>
-          </Link>
-        </div>
-        <div className=" font-thin text-gray-300 max-lg:mx-auto max-lg:px-16">
-          <p className="my-4">
-            تیم متخصص و با تجربه‌ی deep coding همواره در تلاش است تا بهترین
-            دوره‌های آموزشی را ارائه دهد و به دانشجویان کمک کند تا مهارت‌های
-            لازم برای موفقیت در دنیای حرفه‌ای را کسب کنند.
-          </p>
-          <p>
-            :: ما در deep coding به کیفیت و محتوای به روز دوره‌ها اهمیت ویژه‌ای
-            می‌دهیم تا هر دانشجویی با اعتماد به نفس وارد بازار کار شود.
-          </p>
-        </div>
-        <div className=" flex max-lg:flex-col max-lg:justify-center max-lg:items-center justify-between items-end">
-          <div className=" mt-14">
-            <p className="text-xl font-thin max-md:mr-16">
-              ساری میدان خزر، نرسیده به دانشگاه روزبهان، جنب دنیای آرزو
+    <footer className="bg-[#0F172A] text-gray-300 pt-16 pb-8">
+      <div className="container max-w-[1320px] mx-auto px-6">
+        {/* TOP GRID */}
+        <div className="grid grid-cols-4 max-lg:grid-cols-2 max-sm:grid-cols-1 gap-10">
+          {/* ABOUT */}
+          <div>
+            <h3 className="text-white text-lg font-bold mb-4">درباره ما</h3>
+            <p className="text-sm leading-7 text-gray-400">
+              تیم Deep Coding با هدف ارائه آموزش‌های کاربردی و ورود سریع‌تر شما
+              به بازار کار شکل گرفته است. تمرکز ما روی مهارت‌های واقعی و
+              پروژه‌محور است.
             </p>
-            <div className=" flex flex-wrap max-lg:justify-center items-center gap-8 mt-4">
-              <div className=" flex gap-1">
-                <p>تلفن : </p>
-                <p>09384494884</p>
-              </div>
-              <div className=" flex gap-1">
-                <p>واتس آپ : </p>
-                <p>09384494884</p>
-              </div>
-              <div className=" flex gap-1">
-                <p>تلگرام : </p>
+          </div>
+
+          {/* LINKS */}
+          <div>
+            <h3 className="text-white text-lg font-bold mb-4">دسترسی سریع</h3>
+            <ul className="space-y-3 text-sm">
+              <li>
                 <Link
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  to="https://t.me/mahdyarshirzad"
-                  className=""
+                  to="/courses"
+                  onClick={scrollToTop}
+                  className="hover:text-white"
                 >
-                  @mahdyarshirzad
+                  دوره‌ها
                 </Link>
-              </div>
+              </li>
+              <li>
+                <Link
+                  to="/blogs"
+                  onClick={scrollToTop}
+                  className="hover:text-white"
+                >
+                  وبلاگ
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/about-us"
+                  onClick={scrollToTop}
+                  className="hover:text-white"
+                >
+                  درباره ما
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/contact-us"
+                  onClick={scrollToTop}
+                  className="hover:text-white"
+                >
+                  تماس با ما
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* CONTACT */}
+          <div>
+            <h3 className="text-white text-lg font-bold mb-4">تماس با ما</h3>
+
+            <div className="space-y-3 text-sm text-gray-400">
+              <p>مازندران، ساری</p>
+              <p>📞 09384494884</p>
+              <p>✉️ mahdiar55582@gmail.com</p>
             </div>
-            <div className=" flex gap-7 mt-9 max-lg:justify-center">
-              <Link
+
+            {/* SOCIAL */}
+            <div className="flex gap-4 mt-6">
+              <a
+                href="https://www.linkedin.com/in/mahdyar-shirzad-a72873280/"
                 target="_blank"
-                rel="noopener noreferrer"
-                to="https://www.linkedin.com/in/mahdyar-shirzad-a72873280/"
+                rel="noreferrer"
+                className="hover:text-white"
               >
-                <svg
-                  className="w-[30px]"
-                  fill="#000000"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                  <g
-                    id="SVGRepo_tracerCarrier"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></g>
-                  <g id="SVGRepo_iconCarrier">
-                    <path d="M6.975,20.667H3.117V9.059H6.975ZM5.072,3.462a2.011,2.011,0,1,0-.051,4.012h.026a2.012,2.012,0,1,0,.025-4.012ZM9.111,20.667h3.858V14.185a2.639,2.639,0,0,1,.127-.941,2.111,2.111,0,0,1,1.98-1.411c1.4,0,1.955,1.064,1.955,2.625v6.209h3.858V14.011c0-3.565-1.9-5.225-4.442-5.225A3.828,3.828,0,0,0,12.97,10.7V9.059H9.111c.051,1.089,0,11.609,0,11.609Z"></path>
-                  </g>
-                </svg>
-              </Link>
-              <Link
+                LinkedIn
+              </a>
+
+              <a
+                href="https://t.me/mahdyarshirzad"
                 target="_blank"
-                rel="noopener noreferrer"
-                to="https://t.me/mahdyarshirzad"
+                rel="noreferrer"
+                className="hover:text-white"
               >
-                <svg
-                  className="w-[30px]"
-                  fill="#000000"
-                  viewBox="0 0 32 32"
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                  <g
-                    id="SVGRepo_tracerCarrier"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></g>
-                  <g id="SVGRepo_iconCarrier">
-                    {" "}
-                    <path d="M22.122 10.040c0.006-0 0.014-0 0.022-0 0.209 0 0.403 0.065 0.562 0.177l-0.003-0.002c0.116 0.101 0.194 0.243 0.213 0.403l0 0.003c0.020 0.122 0.031 0.262 0.031 0.405 0 0.065-0.002 0.129-0.007 0.193l0-0.009c-0.225 2.369-1.201 8.114-1.697 10.766-0.21 1.123-0.623 1.499-1.023 1.535-0.869 0.081-1.529-0.574-2.371-1.126-1.318-0.865-2.063-1.403-3.342-2.246-1.479-0.973-0.52-1.51 0.322-2.384 0.221-0.23 4.052-3.715 4.127-4.031 0.004-0.019 0.006-0.040 0.006-0.062 0-0.078-0.029-0.149-0.076-0.203l0 0c-0.052-0.034-0.117-0.053-0.185-0.053-0.045 0-0.088 0.009-0.128 0.024l0.002-0.001q-0.198 0.045-6.316 4.174c-0.445 0.351-1.007 0.573-1.619 0.599l-0.006 0c-0.867-0.105-1.654-0.298-2.401-0.573l0.074 0.024c-0.938-0.306-1.683-0.467-1.619-0.985q0.051-0.404 1.114-0.827 6.548-2.853 8.733-3.761c1.607-0.853 3.47-1.555 5.429-2.010l0.157-0.031zM15.93 1.025c-8.302 0.020-15.025 6.755-15.025 15.060 0 8.317 6.742 15.060 15.060 15.060s15.060-6.742 15.060-15.060c0-8.305-6.723-15.040-15.023-15.060h-0.002q-0.035-0-0.070 0z"></path>{" "}
-                  </g>
-                </svg>
-              </Link>
-              <Link
+                Telegram
+              </a>
+
+              <a
+                href="https://github.com/MahdiarShirzad"
                 target="_blank"
-                rel="noopener noreferrer"
-                to="https://github.com/MahdiarShirzad"
+                rel="noreferrer"
+                className="hover:text-white"
               >
-                <svg
-                  className="w-[30px]"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                  <g
-                    id="SVGRepo_tracerCarrier"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></g>
-                  <g id="SVGRepo_iconCarrier">
-                    {" "}
-                    <path
-                      d="M18.6713 2.62664C18.5628 2.36483 18.3534 2.16452 18.0959 2.07627L18.094 2.07564L18.0922 2.07501L18.0884 2.07374L18.0805 2.07114L18.0636 2.06583C18.0518 2.06223 18.039 2.05856 18.0252 2.05487C17.9976 2.04749 17.966 2.04007 17.9305 2.03319C17.8593 2.01941 17.7728 2.00787 17.6708 2.00279C17.466 1.99259 17.2037 2.00858 16.8817 2.08054C16.3447 2.20053 15.6476 2.47464 14.7724 3.03631C14.7152 3.07302 14.6572 3.11096 14.5985 3.15016C14.5397 3.13561 14.4809 3.12155 14.422 3.108C12.8261 2.74083 11.1742 2.74083 9.57825 3.108C9.51933 3.12156 9.46049 3.13561 9.40173 3.15017C9.34298 3.11096 9.28499 3.07302 9.22775 3.03631C8.35163 2.47435 7.65291 2.20029 7.11455 2.08039C6.79179 2.00852 6.52891 1.99262 6.324 2.00278C6.22186 2.00784 6.13536 2.01931 6.06428 2.03299C6.0288 2.03982 5.99732 2.04717 5.96983 2.05447C5.95609 2.05812 5.94336 2.06176 5.93163 2.06531L5.91481 2.07056L5.90698 2.07311L5.9032 2.07437L5.90135 2.07499L5.89952 2.07561C5.63979 2.16397 5.42877 2.36623 5.32049 2.63061C4.91716 3.6154 4.8101 4.70134 5.00435 5.74306C5.01379 5.79367 5.02394 5.84418 5.0348 5.89458C4.99316 5.95373 4.9527 6.01368 4.91343 6.07439C4.30771 7.01089 3.98553 8.12791 4.00063 9.27493C4.00208 11.7315 4.71965 13.4139 5.9332 14.4965C6.62014 15.1093 7.41743 15.4844 8.21873 15.7208C8.31042 15.7479 8.40217 15.7731 8.49381 15.7967C8.48043 15.8432 8.46796 15.8901 8.45641 15.9373C8.40789 16.1357 8.37572 16.3394 8.36083 16.5461C8.35948 16.5648 8.35863 16.5835 8.35829 16.6022L8.32436 18.421L8.32417 18.4407C8.32417 18.4464 8.32417 18.4521 8.32417 18.4577C8.26262 18.473 8.20005 18.4843 8.13682 18.4916C7.942 18.5141 7.74467 18.4977 7.5561 18.4434C7.36752 18.3891 7.19127 18.2979 7.03752 18.1749C6.88377 18.0519 6.75553 17.8994 6.66031 17.7261L6.6505 17.7087C6.38836 17.2535 6.02627 16.8639 5.59142 16.5695C5.15656 16.275 4.6604 16.0836 4.14047 16.0099C3.59365 15.9324 3.08753 16.3128 3.01002 16.8597C2.93251 17.4065 3.31296 17.9126 3.85978 17.9901C4.07816 18.0211 4.28688 18.1015 4.47012 18.2256C4.65121 18.3482 4.80277 18.5103 4.9134 18.7C5.1346 19.0992 5.43165 19.4514 5.78801 19.7365C6.14753 20.0242 6.56032 20.2379 7.00272 20.3653C7.43348 20.4893 7.88392 20.5291 8.32949 20.4825C8.33039 20.7224 8.33103 20.9065 8.33103 21C8.33103 21.5523 8.75521 22 9.27847 22H14.7558C15.279 22 15.7032 21.5523 15.7032 21V17.2095C15.729 16.7802 15.685 16.3499 15.5738 15.9373C15.5585 15.8805 15.5419 15.824 15.5241 15.7679C15.5838 15.753 15.6435 15.7373 15.7032 15.7208C16.5277 15.4937 17.3513 15.1224 18.0588 14.4983C19.2791 13.4217 19.9982 11.7379 19.9996 9.27493C20.0147 8.12791 19.6925 7.01089 19.0868 6.07439C19.0475 6.01358 19.007 5.95354 18.9652 5.89429C18.976 5.84399 18.9861 5.79358 18.9955 5.74306C19.1893 4.69934 19.0795 3.61142 18.6713 2.62664Z"
-                      fill="#000000"
-                    ></path>{" "}
-                  </g>
-                </svg>
-              </Link>
+                GitHub
+              </a>
             </div>
           </div>
-          <div className=" flex h-[90px] gap-12 max-lg:mt-12">
-            <img src={namad} alt="" />
-            <img src={namad2} alt="" />
-            <img src={namad3} alt="" />
+
+          {/* NAMAD */}
+          <div>
+            <h3 className="text-white text-lg font-bold mb-4">اعتماد شما</h3>
+
+            <div className="flex gap-4 items-center">
+              <img src={namad} alt="" className="w-16 bg-white rounded p-1" />
+              <img src={namad2} alt="" className="w-16 bg-white rounded p-1" />
+              <img src={namad3} alt="" className="w-16 bg-white rounded p-1" />
+            </div>
           </div>
+        </div>
+
+        {/* DIVIDER */}
+        <div className="border-t border-gray-700 my-10"></div>
+
+        {/* BOTTOM */}
+        <div className="flex max-md:flex-col items-center justify-between text-sm text-gray-500 gap-4">
+          <p>© {new Date().getFullYear()} Deep Coding. همه حقوق محفوظ است.</p>
+
+          <p>ساخته شده با ❤️ توسط تیم Deep Coding</p>
         </div>
       </div>
-    </div>
+    </footer>
   );
 };
 

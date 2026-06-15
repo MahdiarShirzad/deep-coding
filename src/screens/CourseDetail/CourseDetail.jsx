@@ -8,8 +8,6 @@ import CourseRequirements from "./CourseRequirements";
 import CourseHeadline from "./CourseHeadline";
 import { useQuery } from "@tanstack/react-query";
 import { getCourse } from "../../services/apiCourses";
-import { getCurrentUser } from "../../services/apiAuth";
-import { data } from "autoprefixer";
 
 const CourseDetail = () => {
   const { id } = useParams();

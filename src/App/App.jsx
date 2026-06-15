@@ -34,17 +34,6 @@ import "react-toastify/dist/ReactToastify.css";
 // import Book from "../screens/Library/Book";
 
 const Layout = ({ children }) => {
-  // const location = useLocation();
-
-  // const isLoginPage = location.pathname === "/login";
-  // const isSignUpPage = location.pathname === "/sign-up";
-
-  // if (isLoginPage) {
-  //   return <>{children}</>;
-  // }
-  // if (isSignUpPage) {
-  //   return <>{children}</>;
-  // }
   return (
     <>
       <Header />
@@ -60,14 +49,7 @@ const App = () => {
     queryFn: getCourses,
   });
 
-  // const { data: teachers } = useQuery({
-  //   queryKey: ["teachers"],
-  //   queryFn: getTeachers,
-  // });
-
   const { isAuthenticated } = useSelector((state) => state.user);
-
-  // console.log(isAuthenticated);
 
   return (
     <BrowserRouter>

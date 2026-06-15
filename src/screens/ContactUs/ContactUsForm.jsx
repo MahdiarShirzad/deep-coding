@@ -1,44 +1,87 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../../components/common/Button/Button";
+import { motion } from "framer-motion";
+
+const InputField = ({ label, id, value, onChange }) => {
+  return (
+    <div className="relative w-full">
+      <input
+        id={id}
+        value={value}
+        onChange={onChange}
+        required
+        className="peer w-full border-2 rounded-md px-4 pt-5 pb-2 focus:outline-none focus:border-[#1A064F]"
+      />
+      <label
+        htmlFor={id}
+        className="absolute right-4 top-2 text-gray-400 text-sm transition-all 
+        peer-placeholder-shown:top-4 peer-placeholder-shown:text-base 
+        peer-focus:top-2 peer-focus:text-sm peer-focus:text-[#1A064F]"
+      >
+        {label}
+      </label>
+    </div>
+  );
+};
 
 const ContactUsForm = () => {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(form);
+  };
+
   return (
-    <div>
-      <div className=" flex flex-wrap items-center gap-12 mt-9">
-        <div className=" flex flex-col">
-          <label htmlFor="name">نام</label>
-          <input
-            className=" border-2 focus:outline-none transition-none focus:placeholder:opacity-0 px-6 py-3 mt-2 rounded-md"
-            type="text"
-            name=""
-            id="name"
-            placeholder="نام شما"
-          />
-        </div>
-        <div className=" flex flex-col">
-          <label htmlFor="email">ایمیل</label>
-          <input
-            className=" border-2 focus:outline-none transition-none focus:placeholder:opacity-0 px-6 py-3 mt-2 rounded-md"
-            type="email"
-            name=""
-            id="email"
-            placeholder="ایمیل معتبر"
-          />
-        </div>
+    <form onSubmit={handleSubmit} className="mt-10 space-y-6">
+      <div className="flex gap-6 max-md:flex-col">
+        <InputField
+          id="name"
+          label="نام شما"
+          value={form.name}
+          onChange={handleChange}
+        />
+
+        <InputField
+          id="email"
+          label="ایمیل"
+          value={form.email}
+          onChange={handleChange}
+        />
       </div>
-      <div className=" flex flex-col mt-10">
-        <label htmlFor="message">پیام</label>
+
+      {/* Message */}
+      <div className="relative">
         <textarea
-          className=" border-2 focus:outline-none transition-none focus:placeholder:opacity-0 px-6 py-3 mt-2 rounded-md max-w-[700px] mb-4"
-          name=""
           id="message"
-          cols="30"
-          rows="10"
-          placeholder="متن پیام"
-        ></textarea>
+          value={form.message}
+          onChange={handleChange}
+          required
+          rows="6"
+          className="peer w-full border-2 rounded-md px-4 pt-5 pb-2 focus:outline-none focus:border-[#1A064F]"
+        />
+        <label
+          htmlFor="message"
+          className="absolute right-4 top-2 text-gray-400 text-sm transition-all 
+          peer-focus:text-[#1A064F]"
+        >
+          پیام شما
+        </label>
       </div>
-      <Button>ارسال</Button>
-    </div>
+
+      {/* Button */}
+      <motion.div whileTap={{ scale: 0.95 }}>
+        <Button>ارسال پیام</Button>
+      </motion.div>
+    </form>
   );
 };
 

@@ -11,80 +11,74 @@ const ContactUs = () => {
     <div className="mt-36">
       <Map />
 
-      {/* Main Contact Section */}
-      <div className="mt-20 max-w-[1320px] mx-auto flex max-lg:flex-wrap-reverse font-iransans gap-16">
+      {/* Main Section */}
+      <div className="mt-20 max-w-[1320px] mx-auto flex max-lg:flex-wrap-reverse gap-16">
         {/* Contact Info */}
         <motion.div
-          className="w-1/3 max-lg:w-1/2 max-lg:mx-auto"
-          initial={{ opacity: 0, x: -100 }}
+          className="w-1/3 max-lg:w-full space-y-6"
+          initial={{ opacity: 0, x: -80 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <p className="text-2xl">با ما در ارتباط باشید</p>
-          <p className="mt-4 text-gray-500">
-            تیم ما آماده است تا به شما کمک کند. با ما تماس بگیرید تا هرگونه سوال
-            یا درخواست شما را پاسخ دهیم.
+          <p className="text-3xl font-bold">ارتباط با ما</p>
+
+          <p className="text-gray-500 leading-7">
+            سوالی دارید یا نیاز به راهنمایی دارید؟ تیم ما همیشه آماده پاسخگویی
+            به شماست.
           </p>
-          <div className="mt-5 flex items-center gap-4 w-3/4 max-md:w-full text-sm">
-            <div className="p-4 rounded-full bg-sky-100">
-              <img src={contact1} alt="" />
+
+          {[
+            { icon: contact1, text: "مازندران، ساری" },
+            { icon: contact2, text: "09384494884" },
+            { icon: contact3, text: "mahdiar55582@gmail.com" },
+          ].map((item, index) => (
+            <div
+              key={index}
+              className="flex items-center gap-4 p-3 rounded-lg hover:bg-sky-50 transition cursor-pointer"
+            >
+              <div className="p-3 rounded-full bg-sky-100">
+                <img src={item.icon} alt="" />
+              </div>
+              <p className="text-sm text-gray-700">{item.text}</p>
             </div>
-            <p>میدان خزر، نرسیده به دانشگاه روزبهان، جنب دنیای آرزو</p>
-          </div>
-          <div className="mt-5 flex items-center gap-4 w-3/4 text-sm">
-            <div className="p-4 rounded-full bg-sky-100">
-              <img src={contact2} alt="" />
-            </div>
-            <p>02188888888</p>
-          </div>
-          <div className="mt-5 flex items-center gap-4 w-3/4 text-sm">
-            <div className="p-4 rounded-full bg-sky-100">
-              <img src={contact3} alt="" />
-            </div>
-            <p>info@deep-coding.com</p>
-          </div>
+          ))}
         </motion.div>
 
-        {/* Message Form */}
+        {/* Form */}
         <motion.div
-          className="w-2/3 max-lg:mx-auto"
-          initial={{ opacity: 0, x: 100 }}
+          className="w-2/3 max-lg:w-full"
+          initial={{ opacity: 0, x: 80 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <p className="text-2xl">ارسال پیام</p>
-          <p className="mt-4 text-sm text-gray-500">
-            برای ارسال هرگونه سوال یا درخواست، از فرم زیر استفاده کنید. تیم ما
-            آماده پاسخگویی است.
+          <p className="text-3xl font-bold">ارسال پیام</p>
+
+          <p className="mt-4 text-gray-500">
+            فرم زیر را پر کنید، در سریع‌ترین زمان با شما تماس می‌گیریم.
           </p>
+
           <ContactUsForm />
         </motion.div>
       </div>
 
-      {/* FAQ Section */}
+      {/* FAQ */}
       <motion.div
-        className="bg-[#F7F8FB] py-12 mt-10"
+        className="bg-[#F7F8FB] py-16 mt-20"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
       >
-        <div className="max-w-[1320px] mx-auto font-iransans">
-          <p className="text-2xl text-center font-medium">سوالات متداول</p>
-          <p className="text-center mt-3 mb-12 text-gray-600">
-            در اینجا پاسخ برخی از سوالات متداول کاربران را مشاهده می‌کنید.
+        <div className="max-w-[1320px] mx-auto">
+          <p className="text-3xl text-center font-bold">سوالات متداول</p>
+
+          <p className="text-center mt-4 mb-12 text-gray-500">
+            پاسخ سریع به سوالات پرتکرار کاربران
           </p>
-          {/* Collapse Component */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <Collapse />
-          </motion.div>
+
+          <Collapse />
         </div>
       </motion.div>
     </div>
