@@ -18,12 +18,13 @@ export const getBlogs = async (queryParams = {}) => {
 
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
-    throw new Error(err.message || "خطا در دریافت بلاگ هت");
+    throw new Error(err.message || "خطا در دریافت بلاگ ها");
   }
 
   const result = await res.json();
+  console.log(result.data.blogs);
 
-  return result;
+  return result.data.blogs;
 };
 
 export const getBlog = async (id) => {

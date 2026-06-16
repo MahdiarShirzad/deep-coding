@@ -1,107 +1,99 @@
 import React from "react";
 import { getBlogs } from "../../services/apiBlogs";
 import BlogCard from "../../components/common/BlogCard/BlogCard";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import BlogCardSkeleton from "../../components/BlogCardSkeleton/BlogCardSkeleton";
-import SearchBlogs from "../../components/SearchBlogs/SearchBlogs";
-
-const LIMIT = 10;
 
 const Blogs = () => {
-  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useInfiniteQuery({
-      queryKey: ["blogs"],
-      // ✅ arrow function — QueryFunctionContext دیگه به getBlogs نمیرسه
-      queryFn: ({ pageParam = 1 }) =>
-        getBlogs({ page: pageParam, limit: LIMIT }),
-      initialPageParam: 1, // برای TanStack Query v5 (اگه v4 داری این خط رو حذف کن)
-      getNextPageParam: (lastPage, allPages) => {
-        const total = lastPage.total;
-        const loaded = allPages.reduce(
-          (acc, p) => acc + (p.data?.blogs?.length ?? 0),
-          0,
-        );
-        // اگه هنوز بلاگی مونده، شماره صفحه بعدی رو برگردون
-        return loaded < total ? allPages.length + 1 : undefined;
-      },
-    });
-
-  // صفحات مختلف رو flat میکنیم
-  const blogs = data?.pages.flatMap((page) => page.data?.blogs ?? []) ?? [];
+  const { data, isPending: isLoading } = useQuery({
+    queryKey: ["blogs"],
+    queryFn: () => getBlogs(),
+  });
 
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.12 },
+    },
   };
 
   const cardVariants = {
-    hidden: { opacity: 0, scale: 0.9, y: 20 },
-    visible: { opacity: 1, scale: 1, y: 0 },
+    hidden: { opacity: 0, y: 20, scale: 0.95 },
+    visible: { opacity: 1, y: 0, scale: 1 },
   };
 
   return (
-    <div className="mt-[100px] mb-24 font-iransans container max-w-[1320px] mx-auto">
-      <h3 className="mt-36 text-2xl font-medium max-lg:mr-10">لیست وبلاگ</h3>
-      <p className="mt-4 text-gray-700 max-lg:mr-10">
-        با خواندن مقالات آموزشی و به روز در حوزه برنامه نویسی و تکنولوژی، از
-        جدیدترین ترندها و بهترین روش های کدنویسی مطلع شو و دانش خود را به روز
-        نگه دار
-      </p>
-
-      <div className="flex justify-between items-center">
-        <div className="w-full px-10">
-          <SearchBlogs />
-        </div>
-      </div>
-
-      {/* Skeleton */}
-      {isLoading && (
-        <div className="flex items-start justify-between mt-32 gap-7">
-          <div className="w-full justify-between px-10 flex flex-wrap max-lg:mx-auto">
-            {[...Array(6)].map((_, i) => (
-              <BlogCardSkeleton key={i} />
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Empty */}
-      {!isLoading && blogs.length === 0 && (
-        <p className="text-center mt-10 text-2xl text-gray-600">
-          وبلاگی یافت نشد!
+    <div className="mt-[120px] mb-24 font-iransans container max-w-[1320px] mx-auto px-4">
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="text-center mb-16"
+      >
+        <h1 className="text-4xl font-extrabold text-gray-900">لیست وبلاگ‌ها</h1>
+        <p className="mt-4 text-gray-600 max-w-2xl mx-auto leading-7">
+          با خواندن مقالات آموزشی و به‌روز در حوزه برنامه‌نویسی و تکنولوژی، دانش
+          خود را ارتقا بده و همیشه یک قدم جلوتر باش.
         </p>
+      </motion.div>
+
+      {/* Search (در آینده) */}
+      {/* <div className="mb-10">
+        <SearchBlogs />
+      </div> */}
+
+      {/* Loading State */}
+      {isLoading && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <BlogCardSkeleton key={i} />
+          ))}
+        </div>
       )}
 
       {/* Blogs List */}
-      {blogs.length > 0 && (
+      {!isLoading && data && (
         <motion.div
-          className="flex items-start justify-between mt-32 gap-7"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          <div className="w-full justify-between px-10 flex flex-wrap max-lg:mx-auto">
-            {blogs.map((blog) => (
-              <motion.div key={blog._id} variants={cardVariants}>
-                <BlogCard blog={blog} />
-              </motion.div>
-            ))}
-          </div>
+          {data.map((blog) => (
+            <motion.div key={blog._id} variants={cardVariants}>
+              <BlogCard blog={blog} />
+            </motion.div>
+          ))}
         </motion.div>
       )}
 
-      {hasNextPage && (
-        <div className="flex justify-center mt-12">
-          <button
-            onClick={() => fetchNextPage()}
-            disabled={isFetchingNextPage}
-            className="px-8 py-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
-          >
-            {isFetchingNextPage ? "در حال بارگذاری..." : "بارگذاری بیشتر"}
-          </button>
-        </div>
-      )}
+      {/* Load More Button */}
+      <div className="flex justify-center items-center mt-14">
+        <button className="bg-indigo-700 hover:bg-indigo-800 transition-all duration-300 flex items-center justify-center gap-2 text-white px-6 py-3 rounded-2xl shadow-md hover:shadow-lg">
+          <p className="text-sm font-medium">بارگذاری بیشتر</p>
+
+          <svg className="w-4" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M5 10C3.9 10 3 10.9 3 12C3 13.1 3.9 14 5 14C6.1 14 7 13.1 7 12C7 10.9 6.1 10 5 10Z"
+              stroke="#fff"
+              strokeWidth="1.5"
+            ></path>
+            <path
+              d="M19 10C17.9 10 17 10.9 17 12C17 13.1 17.9 14 19 14C20.1 14 21 13.1 21 12C21 10.9 20.1 10 19 10Z"
+              stroke="#fff"
+              strokeWidth="1.5"
+            ></path>
+            <path
+              d="M12 10C10.9 10 10 10.9 10 12C10 13.1 10.9 14 12 14C13.1 14 14 13.1 14 12C14 10.9 13.1 10 12 10Z"
+              stroke="#fff"
+              strokeWidth="1.5"
+            ></path>
+          </svg>
+        </button>
+      </div>
     </div>
   );
 };
