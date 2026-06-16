@@ -1,96 +1,118 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import scrollToTop from "../../../utils/scrollToTop";
 
 const BlogCard = ({ blog }) => {
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-    });
-  };
+  const cover = blog?.coverImg || "https://picsum.photos/800/450?random=10";
+  const title = blog?.title || "عنوان نامشخص";
+  const excerpt =
+    blog?.content?.[0]?.text?.slice(0, 140) ||
+    "خلاصه‌ای از مطلب در اینجا نمایش داده می‌شود...";
+  const category = blog?.category || "بدون دسته";
+  const author = blog?.author || "نویسنده نامشخص";
+  const createdAt = blog?.createdAt
+    ? new Date(blog.createdAt).toLocaleDateString("fa-IR")
+    : null;
+  const rating = blog?.ratingsAverage ?? null;
+  const tags = blog?.tags ?? [];
 
   return (
-    <div className="max-w-[600px] px-4 flex max-md:flex-col justify-between gap-10 py-4 rounded-lg shadow-md shadow-gray-200 my-4 group transition-all duration-300 transform-gpu hover:-translate-y-2">
-      <div className=" w-1/3 h-[140px] max-md:w-4/5 max-md:mx-auto">
-        <img className=" rounded-md w-full h-full " src={blog?.img} alt="" />
-      </div>
-      <div className=" w-2/3 max-md:w-4/5 max-md:mx-auto">
-        <h5 className=" text-black text-xl mt-3 font-bold h-[56px]">
-          {blog?.name}
-        </h5>
-        <p className="text-sm mt-5 font-thin text-gray-500 text-justify h-[60px]">
-          {blog?.summary}
-        </p>
-        <div className=" flex mt-8 items-center justify-start gap-7 px-3">
-          <h6 className=" text-gray-500 flex gap-1 text-xs font-thin">
-            <svg
-              className="w-[15px]"
-              version="1.0"
-              id="Layer_1"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              viewBox="0 0 64 64"
-              enable-background="new 0 0 64 64"
-              xml:space="preserve"
-              fill="#000000"
-            >
-              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-              <g
-                id="SVGRepo_tracerCarrier"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></g>
-              <g id="SVGRepo_iconCarrier">
-                {" "}
-                <path
-                  fill="#787374"
-                  d="M62.828,12.482L51.514,1.168c-1.562-1.562-4.093-1.562-5.657,0.001c0,0-44.646,44.646-45.255,45.255 C-0.006,47.031,0,47.996,0,47.996l0.001,13.999c0,1.105,0.896,2,1.999,2.001h4.99c0.003,0,9.01,0,9.01,0s0.963,0.008,1.572-0.602 s45.256-45.257,45.256-45.257C64.392,16.575,64.392,14.046,62.828,12.482z M37.356,12.497l3.535,3.536L6.95,49.976l-3.536-3.536 L37.356,12.497z M8.364,51.39l33.941-33.942l4.243,4.243L12.606,55.632L8.364,51.39z M3.001,61.995c-0.553,0-1.001-0.446-1-0.999 v-1.583l2.582,2.582H3.001z M7.411,61.996l-5.41-5.41l0.001-8.73l14.141,14.141H7.411z M17.557,60.582l-3.536-3.536l33.942-33.94 l3.535,3.535L17.557,60.582z M52.912,25.227L38.771,11.083l2.828-2.828l14.143,14.143L52.912,25.227z M61.414,16.725l-4.259,4.259 L43.013,6.841l4.258-4.257c0.782-0.782,2.049-0.782,2.829-0.002l11.314,11.314C62.195,14.678,62.194,15.943,61.414,16.725z"
-                ></path>{" "}
-              </g>
-            </svg>
-            {blog?.category}
-          </h6>
-          <p className="text-xs text-gray-500  font-thin">{blog?.date}</p>
+    <motion.article
+      layout
+      whileHover={{ scale: 1.02 }}
+      className="group w-full max-w-[600px] bg-white rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden my-4"
+      aria-label={`بلاگ: ${title}`}
+    >
+      {/* Image */}
+      <Link
+        onClick={scrollToTop}
+        to={`/blogs/${blog?._id}`}
+        className="block relative"
+      >
+        <div className="w-full aspect-[16/9] bg-gray-100 overflow-hidden">
+          <img
+            src={cover}
+            alt={title}
+            loading="lazy"
+            className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
-        <div className=" flex justify-end max-md:justify-center">
-          <Link to={`/blogs/${blog?.id}`} onClick={scrollToTop}>
-            <div className="bg-[#140342] flex items-center text-white gap-2 text-sm w-[130px] justify-center py-2 rounded-xl mt-5">
-              <p>مشاهده بیشتر</p>
+      </Link>
+
+      {/* Content */}
+      <div className="p-5 flex flex-col gap-3">
+        {/* Meta */}
+        <div className="flex items-center justify-between text-xs text-gray-500">
+          <div className="flex items-center gap-3">
+            <span className="px-2 py-1 bg-indigo-50 text-indigo-600 rounded-md">
+              {category}
+            </span>
+
+            {createdAt && <span className="text-gray-400">• {createdAt}</span>}
+          </div>
+
+          {rating !== null && (
+            <div className="flex items-center gap-1 text-sm text-yellow-500">
               <svg
-                className="w-[20px]"
-                viewBox="0 0 24 24"
-                fill="none"
                 xmlns="http://www.w3.org/2000/svg"
+                className="w-4 h-4"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden
               >
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                <g
-                  id="SVGRepo_tracerCarrier"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></g>
-                <g id="SVGRepo_iconCarrier">
-                  {" "}
-                  <path
-                    d="M11 12L19 12"
-                    stroke="#fff"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>{" "}
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M11 8L5.00001 12L11 16L11 8Z"
-                    stroke="#fff"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>{" "}
-                </g>
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.966a1 1 0 00.95.69h4.173c.969 0 1.371 1.24.588 1.81l-3.376 2.455a1 1 0 00-.364 1.118l1.287 3.966c.3.921-.755 1.688-1.54 1.118L10 13.347l-3.376 2.455c-.784.57-1.84-.197-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118L2.631 9.393c-.783-.57-.38-1.81.588-1.81h4.173a1 1 0 00.95-.69l1.286-3.966z" />
               </svg>
+              <span className="text-gray-700 font-medium">
+                {rating.toFixed(1)}
+              </span>
             </div>
+          )}
+        </div>
+
+        {/* Title */}
+        <h3 className="text-lg lg:text-xl font-semibold text-gray-800 line-clamp-2">
+          <Link
+            onClick={scrollToTop}
+            to={`/blogs/${blog?._id}`}
+            className="hover:text-indigo-600 transition-colors"
+          >
+            {title}
+          </Link>
+        </h3>
+
+        {/* Excerpt */}
+        <p className="text-sm text-gray-600 line-clamp-3">{excerpt}...</p>
+
+        {/* Tags and CTA */}
+        <div className="mt-2 flex items-center justify-between">
+          <div className="flex flex-wrap gap-2">
+            {tags.slice(0, 3).map((t, idx) => (
+              <span
+                key={idx}
+                className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-md"
+              >
+                #{t}
+              </span>
+            ))}
+            {tags.length > 3 && (
+              <span className="text-xs text-gray-400 px-2">
+                +{tags.length - 3}
+              </span>
+            )}
+          </div>
+
+          <Link
+            onClick={scrollToTop}
+            to={`/blogs/${blog?._id}`}
+            className="text-sm bg-indigo-600 text-white px-3 py-1 rounded-md shadow-sm hover:bg-indigo-700 transition-colors"
+            aria-label={`مشاهده کامل ${title}`}
+          >
+            مشاهده بیشتر
           </Link>
         </div>
       </div>
-    </div>
+    </motion.article>
   );
 };
 

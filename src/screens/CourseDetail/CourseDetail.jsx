@@ -30,7 +30,6 @@ const CourseDetail = () => {
       <CourseHero
         selectedCourse={selectedCourse}
         teachers={selectedCourse?.teacher}
-        // user={user}
       />
       <WhatYouWillLearn selectedCourse={selectedCourse} />
       <IntroduceCourse selectedCourse={selectedCourse} />

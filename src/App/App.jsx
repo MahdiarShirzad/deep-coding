@@ -5,7 +5,7 @@ import Landing from "../screens/Landing/Landing";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import Courses from "../screens/Courses/Courses";
-// import Blogs from "../screens/blogs/Blogs";
+import Blogs from "../screens/blogs/Blogs";
 import AboutUs from "../screens/AboutUs/AboutUs";
 import ContactUs from "../screens/ContactUs/ContactUs";
 import Login from "../screens/Login/Login";
@@ -13,7 +13,7 @@ import SignUp from "../screens/Login/SignUp";
 import Cart from "../screens/Cart/Cart";
 import CourseDetail from "../screens/CourseDetail/CourseDetail";
 // import TeachersInfo from "../screens/TeachersInfo/TeachersInfo";
-// import BlogDetail from "../screens/BlogDetail/BlogDetail";
+import BlogDetail from "../screens/BlogDetail/BlogDetail";
 
 import NotFound from "../screens/notfound/NotFound";
 import UserPanel from "../screens/userpanel/UserPanel";
@@ -59,10 +59,10 @@ const App = () => {
           <Route path="/" index element={<Landing />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/courses/:id" element={<CourseDetail />}></Route>
-          {/* <Route path="/blogs" element={<Blogs />} />
+          <Route path="/blogs" element={<Blogs />} />
           <Route path="/blogs/:id" element={<BlogDetail />} />
-          <Route path="/library" element={<Library />} />
-          <Route path="/library/:id" element={<Book />} /> */}
+          {/* <Route path="/library" element={<Library />} /> */}
+          {/* <Route path="/library/:id" element={<Book />} /> */}
           <Route path="/about-us" element={<AboutUs />} />
           {isAuthenticated && (
             <Route path="/cart" element={<Cart courses={courses} />} />
