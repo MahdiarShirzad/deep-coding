@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import scrollToTop from "../../../utils/scrollToTop";
 
 const BlogCard = ({ blog }) => {
   const cover = blog?.coverImg || "https://picsum.photos/800/450?random=10";
@@ -23,7 +24,11 @@ const BlogCard = ({ blog }) => {
       aria-label={`بلاگ: ${title}`}
     >
       {/* Image */}
-      <Link to={`/blogs/${blog?._id}`} className="block relative">
+      <Link
+        onClick={scrollToTop}
+        to={`/blogs/${blog?._id}`}
+        className="block relative"
+      >
         <div className="w-full aspect-[16/9] bg-gray-100 overflow-hidden">
           <img
             src={cover}
@@ -68,6 +73,7 @@ const BlogCard = ({ blog }) => {
         {/* Title */}
         <h3 className="text-lg lg:text-xl font-semibold text-gray-800 line-clamp-2">
           <Link
+            onClick={scrollToTop}
             to={`/blogs/${blog?._id}`}
             className="hover:text-indigo-600 transition-colors"
           >
@@ -97,6 +103,7 @@ const BlogCard = ({ blog }) => {
           </div>
 
           <Link
+            onClick={scrollToTop}
             to={`/blogs/${blog?._id}`}
             className="text-sm text-center bg-indigo-600 text-white px-3 py-1 rounded-md shadow-sm hover:bg-indigo-700 transition-colors"
             aria-label={`مشاهده کامل ${title}`}
