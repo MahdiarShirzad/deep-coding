@@ -3,24 +3,11 @@ import TopCourses from "./TopCourses";
 import TopCategory from "./TopCategory";
 import Validity from "./Validity";
 import Enroll from "./Enroll";
-// import BlogSection from "./BlogSection";
+import BlogSection from "./BlogSection";
 import ProgramDownloadSection from "./ProgramDownloadSection";
-// import { useQuery } from "@tanstack/react-query";
-// import { getCourses } from "../../services/apiCourses";
 import { Spinner } from "../../components/Spinner/Spinner";
-// import { getBlogs } from "../../services/apiBlogs";
 
 const Landing = () => {
-  // const { data: courses, isPending: isLoading } = useQuery({
-  //   queryKey: ["courses"],
-  //   queryFn: getCourses,
-  // });
-
-  // const { data: blogs, isLoading: blogLoading } = useQuery({
-  //   queryKey: ["blogs"],
-  //   queryFn: getBlogs,
-  // });
-
   return (
     <div className=" mx-auto">
       <Herosection />
@@ -47,19 +34,9 @@ const Landing = () => {
         </div>
       </>
       <Enroll />
-      {/* {blogLoading ? (
-        <Spinner />
-      ) : (
-        <>
-          {blogs ? (
-            <BlogSection blogs={blogs} />
-          ) : (
-            <p className="text-center font-iransans my-20 text-xl">
-              بلاگ یافت نشد !
-            </p>
-          )}
-        </>
-      )} */}
+
+      <BlogSection />
+
       <ProgramDownloadSection />
     </div>
   );

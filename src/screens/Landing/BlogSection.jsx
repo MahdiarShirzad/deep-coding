@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import Button from "../../components/common/Button/Button";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { getBlogs } from "../../services/apiBlogs";
 
 const titleVariants = {
   hidden: {
@@ -56,7 +58,18 @@ const cardVariants = (isEven) => ({
   },
 });
 
-const BlogSection = ({ blogs }) => {
+const BlogSection = () => {
+  const { data, isPending: isLoading } = useQuery({
+    queryKey: ["courses"],
+    queryFn: () =>
+      getBlogs({
+        limit: 4,
+        sort: "-createdAt",
+      }),
+  });
+
+  const blogs = data;
+
   const titleRef = useRef(null);
   const linkRef = useRef(null);
   const cardRef = useRef(null);
@@ -99,10 +112,10 @@ const BlogSection = ({ blogs }) => {
         </motion.div>
       </div>
       <div className="flex items-center flex-wrap max-lg:px-16 max-lg:flex-col max-lg:justify-center max-lg:items-center justify-between mt-16">
-        {blogs.slice(-4).map((blog, index) => (
+        {blogs?.map((blog, index) => (
           <motion.div
             ref={cardRef}
-            key={index}
+            key={blog._id}
             initial="hidden"
             animate={cardInView ? "visible" : "hidden"}
             variants={cardVariants(index % 2 === 0)}
