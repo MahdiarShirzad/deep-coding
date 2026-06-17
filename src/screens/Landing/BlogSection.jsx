@@ -55,7 +55,9 @@ const BlogSection = () => {
       }),
   });
 
-  const blogs = data ?? [];
+  const blogs = data?.data?.blogs ?? [];
+
+  console.log(blogs);
 
   const scrollToTop = () => window.scrollTo({ top: 0 });
 
@@ -111,7 +113,7 @@ const BlogSection = () => {
                 </div>
               </motion.div>
             ))
-          : blogs.map((blog) => (
+          : blogs?.map((blog) => (
               <motion.div
                 key={blog._id}
                 className="w-full max-w-[320px] mx-2 my-4"
