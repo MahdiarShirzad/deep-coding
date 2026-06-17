@@ -14,15 +14,9 @@ import { useSearchParams } from "react-router-dom";
 import { buildCourseQueryParams } from "../../utils/buildCourseQueryParams";
 import FilterButton from "../../components/FilterButton/FilterButton";
 
-const headerVariants = {
-  /* ...unchanged... */
-};
-const cardsContainerVariants = {
-  /* ...unchanged... */
-};
-const cardVariants = {
-  /* ...unchanged... */
-};
+const headerVariants = {};
+const cardsContainerVariants = {};
+const cardVariants = {};
 
 const Courses = () => {
   const [searchParams, setSearchParams] = useSearchParams();

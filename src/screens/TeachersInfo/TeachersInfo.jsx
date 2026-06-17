@@ -1,29 +1,36 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-
 import TeacherAvatar from "./TeachersAvatar";
 import AboutTeacher from "./AboutTeacher";
 import TeachersCourse from "./TeachersCourse";
+import { useQuery } from "@tanstack/react-query";
+import { getTeacher } from "../../services/apiTeachers";
 
-const TeachersInfo = ({ teachers, courses }) => {
+const TeachersInfo = () => {
   const { id } = useParams();
-  const selectedTeacher = teachers?.find((teacher) => teacher.id == id);
 
-  const teacherName = selectedTeacher?.name;
+  const { data, isPending } = useQuery({
+    queryKey: ["teacher", id],
+    queryFn: () => getTeacher(id),
+  });
 
-  const selectedCourses = courses?.filter(
-    (course) => course.teacher === teacherName,
-  );
+  const selectedTeacher = data?.data?.teacher;
+
+  // console.log(data);
+
+  //  console.log(selectedTeacher);
 
   return (
     <div className="container max-w-[1320px] mx-auto mt-36  font-iransans flex items-start mb-10 justify-between px-20">
       <div className="w-[60%]">
         <div>
           <p className=" text-violet-600 text-lg font-black">مدرس</p>
-          <p className="text-4xl font-black mt-3">{selectedTeacher?.name}</p>
+          <p className="text-4xl font-black mt-3">
+            {selectedTeacher?.fullName}
+          </p>
         </div>
         <div className="mt-6 text-lg text-zinc-600 font-extralight">
-          {selectedTeacher?.specialty}
+          {selectedTeacher?.teacherInfo.specialty}
         </div>
         <div className="flex mt-14  items-center justify-between max-w-[70%]">
           <div className="flex flex-col gap-3 items-center">
@@ -32,14 +39,13 @@ const TeachersInfo = ({ teachers, courses }) => {
           </div>
           <div className="flex flex-col gap-3 items-center">
             <p className="text-gray-500 text-lg">تعداد دوره ها</p>
-            <p className="text-xl font-extrabold">{selectedCourses?.length}</p>
+            <p className="text-xl font-extrabold">
+              {selectedTeacher?.courses?.length ?? 0}
+            </p>
           </div>
         </div>
         <AboutTeacher teacher={selectedTeacher} />
-        <TeachersCourse
-          teacherName={teacherName}
-          selectedCourses={selectedCourses}
-        />
+        <TeachersCourse selectedCourses={selectedTeacher?.courses} />
       </div>
       <div className="w-[30%]">
         <TeacherAvatar teacher={selectedTeacher} />

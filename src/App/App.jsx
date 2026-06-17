@@ -12,7 +12,7 @@ import Login from "../screens/Login/Login";
 import SignUp from "../screens/Login/SignUp";
 import Cart from "../screens/Cart/Cart";
 import CourseDetail from "../screens/CourseDetail/CourseDetail";
-// import TeachersInfo from "../screens/TeachersInfo/TeachersInfo";
+import TeachersInfo from "../screens/TeachersInfo/TeachersInfo";
 import BlogDetail from "../screens/BlogDetail/BlogDetail";
 
 import NotFound from "../screens/notfound/NotFound";
@@ -70,11 +70,7 @@ const App = () => {
           <Route path="/contact-us" index element={<ContactUs />} />
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
-          {/* <Route
-            path="/teacher-info/:id"
-            index
-            element={<TeachersInfo teachers={teachers} courses={courses} />}
-          /> */}
+          <Route path="/teacher-info/:id" index element={<TeachersInfo />} />
           {isAuthenticated && (
             <Route path="/user-panel" element={<UserPanel />}>
               <Route path="/user-panel/dashboard" element={<Dashboard />} />

@@ -4,7 +4,7 @@ import CoursePreview from "./CoursePreview";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-const CourseHero = ({ selectedCourse, teacher }) => {
+const CourseHero = ({ selectedCourse }) => {
   const container = {
     hidden: {},
     visible: {
@@ -64,7 +64,7 @@ const CourseHero = ({ selectedCourse, teacher }) => {
 
           <motion.div variants={item} className=" flex items-center gap-2 mt-4">
             <p>مدرس :</p>
-            <Link to={`/teacher-info/${teacher?._id}`}>
+            <Link to={`/teacher-info/${selectedCourse?.teacher?._id}`}>
               <p className=" text-fuchsia-400">
                 {selectedCourse?.teacher?.fullName}
               </p>

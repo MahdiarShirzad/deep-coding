@@ -22,20 +22,16 @@ export default function BlogDetail() {
     enabled: !!id,
   });
 
-  // مقاوم‌سازی استخراج بلاگ از پاسخ API
   const blog = useMemo(() => {
     if (!res) return null;
-    // حالت‌های ممکن: res.data.blog | res.blog | res.data | res
     return res?.data?.blog ?? res?.blog ?? res?.data ?? res;
   }, [res]);
 
-  // ساخت TOC از headingId ها
   const toc = useMemo(() => {
     if (!blog?.content) return [];
     return blog.content.map((c) => ({ id: c.headingId, title: c.heading }));
   }, [blog]);
 
-  // نوار پیشرفت خواندن
   const [progress, setProgress] = useState(0);
   useEffect(() => {
     const onScroll = () => {
@@ -97,29 +93,26 @@ export default function BlogDetail() {
       >
         <div className="relative w-full aspect-[16/6] bg-gray-100">
           <img
-            src={
-              blog.coverImg ||
-              `https://picsum.photos/1200/600?random=${id || 1}`
-            }
-            alt={blog.title}
+            src={blog?.coverImg}
+            alt={blog?.title}
             className="w-full h-full object-cover"
             loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
           <div className="absolute left-6 bottom-6 text-white max-w-[900px]">
             <span className="inline-block bg-indigo-600/90 px-3 py-1 rounded-md text-sm">
-              {blog.category}
+              {blog?.category}
             </span>
             <h1 className="mt-3 text-2xl lg:text-3xl font-extrabold leading-tight">
-              {blog.title}
+              {blog?.title}
             </h1>
             <div className="mt-2 text-sm text-white/90 flex items-center gap-4">
               <span>
-                توسط <strong className="text-white">{blog.author}</strong>
+                توسط <strong className="text-white">{blog?.author}</strong>
               </span>
-              {blog.createdAt && (
+              {blog?.createdAt && (
                 <span>
-                  • {new Date(blog.createdAt).toLocaleDateString("fa-IR")}
+                  • {new Date(blog?.createdAt).toLocaleDateString("fa-IR")}
                 </span>
               )}
             </div>
@@ -140,7 +133,7 @@ export default function BlogDetail() {
             variants={fadeUp}
             className="flex flex-wrap gap-2 mb-4"
           >
-            {(blog.tags || []).map((t, i) => (
+            {(blog?.tags || []).map((t, i) => (
               <span
                 key={i}
                 className="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full"
@@ -152,7 +145,7 @@ export default function BlogDetail() {
 
           {/* Content */}
           <article className="prose prose-rtl max-w-none text-gray-800">
-            {blog.content?.map((block) => (
+            {blog?.content?.map((block) => (
               <motion.section
                 key={block.headingId}
                 initial={{ opacity: 0, y: 8 }}

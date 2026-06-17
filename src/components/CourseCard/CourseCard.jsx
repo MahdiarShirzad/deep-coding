@@ -27,8 +27,6 @@ const CourseCard = ({ posts }) => {
   const { _id, name, teacher, price, level, ratingsAverage, time, img, slug } =
     posts;
 
-  console.log("slug: ", slug);
-
   const formattedPrice =
     price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") || "0";
 
@@ -36,6 +34,8 @@ const CourseCard = ({ posts }) => {
     name?.length > 31 ? `${name.substring(0, 31)} ...` : name;
 
   const coursePrice = price === 0 ? "رایگان" : formattedPrice;
+
+  console.log(teacher);
 
   const teacherName = typeof teacher === "object" ? teacher?.fullName : teacher;
 

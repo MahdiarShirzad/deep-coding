@@ -1,11 +1,15 @@
-// import supabase from "./supabase";
+const API_URL = import.meta.env.VITE_API_URL;
 
-// export async function getTeachers() {
-//   let { data, error } = await supabase.from("teachers").select("*");
+export const getTeacher = async (id) => {
+  const res = await fetch(`${API_URL}/users/teachers/${id}`);
 
-//   if (error) {
-//     console.log(error);
-//   }
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || "مدرسی یافت نشد");
+  }
 
-//   return data;
-// }
+  const result = await res.json();
+  console.log(result);
+
+  return result;
+};
