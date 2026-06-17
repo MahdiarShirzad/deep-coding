@@ -15,7 +15,6 @@ import { buildCourseQueryParams } from "../../utils/buildCourseQueryParams";
 import FilterButton from "../../components/FilterButton/FilterButton";
 
 const headerVariants = {};
-const cardsContainerVariants = {};
 const cardVariants = {};
 
 const Courses = () => {

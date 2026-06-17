@@ -5,7 +5,6 @@ import Validity from "./Validity";
 import Enroll from "./Enroll";
 import BlogSection from "./BlogSection";
 import ProgramDownloadSection from "./ProgramDownloadSection";
-import { Spinner } from "../../components/Spinner/Spinner";
 
 const Landing = () => {
   return (

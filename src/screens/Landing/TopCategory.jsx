@@ -33,7 +33,7 @@ const sliderVariants = {
   },
 };
 
-const TopCategory = ({ items }) => {
+const TopCategory = () => {
   const titleRef = useRef(null);
   const sliderRef = useRef(null);
 

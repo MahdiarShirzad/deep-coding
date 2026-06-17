@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import TopCoursesCard from "../../components/common/TopCoursesCard/TopCoursesCard";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { getCourses } from "../../services/apiCourses";
 import TopCoursesCardSkeleton from "../../components/TopCoursesCardSkeleton/TopCoursesCardSkeleton";
