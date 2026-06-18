@@ -14,10 +14,10 @@ import Cart from "../screens/Cart/Cart";
 import CourseDetail from "../screens/CourseDetail/CourseDetail";
 import TeachersInfo from "../screens/TeachersInfo/TeachersInfo";
 import BlogDetail from "../screens/BlogDetail/BlogDetail";
-
+import Book from "../screens/Library/Book";
 import NotFound from "../screens/notfound/NotFound";
 import UserPanel from "../screens/userpanel/UserPanel";
-// import Library from "../screens/Library/Library";
+import Library from "../screens/Library/Library";
 import Dashboard from "../screens/userpanel/dashboard/Dashboard";
 // import CourseList from "../screens/userpanel/CoursesList/CourseList";
 import Exams from "../screens/userpanel/exams/Exams";
@@ -31,7 +31,6 @@ import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
-// import Book from "../screens/Library/Book";
 
 const Layout = ({ children }) => {
   return (
@@ -61,8 +60,8 @@ const App = () => {
           <Route path="/courses/:id" element={<CourseDetail />}></Route>
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blogs/:id" element={<BlogDetail />} />
-          {/* <Route path="/library" element={<Library />} /> */}
-          {/* <Route path="/library/:id" element={<Book />} /> */}
+          <Route path="/library" element={<Library />} />
+          <Route path="/library/:id" element={<Book />} />
           <Route path="/about-us" element={<AboutUs />} />
           {isAuthenticated && (
             <Route path="/cart" element={<Cart courses={courses} />} />

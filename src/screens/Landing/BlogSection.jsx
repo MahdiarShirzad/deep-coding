@@ -57,8 +57,6 @@ const BlogSection = () => {
 
   const blogs = data?.data?.blogs ?? [];
 
-  console.log(blogs);
-
   const scrollToTop = () => window.scrollTo({ top: 0 });
 
   return (

@@ -35,8 +35,6 @@ const CourseCard = ({ posts }) => {
 
   const coursePrice = price === 0 ? "رایگان" : formattedPrice;
 
-  console.log(teacher);
-
   const teacherName = typeof teacher === "object" ? teacher?.fullName : teacher;
 
   return (

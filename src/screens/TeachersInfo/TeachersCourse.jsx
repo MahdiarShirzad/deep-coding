@@ -2,8 +2,6 @@ import React from "react";
 import CourseCard from "../../components/CourseCard/CourseCard";
 
 const TeachersCourse = ({ selectedCourses }) => {
-  console.log(selectedCourses);
-
   if (!selectedCourses?.length) {
     return (
       <div className="mt-8">

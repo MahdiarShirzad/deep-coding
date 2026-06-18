@@ -22,7 +22,6 @@ export const getBlogs = async (queryParams = {}) => {
   }
 
   const result = await res.json();
-  console.log(result.data.blogs);
 
   return result;
 };

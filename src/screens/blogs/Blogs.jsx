@@ -28,8 +28,6 @@ const Blogs = () => {
     initialPageParam: 1,
   });
 
-  console.log(data?.pages);
-
   const blogs = data?.pages?.flatMap((page) => page.data.blogs) || [];
 
   const containerVariants = {

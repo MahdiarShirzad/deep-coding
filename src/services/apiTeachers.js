@@ -9,7 +9,6 @@ export const getTeacher = async (id) => {
   }
 
   const result = await res.json();
-  console.log(result);
 
   return result;
 };

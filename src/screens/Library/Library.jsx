@@ -1,149 +1,71 @@
-import React, { useReducer } from "react";
+import React from "react";
 import BookCard from "../../components/BookCard/BookCard";
-import BooksCategory from "./BooksCategory";
 import { useQuery } from "@tanstack/react-query";
 import { getBooks } from "../../services/apiBooks";
 import { motion } from "framer-motion";
 import { Spinner } from "../../components/Spinner/Spinner";
-import SearchBooks from "../../components/SearchBooks/SearchBooks";
-
-// Initial state for useReducer
-const initialState = {
-  filteredBooks: [],
-  visibleBooksCount: 12,
-};
-
-// Reducer function
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "SET_FILTERED_BOOKS":
-      return {
-        ...state,
-        filteredBooks: action?.payload,
-        visibleBooksCount: Math.min(action?.payload?.length, 12),
-      };
-    case "LOAD_MORE":
-      return {
-        ...state,
-        visibleBooksCount: Math.min(
-          state.visibleBooksCount + 12,
-          state.filteredBooks.length
-        ),
-      };
-    default:
-      return state;
-  }
-};
+import BookCardSkeleton from "../../components/BookCardSkeleton/BookCardSkeleton";
 
 const Library = () => {
-  // Fetch books using react-query
-  const { data: books = [], isLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["books"],
-    queryFn: getBooks,
+    queryFn: () => getBooks(),
   });
 
-  // useReducer for managing state
-  const [state, dispatch] = useReducer(reducer, {
-    ...initialState,
-    filteredBooks: books,
-  });
+  const books = data?.data?.books || [];
 
-  const { filteredBooks, visibleBooksCount } = state;
-
-  // Determine whether to show "Load More" button
-  const showLoadMoreButton = visibleBooksCount < filteredBooks?.length;
-
-  // Handle category filter updates from BooksCategory
-  const handleSetFilteredBooks = (filtered) => {
-    dispatch({ type: "SET_FILTERED_BOOKS", payload: filtered });
-  };
-
-  // Animation variants
-  const bookCardVariants = {
-    hidden: { opacity: 0, y: -100 },
+  const containerVariants = {
+    hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      y: 0,
       transition: {
-        type: "spring",
-        stiffness: 120,
-        damping: 15,
+        staggerChildren: 0.1,
       },
     },
   };
 
   return (
-    <div className="my-36 font-iransans container max-w-[1320px] mx-auto">
-      <h3 className="mt-36 text-2xl font-medium max-lg:mr-10">کتابخانه</h3>
-      <p className="mt-4 text-gray-700 max-lg:mr-10">
-        با کتاب های راهنمای مسیر یادگیری زبان های برنامه نویسی مختلف، بهترین
-        مسیر رو برای خودت پیدا کن
-      </p>
+    <div className="py-12 md:py-24 px-4 sm:px-6 lg:px-8 font-iransans max-w-[1320px] mx-auto dir-rtl text-right">
+      <header className="mb-12 md:mb-16 max-w-2xl">
+        <h3 className="text-2xl md:text-4xl font-bold text-gray-900 font-yekanBold">
+          کتابخانه مسیر یادگیری
+        </h3>
+        <p className="mt-4 text-sm md:text-base text-gray-600 leading-relaxed">
+          با کتاب‌های راهنمای مسیر یادگیری زبان‌های برنامه‌نویسی مختلف، بهترین و
+          کوتاه‌ترین مسیر را برای آینده خودت پیدا کن.
+        </p>
+      </header>
 
-      <div className="flex justify-between items-center">
-        <div className="w-full px-10">
-          <SearchBooks products={books} />
-        </div>
-      </div>
+      <div className="w-full">
+        {isLoading && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 justify-items-center w-full">
+            {Array(8)
+              .fill(0)
+              .map((_, index) => (
+                <BookCardSkeleton key={index} />
+              ))}
+          </div>
+        )}
 
-      {/* Sidebar for category filters */}
-      <div className="flex items-start justify-between mt-32 gap-12">
-        <div className="w-4/5 flex flex-wrap justify-start gap-3 max-lg:mx-auto">
-          {/* Spinner while loading */}
-          {isLoading && (
-            <div className="flex justify-center mt-10 w-full">
-              <Spinner />
-            </div>
-          )}
+        {!isLoading && books.length === 0 && (
+          <div className="text-center py-16 w-full bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200">
+            <p className="text-xl text-gray-500 font-medium">کتابی یافت نشد!</p>
+          </div>
+        )}
 
-          {/* No books found */}
-          {!isLoading && filteredBooks?.length === 0 && (
-            <p className="text-center mt-10 text-2xl text-gray-600 w-full">
-              کتابی یافت نشد!
-            </p>
-          )}
-
-          {/* Books grid */}
-          {!isLoading &&
-            filteredBooks?.slice(0, visibleBooksCount).map((book) => (
-              <motion.div
-                key={book.id}
-                variants={bookCardVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-              >
-                <BookCard book={book} />
-              </motion.div>
-            ))}
-        </div>
-
-        {/* Category filters */}
-        <div className="w-1/4 px-2 max-lg:hidden">
-          <BooksCategory items={books} setBooks={handleSetFilteredBooks} />
-        </div>
-      </div>
-
-      {/* Load More button */}
-      {!isLoading && showLoadMoreButton && (
-        <button
-          onClick={() => dispatch({ type: "LOAD_MORE" })}
-          className="flex items-center justify-center w-[150px] h-[50px] rounded-xl mx-auto gap-2 bg-[#140342] text-white mt-8"
-        >
-          <p>مشاهده بیشتر</p>
-          <svg
-            className="w-6"
-            viewBox="0 0 1024 1024"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="#000000"
+        {!isLoading && books.length > 0 && (
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 justify-items-center"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
           >
-            <path
-              fill="#ffffff"
-              d="M176 416a112 112 0 1 0 0 224 112 112 0 0 0 0-224m0 64a48 48 0 1 1 0 96 48 48 0 0 1 0-96zm336-64a112 112 0 1 1 0 224 112 112 0 0 1 0-224zm0 64a48 48 0 1 0 0 96 48 48 0 0 0 0-96zm336-64a112 112 0 1 1 0 224 112 112 0 0 1 0-224zm0 64a48 48 0 1 0 0 96 48 48 0 0 0 0-96z"
-            ></path>
-          </svg>
-        </button>
-      )}
+            {books.map((book) => (
+              <BookCard key={book._id} book={book} />
+            ))}
+          </motion.div>
+        )}
+      </div>
     </div>
   );
 };
