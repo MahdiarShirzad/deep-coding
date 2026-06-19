@@ -9,7 +9,7 @@ const Dashboard = () => {
 
   const user = queryClient.getQueryData(["user"]);
 
-  const userCourses = user?.user_metadata.courses;
+  const userCourses = user?.user_metadata?.courses;
 
   // console.log(user);
   return (

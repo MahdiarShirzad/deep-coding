@@ -45,7 +45,7 @@ const UserStats = ({ user }) => {
           </svg>
           <div className="  text-lg text-[#fff] max-sm:flex gap-2 items-center justify-center">
             <p className=" font-bold text-2xl text-center">
-              {user?.user_metadata.courses.length}
+              {/* {user?.user_metadata.courses?.length} */}
             </p>
             <p className="text-center mt-1">دوره</p>
           </div>

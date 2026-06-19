@@ -8,7 +8,7 @@ const Favorites = () => {
     queryFn: getCurrentUser,
   });
 
-  const wishlist = user?.user_metadata.wishlist;
+  const wishlist = user?.user_metadata?.wishlist;
 
   return (
     <div className="max-md:px-5">

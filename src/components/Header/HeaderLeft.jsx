@@ -61,15 +61,67 @@ const HeaderLeft = () => {
 
           <div className="relative" ref={dropdownRef}>
             <div
-              onClick={() => setDropdownVisible(!dropdownVisible)}
-              className=" bg-zinc-100 px-5 min-w-[200px] py-1 rounded-full flex items-center justify-between cursor-pointer duration-500"
+              onClick={() => setDropdownVisible((prev) => !prev)}
+              className="bg-zinc-100 px-5 min-w-[200px] py-1 rounded-full flex items-center justify-between cursor-pointer duration-300"
             >
-              <div className=" flex items-center gap-2 py-2 capitalize">
-                <p>{user.fullName || user.name || "کاربر مهمان"}</p>
+              <div className="flex items-center gap-2 py-2 capitalize">
+                <p>{user.fullName}</p>
               </div>
+
+              <svg
+                className={`w-6 transition-transform duration-300 ${
+                  dropdownVisible ? "rotate-180" : "rotate-0"
+                }`}
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <path
+                  d="M19 9L14 14.1599C13.7429 14.4323 13.4329 14.6493 13.089 14.7976C12.7451 14.9459 12.3745 15.0225 12 15.0225C11.6255 15.0225 11.2549 14.9459 10.9109 14.7976C10.567 14.6493 10.2571 14.4323 10 14.1599L5 9"
+                  stroke="#000"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </div>
 
-            {dropdownVisible && {}}
+            {dropdownVisible && (
+              <div className="absolute top-full right-0 w-[240px] flex flex-col gap-1 py-3 px-4 bg-white shadow-md rounded-md mt-1 z-50">
+                <NavLink
+                  to="/user-panel/dashboard"
+                  className="flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 rounded-md"
+                  onClick={() => setDropdownVisible(false)}
+                >
+                  <span>داشبورد</span>
+                </NavLink>
+
+                <NavLink
+                  to="/user-panel/favorites"
+                  className="flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 rounded-md"
+                  onClick={() => setDropdownVisible(false)}
+                >
+                  <span>مورد علاقه ها</span>
+                </NavLink>
+
+                <NavLink
+                  to="/user-panel/edit-profile"
+                  className="flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 rounded-md"
+                  onClick={() => setDropdownVisible(false)}
+                >
+                  <span>ویرایش پروفایل</span>
+                </NavLink>
+
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setDropdownVisible(false);
+                  }}
+                  className="flex items-center gap-2 px-4 py-2 text-red-400 hover:bg-gray-200 rounded-md"
+                >
+                  خروج
+                </button>
+              </div>
+            )}
           </div>
         </>
       ) : (
