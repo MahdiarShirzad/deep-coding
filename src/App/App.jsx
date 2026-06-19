@@ -1,6 +1,6 @@
 import React from "react";
 
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Landing from "../screens/Landing/Landing";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
@@ -24,13 +24,10 @@ import Exams from "../screens/userpanel/exams/Exams";
 import EditProfile from "../screens/userpanel/editprofile/EditProfile";
 import Favorites from "../screens/userpanel/Favorites/Favorites";
 import CourseResume from "../screens/userpanel/CourseResume/CourseResume";
-import { useQuery } from "@tanstack/react-query";
-import { getCourses } from "../services/apiCourses";
-import { useSelector } from "react-redux";
-// import { getTeachers } from "../services/apiTeachers";
 import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
+import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
 
 const Layout = ({ children }) => {
   return (
@@ -43,53 +40,38 @@ const Layout = ({ children }) => {
 };
 
 const App = () => {
-  const { data: courses } = useQuery({
-    queryKey: ["courses"],
-    queryFn: getCourses,
-  });
-
-  const { isAuthenticated } = useSelector((state) => state.user);
-
   return (
     <BrowserRouter>
       <Layout>
         <ToastContainer />
         <Routes>
-          <Route path="/" index element={<Landing />} />
+          <Route path="/" element={<Landing />} />
           <Route path="/courses" element={<Courses />} />
-          <Route path="/courses/:id" element={<CourseDetail />}></Route>
+          <Route path="/courses/:id" element={<CourseDetail />} />
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blogs/:id" element={<BlogDetail />} />
           <Route path="/library" element={<Library />} />
           <Route path="/library/:id" element={<Book />} />
           <Route path="/about-us" element={<AboutUs />} />
-          {isAuthenticated && (
-            <Route path="/cart" element={<Cart courses={courses} />} />
-          )}
-          <Route path="/contact-us" index element={<ContactUs />} />
+          <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/teacher-info/:id" index element={<TeachersInfo />} />
-          {isAuthenticated && (
+          <Route path="/teacher-info/:id" element={<TeachersInfo />} />
+          <Route path="*" element={<NotFound />} />
+
+          <Route element={<ProtectedRoute />}>
+            <Route path="/cart" element={<Cart />} />{" "}
             <Route path="/user-panel" element={<UserPanel />}>
-              <Route path="/user-panel/dashboard" element={<Dashboard />} />
-              <Route path="/user-panel/exams" element={<Exams />} />
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="exams" element={<Exams />} />
+              <Route path="edit-profile" element={<EditProfile />} />
+              <Route path="favorites" element={<Favorites />} />
               <Route
-                path="/user-panel/edit-profile"
-                element={<EditProfile />}
-              />
-              <Route path="/user-panel/favorites" element={<Favorites />} />
-              <Route
-                path="/user-panel/edit-profile"
-                element={<EditProfile />}
-              />
-              <Route
-                path="/user-panel/student-course-resume/:id"
+                path="student-course-resume/:id"
                 element={<CourseResume />}
               />
             </Route>
-          )}
-          <Route path="*" index element={<NotFound />} />
+          </Route>
         </Routes>
       </Layout>
     </BrowserRouter>

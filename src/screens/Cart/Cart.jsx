@@ -8,28 +8,31 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
-  const { data: user } = useQuery({
+  const { data: user, isLoading } = useQuery({
     queryKey: ["user"],
     queryFn: getCurrentUser,
   });
 
   const navigate = useNavigate();
-
   const queryClient = useQueryClient();
 
-  const userCart = user?.user_metadata.cart || [];
+  // ۱. اضافه کردن ?. بعد از user_metadata برای جلوگیری از کرش
+  // نکته: اگر از بک‌اند خودت استفاده می‌کنی، این رو به user?.cart || [] تغییر بده
+  const userCart = user?.user_metadata?.cart || user?.cart || [];
 
   const totalPrice = userCart.reduce(
     (total, course) => total + course.price,
-    0
+    0,
   );
 
   const handleCheckout = async () => {
-    const currentCourses = user?.user_metadata.courses || [];
+    // ۲. اصلاح آپشنال چینینگ در اینجا
+    const currentCourses = user?.user_metadata?.courses || user?.courses || [];
 
     const courseExists = currentCourses.some((course) =>
-      userCart.some((cartCourse) => cartCourse.id === course.id)
+      userCart.some((cartCourse) => cartCourse.id === course.id),
     );
+
     if (courseExists) {
       toast.error("شما قبلا در این دوره ثبت نام کرده اید !", {
         position: "top-center",
@@ -38,23 +41,30 @@ const Cart = () => {
     }
 
     const updatedCourses = [...currentCourses, ...userCart];
-
     const updates = {
       cart: [],
       courses: updatedCourses,
     };
 
     if (user) {
-      updateUser(updates);
-      queryClient.invalidateQueries(["user"]);
-      toast.success("پرداخت با موفقیت انجام شد!", {
-        position: "top-center",
-      });
-      navigate("/user-panel/dashboard");
-    } else {
-      toast.error("خطا در پردازش پرداخت!");
+      try {
+        // ۳. حتماً باید await بذاری تا اول در دیتابیس ذخیره بشه
+        await updateUser(updates);
+
+        // ۴. حالا کش رو پینگ کن تا کامپوننت‌ها دیتای جدید رو بگیرن
+        queryClient.invalidateQueries(["user"]);
+
+        toast.success("پرداخت با موفقیت انجام شد!", { position: "top-center" });
+        navigate("/user-panel/dashboard");
+      } catch (err) {
+        toast.error("خطا در پردازش پرداخت!");
+      }
     }
   };
+
+  // ۵. تا زمانی که وضعیت یوزر مشخص نشده، کامپوننت اصلی رو رندر نکن
+  if (isLoading)
+    return <div className="text-center my-36">در حال بارگذاری سبد خرید...</div>;
 
   return (
     <div className="my-36 max-w-[1320px] container mx-auto font-iransans">
