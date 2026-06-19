@@ -1,13 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import scrollToTop from "../../utils/scrollToTop";
 
 const BookCard = ({ book }) => {
   const { _id, image, category, title, description } = book;
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
 
   const cardVariants = {
     hidden: { opacity: 0, y: 30 },
