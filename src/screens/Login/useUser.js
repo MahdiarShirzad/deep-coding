@@ -5,19 +5,20 @@ import { setUser } from "../../features/userSlice";
 
 export function useUser() {
   const dispatch = useDispatch();
-  const { isLoading, data: user } = useQuery({
+  const {
+    isLoading,
+    data: user,
+    error,
+  } = useQuery({
     queryKey: ["user"],
     queryFn: getCurrentUser,
-    onSuccess: (data) => {
-      dispatch(setUser(data));
-    },
+    retry: false,
+    refetchOnWindowFocus: false,
   });
-
-  const userState = useSelector((state) => state.user);
 
   return {
     isLoading,
-    user: userState.user,
-    isAuthenticated: userState.isAuthenticated,
+    user,
+    isAuthenticated: !!user,
   };
 }

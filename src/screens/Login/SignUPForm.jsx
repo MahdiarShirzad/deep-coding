@@ -53,16 +53,6 @@ const SignUpForm = () => {
     const { email, password, fullName, passwordConfirm } = values;
     if (!email || !password || !fullName) return;
     signUp({ email, password, fullName, confirmPassword: passwordConfirm });
-
-    // if (!isError) {
-    //   toast.success(" با موفقیت ثبت نام کردید !", {
-    //     position: "top-center",
-    //   });
-    // } else {
-    //   toast.error("خطا در ثبت نام !", {
-    //     position: "top-center",
-    //   });
-    // }
   };
 
   return (

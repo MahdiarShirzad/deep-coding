@@ -1,30 +1,23 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { login as loginApi } from "../../services/apiAuth";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setUser } from "../../features/userSlice";
 import { toast } from "react-toastify";
 
 export function useLogin() {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
-  const {
-    mutate: login,
-    isPending,
-    isError,
-  } = useMutation({
+  const { mutate: login, isPending } = useMutation({
     mutationFn: ({ email, password }) => loginApi({ email, password }),
-    onSuccess: (data) => {
-      dispatch(setUser(data));
-      localStorage.setItem("session", JSON.stringify(data.session));
-      toast.success("با موفقیت وارد شدید !", { position: "top-center" });
-      navigate("/");
+    onSuccess: (user) => {
+      queryClient.setQueryData(["user"], user);
+      toast.success("با موفقیت وارد شدید!", { position: "top-center" });
+      navigate("/", { replace: true });
     },
     onError: () => {
-      toast.error("خطا در ورود !", { position: "top-center" });
+      toast.error("ایمیل یا رمز عبور اشتباه است!", { position: "top-center" });
     },
   });
 
-  return { login, isPending, isError };
+  return { login, isPending };
 }
