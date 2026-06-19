@@ -16,7 +16,7 @@ const HeaderLeft = () => {
 
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);
-  const { logout, isPending: isLogoutPending } = useLogout(); // بهتره از isPending استفاده کنی
+  const { logout, isPending: isLogoutPending } = useLogout();
 
   const handleLogout = () => {
     logout(null, {
@@ -24,7 +24,7 @@ const HeaderLeft = () => {
     });
   };
 
-  if (isLoading) return <div>در حال بررسی...</div>;
+  // if (isLoading) return <div>در حال بررسی...</div>;
 
   return (
     <div className="flex items-center gap-10 justify-end w-96 max-md:gap-3">

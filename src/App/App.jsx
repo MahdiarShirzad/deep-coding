@@ -60,12 +60,12 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
 
           <Route element={<ProtectedRoute />}>
-            <Route path="/cart" element={<Cart />} />{" "}
+            <Route path="/cart" element={<Cart />} />
             <Route path="/user-panel" element={<UserPanel />}>
               <Route path="dashboard" element={<Dashboard />} />
-              <Route path="exams" element={<Exams />} />
-              <Route path="edit-profile" element={<EditProfile />} />
-              <Route path="favorites" element={<Favorites />} />
+              {/* <Route path="exams" element={<Exams />} /> */}
+              {/* <Route path="edit-profile" element={<EditProfile />} /> */}
+              {/* <Route path="favorites" element={<Favorites />} /> */}
               <Route
                 path="student-course-resume/:id"
                 element={<CourseResume />}

@@ -1,10 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import RenderStars from "../../components/RenderStars/RenderStars";
 import CoursePreview from "./CoursePreview";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { addToWishlist } from "../../services/apiWishlist";
+import { toast } from "react-toastify";
 
 const CourseHero = ({ selectedCourse }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleAddToWishlist = async () => {
+    if (!selectedCourse?._id) return;
+
+    try {
+      setIsLoading(true);
+      await addToWishlist(selectedCourse._id);
+
+      toast.success("دوره با موفقیت به علاقه‌مندی‌ها اضافه شد!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+    } catch (error) {
+      toast.error(error.message || "خطایی در افزودن به علاقه‌مندی‌ها رخ داد.", {
+        position: "top-right",
+        autoClose: 4000,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const container = {
     hidden: {},
     visible: {
@@ -73,8 +98,10 @@ const CourseHero = ({ selectedCourse }) => {
 
           <motion.button
             variants={item}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={!isLoading ? { scale: 1.05 } : {}}
+            whileTap={!isLoading ? { scale: 0.95 } : {}}
+            onClick={handleAddToWishlist}
+            disabled={isLoading}
             className=" mt-4  flex gap-2 items-center border px-3 py-2 rounded-lg bg-slate-200 text-black"
           >
             <svg

@@ -5,17 +5,11 @@ import { UserCoursesCard } from "./UserCoursesCard";
 import { Link } from "react-router-dom";
 
 const Dashboard = () => {
-  const queryClient = useQueryClient();
-
-  const user = queryClient.getQueryData(["user"]);
-
-  const userCourses = user?.user_metadata?.courses;
-
   // console.log(user);
   return (
     <div className=" w-full">
-      <UserStats user={user} />
-      <div className="">
+      {/* <UserStats user={user} /> */}
+      {/* <div className="">
         <p className=" text-2xl mt-7 font-bold max-md:mx-2">دوره های شما</p>
         {userCourses?.length > 0 ? (
           <div className=" mt-10">
@@ -35,8 +29,8 @@ const Dashboard = () => {
               مشاهده دوره ها
             </Link>
           </div>
-        )}
-      </div>
+        )} */}
+      {/* </div> */}
     </div>
   );
 };
