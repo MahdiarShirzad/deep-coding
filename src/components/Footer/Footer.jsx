@@ -125,7 +125,7 @@ const Footer = () => {
         <div className="flex max-md:flex-col items-center justify-between text-sm text-gray-500 gap-4">
           <p>© {new Date().getFullYear()} Deep Coding. همه حقوق محفوظ است.</p>
 
-          <p>ساخته شده با ❤️ توسط تیم Deep Coding</p>
+          <p>ساخته شده با ❤️ توسط تیم Mahdyar Shirzad</p>
         </div>
       </div>
     </footer>

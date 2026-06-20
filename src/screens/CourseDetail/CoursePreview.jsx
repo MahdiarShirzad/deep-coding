@@ -4,16 +4,18 @@ import { useSelector } from "react-redux";
 import { updateUser } from "../../services/apiAuth";
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
+import { addToCart } from "../../services/apiCart";
 
 const CoursePreview = ({ selectedCourse }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const playerRef = useRef(null);
 
-  // const { isAuthenticated } = useSelector((state) => state.user);
-  const { isError } = updateUser();
-
   const queryClient = useQueryClient();
+
+  const cart = queryClient.getQueriesData(["cart"] || []);
+
+  const isInCart = cart.some((item) => item._id === selectedCourse?._id);
 
   const formattedPrice = selectedCourse?.price
     .toString()
@@ -32,6 +34,27 @@ const CoursePreview = ({ selectedCourse }) => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const addToCartHandler = async () => {
+    try {
+      if (isInCart) {
+        toast.error("این دوره قبلاً در سبد خرید شماست!", {
+          position: "top-center",
+        });
+        return;
+      }
+
+      await addToCart(selectedCourse._id);
+
+      queryClient.invalidateQueries(["cart"]);
+
+      toast.success("دوره به سبد خرید اضافه شد!", {
+        position: "top-center",
+      });
+    } catch (err) {
+      toast.error("خطا در افزودن به سبد خرید!");
+    }
+  };
 
   return (
     <div
@@ -61,8 +84,11 @@ const CoursePreview = ({ selectedCourse }) => {
         {selectedCourse?.price !== 0 && <span>تومان</span>}
       </div>
       <button
-        // onClick={handleAddToCartClick}
-        className={`bg-violet-600 mt-3 w-[300px] block mx-auto py-3 rounded-md text-white `}
+        onClick={addToCartHandler}
+        disabled={isInCart}
+        className={`bg-violet-600 mt-3 w-[300px] block mx-auto py-3 rounded-md text-white ${
+          isInCart ? "opacity-50 cursor-not-allowed" : ""
+        }`}
       >
         افزودن به سبد خرید
       </button>

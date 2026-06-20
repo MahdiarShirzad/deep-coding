@@ -42,11 +42,11 @@ const CartItem = ({ item }) => {
       </div>
       <div>
         <h1 className="font-semibold text-right">{item?.name}</h1>
-        <p className="text-gray-700 mt-3">{item?.teacher}</p>
+        <p className="text-gray-700 mt-3">{item?.teacher?.fullName}</p>
         <div className="flex items-center gap-2 mt-3">
-          <span className="text-amber-400">{item?.star}</span>
+          <span className="text-amber-400">{item?.ratingsAverage}</span>
           <div className="flex">
-            <RenderStars rating={item?.star} />
+            <RenderStars rating={item?.ratingsAverage} />
           </div>
         </div>
         <div className="flex gap-4 mt-4">
