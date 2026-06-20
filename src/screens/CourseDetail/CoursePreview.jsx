@@ -13,7 +13,7 @@ const CoursePreview = ({ selectedCourse }) => {
 
   const queryClient = useQueryClient();
 
-  const cart = queryClient.getQueriesData(["cart"] || []);
+  const cart = queryClient.getQueryData(["cart"] || []);
 
   const isInCart = cart.some((item) => item._id === selectedCourse?._id);
 
@@ -44,13 +44,12 @@ const CoursePreview = ({ selectedCourse }) => {
         return;
       }
 
-      await addToCart(selectedCourse._id);
+      const updatedCart = await addToCart(selectedCourse._id);
 
-      queryClient.invalidateQueries(["cart"]);
+      queryClient.setQueryData(["cart"], updatedCart);
+      queryClient.invalidateQueries(["user"]);
 
-      toast.success("دوره به سبد خرید اضافه شد!", {
-        position: "top-center",
-      });
+      toast.success("دوره به سبد خرید اضافه شد!", { position: "top-center" });
     } catch (err) {
       toast.error("خطا در افزودن به سبد خرید!");
     }

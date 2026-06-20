@@ -43,7 +43,6 @@ const CartItem = ({ item }) => {
       layout
       className="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full p-4 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow gap-4"
     >
-      {/* بخش عکس و اطلاعات اصلی */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full sm:w-auto">
         <div className="w-full sm:w-[150px] lg:w-[170px] h-[160px] sm:h-[100px] lg:h-[110px] flex-shrink-0">
           <img
@@ -61,17 +60,15 @@ const CartItem = ({ item }) => {
             {item?.teacher?.fullName}
           </p>
 
-          {/* ریتینگ ستاره */}
           <div className="flex items-center gap-2 mt-2 bg-slate-50 w-fit px-2 py-0.5 rounded-md">
             <span className="text-xs font-bold text-amber-500">
-              {item?.star}
+              {item?.ratingsAverage}
             </span>
             <div className="flex scale-90 origin-right">
-              <RenderStars rating={item?.star} />
+              <RenderStars rating={item?.ratingsAverage} />
             </div>
           </div>
 
-          {/* ویژگی‌ها (تعداد درس، زمان، سطح) */}
           <div className="flex flex-wrap gap-x-4 gap-y-2 mt-3 text-slate-500">
             <div className="flex items-center gap-1.5 text-xs">
               <img src={lectureSvg} alt="" className="w-3.5 h-3.5 opacity-70" />

@@ -3,8 +3,6 @@ import CartItem from "./CartItem";
 import CartCheckout from "./CartCheckout";
 import EmptyCart from "./EmptyCart";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getCurrentUser, updateUser } from "../../services/apiAuth";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { getUsersCart } from "../../services/apiCart";
 import { motion, AnimatePresence } from "framer-motion";
@@ -34,9 +32,7 @@ const Cart = () => {
     0,
   );
 
-  const handleCheckout = async () => {
-    // پیاده‌سازی متد پرداخت
-  };
+  const handleCheckout = async () => {};
 
   if (isLoading)
     return (
@@ -108,12 +104,10 @@ const Cart = () => {
         </div>
       </div>
 
-      {/* بخش محتوا */}
       <div className="mt-8 lg:mt-12">
         <AnimatePresence mode="popLayout">
           {userCart.length > 0 ? (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-              {/* لیست کارت‌ها */}
               <motion.div
                 variants={containerVariants}
                 initial="hidden"
@@ -127,7 +121,6 @@ const Cart = () => {
                 </AnimatePresence>
               </motion.div>
 
-              {/* فاکتور پرداخت */}
               <div className="lg:col-span-1 lg:sticky lg:top-6 w-full">
                 <CartCheckout
                   totalPrice={totalPrice}
