@@ -47,8 +47,7 @@ const Cart = () => {
     );
 
   return (
-    <div className="my-10 lg:my-20 max-w-[1320px] container mx-auto font-iransans px-4 sm:px-6 dir-rtl text-right">
-      {/* هدر سبد خرید */}
+    <div className=" my-20 max-w-[1320px] container mx-auto font-iransans px-4 sm:px-6 dir-rtl text-right">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pb-6 border-b border-slate-100">
         <div>
           <h1 className="text-3xl lg:text-4xl font-extrabold tracking-tight text-slate-950">
