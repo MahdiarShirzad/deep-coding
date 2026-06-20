@@ -4,8 +4,9 @@ import CartCheckout from "./CartCheckout";
 import EmptyCart from "./EmptyCart";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { getUsersCart } from "../../services/apiCart";
+import { cartCheckout, getUsersCart } from "../../services/apiCart";
 import { motion, AnimatePresence } from "framer-motion";
+import { toast } from "react-toastify";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -32,7 +33,23 @@ const Cart = () => {
     0,
   );
 
-  const handleCheckout = async () => {};
+  const handleCheckout = async () => {
+    try {
+      await cartCheckout();
+      queryClient.setQueryData(["cart"], []);
+      queryClient.invalidateQueries(["user"]);
+
+      toast.success("ثبت‌نام در دوره‌ها با موفقیت انجام شد!", {
+        position: "top-center",
+      });
+
+      navigate("/user-panel/dashboard");
+    } catch (error) {
+      toast.error(error.message || "خطا در پرداخت، دوباره تلاش کنید", {
+        position: "top-center",
+      });
+    }
+  };
 
   if (isLoading)
     return (
