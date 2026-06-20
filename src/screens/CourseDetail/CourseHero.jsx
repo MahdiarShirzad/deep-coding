@@ -1,42 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import RenderStars from "../../components/RenderStars/RenderStars";
 import CoursePreview from "./CoursePreview";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { addToWishlist } from "../../services/apiWishlist";
-import { toast } from "react-toastify";
+import { addToWishlist, getUsersWishlist } from "../../services/apiWishlist";
 
 const CourseHero = ({ selectedCourse }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isInWishlist, setIsInWishlist] = useState(false);
+
+  useEffect(() => {
+    const fetchWishlist = async () => {
+      if (!selectedCourse?._id) return;
+
+      try {
+        const wishlist = await getUsersWishlist();
+        const isAdded = wishlist.some(
+          (course) =>
+            course._id === selectedCourse._id || course === selectedCourse._id,
+        );
+        setIsInWishlist(isAdded);
+      } catch (error) {
+        console.error("Failed to fetch wishlist status");
+      }
+    };
+
+    fetchWishlist();
+  }, [selectedCourse?._id]);
 
   const handleAddToWishlist = async () => {
-    if (!selectedCourse?._id) return;
+    if (!selectedCourse?._id || isInWishlist) return;
 
     try {
       setIsLoading(true);
       await addToWishlist(selectedCourse._id);
 
-      toast.success("دوره با موفقیت به علاقه‌مندی‌ها اضافه شد!", {
-        position: "top-right",
-        autoClose: 3000,
-      });
+      setIsInWishlist(true);
     } catch (error) {
-      toast.error(error.message || "خطایی در افزودن به علاقه‌مندی‌ها رخ داد.", {
-        position: "top-right",
-        autoClose: 4000,
-      });
+      console.error("Failed:", error);
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const container = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.15,
-      },
-    },
   };
 
   const item = {
@@ -57,7 +61,7 @@ const CourseHero = ({ selectedCourse }) => {
     >
       <motion.div
         className=" max-w-[1320px] container mx-auto relative max-xl:px-8 max-lg:flex-col max-lg:items-center max-lg:justify-center max-lg:gap-10"
-        variants={container}
+        // variants={container}
         initial="hidden"
         animate="visible"
       >
@@ -98,31 +102,62 @@ const CourseHero = ({ selectedCourse }) => {
 
           <motion.button
             variants={item}
-            whileHover={!isLoading ? { scale: 1.05 } : {}}
-            whileTap={!isLoading ? { scale: 0.95 } : {}}
+            whileHover={!isLoading && !isInWishlist ? { scale: 1.05 } : {}}
+            whileTap={!isLoading && !isInWishlist ? { scale: 0.95 } : {}}
             onClick={handleAddToWishlist}
-            disabled={isLoading}
-            className=" mt-4  flex gap-2 items-center border px-3 py-2 rounded-lg bg-slate-200 text-black"
+            // دکمه در صورت لودینگ یا موجود بودن در لیست غیرفعال میشه
+            disabled={isLoading || isInWishlist}
+            className={`mt-4  flex gap-2 items-center border px-3 py-2 rounded-lg transition-colors
+               ${
+                 isInWishlist
+                   ? "bg-green-600 text-white border-green-600 cursor-not-allowed opacity-80"
+                   : "bg-slate-200 text-black hover:bg-slate-300"
+               }`}
           >
-            <svg
-              className="w-[30px]"
-              viewBox="0 0 64 64"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g strokeWidth="0"></g>
-              <g strokeLinecap="round" strokeLinejoin="round"></g>
-              <g>
+            {/* تغییر آیکون به تیک در صورت موجود بودن در لیست */}
+            {isInWishlist ? (
+              <svg
+                className="w-[30px]"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
-                  d="M30.051 45.6071L17.851 54.7401C17.2728 55.1729 16.5856 55.4363 15.8662 55.5008C15.1468 55.5652 14.4237 55.4282 13.7778 55.1049C13.1319 54.7817 12.5887 54.2851 12.209 53.6707C11.8293 53.0563 11.6281 52.3483 11.628 51.626V15.306C11.628 13.2423 12.4477 11.2631 13.9069 9.8037C15.3661 8.34432 17.3452 7.52431 19.409 7.52405H45.35C47.4137 7.52431 49.3929 8.34432 50.8521 9.8037C52.3112 11.2631 53.131 13.2423 53.131 15.306V51.625C53.1309 52.3473 52.9297 53.0553 52.55 53.6697C52.1703 54.2841 51.6271 54.7807 50.9812 55.1039C50.3353 55.4272 49.6122 55.5642 48.8928 55.4998C48.1734 55.4353 47.4862 55.1719 46.908 54.739L34.715 45.6071C34.0419 45.1031 33.2238 44.8308 32.383 44.8308C31.5422 44.8308 30.724 45.1031 30.051 45.6071V45.6071Z"
-                  stroke="#000"
-                  strokeWidth="4"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                />
-              </g>
-            </svg>
-            <p>افزودن به علاقه مندی ها</p>
+                  strokeWidth="2"
+                  d="M5 13l4 4L19 7"
+                ></path>
+              </svg>
+            ) : (
+              <svg
+                className="w-[30px]"
+                viewBox="0 0 64 64"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g strokeWidth="0"></g>
+                <g strokeLinecap="round" strokeLinejoin="round"></g>
+                <g>
+                  <path
+                    d="M30.051 45.6071L17.851 54.7401C17.2728 55.1729 16.5856 55.4363 15.8662 55.5008C15.1468 55.5652 14.4237 55.4282 13.7778 55.1049C13.1319 54.7817 12.5887 54.2851 12.209 53.6707C11.8293 53.0563 11.6281 52.3483 11.628 51.626V15.306C11.628 13.2423 12.4477 11.2631 13.9069 9.8037C15.3661 8.34432 17.3452 7.52431 19.409 7.52405H45.35C47.4137 7.52431 49.3929 8.34432 50.8521 9.8037C52.3112 11.2631 53.131 13.2423 53.131 15.306V51.625C53.1309 52.3473 52.9297 53.0553 52.55 53.6697C52.1703 54.2841 51.6271 54.7807 50.9812 55.1039C50.3353 55.4272 49.6122 55.5642 48.8928 55.4998C48.1734 55.4353 47.4862 55.1719 46.908 54.739L34.715 45.6071C34.0419 45.1031 33.2238 44.8308 32.383 44.8308C31.5422 44.8308 30.724 45.1031 30.051 45.6071V45.6071Z"
+                    stroke="#000"
+                    strokeWidth="4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </g>
+              </svg>
+            )}
+
+            <p>
+              {isInWishlist
+                ? "در علاقه‌مندی‌ها موجود است"
+                : isLoading
+                  ? "در حال افزودن..."
+                  : "افزودن به علاقه مندی ها"}
+            </p>
           </motion.button>
         </div>
 
