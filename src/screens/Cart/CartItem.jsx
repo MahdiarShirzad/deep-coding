@@ -6,25 +6,24 @@ import levelSvg from "../../assets/images/coursesCards/icons/3.svg";
 import { updateUser } from "../../services/apiAuth";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import { deleteFromCart } from "../../services/apiCart";
 
 const CartItem = ({ item }) => {
-  const queryClient = useQueryClient();
+  const quetyClient = useQueryClient();
 
   const handleRemoveFromCart = async () => {
-    const user = queryClient.getQueryData(["user"]);
-    const currentCart = user?.user_metadata.cart || [];
-    const updatedCart = currentCart.filter((course) => course.id !== item.id);
-
-    const updates = {
-      cart: updatedCart,
-    };
-
-    updateUser(updates);
-    queryClient.invalidateQueries(["user"]);
-    toast.success("دوره از سبد خرید حذف شد!", {
-      position: "top-center",
-    });
+    try {
+      await deleteFromCart(item?._id);
+      quetyClient.invalidateQueries(["cart"]);
+      quetyClient.invalidateQueries(["user"]);
+      toast.success("دوره از سبد خرید حذف شد!", {
+        position: "top-center",
+      });
+    } catch (error) {
+      toast.error("خطا در حذف دوره!");
+    }
   };
+
   const formattedPrice = item.price
     .toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -44,9 +43,9 @@ const CartItem = ({ item }) => {
         <h1 className="font-semibold text-right">{item?.name}</h1>
         <p className="text-gray-700 mt-3">{item?.teacher?.fullName}</p>
         <div className="flex items-center gap-2 mt-3">
-          <span className="text-amber-400">{item?.ratingsAverage}</span>
+          <span className="text-amber-400">{item?.star}</span>
           <div className="flex">
-            <RenderStars rating={item?.ratingsAverage} />
+            <RenderStars rating={item?.star} />
           </div>
         </div>
         <div className="flex gap-4 mt-4">
