@@ -10,7 +10,7 @@ export function useLogout() {
     mutationFn: logoutApi,
     onSuccess: () => {
       localStorage.removeItem("token");
-      queryClient.removeQueries(); // پاک کردن کل کش ریکت کوئری
+      queryClient.removeQueries();
       navigate("/login", { replace: true });
     },
   });

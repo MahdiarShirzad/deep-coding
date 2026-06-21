@@ -15,7 +15,10 @@ export async function signUp({ fullName, email, password, confirmPassword }) {
   });
 
   localStorage.setItem("token", data.token);
-  return data.data.user;
+  return {
+    user: data.data.user,
+    token: data.token,
+  };
 }
 
 export async function login({ email, password }) {

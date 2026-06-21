@@ -9,11 +9,11 @@ export function useSignUp() {
 
   const { mutate: signUp, isPending } = useMutation({
     mutationFn: signUpApi,
-    onSuccess: (data) => {
-      if (data.token) {
-        localStorage.setItem("token", data.token);
-      }
-      queryClient.setQueryData(["user"], data.user);
+    onSuccess: ({ user, token }) => {
+      // if (token) {
+      //   localStorage.setItem("token", token);
+      // }
+      queryClient.setQueryData(["user"], user);
 
       toast.success("ثبت‌نام با موفقیت انجام شد و وارد شدید!", {
         position: "top-center",

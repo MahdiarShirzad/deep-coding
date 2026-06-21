@@ -4,6 +4,7 @@ import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as yup from "yup";
 import { useSignUp } from "./useSignUp";
 import { toast } from "react-toastify";
+import { useQueryClient } from "@tanstack/react-query";
 
 const scrollToTop = () => {
   window.scrollTo({
@@ -12,6 +13,8 @@ const scrollToTop = () => {
 };
 
 const SignUpForm = () => {
+  const queryClient = useQueryClient();
+
   const [passwordIsVisible, setPasswordIsVisible] = useState(false);
   const [passwordConfirmIsVisible, setpasswordConfirmIsVisible] =
     useState(false);
@@ -53,6 +56,8 @@ const SignUpForm = () => {
     const { email, password, fullName, passwordConfirm } = values;
     if (!email || !password || !fullName) return;
     signUp({ email, password, fullName, confirmPassword: passwordConfirm });
+
+    queryClient.invalidateQueries(["user"]);
   };
 
   return (
