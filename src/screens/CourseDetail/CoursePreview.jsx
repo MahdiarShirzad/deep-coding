@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import ReactPlayer from "react-player";
-import { useSelector } from "react-redux";
-import { updateUser } from "../../services/apiAuth";
+// import { useSelector } from "react-redux";
+// import { updateUser } from "../../services/apiAuth";
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
 import { addToCart } from "../../services/apiCart";
@@ -13,9 +13,8 @@ const CoursePreview = ({ selectedCourse }) => {
 
   const queryClient = useQueryClient();
 
-  const cart = queryClient.getQueryData(["cart"] || []);
-
-  const isInCart = cart.some((item) => item._id === selectedCourse?._id);
+  const cart = queryClient.getQueryData(["cart"]) ?? [];
+  const isInCart = cart.some((item) => item?._id === selectedCourse?._id);
 
   const formattedPrice = selectedCourse?.price
     .toString()
