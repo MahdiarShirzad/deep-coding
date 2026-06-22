@@ -6,6 +6,8 @@ import { apiRequest } from "./apiClient";
 
 export const getUsersWishlist = async () => {
   const data = await apiRequest("/users/wishlist", { method: "GET" });
+  // console.log(data);
+
   return data.data.wishlist;
 };
 

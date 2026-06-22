@@ -103,7 +103,7 @@ const Dashboard = () => {
                     </div>
                   </div>
                   <Link
-                    to={`/user-panel/student-course-resume/${course._id}`}
+                    to={`/user-panel/my-courses`}
                     className="bg-violet-600 hover:bg-violet-700 text-white text-xs px-4 py-2 rounded-lg text-center max-sm:w-full transition-colors whitespace-nowrap"
                   >
                     ورود به کلاس

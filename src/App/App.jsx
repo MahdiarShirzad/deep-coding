@@ -64,7 +64,7 @@ const App = () => {
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="my-courses" element={<CourseList />} />
               {/* <Route path="edit-profile" element={<EditProfile />} /> */}
-              {/* <Route path="favorites" element={<Favorites />} /> */}
+              <Route path="favorites" element={<Favorites />} />
               <Route
                 path="student-course-resume/:id"
                 element={<CourseResume />}

@@ -1,28 +1,69 @@
-import { useQuery } from "@tanstack/react-query";
-import { getCurrentUser } from "../../../services/apiAuth";
+import React from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  getUsersWishlist,
+  removeFromWishlist,
+} from "../../../services/apiWishlist";
 import { FavoritesCard } from "./FavoritesCard";
 
 const Favorites = () => {
-  const { data: user } = useQuery({
-    queryKey: ["user"],
-    queryFn: getCurrentUser,
+  const queryClient = useQueryClient();
+
+  const {
+    data: wishlist,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["wishlist"],
+    queryFn: getUsersWishlist,
   });
 
-  const wishlist = user?.user_metadata?.wishlist;
+  console.log(wishlist);
+
+  const { mutate: removeItem, isPending } = useMutation({
+    mutationFn: removeFromWishlist,
+
+    onMutate: async (idOrSlug) => {
+      await queryClient.cancelQueries({ queryKey: ["wishlist"] });
+
+      const previousWishlist = queryClient.getQueryData(["wishlist"]);
+
+      queryClient.setQueryData(["wishlist"], (old = []) =>
+        old.filter((item) => item._id !== idOrSlug && item.slug !== idOrSlug),
+      );
+
+      return { previousWishlist };
+    },
+
+    onError: (err, variables, context) => {
+      queryClient.setQueryData(["wishlist"], context.previousWishlist);
+    },
+
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["wishlist"] });
+    },
+  });
+
+  if (isLoading) return <p>در حال بارگذاری...</p>;
+
+  if (isError) return <p>خطا: {error.message}</p>;
 
   return (
-    <div className="max-md:px-5">
-      <p className=" text-2xl font-semibold max-md:mt-6">مورد علاقه ها</p>
-      {wishlist && wishlist?.length > 0 ? (
-        <div className=" h-[1000px] mt-14">
-          {wishlist?.map((item) => (
-            <FavoritesCard key={item.id} item={item} />
-          ))}
-        </div>
+    <div>
+      <h1 className="text-2xl my-5">علاقه‌مندی‌ها</h1>
+
+      {wishlist.length > 0 ? (
+        wishlist.map((course) => (
+          <FavoritesCard
+            key={course._id}
+            item={course}
+            onRemove={removeItem}
+            isRemoving={isPending}
+          />
+        ))
       ) : (
-        <div className=" text-center text-2xl mt-20">
-          لیست مورد علاقه های شما خالی است !
-        </div>
+        <p>لیست علاقه‌مندی‌ها خالی است 😢</p>
       )}
     </div>
   );

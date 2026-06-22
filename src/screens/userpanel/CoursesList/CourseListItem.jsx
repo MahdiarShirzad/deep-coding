@@ -100,7 +100,6 @@ const CourseListItem = ({ course }) => {
                       onClick={() => handleLessonPlay(lesson)}
                       className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-800/60 cursor-pointer group transition-colors"
                     >
-                      {/* بخش راست: وضعیت پلی و عنوان درس */}
                       <div className="flex items-center gap-3 w-3/4">
                         <div className="w-7 h-7 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-slate-950 transition-colors shrink-0">
                           <svg
