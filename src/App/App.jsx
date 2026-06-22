@@ -19,8 +19,7 @@ import NotFound from "../screens/notfound/NotFound";
 import UserPanel from "../screens/userpanel/UserPanel";
 import Library from "../screens/Library/Library";
 import Dashboard from "../screens/userpanel/dashboard/Dashboard";
-// import CourseList from "../screens/userpanel/CoursesList/CourseList";
-import Exams from "../screens/userpanel/exams/Exams";
+import CourseList from "../screens/userpanel/CoursesList/CourseList";
 import EditProfile from "../screens/userpanel/editprofile/EditProfile";
 import Favorites from "../screens/userpanel/Favorites/Favorites";
 import CourseResume from "../screens/userpanel/CourseResume/CourseResume";
@@ -63,7 +62,7 @@ const App = () => {
             <Route path="/cart" element={<Cart />} />
             <Route path="/user-panel" element={<UserPanel />}>
               <Route path="dashboard" element={<Dashboard />} />
-              {/* <Route path="exams" element={<Exams />} /> */}
+              <Route path="my-courses" element={<CourseList />} />
               {/* <Route path="edit-profile" element={<EditProfile />} /> */}
               {/* <Route path="favorites" element={<Favorites />} /> */}
               <Route

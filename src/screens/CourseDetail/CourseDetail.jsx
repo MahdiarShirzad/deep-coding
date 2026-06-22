@@ -23,7 +23,6 @@ const CourseDetail = () => {
   });
 
   const selectedCourse = course;
-  // console.log("course: ", selectedCourse);
 
   return (
     <div className=" my-36">
