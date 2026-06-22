@@ -24,7 +24,7 @@ const SidebarPanel = () => {
       : "px-3 py-1 rounded-md flex gap-1 text-slate-300 hover:text-white transition-all";
 
   return (
-    <ul className="w-[295px] max-md:w-full max-md:flex-row bg-slate-900 text-white px-5 py-3 flex flex-col max-sm:gap-2 gap-5 rounded-md border border-slate-800">
+    <ul className="w-[295px] max-md:w-full max-md:mb-4 max-md:flex-row bg-slate-900 text-white px-5 py-3 flex flex-col max-sm:gap-2 gap-5 rounded-md border border-slate-800">
       <NavLink to="/user-panel/dashboard" className={activeClass}>
         <li className="flex gap-1 px-3 max-sm:px-1 max-sm:py-1 items-center max-sm:text-xs w-full">
           <svg
