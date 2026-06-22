@@ -63,7 +63,7 @@ const App = () => {
             <Route path="/user-panel" element={<UserPanel />}>
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="my-courses" element={<CourseList />} />
-              {/* <Route path="edit-profile" element={<EditProfile />} /> */}
+              <Route path="edit-profile" element={<EditProfile />} />
               <Route path="favorites" element={<Favorites />} />
               <Route
                 path="student-course-resume/:id"
