@@ -29,6 +29,7 @@ import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
+import TeacherDashboard from "../screens/TeacherPanel/TeacherDashboard";
 
 const Layout = ({ children }) => {
   return (
@@ -75,7 +76,9 @@ const App = () => {
           </Route>
 
           <Route element={<ProtectedRoute allowedRoles={["teacher"]} />}>
-            <Route path="/teacher-panel/*" element={<TeacherPanel />} />
+            <Route path="/teacher-panel" element={<TeacherPanel />}>
+              <Route path="dashboard" element={<TeacherDashboard />} />
+            </Route>
           </Route>
 
           <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>

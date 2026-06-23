@@ -201,7 +201,7 @@ const SidebarPanel = ({ role }) => {
       case "teacher":
         return [
           {
-            to: "/teacher-panel",
+            to: "/teacher-panel/dashboard",
             label: "داشبورد مدرس",
             icon: <DashboardIcon />,
             end: true,
