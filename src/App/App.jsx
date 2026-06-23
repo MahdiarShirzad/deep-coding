@@ -34,6 +34,7 @@ import TeacherEditProfile from "../screens/TeacherPanel/TeacherEditProfile";
 import TeachersCourses from "../screens/TeacherPanel/TeachersCourses";
 import AdminPanelDashboard from "../screens/AdminPanel/AdminPanelDashboard";
 import ManageUsers from "../screens/AdminPanel/ManageUsers";
+import ManageComments from "../screens/AdminPanel/ManageComments";
 
 const Layout = ({ children }) => {
   return (
@@ -91,6 +92,7 @@ const App = () => {
             <Route path="/admin-panel/*" element={<AdminPanel />}>
               <Route path="dashboard" element={<AdminPanelDashboard />} />
               <Route path="users" element={<ManageUsers />} />
+              <Route path="comments" element={<ManageComments />} />
             </Route>
           </Route>
         </Routes>
