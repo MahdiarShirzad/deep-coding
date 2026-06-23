@@ -10,11 +10,13 @@ const UserPanelAvatar = () => {
   const isTeacher = user?.role === "teacher";
 
   return (
-    <div className="relative overflow-hidden bg-gradient-to-r from-[#111723] via-[#1f293d] to-[#111723] border-b border-slate-800/80 py-8 md:py-12 px-4">
-      <div className="absolute top-0 right-1/4 w-72 h-72 bg-cyan-500/10 blur-[100px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 right-10 w-48 h-48 bg-violet-500/5 blur-[80px] rounded-full pointer-events-none" />
+    <div className="relative bg-gradient-to-r from-[#111723] via-[#1f293d] to-[#111723] border-b border-slate-800/80 py-8 md:py-12 px-4">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 right-1/4 w-72 h-72 bg-cyan-500/10 blur-[100px] rounded-full" />
+        <div className="absolute bottom-0 right-10 w-48 h-48 bg-violet-500/5 blur-[80px] rounded-full" />
+      </div>
 
-      <div className="container max-w-[1320px] mx-auto flex flex-col md:flex-row items-center gap-6 relative z-10">
+      <div className="container max-w-[1320px] mx-auto flex flex-col md:flex-row items-center gap-6 relative">
         <div className="relative group p-1 rounded-full bg-gradient-to-tr from-cyan-500 via-slate-700 to-violet-500 shadow-2xl shadow-cyan-950/50 active:scale-95 transition-transform">
           <img
             className="w-[100px] h-[100px] md:w-[115px] md:h-[115px] rounded-full object-cover border-4 border-[#1f293d]"
@@ -40,7 +42,7 @@ const UserPanelAvatar = () => {
                   : "bg-cyan-500/10 text-cyan-400 border-cyan-500/20"
               }`}
             >
-              {isTeacher ? "مدرس آکادمی" : "دانشجو "}
+              {isTeacher ? "مدرس آکادمی" : "دانشجو"}
             </span>
           </div>
 

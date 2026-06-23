@@ -17,6 +17,8 @@ import BlogDetail from "../screens/BlogDetail/BlogDetail";
 import Book from "../screens/Library/Book";
 import NotFound from "../screens/notfound/NotFound";
 import UserPanel from "../screens/userpanel/UserPanel";
+import TeacherPanel from "../screens/TeacherPanel/TeacherPanel";
+import AdminPanel from "../screens/AdminPanel/AdminPanel";
 import Library from "../screens/Library/Library";
 import Dashboard from "../screens/userpanel/dashboard/Dashboard";
 import CourseList from "../screens/userpanel/CoursesList/CourseList";
@@ -70,6 +72,14 @@ const App = () => {
                 element={<CourseResume />}
               />
             </Route>
+          </Route>
+
+          <Route element={<ProtectedRoute allowedRoles={["teacher"]} />}>
+            <Route path="/teacher-panel/*" element={<TeacherPanel />} />
+          </Route>
+
+          <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+            <Route path="/admin-panel/*" element={<AdminPanel />} />
           </Route>
         </Routes>
       </Layout>

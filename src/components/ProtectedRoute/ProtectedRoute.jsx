@@ -3,7 +3,7 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getCurrentUser } from "../../services/apiAuth";
 
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = ({ allowedRoles }) => {
   const location = useLocation();
 
   const { data: user, isLoading } = useQuery({
@@ -28,7 +28,16 @@ const ProtectedRoute = ({ children }) => {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  return children ? children : <Outlet />;
+  if (allowedRoles && !allowedRoles.includes(user.role)) {
+    const roleRedirects = {
+      admin: "/admin-panel",
+      teacher: "/teacher-panel",
+      user: "/user-panel/dashboard",
+    };
+    return <Navigate to={roleRedirects[user.role] ?? "/"} replace />;
+  }
+
+  return <Outlet />;
 };
 
 export default ProtectedRoute;
