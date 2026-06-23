@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import CommentHeader from "./CommentHeader";
-import CommentFilters from "./CommentFilters";
-import CommentCard from "./CommentCard";
-import CommentReplyModal from "./CommentReplyModal";
+import CommentHeader from "./CommentHeader.jsx";
+import CommentFilters from "./CommentFilters.jsx";
+import CommentCard from "./CommentCard.jsx";
+import CommentReplyModal from "./CommentReplyModal.jsx";
 
 const ManageComments = () => {
   // دیتای ماک کامنت‌ها منطبق بر ساختار پروژه شما

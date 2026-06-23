@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import UserHeader from "./UserHeader";
-import UserFilters from "./UserFilters";
-import UserTable from "./UserTable";
-import DeleteConfirmModal from "./DeleteConfirmModal";
+import UserHeader from "./UserHeader.jsx";
+import UserFilters from "./UserFilters.jsx";
+import UserTable from "./UserTable.jsx";
+import DeleteConfirmModal from "../DeleteConfirmModal.jsx";
 
 const ManageUsers = () => {
   const [users, setUsers] = useState([

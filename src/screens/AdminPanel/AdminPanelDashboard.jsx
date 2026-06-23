@@ -2,7 +2,7 @@ import React from "react";
 import AdminStats from "./AdminStats";
 import QuickActions from "./QuickActions";
 import PendingCourses from "./PendingCourses";
-import RecentUsers from "./RecentUsers";
+import RecentUsers from "./user/RecentUsers.jsx";
 
 const AdminPanelDashboard = () => {
   return (

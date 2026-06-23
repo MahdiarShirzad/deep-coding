@@ -33,8 +33,9 @@ import TeacherDashboard from "../screens/TeacherPanel/TeacherDashboard";
 import TeacherEditProfile from "../screens/TeacherPanel/TeacherEditProfile";
 import TeachersCourses from "../screens/TeacherPanel/TeachersCourses";
 import AdminPanelDashboard from "../screens/AdminPanel/AdminPanelDashboard";
-import ManageUsers from "../screens/AdminPanel/ManageUsers";
-import ManageComments from "../screens/AdminPanel/ManageComments";
+import ManageUsers from "../screens/AdminPanel/user/ManageUsers.jsx";
+import ManageComments from "../screens/AdminPanel/comment/ManageComments.jsx";
+import ManageCourses from "../screens/AdminPanel/course/ManageCourses.jsx";
 
 const Layout = ({ children }) => {
   return (
@@ -93,6 +94,7 @@ const App = () => {
               <Route path="dashboard" element={<AdminPanelDashboard />} />
               <Route path="users" element={<ManageUsers />} />
               <Route path="comments" element={<ManageComments />} />
+              <Route path="courses" element={<ManageCourses />} />
             </Route>
           </Route>
         </Routes>
