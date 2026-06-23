@@ -28,7 +28,7 @@ const HeaderLeft = () => {
     switch (role) {
       case "admin":
         return [
-          { to: "/admin-panel", label: "داشبورد" },
+          { to: "/admin-panel/dashboard", label: "داشبورد" },
           { to: "/admin-panel/users", label: "مدیریت کاربران" },
           { to: "/admin-panel/comments", label: "مدیریت کامنت‌ها" },
           { to: "/admin-panel/courses", label: "دوره ها" },

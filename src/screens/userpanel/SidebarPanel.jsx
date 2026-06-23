@@ -177,7 +177,7 @@ const SidebarPanel = ({ role }) => {
       case "admin":
         return [
           {
-            to: "/admin-panel",
+            to: "/admin-panel/dashboard",
             label: "داشبورد مدیریت",
             icon: <DashboardIcon />,
             end: true,

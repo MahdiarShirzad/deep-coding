@@ -32,6 +32,8 @@ import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
 import TeacherDashboard from "../screens/TeacherPanel/TeacherDashboard";
 import TeacherEditProfile from "../screens/TeacherPanel/TeacherEditProfile";
 import TeachersCourses from "../screens/TeacherPanel/TeachersCourses";
+import AdminPanelDashboard from "../screens/AdminPanel/AdminPanelDashboard";
+import ManageUsers from "../screens/AdminPanel/ManageUsers";
 
 const Layout = ({ children }) => {
   return (
@@ -86,7 +88,10 @@ const App = () => {
           </Route>
 
           <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
-            <Route path="/admin-panel/*" element={<AdminPanel />} />
+            <Route path="/admin-panel/*" element={<AdminPanel />}>
+              <Route path="dashboard" element={<AdminPanelDashboard />} />
+              <Route path="users" element={<ManageUsers />} />
+            </Route>
           </Route>
         </Routes>
       </Layout>
