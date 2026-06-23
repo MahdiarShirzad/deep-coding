@@ -53,7 +53,10 @@ const ManageCourses = () => {
   console.log("🚀 Main Dashboard Rendered");
 
   return (
-    <div className="p-6 bg-[#070a13] min-h-screen text-slate-200" dir="rtl">
+    <div
+      className="p-6 rounded-xl bg-[#070a13] min-h-screen text-slate-200"
+      dir="rtl"
+    >
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-xl font-bold text-white">مدیریت دوره‌ها</h1>

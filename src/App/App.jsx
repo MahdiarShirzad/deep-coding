@@ -36,6 +36,8 @@ import AdminPanelDashboard from "../screens/AdminPanel/AdminPanelDashboard";
 import ManageUsers from "../screens/AdminPanel/user/ManageUsers.jsx";
 import ManageComments from "../screens/AdminPanel/comment/ManageComments.jsx";
 import ManageCourses from "../screens/AdminPanel/course/ManageCourses.jsx";
+import ManageBlogs from "../screens/AdminPanel/blog/ManageBlogs.jsx";
+import ManageBook from "../screens/AdminPanel/book/ManageBook.jsx";
 
 const Layout = ({ children }) => {
   return (
@@ -95,6 +97,8 @@ const App = () => {
               <Route path="users" element={<ManageUsers />} />
               <Route path="comments" element={<ManageComments />} />
               <Route path="courses" element={<ManageCourses />} />
+              <Route path="blogs" element={<ManageBlogs />} />
+              <Route path="books" element={<ManageBook />} />
             </Route>
           </Route>
         </Routes>
