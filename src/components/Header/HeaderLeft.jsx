@@ -35,7 +35,7 @@ const HeaderLeft = () => {
         ];
       case "teacher":
         return [
-          { to: "/teacher-panel", label: "داشبورد" },
+          { to: "/teacher-panel/dashboard", label: "داشبورد" },
           { to: "/teacher-panel/my-courses", label: "دوره‌های مدرس" },
           { to: "/teacher-panel/edit-profile", label: "ویرایش پروفایل" },
         ];

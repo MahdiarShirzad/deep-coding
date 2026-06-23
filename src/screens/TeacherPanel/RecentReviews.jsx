@@ -1,7 +1,6 @@
 import React from "react";
 
 const RecentReviews = () => {
-  // دیتای فیک برای نظرات اخیر دوره‌ها
   const reviews = [
     {
       id: 1,

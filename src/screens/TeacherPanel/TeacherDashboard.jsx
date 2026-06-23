@@ -2,7 +2,7 @@ import React from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import TeacherStats from "./TeacherStats";
 import RevenueChart from "./RevenueChart";
-import TeacherCourses from "./TeacherCourses";
+// import TeacherCourses from "./TeachersCourses";
 import RecentReviews from "./RecentReviews";
 import UserInformation from "../userpanel/dashboard/UserInformation";
 
@@ -54,7 +54,7 @@ const TeacherDashboard = () => {
         {/* ستون اصلی (سمت راست - عریض): نمودار ۱۲ ماهه و مدیریت دوره‌ها */}
         <div className="lg:col-span-2 space-y-8">
           <RevenueChart />
-          <TeacherCourses teacherCourses={teacherCourses} />
+          {/* <TeacherCourses teacherCourses={teacherCourses} /> */}
         </div>
 
         {/* ستون فرعی (سمت چپ - باریک): اطلاعات کاربر و نظرات اخیر */}
