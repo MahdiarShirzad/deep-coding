@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import CourseHeader from "./CourseHeader";
-import CourseFormModal from "./CourseFormModal";
+import AddCourseFormModal from "./AddCourseFormModal";
 import CourseDeleteModal from "./CourseDeleteModal";
 import TeacherCourseCard from "./TeacherCourseCard";
 import { getCoursesByteacher } from "../../services/apiTeachers";
@@ -83,7 +83,7 @@ const TeachersCourses = () => {
         ))}
       </div>
 
-      <CourseFormModal
+      <AddCourseFormModal
         isOpen={isFormModalOpen}
         onClose={() => setIsFormModalOpen(false)}
         onSubmit={handleSaveCourse}

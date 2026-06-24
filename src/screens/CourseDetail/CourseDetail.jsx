@@ -57,7 +57,7 @@ const CourseDetail = () => {
           </div>
 
           <div className="w-full lg:w-[380px] shrink-0 relative">
-            <div className="sticky top-8 lg:-mt-32 z-10">
+            <div className="sticky top-28 lg:-mt-52 z-10 ">
               <CoursePreview selectedCourse={selectedCourse} />
             </div>
           </div>

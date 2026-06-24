@@ -38,7 +38,7 @@ export const EMPTY_COURSE_FORM = {
   sections: [],
 };
 
-const CourseFormModal = ({
+const AddCourseFormModal = ({
   isOpen,
   onClose,
   onSubmit,
@@ -700,4 +700,4 @@ const CourseFormModal = ({
   );
 };
 
-export default CourseFormModal;
+export default AddCourseFormModal;

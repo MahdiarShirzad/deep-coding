@@ -35,7 +35,7 @@ const TeacherCourseCard = ({ course, onEditClick, onDeleteClick }) => {
 
       <div className="flex items-center gap-2 w-full sm:w-auto justify-end border-t border-slate-800/60 sm:border-0 pt-3 sm:pt-0">
         <button
-          onClick={() => onEditClick(course)}
+          // onClick={() => onEditClick(course)}
           className="bg-slate-800 hover:bg-slate-700 border border-slate-700/50 text-cyan-400 text-xs px-4 py-2.5 rounded-xl transition-colors flex items-center gap-1 flex-1 sm:flex-none justify-center"
         >
           🛠️ ویرایش
