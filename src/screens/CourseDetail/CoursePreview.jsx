@@ -1,38 +1,20 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import ReactPlayer from "react-player";
-// import { useSelector } from "react-redux";
-// import { updateUser } from "../../services/apiAuth";
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
 import { addToCart } from "../../services/apiCart";
 
 const CoursePreview = ({ selectedCourse }) => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const playerRef = useRef(null);
-
   const queryClient = useQueryClient();
 
   const cart = queryClient.getQueryData(["cart"]) ?? [];
   const isInCart = cart.some((item) => item?._id === selectedCourse?._id);
 
   const formattedPrice = selectedCourse?.price
-    .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const scrollThreshold = 260;
-      setIsScrolled(scrollPosition > scrollThreshold);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+    ?.toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // تغییر . به , برای خوانایی بهتر اعداد فارسی
 
   const addToCartHandler = async () => {
     try {
@@ -42,30 +24,24 @@ const CoursePreview = ({ selectedCourse }) => {
         });
         return;
       }
-
       const updatedCart = await addToCart(selectedCourse._id);
-
       queryClient.setQueryData(["cart"], updatedCart);
       queryClient.invalidateQueries(["user"]);
-
-      toast.success("دوره به سبد خرید اضافه شد!", { position: "top-center" });
+      toast.success("دوره با موفقیت به سبد خرید اضافه شد!", {
+        position: "top-center",
+      });
     } catch (err) {
       toast.error("خطا در افزودن به سبد خرید!");
     }
   };
 
   return (
-    <div
-      className={` ${
-        !isScrolled
-          ? `lg:absolute lg:top-14 lg:left-[70px] max-lg:block `
-          : "md:fixed top-2 max-2xl:left-[65px] left-[180px] max-lg:block"
-      } rounded-lg bg-white text-black w-[350px] shadow-md shadow-gray-100 z-[300] mx-auto mt-16   max-lg:w-[600px]  transition-none max-md:w-96`}
-    >
-      <div className=" w-full h-48 max-md:w-96 ">
+    <div className="bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden">
+      {/* بخش ویدیو */}
+      <div className="w-full aspect-video bg-slate-900 relative">
         <ReactPlayer
           ref={playerRef}
-          className=" w-full rounded-xl h-full block"
+          className="absolute top-0 left-0 w-full h-full"
           url={selectedCourse?.introductionVideo}
           playing={isPlaying}
           controls={true}
@@ -73,30 +49,51 @@ const CoursePreview = ({ selectedCourse }) => {
           height="100%"
           onPlay={() => setIsPlaying(true)}
           onPause={() => setIsPlaying(false)}
+          light={true} // اختیاری: اضافه کردن پوستر پیش‌نمایش به جای لود کردن کامل ویدیو در ابتدا
         />
       </div>
-      <div className=" flex mt-3 gap-2 text-xl font-medium mr-3">
-        <span className=" font-semibold">
-          {selectedCourse?.price === 0 ? "رایگان" : formattedPrice}
-        </span>
-        {selectedCourse?.price !== 0 && <span>تومان</span>}
-      </div>
-      <button
-        onClick={addToCartHandler}
-        disabled={isInCart}
-        className={`bg-violet-600 mt-3 w-[300px] block mx-auto py-3 rounded-md text-white ${
-          isInCart ? "opacity-50 cursor-not-allowed" : ""
-        }`}
-      >
-        افزودن به سبد خرید
-      </button>
-      <div className=" mr-3 mt-8 mb-6">
-        <p>این دوره شامل:</p>
-        <ul className=" text-[13px] mt-2 mr-2">
-          <li>✔️{selectedCourse?.time} ساعت آموزش</li>
-          <li>✔️ پروژه‌های واقعی و کاربردی</li>
-          <li> ✔️ گواهی پایان دوره</li>
-        </ul>
+
+      {/* بخش اطلاعات و قیمت */}
+      <div className="p-6">
+        <div className="flex items-center gap-2 mb-6 text-slate-800">
+          <span className="text-3xl font-bold">
+            {selectedCourse?.price === 0 ? "رایگان" : formattedPrice}
+          </span>
+          {selectedCourse?.price !== 0 && (
+            <span className="text-lg text-slate-500">تومان</span>
+          )}
+        </div>
+
+        <button
+          onClick={addToCartHandler}
+          disabled={isInCart}
+          className={`w-full py-3.5 rounded-xl text-white font-medium text-lg transition-all duration-300 
+            ${
+              isInCart
+                ? "bg-slate-400 cursor-not-allowed"
+                : "bg-violet-600 hover:bg-violet-700 hover:shadow-lg hover:shadow-violet-600/20 active:scale-[0.98]"
+            }`}
+        >
+          {isInCart ? "موجود در سبد خرید" : "افزودن به سبد خرید"}
+        </button>
+
+        <div className="mt-8 space-y-4">
+          <p className="font-semibold text-slate-800 text-lg">این دوره شامل:</p>
+          <ul className="space-y-3 text-sm text-slate-600">
+            <li className="flex items-center gap-3">
+              <span className="text-violet-600 text-xl">✓</span>
+              <span>{selectedCourse?.time} ساعت آموزش ویدیویی</span>
+            </li>
+            <li className="flex items-center gap-3">
+              <span className="text-violet-600 text-xl">✓</span>
+              <span>پروژه‌های واقعی و کاربردی برای بازار کار</span>
+            </li>
+            <li className="flex items-center gap-3">
+              <span className="text-violet-600 text-xl">✓</span>
+              <span>ارائه گواهی معتبر پایان دوره</span>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );

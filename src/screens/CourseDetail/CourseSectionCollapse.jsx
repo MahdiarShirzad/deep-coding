@@ -1,82 +1,96 @@
 import React, { useEffect, useRef, useState } from "react";
 
 const CourseSectionCollapse = ({ sections }) => {
-  return sections?.map((item) => {
-    return <Unit item={item} key={item._id} />;
-  });
+  return sections?.map((item, index) => (
+    <Unit item={item} key={item._id || index} />
+  ));
 };
 
-const Unit = (props) => {
-  const [rotate, setRotate] = useState(0);
-  const { item } = props;
+const Unit = ({ item }) => {
   const [open, setOpen] = useState(false);
   const contentRef = useRef(null);
 
   useEffect(() => {
-    contentRef.current.style.height = open
-      ? `${contentRef.current.scrollHeight}px`
-      : "0px";
-    setRotate(open ? -90 : 0);
+    if (contentRef.current) {
+      contentRef.current.style.height = open
+        ? `${contentRef.current.scrollHeight}px`
+        : "0px";
+    }
   }, [open]);
 
-  const onClickHandler = () => {
-    setOpen(!open);
-  };
-
   return (
-    <div className=" block">
-      <section className="wrapper w-full bg-gray-200  text-black px-10 py-3 rounded-md my-2   font-yekanReg text-base cursor-pointer ">
+    <div className="border border-slate-200 rounded-xl overflow-hidden bg-white">
+      {/* هدر آکاردئون */}
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between px-5 py-4 bg-slate-50 hover:bg-slate-100 transition-colors duration-200 focus:outline-none"
+      >
+        <h4 className="text-base sm:text-lg font-semibold text-slate-800 text-right">
+          {item?.title}
+        </h4>
         <div
-          className=" flex items-center justify-between "
-          onClick={onClickHandler}
+          className={`transform transition-transform duration-300 text-slate-500 shrink-0 ${
+            open ? "rotate-180" : "rotate-0"
+          }`}
         >
-          <h4 className="m-0  text-lg">{item?.title}</h4>
-          <div>
-            <svg
-              className="w-[24px] transition-transform transform"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              style={{ transform: `rotate(${rotate}deg)` }}
-            >
-              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-              <g
-                id="SVGRepo_tracerCarrier"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></g>
-              <g id="SVGRepo_iconCarrier">
-                <path
-                  d="M14.9991 19L9.83911 14C9.56672 13.7429 9.34974 13.433 9.20142 13.0891C9.0531 12.7452 8.97656 12.3745 8.97656 12C8.97656 11.6255 9.0531 11.2548 9.20142 10.9109C9.34974 10.567 9.56672 10.2571 9.83911 10L14.9991 5"
-                  stroke="#000000"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></path>{" "}
-              </g>
-            </svg>
-          </div>
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 9l-7 7-7-7"
+            />
+          </svg>
         </div>
-        <ul
-          className="mt-4 text-sm h-0 overflow-hidden transition-[0.5s] text-gray-700 ease-in"
-          ref={contentRef}
-        >
-          {item?.lessons.map((lesson, index) => (
-            <li key={lesson._id} className="my-2 flex justify-between">
-              <span
-                className="textlg
-              "
-              >
-                {index + 1}. {lesson.title}
-              </span>
+      </button>
 
-              <span className="text-md text-gray-500">
+      {/* محتوای آکاردئون */}
+      <div
+        ref={contentRef}
+        className="h-0 overflow-hidden transition-all duration-300 ease-in-out bg-white"
+      >
+        <ul className="px-5 py-2 divide-y divide-slate-100">
+          {item?.lessons?.map((lesson, index) => (
+            <li
+              key={lesson._id || index}
+              className="py-3 flex items-center justify-between text-slate-600 hover:text-violet-600 transition-colors"
+            >
+              <div className="flex items-center gap-3">
+                <svg
+                  className="w-5 h-5 text-slate-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <span className="text-sm sm:text-base">
+                  {index + 1}. {lesson.title}
+                </span>
+              </div>
+              <span className="text-sm text-slate-400 font-medium shrink-0">
                 {lesson.duration} دقیقه
               </span>
             </li>
           ))}
         </ul>
-      </section>
+      </div>
     </div>
   );
 };

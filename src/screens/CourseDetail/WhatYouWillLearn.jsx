@@ -1,34 +1,38 @@
+import React from "react";
+
 const WhatYouWillLearn = ({ selectedCourse }) => {
   const willLearn = selectedCourse?.willLearn;
 
+  if (!willLearn || willLearn.length === 0) return null;
+
   return (
-    <div className="mt-16 font-iransans">
-      <div className="container max-w-[1320px] mx-auto">
-        <div className="border w-3/5 px-6 py-8 max-md:w-full max-md:mx-4 rounded-xl bg-white">
-          <p className="text-2xl font-bold text-gray-900">
-            چیزی که یاد خواهید گرفت
-          </p>
+    <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-100 font-iransans">
+      <h2 className="text-2xl font-bold text-slate-800 mb-6">
+        در این دوره چه می‌آموزید؟
+      </h2>
 
-          <div className="relative mt-6">
-            <div className="absolute right-2 top-0 h-full w-[2px] bg-gray-200"></div>
-
-            <ul className="flex flex-col gap-4 pr-6">
-              {willLearn?.map((learn, index) => (
-                <li
-                  key={index}
-                  className="flex items-start gap-3 group transition-all duration-200"
-                >
-                  <span className="mt-2 w-3 h-3 rounded-full bg-[#4f46e5] group-hover:scale-125 transition"></span>
-
-                  <p className="text-[17px] text-gray-700 leading-7 group-hover:text-black transition">
-                    {learn}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </div>
+      <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+        {willLearn.map((learn, index) => (
+          <li key={index} className="flex items-start gap-3 group">
+            <svg
+              className="w-6 h-6 text-violet-600 shrink-0 mt-0.5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+            <p className="text-[15px] sm:text-base text-slate-600 leading-relaxed group-hover:text-slate-900 transition-colors">
+              {learn}
+            </p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

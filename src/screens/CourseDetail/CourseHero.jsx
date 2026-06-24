@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import RenderStars from "../../components/RenderStars/RenderStars";
-import CoursePreview from "./CoursePreview";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import RenderStars from "../../components/RenderStars/RenderStars";
 import { addToWishlist, getUsersWishlist } from "../../services/apiWishlist";
 
 const CourseHero = ({ selectedCourse }) => {
@@ -12,7 +11,6 @@ const CourseHero = ({ selectedCourse }) => {
   useEffect(() => {
     const fetchWishlist = async () => {
       if (!selectedCourse?._id) return;
-
       try {
         const wishlist = await getUsersWishlist();
         const isAdded = wishlist.some(
@@ -24,17 +22,14 @@ const CourseHero = ({ selectedCourse }) => {
         console.error("Failed to fetch wishlist status");
       }
     };
-
     fetchWishlist();
   }, [selectedCourse?._id]);
 
   const handleAddToWishlist = async () => {
     if (!selectedCourse?._id || isInWishlist) return;
-
     try {
       setIsLoading(true);
       await addToWishlist(selectedCourse._id);
-
       setIsInWishlist(true);
     } catch (error) {
       console.error("Failed:", error);
@@ -43,132 +38,118 @@ const CourseHero = ({ selectedCourse }) => {
     }
   };
 
-  const item = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.4 },
-    },
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
 
   return (
     <motion.div
-      className=" bg-gray-800 text-white font-iransans py-14"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
+      className="max-w-[1320px] mx-auto px-4 sm:px-8 py-7 lg:py-7"
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
     >
-      <motion.div
-        className=" max-w-[1320px] container mx-auto relative max-xl:px-8 max-lg:flex-col max-lg:items-center max-lg:justify-center max-lg:gap-10"
-        // variants={container}
-        initial="hidden"
-        animate="visible"
-      >
-        <div className=" w-3/5 max-lg:mx-auto max-md:w-full">
-          <motion.h1 variants={item} className=" text-right text-3xl font-bold">
-            {selectedCourse?.name}
-          </motion.h1>
+      <div className="lg:w-2/3 w-full space-y-6">
+        <motion.h1
+          variants={itemVariants}
+          className="text-3xl lg:text-4xl font-bold leading-relaxed text-white"
+        >
+          {selectedCourse?.name}
+        </motion.h1>
 
-          <motion.p
-            variants={item}
-            className=" mt-5 text-gray-300 text-justify"
+        <motion.p
+          variants={itemVariants}
+          className="text-slate-300 text-lg leading-loose text-justify"
+        >
+          {selectedCourse?.desc}
+        </motion.p>
+
+        <motion.div
+          variants={itemVariants}
+          className="flex flex-wrap gap-4 items-center pt-4"
+        >
+          <div className="flex gap-1 items-center bg-slate-800 px-3 py-1.5 rounded-full">
+            <RenderStars rating={selectedCourse?.ratingsAverage} />
+            <span className="text-[#fcc419] font-bold mr-2">
+              {selectedCourse?.ratingsAverage}
+            </span>
+          </div>
+          <p className="text-sm text-slate-300">
+            ({selectedCourse?.ratingsQuantity} رای)
+          </p>
+          <span className="w-1.5 h-1.5 rounded-full bg-slate-600 hidden sm:block"></span>
+          <p className="text-sm text-slate-300">۱۳۷۶ دانشجو</p>
+        </motion.div>
+
+        <motion.div
+          variants={itemVariants}
+          className="flex items-center gap-2 text-slate-300 pt-2"
+        >
+          <span>مدرس:</span>
+          <Link
+            to={`/teacher-info/${selectedCourse?.teacher?._id}`}
+            className="text-fuchsia-400 hover:text-fuchsia-300 transition-colors font-medium"
           >
-            {selectedCourse?.desc}
-          </motion.p>
+            {selectedCourse?.teacher?.fullName}
+          </Link>
+        </motion.div>
 
-          <motion.div
-            variants={item}
-            className=" flex gap-2 items-center  mt-12"
-          >
-            <div className="flex gap-1 items-center">
-              <RenderStars rating={selectedCourse?.ratingsAverage} />
-            </div>
-            <p className=" text-[#fcc419]">{selectedCourse?.ratingsAverage}</p>
-            <p className=" text-sm mr-2">
-              ({selectedCourse?.ratingsQuantity} رای)
-            </p>
-            <p className="text-sm mr-3">1376 دانش آموز</p>
-          </motion.div>
-
-          <motion.div variants={item} className=" flex items-center gap-2 mt-4">
-            <p>مدرس :</p>
-            <Link to={`/teacher-info/${selectedCourse?.teacher?._id}`}>
-              <p className=" text-fuchsia-400">
-                {selectedCourse?.teacher?.fullName}
-              </p>
-            </Link>
-          </motion.div>
-
-          <motion.button
-            variants={item}
-            whileHover={!isLoading && !isInWishlist ? { scale: 1.05 } : {}}
-            whileTap={!isLoading && !isInWishlist ? { scale: 0.95 } : {}}
+        <motion.div variants={itemVariants} className="pt-6">
+          <button
             onClick={handleAddToWishlist}
-            // دکمه در صورت لودینگ یا موجود بودن در لیست غیرفعال میشه
             disabled={isLoading || isInWishlist}
-            className={`mt-4  flex gap-2 items-center border px-3 py-2 rounded-lg transition-colors
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-xl transition-all duration-300 font-medium
                ${
                  isInWishlist
-                   ? "bg-green-600 text-white border-green-600 cursor-not-allowed opacity-80"
-                   : "bg-slate-200 text-black hover:bg-slate-300"
+                   ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 cursor-not-allowed"
+                   : "bg-white/10 text-white hover:bg-white/20 border border-white/10"
                }`}
           >
-            {/* تغییر آیکون به تیک در صورت موجود بودن در لیست */}
             {isInWishlist ? (
               <svg
-                className="w-[30px]"
+                className="w-5 h-5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
                   d="M5 13l4 4L19 7"
-                ></path>
+                />
               </svg>
             ) : (
               <svg
-                className="w-[30px]"
+                className="w-5 h-5"
                 viewBox="0 0 64 64"
                 fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+                stroke="currentColor"
               >
-                <g strokeWidth="0"></g>
-                <g strokeLinecap="round" strokeLinejoin="round"></g>
-                <g>
-                  <path
-                    d="M30.051 45.6071L17.851 54.7401C17.2728 55.1729 16.5856 55.4363 15.8662 55.5008C15.1468 55.5652 14.4237 55.4282 13.7778 55.1049C13.1319 54.7817 12.5887 54.2851 12.209 53.6707C11.8293 53.0563 11.6281 52.3483 11.628 51.626V15.306C11.628 13.2423 12.4477 11.2631 13.9069 9.8037C15.3661 8.34432 17.3452 7.52431 19.409 7.52405H45.35C47.4137 7.52431 49.3929 8.34432 50.8521 9.8037C52.3112 11.2631 53.131 13.2423 53.131 15.306V51.625C53.1309 52.3473 52.9297 53.0553 52.55 53.6697C52.1703 54.2841 51.6271 54.7807 50.9812 55.1039C50.3353 55.4272 49.6122 55.5642 48.8928 55.4998C48.1734 55.4353 47.4862 55.1719 46.908 54.739L34.715 45.6071C34.0419 45.1031 33.2238 44.8308 32.383 44.8308C31.5422 44.8308 30.724 45.1031 30.051 45.6071V45.6071Z"
-                    stroke="#000"
-                    strokeWidth="4"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </g>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="4"
+                  d="M30.051 45.6071L17.851 54.7401C17.2728 55.1729 16.5856 55.4363 15.8662 55.5008C15.1468 55.5652 14.4237 55.4282 13.7778 55.1049C13.1319 54.7817 12.5887 54.2851 12.209 53.6707C11.8293 53.0563 11.6281 52.3483 11.628 51.626V15.306C11.628 13.2423 12.4477 11.2631 13.9069 9.8037C15.3661 8.34432 17.3452 7.52431 19.409 7.52405H45.35C47.4137 7.52431 49.3929 8.34432 50.8521 9.8037C52.3112 11.2631 53.131 13.2423 53.131 15.306V51.625C53.1309 52.3473 52.9297 53.0553 52.55 53.6697C52.1703 54.2841 51.6271 54.7807 50.9812 55.1039C50.3353 55.4272 49.6122 55.5642 48.8928 55.4998C48.1734 55.4353 47.4862 55.1719 46.908 54.739L34.715 45.6071C34.0419 45.1031 33.2238 44.8308 32.383 44.8308C31.5422 44.8308 30.724 45.1031 30.051 45.6071V45.6071Z"
+                />
               </svg>
             )}
-
-            <p>
+            <span>
               {isInWishlist
-                ? "در علاقه‌مندی‌ها موجود است"
+                ? "موجود در علاقه‌مندی‌ها"
                 : isLoading
                   ? "در حال افزودن..."
-                  : "افزودن به علاقه مندی ها"}
-            </p>
-          </motion.button>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, x: 80 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <CoursePreview selectedCourse={selectedCourse} />
+                  : "افزودن به علاقه‌مندی‌ها"}
+            </span>
+          </button>
         </motion.div>
-      </motion.div>
+      </div>
     </motion.div>
   );
 };

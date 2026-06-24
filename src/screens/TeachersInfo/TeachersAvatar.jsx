@@ -3,10 +3,12 @@ import styles from "./TeachersPage.module.css";
 
 const TeachersAvatar = ({ teacher }) => {
   return (
-    <div
-      className={` ${styles.avatar} border-2 border-[#140342] mx-auto w-[230px] h-[230px] rounded-xl `}
-    >
-      <img src={teacher?.avatar} className=" p-3 w-full h-full" alt="" />
+    <div className="bg-white p-2 sm:p-3 rounded-3xl shadow-sm border border-slate-100 w-full max-w-[280px] lg:max-w-full mx-auto aspect-square overflow-hidden">
+      <img
+        src={teacher?.avatar || "/default-avatar.png"} // اضافه کردن یک عکس پیش‌فرض در صورت نبود آواتار ایده خوبی است
+        className={`${styles.avatar} w-full h-full object-cover rounded-2xl`}
+        alt={teacher?.fullName || "تصویر مدرس"}
+      />
     </div>
   );
 };

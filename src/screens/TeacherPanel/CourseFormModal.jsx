@@ -20,7 +20,6 @@ const TABS = [
   { id: "sections", label: "🗂️ بخش‌ها" },
 ];
 
-// Default empty formData shape — use this when initialising state in the parent
 export const EMPTY_COURSE_FORM = {
   name: "",
   category: "",
@@ -29,8 +28,8 @@ export const EMPTY_COURSE_FORM = {
   price: "",
   discountPrice: "",
   time: "",
-  img: null, // File object
-  introductionVideo: null, // File object
+  img: null,
+  introductionVideo: null,
   desc: "",
   introduction: "",
   willLearn: [""],
