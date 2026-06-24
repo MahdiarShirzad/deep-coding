@@ -11,7 +11,7 @@ const CourseFormModal = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fade-in">
+    <div className="fixed inset-0 z-[50000] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fade-in">
       <div className="bg-slate-900 border border-slate-800 p-6 rounded-2xl w-full max-w-lg shadow-2xl relative">
         <h3 className="text-lg font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400">
           {modalMode === "add" ? "✨ ایجاد دوره جدید" : "🛠️ ویرایش مشخصات دوره"}

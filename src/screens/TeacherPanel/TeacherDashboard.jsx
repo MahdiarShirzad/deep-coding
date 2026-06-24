@@ -1,9 +1,10 @@
 import React from "react";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import TeacherStats from "./TeacherStats";
 import RevenueChart from "./RevenueChart";
 import RecentReviews from "./RecentReviews";
 import UserInformation from "../userpanel/dashboard/UserInformation";
+import { getCoursesByteacher } from "../../services/apiTeachers";
 
 const TeacherDashboard = () => {
   const queryClient = useQueryClient();
@@ -11,7 +12,20 @@ const TeacherDashboard = () => {
   const queryData = queryClient.getQueryData(["user"]);
   const user = queryData?.json ? queryData.json : queryData;
 
-  const teacherCourses = user?.taughtCourses || [];
+  const {
+    data: coursesData,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["teacher-courses", user?._id],
+    queryFn: () => getCoursesByteacher(user._id),
+    enabled: !!user?._id,
+  });
+  console.log(coursesData);
+
+  const courses = coursesData?.data.courses;
+
+  // const teacherCourses = user?.taughtCourses || [];
 
   return (
     <div className="w-full px-6 max-md:px-3 font-iransans pb-10">
@@ -42,7 +56,7 @@ const TeacherDashboard = () => {
       </div>
 
       <div className="mb-8">
-        <TeacherStats coursesCount={teacherCourses.length} />
+        <TeacherStats coursesCount={courses?.length} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
