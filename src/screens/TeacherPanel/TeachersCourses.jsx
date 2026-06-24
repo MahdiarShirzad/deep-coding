@@ -3,34 +3,36 @@ import CourseHeader from "./CourseHeader";
 import CourseFormModal from "./CourseFormModal";
 import CourseDeleteModal from "./CourseDeleteModal";
 import TeacherCourseCard from "./TeacherCourseCard";
+import { getCoursesByteacher } from "../../services/apiTeachers";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { deleteCourse } from "../../services/apiCourses";
 
 const TeachersCourses = () => {
-  const [courses, setCourses] = useState([
-    {
-      id: "1",
-      name: "دوره جامع Deep Coding (React & Node.js)",
-      price: 4500000,
-      studentsCount: 142,
-      status: "published",
-      img: "https://via.placeholder.com/150/0f172a/ffffff?text=Deep+Coding",
+  const queryClient = useQueryClient();
+
+  const teacher = queryClient.getQueryData(["user"]);
+
+  const {
+    data: coursesData,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["teacher-courses", teacher?._id],
+    queryFn: () => getCoursesByteacher(teacher._id),
+    enabled: !!teacher?._id,
+  });
+
+  const { mutate: deleCourseMutate, isPending } = useMutation({
+    mutationFn: deleteCourse,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["courses"] });
+      queryClient.invalidateQueries({ queryKey: ["teacher-courses"] });
     },
-    {
-      id: "2",
-      name: "متخصص Next.js پیشرفته و معماری فرانت‌ند",
-      price: 3800000,
-      studentsCount: 98,
-      status: "published",
-      img: "https://via.placeholder.com/150/0f172a/ffffff?text=Next.js",
-    },
-    {
-      id: "3",
-      name: "آموزش جامع Clean Code و دیزاین پترن‌ها",
-      price: 1900000,
-      studentsCount: 0,
-      status: "draft",
-      img: "https://via.placeholder.com/150/0f172a/ffffff?text=Clean+Code",
-    },
-  ]);
+  });
+
+  const courses = coursesData?.data?.courses ?? [];
+
+  // console.log(courses);
 
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -49,13 +51,6 @@ const TeachersCourses = () => {
   };
 
   const handleOpenEditModal = (course) => {
-    setModalMode("edit");
-    setSelectedCourse(course);
-    setFormData({
-      name: course.name,
-      price: course.price,
-      status: course.status,
-    });
     setIsFormModalOpen(true);
   };
 
@@ -65,31 +60,11 @@ const TeachersCourses = () => {
   };
 
   const handleSaveCourse = (e) => {
-    e.preventDefault();
-    if (modalMode === "add") {
-      const newCourse = {
-        id: Date.now().toString(),
-        name: formData.name,
-        price: Number(formData.price),
-        studentsCount: 0,
-        status: formData.status,
-        img: "https://via.placeholder.com/150/0f172a/ffffff?text=New+Course",
-      };
-      setCourses([...courses, newCourse]);
-    } else {
-      setCourses(
-        courses.map((c) =>
-          c.id === selectedCourse.id
-            ? { ...c, ...formData, price: Number(formData.price) }
-            : c,
-        ),
-      );
-    }
     setIsFormModalOpen(false);
   };
 
-  const handleDeleteCourse = () => {
-    setCourses(courses.filter((c) => c.id !== selectedCourse.id));
+  const handleDeleteCourse = (id) => {
+    deleCourseMutate(id);
     setIsDeleteModalOpen(false);
   };
 
@@ -122,6 +97,7 @@ const TeachersCourses = () => {
         onClose={() => setIsDeleteModalOpen(false)}
         onConfirm={handleDeleteCourse}
         courseName={selectedCourse?.name}
+        courseId={selectedCourse?._id}
       />
     </div>
   );

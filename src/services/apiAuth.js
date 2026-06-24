@@ -54,9 +54,17 @@ export function logout() {
 export async function updateUser(updates, avatarFile) {
   if (avatarFile) {
     const formData = new FormData();
+
     Object.entries(updates).forEach(([key, value]) => {
-      if (value !== undefined && value !== null) formData.append(key, value);
+      if (value === undefined || value === null) return;
+
+      if (typeof value === "object" && !(value instanceof File)) {
+        formData.append(key, JSON.stringify(value));
+      } else {
+        formData.append(key, value);
+      }
     });
+
     formData.append("avatar", avatarFile);
 
     const data = await apiRequest("/users/updateMe", {

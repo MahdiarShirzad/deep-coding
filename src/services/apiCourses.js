@@ -1,3 +1,7 @@
+import axios from "axios";
+import { toast } from "react-toastify";
+import { apiRequest } from "./apiClient";
+
 const API_URL = import.meta.env.VITE_API_URL;
 
 export const getCourses = async (queryParams = {}) => {
@@ -41,4 +45,18 @@ export const getCourse = async (id) => {
 
   const result = await res.json();
   return result.data.course;
+};
+
+export const deleteCourse = async (id) => {
+  try {
+    await apiRequest(`/courses/${id}`, {
+      method: "DELETE",
+    });
+    toast.success("دوره حذف شد");
+  } catch (err) {
+    console.log(err);
+
+    toast.error("حذف انجام نشد");
+    throw err;
+  }
 };

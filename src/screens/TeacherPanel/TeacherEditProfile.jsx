@@ -1,36 +1,25 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useQueryClient } from "@tanstack/react-query";
+import { updateUser } from "../../services/apiAuth";
+import { toast } from "react-toastify";
 
 const TeacherEditProfile = () => {
-  // ۱. دیتای مدرس منطبق بر ساختار دیتابیس مونگو شما
-  const teacherData = {
-    _id: "6a27c3e535f29f88f0abd792",
-    fullName: "Mahdiar Shirzad",
-    email: "mahdiar@example.com",
-    role: "teacher",
-    avatar:
-      "https://deepcoding-assets.s3.ir-thr-at1.arvanstorage.ir/users/avatars/avatar-6a27c3e535f29f88f0abd792-890919ce-0f29-4b1a-9fa8-0f9de9e9af87.webp",
-    phone: "",
-    address: "",
-    teacherInfo: {
-      socialLinks: {
-        github: "",
-        linkedin: "",
-        website: "",
-      },
-      verificationStatus: true,
-      specialty: "توسعه دهنده فرانت‌اند و Node.js",
-    },
-  };
+  const queryClient = useQueryClient();
+
+  const teacherData = queryClient.getQueryData(["user"]);
 
   const [avatarPreview, setAvatarPreview] = useState(
-    teacherData.avatar || null,
+    teacherData?.avatar || null,
   );
 
   const validationSchema = Yup.object({
     fullName: Yup.string().required("نام و نام خانوادگی الزامی است"),
     specialty: Yup.string().required("حوزه تخصص و فعالیت الزامی است"),
+    about: Yup.string()
+      .required("توضیحات درباره مدرس الزامی است")
+      .min(20, "توضیحات درباره شما باید حداقل ۲۰ کاراکتر باشد"),
     phone: Yup.string()
       .matches(/^(\+98|0)?9\d{9}$/, "شماره موبایل وارد شده معتبر نیست")
       .nullable(),
@@ -60,38 +49,55 @@ const TeacherEditProfile = () => {
 
   const formik = useFormik({
     initialValues: {
-      fullName: teacherData.fullName || "",
-      email: teacherData.email || "",
-      phone: teacherData.phone || "",
-      address: teacherData.address || "",
-      specialty: teacherData.teacherInfo?.specialty || "",
-      github: teacherData.teacherInfo?.socialLinks?.github || "",
-      linkedin: teacherData.teacherInfo?.socialLinks?.linkedin || "",
-      website: teacherData.teacherInfo?.socialLinks?.website || "",
-      avatar: null,
+      fullName: teacherData?.fullName || "",
+      email: teacherData?.email || "",
+      phone: teacherData?.phone || "",
+      address: teacherData?.address || "",
+      specialty: teacherData?.teacherInfo?.specialty || "",
+      about: teacherData?.teacherInfo?.about || "",
+      github: teacherData?.teacherInfo?.socialLinks?.github || "",
+      linkedin: teacherData?.teacherInfo?.socialLinks?.linkedin || "",
+      website: teacherData?.teacherInfo?.socialLinks?.website || "",
+      avatar: teacherData?.avatar,
       oldPassword: "",
       newPassword: "",
       confirmPassword: "",
     },
     validationSchema,
-    onSubmit: (values) => {
-      const formData = new FormData();
-      formData.append("fullName", values.fullName);
-      formData.append("phone", values.phone);
-      formData.append("address", values.address);
-      if (values.avatar) formData.append("avatar", values.avatar);
+    onSubmit: async (values, { setSubmitting }) => {
+      try {
+        const updates = {
+          fullName: values.fullName,
+          phone: values.phone,
+          address: values.address,
+          teacherInfo: {
+            specialty: values.specialty,
+            about: values.about,
+            socialLinks: {
+              github: values.github,
+              linkedin: values.linkedin,
+              website: values.website,
+            },
+          },
+        };
 
-      formData.append("teacherInfo[specialty]", values.specialty);
-      formData.append("teacherInfo[socialLinks][github]", values.github);
-      formData.append("teacherInfo[socialLinks][linkedin]", values.linkedin);
-      formData.append("teacherInfo[socialLinks][website]", values.website);
+        if (values.newPassword) {
+          updates.oldPassword = values.oldPassword;
+          updates.newPassword = values.newPassword;
+        }
 
-      if (values.newPassword) {
-        formData.append("oldPassword", values.oldPassword);
-        formData.append("newPassword", values.newPassword);
+        await updateUser(
+          updates,
+          values.avatar instanceof File ? values.avatar : null,
+        );
+
+        queryClient.invalidateQueries({ queryKey: ["user"] });
+        toast.success("پروفایل مدرس با موفقیت ویرایش شد.");
+      } catch (error) {
+        toast.error(error.message || "خطا در به‌روزرسانی");
+      } finally {
+        setSubmitting(false);
       }
-
-      console.log("Teacher Profile Updated Data Form:", values);
     },
   });
 
@@ -115,7 +121,7 @@ const TeacherEditProfile = () => {
               رزومه عمومی، اطلاعات کاربری و سطح دسترسی‌های خود را مدیریت کنید
             </p>
           </div>
-          {teacherData.teacherInfo.verificationStatus && (
+          {teacherData?.teacherInfo?.verificationStatus && (
             <span className="text-xs font-bold text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 px-3 py-1.5 rounded-xl flex items-center gap-1.5">
               🛡️ مدرس احراز هویت شده
             </span>
@@ -176,6 +182,24 @@ const TeacherEditProfile = () => {
                 </div>
               )}
             </div>
+
+            <div className="w-full">
+              <label className="block text-xs font-semibold text-slate-400 mb-2 text-center lg:text-right">
+                درباره مدرس (بیوگرافی)
+              </label>
+              <textarea
+                name="about"
+                rows="5"
+                placeholder="خلاصه‌ای از سوابق، افتخارات و بیوگرافی خود را بنویسید..."
+                className={`w-full bg-slate-950 border ${formik.touched.about && formik.errors.about ? "border-red-500 focus:border-red-500" : "border-slate-800 focus:border-violet-500"} rounded-xl px-4 py-2.5 text-sm focus:outline-none transition-colors resize-none text-slate-100`}
+                {...formik.getFieldProps("about")}
+              />
+              {formik.touched.about && formik.errors.about && (
+                <div className="text-red-400 text-xs mt-1 text-center">
+                  {formik.errors.about}
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="lg:col-span-2 space-y-6">
@@ -211,7 +235,7 @@ const TeacherEditProfile = () => {
 
               <div className="sm:col-span-2">
                 <label className="block text-xs font-medium text-slate-300 mb-2">
-                  شماره تماس ادمین
+                  شماره تماس مدرس
                 </label>
                 <input
                   type="text"
@@ -227,7 +251,7 @@ const TeacherEditProfile = () => {
                 )}
               </div>
             </div>
-
+            1
             <div className="border-t border-slate-800/80 pt-5">
               <h3 className="text-sm font-bold text-cyan-400 mb-4">
                 🔗 شبکه‌های تخصصی و رزومه
@@ -288,7 +312,6 @@ const TeacherEditProfile = () => {
                 </div>
               </div>
             </div>
-
             <div>
               <label className="block text-xs font-medium text-slate-300 mb-2">
                 آدرس سکونت / شرکت
@@ -300,7 +323,6 @@ const TeacherEditProfile = () => {
                 {...formik.getFieldProps("address")}
               />
             </div>
-
             <div className="border-t border-slate-800/80 pt-5">
               <h3 className="text-sm font-bold text-violet-400 mb-4">
                 🔐 تغییر کلمه عبور مدیریت
@@ -365,7 +387,6 @@ const TeacherEditProfile = () => {
                 </div>
               </div>
             </div>
-
             <div className="flex justify-end pt-4 border-t border-slate-800">
               <button
                 type="submit"

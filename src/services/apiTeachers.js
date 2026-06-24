@@ -12,3 +12,16 @@ export const getTeacher = async (id) => {
 
   return result;
 };
+
+export const getCoursesByteacher = async (id) => {
+  const res = await fetch(`${API_URL}/users/teachers/${id}/courses`);
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err?.message);
+  }
+
+  const result = await res.json();
+
+  return result;
+};
