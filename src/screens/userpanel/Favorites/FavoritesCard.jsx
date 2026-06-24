@@ -2,8 +2,32 @@ import { useQueryClient } from "@tanstack/react-query";
 // import { updateUser } from "../../../services/apiAuth";
 // import { toast } from "react-toastify";
 
+import { removeFromWishlist } from "../../../services/apiWishlist";
+import { useState } from "react";
+import { toast } from "react-toastify";
+
 export const FavoritesCard = ({ item }) => {
-  const handleRemoveFromWishlist = async () => {};
+  const queryClient = useQueryClient();
+
+  const [isRemoving, setIsRemoving] = useState(false);
+
+  const handleRemoveFromWishlist = async () => {
+    if (isRemoving) {
+      return;
+    }
+
+    try {
+      await removeFromWishlist(item?._id);
+
+      queryClient.invalidateQueries(["user"]);
+    } catch (error) {
+      toast.error("خطا در حذف");
+
+      console.log(error);
+    } finally {
+      setIsRemoving(false);
+    }
+  };
 
   return (
     <div className="flex flex-col md:flex-row justify-between items-start md:items-center bg-slate-900 border border-slate-800/60 hover:border-slate-700/80 transition-all p-4 rounded-xl gap-4 md:gap-6 backdrop-blur-sm">
@@ -53,6 +77,7 @@ export const FavoritesCard = ({ item }) => {
 
       <div className="w-full md:w-auto flex justify-end md:block border-t border-slate-800/60 pt-3 md:pt-0 md:border-0">
         <button
+          disabled={isRemoving}
           onClick={handleRemoveFromWishlist}
           className="p-2 rounded-lg text-rose-500 hover:text-white hover:bg-rose-500 transition-all duration-200"
           title="حذف از علاقه‌مندی‌ها"

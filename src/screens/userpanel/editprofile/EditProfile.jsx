@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { updateUser } from "../../../services/apiAuth";
+import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 const EditProfile = () => {
-  const userData = {
-    fullName: "Leo Messi",
-    email: "leomessi@example.com",
-    role: "student",
-    avatar: "",
-    phone: "",
-    address: "",
-  };
+  const queryClient = useQueryClient();
+
+  const userData = queryClient.getQueryData(["user"]);
 
   const [avatarPreview, setAvatarPreview] = useState(userData.avatar || null);
 
@@ -44,30 +42,42 @@ const EditProfile = () => {
 
   const formik = useFormik({
     initialValues: {
-      fullName: userData.fullName || "",
-      email: userData.email || "", // غیرقابل تغییر در UI
-      phone: userData.phone || "",
-      address: userData.address || "",
-      avatar: null, // فایل اصلی آپلود شده اینجا قرار می‌گیرد
+      fullName: userData?.fullName || "",
+      email: userData?.email || "",
+      phone: userData?.phone || "",
+      address: userData?.address || "",
+      avatar: userData?.avatar,
       oldPassword: "",
       newPassword: "",
       confirmPassword: "",
     },
     validationSchema,
-    onSubmit: (values) => {
-      // ساخت FormData برای ارسال دیتای ترکیبی (متن + فایل) به بک‌اند
-      const formData = new FormData();
-      formData.append("fullName", values.fullName);
-      formData.append("phone", values.phone);
-      formData.append("address", values.address);
-      if (values.avatar) formData.append("avatar", values.avatar);
-      if (values.newPassword) {
-        formData.append("oldPassword", values.oldPassword);
-        formData.append("newPassword", values.newPassword);
-      }
+    onSubmit: async (values, { setSubmitting }) => {
+      try {
+        const updates = {
+          fullName: values.fullName,
+          phone: values.phone,
+          address: values.address,
+        };
 
-      console.log("Form Data to send:", values);
-      // اینجا تابع apiUpdateProfile(formData) شما صدا زده می‌شود.
+        if (values.newPassword) {
+          updates.oldPassword = values.oldPassword;
+          updates.newPassword = values.newPassword;
+        }
+
+        // Pass the File object as the second argument, not packed into FormData
+        await updateUser(
+          updates,
+          values.avatar instanceof File ? values.avatar : null,
+        );
+
+        queryClient.invalidateQueries({ queryKey: ["user"] });
+        toast.success("پروفایل با موفقیت ویرایش شد.");
+      } catch (error) {
+        toast.error(error.message || "خطا در به‌روزرسانی");
+      } finally {
+        setSubmitting(false);
+      }
     },
   });
 
@@ -78,6 +88,14 @@ const EditProfile = () => {
       setAvatarPreview(URL.createObjectURL(file));
     }
   };
+
+  // const updateUserProfile = async () => {
+  //   try {
+  //     await updateUser();
+
+  //     queryClient.invalidateQueries(["user"]);
+  //   } catch (error) {}
+  // };
 
   return (
     <div className="w-full min-h-screen bg-[#161e2e] text-slate-100 p-4 md:p-8 rounded-xl font-iransans border border-slate-900 flex justify-center items-start">

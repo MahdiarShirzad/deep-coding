@@ -24,7 +24,7 @@ import Dashboard from "../screens/userpanel/dashboard/Dashboard";
 import CourseList from "../screens/userpanel/CoursesList/CourseList";
 import EditProfile from "../screens/userpanel/editprofile/EditProfile";
 import Favorites from "../screens/userpanel/Favorites/Favorites";
-import CourseResume from "../screens/userpanel/CourseResume/CourseResume";
+// import CourseResume from "../screens/userpanel/CourseResume/CourseResume";
 import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";

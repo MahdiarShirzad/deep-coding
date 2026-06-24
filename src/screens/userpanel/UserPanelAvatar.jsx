@@ -44,12 +44,12 @@ const UserPanelAvatar = () => {
 
         <div className="text-center md:text-right space-y-2">
           <div className="flex flex-col md:flex-row items-center gap-3">
-            <h1 className="text-2xl md:text-3xl font-black text-white tracking-wide">
-              {user.fullName || "کاربر"}
-              <span className="text-slate-400 font-medium text-lg md:text-xl">
+            <p className="text-2xl md:text-3xl font-black text-white tracking-wide flex items-center justify-center gap-2">
+              <h1 className="block">{user.fullName || "کاربر"}</h1>
+              <span className="text-slate-400 font-medium text-lg md:text-xl block">
                 عزیز؛
               </span>
-            </h1>
+            </p>
 
             <span
               className={`px-3 py-0.5 rounded-full text-[11px] font-bold tracking-wide border backdrop-blur-md ${roleData.className}`}
