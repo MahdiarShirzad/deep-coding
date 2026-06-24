@@ -95,10 +95,8 @@ const TeachersCourses = () => {
 
   return (
     <div className="w-full px-6 max-md:px-3 font-iransans pb-10 text-white">
-      {/* ۱. هدر صفحه */}
       <CourseHeader onAddClick={handleOpenAddModal} />
 
-      {/* ۲. لیست کارت‌های دوره */}
       <div className="grid grid-cols-1 gap-4">
         {courses.map((course) => (
           <TeacherCourseCard
@@ -110,7 +108,6 @@ const TeachersCourses = () => {
         ))}
       </div>
 
-      {/* ۳. مودال ایجاد و ویرایش */}
       <CourseFormModal
         isOpen={isFormModalOpen}
         onClose={() => setIsFormModalOpen(false)}
@@ -120,7 +117,6 @@ const TeachersCourses = () => {
         setFormData={setFormData}
       />
 
-      {/* ۴. مودال تایید حذف */}
       <CourseDeleteModal
         isOpen={isDeleteModalOpen}
         onClose={() => setIsDeleteModalOpen(false)}

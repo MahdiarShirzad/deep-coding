@@ -22,22 +22,18 @@ const ManageBook = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedBook, setSelectedBook] = useState(null);
 
-  // حذف بهینه منبع با عملکرد آدرس ثابت در حافظه
   const handleDeleteBook = useCallback((id) => {}, []);
 
-  // مدیریت باز شدن مودال ادیت
   const handleEditClick = useCallback((book) => {
     setSelectedBook(book);
     setIsModalOpen(true);
   }, []);
 
-  // مدیریت باز شدن مودال افزودن جدید
   const handleAddClick = () => {
     setSelectedBook(null);
     setIsModalOpen(true);
   };
 
-  // ذخیره نهایی حالت افزودن یا ادیت
   const handleSaveBook = useCallback((formData) => {
     setBooks((prevBooks) => {
       if (formData.id) {
@@ -54,7 +50,6 @@ const ManageBook = () => {
       className="p-6 bg-[#070a13] rounded-xl min-h-screen text-slate-200"
       dir="rtl"
     >
-      {/* هدر کامپوننت */}
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-xl font-bold text-white">
@@ -72,10 +67,8 @@ const ManageBook = () => {
         </button>
       </div>
 
-      {/* ۱. کامپوننت نمایش آمار کل کتاب‌ها */}
       <BookStats totalBooks={books.length} />
 
-      {/* ۲. جدول نمایش کل داده‌ها */}
       <div className="bg-[#111827] border border-slate-800/80 rounded-xl overflow-hidden">
         <table className="w-full text-right border-collapse">
           <thead>
@@ -99,7 +92,6 @@ const ManageBook = () => {
         </table>
       </div>
 
-      {/* ۳. کامپوننت مودال فرم ادمین */}
       <BookModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

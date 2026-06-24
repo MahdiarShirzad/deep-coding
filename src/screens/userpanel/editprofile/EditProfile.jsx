@@ -3,7 +3,6 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 const EditProfile = () => {
-  // دیتای یوزر که از سمت بک‌اند یا Context لود شده است
   const userData = {
     fullName: "Leo Messi",
     email: "leomessi@example.com",
@@ -13,17 +12,14 @@ const EditProfile = () => {
     address: "",
   };
 
-  // استیت برای نمایش آنی پیش‌نمایش آواتار آپلود شده
   const [avatarPreview, setAvatarPreview] = useState(userData.avatar || null);
 
-  // اسکیمای ولیدیشن با Yup
   const validationSchema = Yup.object({
     fullName: Yup.string().required("نام و نام خانوادگی الزامی است"),
     phone: Yup.string()
       .matches(/^(\+98|0)?9\d{9}$/, "شماره موبایل وارد شده معتبر نیست")
       .nullable(),
     address: Yup.string().nullable(),
-    // ولیدیشن شرطی برای تغییر رمز عبور
     oldPassword: Yup.string().when("newPassword", {
       is: (val) => val && val.length > 0,
       then: () =>
@@ -75,19 +71,17 @@ const EditProfile = () => {
     },
   });
 
-  // هندل کردن تغییر فایل آواتار
   const handleAvatarChange = (event) => {
     const file = event.currentTarget.files[0];
     if (file) {
       formik.setFieldValue("avatar", file);
-      setAvatarPreview(URL.createObjectURL(file)); // ایجاد لینک موقت برای پیش‌نمایش
+      setAvatarPreview(URL.createObjectURL(file));
     }
   };
 
   return (
     <div className="w-full min-h-screen bg-[#161e2e] text-slate-100 p-4 md:p-8 rounded-xl font-iransans border border-slate-900 flex justify-center items-start">
       <div className="w-full max-w-4xl bg-[#1f293d] rounded-2xl p-6 md:p-8 shadow-xl border border-slate-800/50">
-        {/* هدر صفحه */}
         <div className="mb-8 border-b border-slate-800 pb-5">
           <h1 className="text-2xl font-black text-white">ویرایش پروفایل</h1>
           <p className="text-xs text-slate-400 mt-1">
@@ -99,7 +93,6 @@ const EditProfile = () => {
           onSubmit={formik.handleSubmit}
           className="grid grid-cols-1 md:grid-cols-3 gap-8"
         >
-          {/* ستون اول: بخش آواتار */}
           <div className="flex flex-col items-center space-y-4 border-b md:border-b-0 md:border-l border-slate-800 pb-6 md:pb-0 md:pl-6">
             <span className="text-sm font-semibold text-slate-300 self-start md:self-center">
               تصویر پروفایل
@@ -118,7 +111,6 @@ const EditProfile = () => {
                     : "U"}
                 </span>
               )}
-              {/* لایه هاور برای آپلود عکس جدید */}
               <label
                 htmlFor="avatar-upload"
                 className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center cursor-pointer transition-opacity duration-300"
@@ -159,9 +151,7 @@ const EditProfile = () => {
             </p>
           </div>
 
-          {/* ستون دوم و سوم: فرم اطلاعات متنی */}
           <div className="md:col-span-2 space-y-6">
-            {/* بخش مشخصات فردی */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-medium text-slate-300 mb-2">

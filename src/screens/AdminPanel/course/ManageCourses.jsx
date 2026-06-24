@@ -22,10 +22,8 @@ const ManageCourses = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
 
-  // بهینه‌سازی رفرنس تابع حذف با useCallback
   const handleDeleteCourse = useCallback((id) => {}, []);
 
-  // بهینه‌سازی رفرنس تابع ادیت
   const handleEditClick = useCallback((course) => {
     setSelectedCourse(course);
     setIsModalOpen(true);
@@ -36,21 +34,16 @@ const ManageCourses = () => {
     setIsModalOpen(true);
   };
 
-  // ذخیره یا آپدیت نهایی
   const handleSaveCourse = useCallback((formData) => {
     setCourses((prevCourses) => {
       if (formData.id) {
-        // حالت ویرایش
         return prevCourses.map((c) => (c.id === formData.id ? formData : c));
       } else {
-        // حالت افزودن جدید
         return [...prevCourses, { ...formData, id: Date.now() }];
       }
     });
     setIsModalOpen(false);
   }, []);
-
-  console.log("🚀 Main Dashboard Rendered");
 
   return (
     <div

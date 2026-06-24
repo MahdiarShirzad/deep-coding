@@ -4,7 +4,8 @@ import Button from "../common/Button/Button";
 import { useLogout } from "../../screens/Login/useLogout";
 import { useQuery } from "@tanstack/react-query";
 import { getCurrentUser } from "../../services/apiAuth";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import scrollToTop from "../../utils/scrollToTop";
 
 const HeaderLeft = () => {
   const { data: user, isLoading } = useQuery({

@@ -19,7 +19,7 @@ const TeacherEditProfile = () => {
         linkedin: "",
         website: "",
       },
-      verificationStatus: true, // فرض می‌کنیم مدرس تایید شده است
+      verificationStatus: true,
       specialty: "توسعه دهنده فرانت‌اند و Node.js",
     },
   };
@@ -28,7 +28,6 @@ const TeacherEditProfile = () => {
     teacherData.avatar || null,
   );
 
-  // ۲. اسکیمای ولیدیشن ارتقا یافته با Yup برای مدرس
   const validationSchema = Yup.object({
     fullName: Yup.string().required("نام و نام خانوادگی الزامی است"),
     specialty: Yup.string().required("حوزه تخصص و فعالیت الزامی است"),
@@ -40,7 +39,6 @@ const TeacherEditProfile = () => {
     linkedin: Yup.string().url("لینک لینکدین معتبر نیست").nullable(),
     website: Yup.string().url("آدرس وب‌سایت معتبر نیست").nullable(),
 
-    // ولیدیشن شرطی پسورد
     oldPassword: Yup.string().when("newPassword", {
       is: (val) => val && val.length > 0,
       then: () => Yup.string().required("وارد کردن رمز عبور قدیمی الزامی است"),
@@ -60,7 +58,6 @@ const TeacherEditProfile = () => {
     }),
   });
 
-  // ۳. مدیریت فرم با فرمیک
   const formik = useFormik({
     initialValues: {
       fullName: teacherData.fullName || "",
@@ -78,14 +75,12 @@ const TeacherEditProfile = () => {
     },
     validationSchema,
     onSubmit: (values) => {
-      // ساخت FormData برای ارسال دیتای ساختاریافته به API بک‌اند
       const formData = new FormData();
       formData.append("fullName", values.fullName);
       formData.append("phone", values.phone);
       formData.append("address", values.address);
       if (values.avatar) formData.append("avatar", values.avatar);
 
-      // ساختار آبجکت تnested برای فیلدهای تخصصی مدرس
       formData.append("teacherInfo[specialty]", values.specialty);
       formData.append("teacherInfo[socialLinks][github]", values.github);
       formData.append("teacherInfo[socialLinks][linkedin]", values.linkedin);
@@ -111,7 +106,6 @@ const TeacherEditProfile = () => {
   return (
     <div className="w-full min-h-screen bg-slate-950 text-slate-100 p-4 md:p-8 rounded-2xl font-iransans flex justify-center items-start">
       <div className="w-full max-w-5xl bg-slate-900 rounded-2xl p-6 md:p-8 shadow-2xl border border-slate-800/60">
-        {/* هدر صفحه */}
         <div className="mb-8 border-b border-slate-800 pb-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
             <h1 className="text-2xl font-black text-white">
@@ -132,7 +126,6 @@ const TeacherEditProfile = () => {
           onSubmit={formik.handleSubmit}
           className="grid grid-cols-1 lg:grid-cols-3 gap-8"
         >
-          {/* ستون اول: بخش آواتار و تخصص اصلی */}
           <div className="flex flex-col items-center space-y-6 border-b lg:border-b-0 lg:border-l border-slate-800 pb-6 lg:pb-0 lg:pl-6">
             <div className="relative group w-36 h-36 rounded-full overflow-hidden border-2 border-violet-500/30 hover:border-fuchsia-500 transition-all duration-300 bg-slate-950 flex items-center justify-center shadow-xl">
               {avatarPreview ? (
@@ -166,7 +159,6 @@ const TeacherEditProfile = () => {
               />
             </div>
 
-            {/* فیلد عنوان تخصص زیر آواتار */}
             <div className="w-full">
               <label className="block text-xs font-semibold text-slate-400 mb-2 text-center lg:text-right">
                 عنوان تخصص شما
@@ -186,9 +178,7 @@ const TeacherEditProfile = () => {
             </div>
           </div>
 
-          {/* ستون دوم و سوم: فیلدهای اطلاعات فردی و شبکه‌های اجتماعی */}
           <div className="lg:col-span-2 space-y-6">
-            {/* بخش اول: اطلاعات پایه‌ای شخصی */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-medium text-slate-300 mb-2">
@@ -238,7 +228,6 @@ const TeacherEditProfile = () => {
               </div>
             </div>
 
-            {/* بخش دوم: لینک‌های رزومه و شبکه‌های اجتماعی (مخصوص مدرس) */}
             <div className="border-t border-slate-800/80 pt-5">
               <h3 className="text-sm font-bold text-cyan-400 mb-4">
                 🔗 شبکه‌های تخصصی و رزومه
@@ -300,7 +289,6 @@ const TeacherEditProfile = () => {
               </div>
             </div>
 
-            {/* بخش سوم: آدرس سکونت */}
             <div>
               <label className="block text-xs font-medium text-slate-300 mb-2">
                 آدرس سکونت / شرکت
@@ -313,7 +301,6 @@ const TeacherEditProfile = () => {
               />
             </div>
 
-            {/* بخش چهارم: امنیت و کلمه عبور */}
             <div className="border-t border-slate-800/80 pt-5">
               <h3 className="text-sm font-bold text-violet-400 mb-4">
                 🔐 تغییر کلمه عبور مدیریت
@@ -379,7 +366,6 @@ const TeacherEditProfile = () => {
               </div>
             </div>
 
-            {/* دکمه ثبت فرم */}
             <div className="flex justify-end pt-4 border-t border-slate-800">
               <button
                 type="submit"

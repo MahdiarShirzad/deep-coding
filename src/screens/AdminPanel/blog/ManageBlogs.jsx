@@ -22,22 +22,18 @@ const ManageBlogs = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedBlog, setSelectedBlog] = useState(null);
 
-  // حذف بهینه مقاله
   const handleDeleteBlog = useCallback((id) => {}, []);
 
-  // هندل باز شدن مودال برای ویرایش
   const handleEditClick = useCallback((blog) => {
     setSelectedBlog(blog);
     setIsModalOpen(true);
   }, []);
 
-  // هندل باز شدن مودال برای افزودن جدید
   const handleAddClick = () => {
     setSelectedBlog(null);
     setIsModalOpen(true);
   };
 
-  // ثبت نهایی افزودن یا ویرایش
   const handleSaveBlog = useCallback((formData) => {
     setBlogs((prevBlogs) => {
       if (formData.id) {
@@ -49,14 +45,11 @@ const ManageBlogs = () => {
     setIsModalOpen(false);
   }, []);
 
-  console.log("🚀 Main Blog Dashboard Rendered");
-
   return (
     <div
       className="p-6 bg-[#070a13] rounded-xl min-h-screen text-slate-200"
       dir="rtl"
     >
-      {/* هدر */}
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-xl font-bold text-white">
@@ -74,10 +67,8 @@ const ManageBlogs = () => {
         </button>
       </div>
 
-      {/* ۱. بخش آمار */}
       <BlogStats totalBlogs={blogs.length} />
 
-      {/* ۲. جدول نمایش داده‌ها */}
       <div className="bg-[#111827] border border-slate-800/80 rounded-xl overflow-hidden">
         <table className="w-full text-right border-collapse">
           <thead>
@@ -101,7 +92,6 @@ const ManageBlogs = () => {
         </table>
       </div>
 
-      {/* ۳. کامپوننت مودال فرم */}
       <BlogModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

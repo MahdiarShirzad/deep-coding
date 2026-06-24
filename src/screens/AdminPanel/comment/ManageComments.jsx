@@ -5,7 +5,6 @@ import CommentCard from "./CommentCard.jsx";
 import CommentReplyModal from "./CommentReplyModal.jsx";
 
 const ManageComments = () => {
-  // دیتای ماک کامنت‌ها منطبق بر ساختار پروژه شما
   const [comments, setComments] = useState([
     {
       id: "1",
@@ -38,20 +37,16 @@ const ManageComments = () => {
     },
   ]);
 
-  // استیت‌های فیلتر و سرچ
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
 
-  // استیت‌های مودال پاسخ
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedComment, setSelectedComment] = useState(null);
 
-  // محاسبه آمار زنده
   const totalCount = comments.length;
   const pendingCount = comments.filter((c) => c.status === "pending").length;
   const approvedCount = comments.filter((c) => c.status === "approved").length;
 
-  // ۱. اکشن تایید سریع کامنت
   const handleApproveComment = (id) => {
     setComments(
       comments.map((c) => (c.id === id ? { ...c, status: "approved" } : c)),
@@ -59,19 +54,16 @@ const ManageComments = () => {
     console.log(`Comment ${id} approved.`);
   };
 
-  // ۲. اکشن حذف قطعی کامنت
   const handleDeleteComment = (id) => {
     setComments(comments.filter((c) => c.id !== id));
     console.log(`Comment ${id} deleted.`);
   };
 
-  // ۳. باز کردن مودال پاسخ
   const handleOpenReplyModal = (comment) => {
     setSelectedComment(comment);
     setIsModalOpen(true);
   };
 
-  // ۴. ثبت پاسخ ادمین (و تایید همزمان کامنت اصلی)
   const handleInsertReply = (commentId, replyMessage) => {
     setComments(
       comments.map((c) =>
@@ -79,11 +71,9 @@ const ManageComments = () => {
       ),
     );
     console.log(`Replied to comment ${commentId}: ${replyMessage}`);
-    // اینجا ادمین پاسخ را ارسال کرده و وضعیت کامنت اصلی را نیز به کامپوننت "Approved" تبدیل می‌کند
     setIsModalOpen(false);
   };
 
-  // فیلترینگ ترکیبی
   const filteredComments = comments.filter((c) => {
     const matchesSearch =
       c.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -94,14 +84,12 @@ const ManageComments = () => {
 
   return (
     <div className="w-full min-h-screen bg-slate-950 rounded-xl text-slate-100 p-4 md:p-8 font-iransans pb-12">
-      {/* هدر و آمار فلت */}
       <CommentHeader
         total={totalCount}
         pending={pendingCount}
         approved={approvedCount}
       />
 
-      {/* فیلترها و نوار سرچ */}
       <CommentFilters
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
@@ -109,7 +97,6 @@ const ManageComments = () => {
         setStatusFilter={setStatusFilter}
       />
 
-      {/* لیست کارت‌های کامنت */}
       <div className="grid grid-cols-1 gap-4">
         {filteredComments.map((comment) => (
           <CommentCard
@@ -122,14 +109,12 @@ const ManageComments = () => {
         ))}
       </div>
 
-      {/* در صورت نبود دیتای فیلتر شده */}
       {filteredComments.length === 0 && (
         <div className="text-center text-slate-500 py-12 text-xs">
           هیچ دیدگاهی پیدا نشد.
         </div>
       )}
 
-      {/* مودال پاسخگویی */}
       <CommentReplyModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

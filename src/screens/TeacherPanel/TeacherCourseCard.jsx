@@ -3,7 +3,6 @@ import React from "react";
 const TeacherCourseCard = ({ course, onEditClick, onDeleteClick }) => {
   return (
     <div className="bg-slate-900 border border-slate-800/80 hover:border-slate-700 p-4 rounded-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition-all duration-300">
-      {/* اطلاعات دوره */}
       <div className="flex items-center gap-4 w-full sm:w-auto">
         <img
           src={course.img}
@@ -34,7 +33,6 @@ const TeacherCourseCard = ({ course, onEditClick, onDeleteClick }) => {
         </div>
       </div>
 
-      {/* دکمه‌های عملیاتی */}
       <div className="flex items-center gap-2 w-full sm:w-auto justify-end border-t border-slate-800/60 sm:border-0 pt-3 sm:pt-0">
         <button
           onClick={() => onEditClick(course)}

@@ -2,7 +2,6 @@ import React from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import TeacherStats from "./TeacherStats";
 import RevenueChart from "./RevenueChart";
-// import TeacherCourses from "./TeachersCourses";
 import RecentReviews from "./RecentReviews";
 import UserInformation from "../userpanel/dashboard/UserInformation";
 
@@ -16,50 +15,42 @@ const TeacherDashboard = () => {
 
   return (
     <div className="w-full px-6 max-md:px-3 font-iransans pb-10">
-      {/* هدر جدید و فوق‌العاده مدرن داشبورد */}
       <div className="relative overflow-hidden bg-slate-900 border border-slate-800/60 rounded-2xl p-6 mb-8 mt-2 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        {/* افکت نور پس‌زمینه نئونی */}
         <div className="absolute top-0 right-0 w-32 h-32 bg-violet-600/10 rounded-full blur-3xl pointer-events-none"></div>
         <div className="absolute bottom-0 left-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
         <div className="relative z-10">
           <h1 className="text-xl md:text-2xl font-black text-white flex items-center gap-2">
-            پنل مدیریت مدرس{" "}
+            پنل مدیریت مدرس
             <span className="text-violet-500 text-sm font-medium border border-violet-500/30 bg-violet-500/5 px-2.5 py-0.5 rounded-md">
               Deep Coding
             </span>
           </h1>
           <p className="text-slate-400 text-xs md:text-sm mt-1.5">
-            خوش آمدید،{" "}
+            خوش آمدید،
             <span className="text-white font-semibold">
               {user?.fullName || "مدرس گرامی"}
-            </span>{" "}
+            </span>
             👋؛ در این بخش وضعیت درآمد و دوره‌های شما یکپارچه رصد می‌شود.
           </p>
         </div>
 
         <div className="text-xs text-slate-400 bg-slate-800/40 border border-slate-800 px-4 py-2 rounded-xl self-end md:self-center">
-          آخرین بروزرسانی دیتابیس:{" "}
+          آخرین بروزرسانی دیتابیس:
           <span className="text-cyan-400 font-mono">امروز</span>
         </div>
       </div>
 
-      {/* بخش اول: ویجت‌های آماری عددی */}
       <div className="mb-8">
         <TeacherStats coursesCount={teacherCourses.length} />
       </div>
 
-      {/* بخش دوم: گریدبندی جدید با ساختار منعطف و فواصل استاندارد */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* ستون اصلی (سمت راست - عریض): نمودار ۱۲ ماهه و مدیریت دوره‌ها */}
         <div className="lg:col-span-2 space-y-8">
           <RevenueChart />
-          {/* <TeacherCourses teacherCourses={teacherCourses} /> */}
         </div>
 
-        {/* ستون فرعی (سمت چپ - باریک): اطلاعات کاربر و نظرات اخیر */}
         <div className="space-y-8">
-          {/* بازاستفاده هوشمندانه از کامپوننت خودت */}
           <div className="shadow-lg shadow-slate-950/20">
             <UserInformation user={user} />
           </div>
