@@ -1,56 +1,29 @@
-import { useEffect } from "react";
-import {
-  getCoursesByteacher,
-  getTeachersStudentsCounts,
-} from "../../services/apiTeachers";
-import { useState } from "react";
+import React from "react";
 
-const TeacherStats = ({ coursesCount, teacher }) => {
-  const [studentsCount, setStudentsCount] = useState(0);
-  const [courses, setCourses] = useState([]);
-
-  useEffect(() => {
-    const fetchTeachersStudents = async () => {
-      try {
-        const count = await getTeachersStudentsCounts(teacher?._id);
-        setStudentsCount(count?.data?.studentsCount);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchTeachersStudents();
-  }, [teacher?._id]);
-
-  useEffect(() => {
-    const fetchTeachersCourses = async () => {
-      try {
-        const courses = await getCoursesByteacher(teacher?._id);
-        setCourses(courses?.data?.courses);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchTeachersCourses();
-  }, [teacher?._id]);
-
-  let ratingsAverage;
+const TeacherStats = ({ courses = [], summary }) => {
   let totalAverage = 0;
+  let ratedCoursesCount = 0;
 
-  courses?.forEach((course) => {
-    totalAverage += +course?.ratingsAverage; // Now accumulates
+  courses.forEach((course) => {
+    if (course?.ratingsAverage > 0) {
+      ratedCoursesCount++;
+      totalAverage += +course.ratingsAverage;
+    }
   });
 
-  ratingsAverage = courses?.length > 0 ? totalAverage / courses?.length : 0;
+  const ratingsAverage =
+    ratedCoursesCount > 0 ? totalAverage / ratedCoursesCount : 0;
 
-  // courses.forEach((course) => {
-  //   console.log(course.ratingsAverage);
-  // });
+  // فرمت کردن اعداد به تومان
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat("fa-IR").format(value || 0) + " تومان";
+  };
 
   const stats = [
     {
       id: 1,
       title: "کل دانشجویان شما",
-      value: studentsCount,
+      value: summary?.totalStudentsEnrolled || 0,
       icon: "👥",
       color: "text-blue-500",
       bg: "bg-blue-500/10",
@@ -58,7 +31,7 @@ const TeacherStats = ({ coursesCount, teacher }) => {
     {
       id: 2,
       title: "دوره‌های فعال",
-      value: `${coursesCount || 0} دوره`,
+      value: `${summary?.totalCoursesCreated || 0} دوره`,
       icon: "📚",
       color: "text-violet-500",
       bg: "bg-violet-500/10",
@@ -66,15 +39,15 @@ const TeacherStats = ({ coursesCount, teacher }) => {
     {
       id: 3,
       title: "میانگین امتیاز دوره‌ها",
-      value: `${ratingsAverage.toFixed(2)} از 5`,
+      value: `${ratingsAverage.toFixed(1)} از 5`,
       icon: "⭐",
       color: "text-amber-500",
       bg: "bg-amber-500/10",
     },
     {
       id: 4,
-      title: "درآمد ماه جاری",
-      value: "۳۴,۵۰۰,۰۰۰ تومان",
+      title: "موجودی قابل برداشت",
+      value: formatCurrency(summary?.walletBalance),
       icon: "💰",
       color: "text-emerald-500",
       bg: "bg-emerald-500/10",
