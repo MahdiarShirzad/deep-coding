@@ -60,3 +60,91 @@ export const deleteCourse = async (id) => {
     throw err;
   }
 };
+
+const buildCourseFormData = (formData) => {
+  const data = new FormData();
+
+  const textFields = [
+    "name",
+    "category",
+    "level",
+    "price",
+    "discountPrice",
+    "time",
+    "desc",
+    "introduction",
+    "status",
+  ];
+
+  textFields.forEach((field) => {
+    if (formData[field] !== undefined && formData[field] !== "") {
+      data.append(field, formData[field]);
+    }
+  });
+
+  (formData.willLearn || [])
+    .filter(Boolean)
+    .forEach((item) => data.append("willLearn", item));
+  (formData.requirements || [])
+    .filter(Boolean)
+    .forEach((item) => data.append("requirements", item));
+  (formData.tags || [])
+    .filter(Boolean)
+    .forEach((tag) => data.append("tags", tag));
+
+  if (formData.sections?.length) {
+    const cleanSections = formData.sections.map((sec) => ({
+      title: sec.title,
+      lessons: (sec.lessons || []).map((les) => ({
+        title: les.title,
+        duration: les.duration || 0,
+        isFree: les.isFree || false,
+        order: les.order || 0,
+      })),
+    }));
+    data.append("sections", JSON.stringify(cleanSections));
+  }
+
+  if (formData.img instanceof File) {
+    data.append("img", formData.img);
+  }
+  if (formData.introductionVideo instanceof File) {
+    data.append("introductionVideo", formData.introductionVideo);
+  }
+
+  return data;
+};
+
+export const addCourse = async (formData) => {
+  try {
+    const data = buildCourseFormData(formData);
+
+    const res = await apiRequest("/courses", {
+      method: "POST",
+      body: data,
+      isFormData: true,
+    });
+    toast.success("دوره با موفقیت ایجاد شد ✓");
+    return res;
+  } catch (error) {
+    console.log(error);
+    toast.error(error.message || "خطا در ایجاد دوره");
+  }
+};
+
+export const updateCourse = async ({ id, formData }) => {
+  try {
+    const data = buildCourseFormData(formData);
+
+    const res = await apiRequest(`/courses/${id}`, {
+      method: "PATCH",
+      body: data,
+      isFormData: true,
+    });
+    toast.success("دوره با موفقیت ویرایش شد ✓");
+    return res;
+  } catch (error) {
+    toast.error(error.message || "خطا در ویرایش دوره");
+    console.log(error);
+  }
+};

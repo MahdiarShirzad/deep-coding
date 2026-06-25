@@ -43,10 +43,9 @@ const CourseDetail = () => {
       className="font-iransans bg-slate-50 min-h-screen pb-20 mt-20"
       dir="rtl"
     >
-      <div className="bg-slate-900 text-white">
+      <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white">
         <CourseHero selectedCourse={selectedCourse} />
       </div>
-
       <div className="max-w-[1320px] mx-auto px-4 sm:px-8 py-10 relative ">
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="flex-1 space-y-10 lg:pl-8">

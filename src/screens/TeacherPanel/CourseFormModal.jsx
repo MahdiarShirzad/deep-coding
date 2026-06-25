@@ -38,7 +38,7 @@ export const EMPTY_COURSE_FORM = {
   sections: [],
 };
 
-const AddCourseFormModal = ({
+const CourseFormModal = ({
   isOpen,
   onClose,
   onSubmit,
@@ -48,10 +48,9 @@ const AddCourseFormModal = ({
 }) => {
   const [activeTab, setActiveTab] = useState("basic");
 
-  // All hooks must be before any conditional return
   if (!isOpen) return null;
 
-  /* ─── helpers ─────────────────────────────────────────────────── */
+  // helpers
   const set = (field, value) => setFormData({ ...formData, [field]: value });
 
   const arrSet = (field, i, value) => {
@@ -700,4 +699,4 @@ const AddCourseFormModal = ({
   );
 };
 
-export default AddCourseFormModal;
+export default CourseFormModal;
