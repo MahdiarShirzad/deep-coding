@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import RenderStars from "../../components/RenderStars/RenderStars";
 import { addToWishlist, getUsersWishlist } from "../../services/apiWishlist";
+import { getStudentsCountOfCourse } from "../../services/apiCourses";
 
 const CourseHero = ({ selectedCourse }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isInWishlist, setIsInWishlist] = useState(false);
+  const [studentsCount, setStudentsCount] = useState(0);
 
   useEffect(() => {
     const fetchWishlist = async () => {
@@ -24,6 +26,20 @@ const CourseHero = ({ selectedCourse }) => {
     };
     fetchWishlist();
   }, [selectedCourse?._id]);
+
+  useEffect(() => {
+    const fetchStudentsCounts = async () => {
+      try {
+        const count = await getStudentsCountOfCourse(selectedCourse?.id);
+        setStudentsCount(count);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchStudentsCounts();
+  }, [selectedCourse?._id]);
+
+  console.log(studentsCount);
 
   const handleAddToWishlist = async () => {
     if (!selectedCourse?._id || isInWishlist) return;
@@ -84,7 +100,9 @@ const CourseHero = ({ selectedCourse }) => {
             ({selectedCourse?.ratingsQuantity} رای)
           </p>
           <span className="w-1.5 h-1.5 rounded-full bg-slate-600 hidden sm:block"></span>
-          <p className="text-sm text-slate-300">۱۳۷۶ دانشجو</p>
+          <p className="text-sm text-slate-300">
+            {studentsCount?.data?.studentsCount} دانشجو
+          </p>
         </motion.div>
 
         <motion.div

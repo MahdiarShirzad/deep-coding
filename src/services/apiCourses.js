@@ -1,4 +1,3 @@
-import axios from "axios";
 import { toast } from "react-toastify";
 import { apiRequest } from "./apiClient";
 
@@ -147,4 +146,16 @@ export const updateCourse = async ({ id, formData }) => {
     toast.error(error.message || "خطا در ویرایش دوره");
     console.log(error);
   }
+};
+
+export const getStudentsCountOfCourse = async (id) => {
+  const res = await fetch(`${API_URL}/courses/${id}/students-count`);
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || "دوره‌ای یافت نشد");
+  }
+  const result = await res.json();
+
+  return result;
 };

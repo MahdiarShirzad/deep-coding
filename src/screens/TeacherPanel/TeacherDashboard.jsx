@@ -21,7 +21,7 @@ const TeacherDashboard = () => {
     queryFn: () => getCoursesByteacher(user._id),
     enabled: !!user?._id,
   });
-  console.log(coursesData);
+  // console.log(coursesData);
 
   const courses = coursesData?.data.courses;
 
@@ -56,7 +56,7 @@ const TeacherDashboard = () => {
       </div>
 
       <div className="mb-8">
-        <TeacherStats coursesCount={courses?.length} />
+        <TeacherStats coursesCount={courses?.length} teacher={user} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

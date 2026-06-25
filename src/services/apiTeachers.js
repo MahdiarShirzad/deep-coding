@@ -25,3 +25,16 @@ export const getCoursesByteacher = async (id) => {
 
   return result;
 };
+
+export const getTeachersStudentsCounts = async (id) => {
+  const res = await fetch(`${API_URL}/users/teachers/${id}/students-count`);
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err?.message);
+  }
+
+  const result = await res.json();
+
+  return result;
+};

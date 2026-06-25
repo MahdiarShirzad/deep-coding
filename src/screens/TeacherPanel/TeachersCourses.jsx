@@ -27,7 +27,6 @@ const TeachersCourses = () => {
 
   const courses = coursesData?.data?.courses ?? [];
 
-  // ── State ────────────────────────────────────────────────────
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [modalMode, setModalMode] = useState("add");
@@ -79,8 +78,8 @@ const TeachersCourses = () => {
       price: course.price || "",
       discountPrice: course.discountPrice || "",
       time: course.time || "",
-      img: course.img || null, // ← URL string (از قبل آپلود شده)
-      introductionVideo: course.introductionVideo || null, // ← URL string
+      img: course.img || null,
+      introductionVideo: course.introductionVideo || null,
       desc: course.desc || "",
       introduction: course.introduction || "",
       willLearn: course.willLearn?.length ? course.willLearn : [""],

@@ -1,9 +1,56 @@
-const TeacherStats = ({ coursesCount }) => {
+import { useEffect } from "react";
+import {
+  getCoursesByteacher,
+  getTeachersStudentsCounts,
+} from "../../services/apiTeachers";
+import { useState } from "react";
+
+const TeacherStats = ({ coursesCount, teacher }) => {
+  const [studentsCount, setStudentsCount] = useState(0);
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    const fetchTeachersStudents = async () => {
+      try {
+        const count = await getTeachersStudentsCounts(teacher?._id);
+        setStudentsCount(count?.data?.studentsCount);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchTeachersStudents();
+  }, [teacher?._id]);
+
+  useEffect(() => {
+    const fetchTeachersCourses = async () => {
+      try {
+        const courses = await getCoursesByteacher(teacher?._id);
+        setCourses(courses?.data?.courses);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchTeachersCourses();
+  }, [teacher?._id]);
+
+  let ratingsAverage;
+  let totalAverage = 0;
+
+  courses?.forEach((course) => {
+    totalAverage += +course?.ratingsAverage; // Now accumulates
+  });
+
+  ratingsAverage = courses?.length > 0 ? totalAverage / courses?.length : 0;
+
+  // courses.forEach((course) => {
+  //   console.log(course.ratingsAverage);
+  // });
+
   const stats = [
     {
       id: 1,
       title: "کل دانشجویان شما",
-      value: "۱,۲۴۰ نفر",
+      value: studentsCount,
       icon: "👥",
       color: "text-blue-500",
       bg: "bg-blue-500/10",
@@ -19,7 +66,7 @@ const TeacherStats = ({ coursesCount }) => {
     {
       id: 3,
       title: "میانگین امتیاز دوره‌ها",
-      value: "۴.۹ از ۵",
+      value: `${ratingsAverage.toFixed(2)} از 5`,
       icon: "⭐",
       color: "text-amber-500",
       bg: "bg-amber-500/10",
