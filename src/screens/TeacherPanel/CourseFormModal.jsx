@@ -27,6 +27,7 @@ export const EMPTY_COURSE_FORM = {
   status: "published",
   price: "",
   discountPrice: "",
+  teacherId: "",
   time: "",
   img: null,
   introductionVideo: null,
@@ -45,6 +46,7 @@ const CourseFormModal = ({
   modalMode,
   formData,
   setFormData,
+  teachers = null,
 }) => {
   const [activeTab, setActiveTab] = useState("basic");
 
@@ -277,6 +279,26 @@ const CourseFormModal = ({
                     placeholder="مثلا: آموزش گام به گام TypeScript"
                   />
                 </div>
+                {teachers && (
+                  <div>
+                    <label className="block text-xs text-slate-400 mb-1.5">
+                      مدرس دوره *
+                    </label>
+                    <select
+                      required
+                      value={formData.teacherId || ""}
+                      onChange={(e) => set("teacherId", e.target.value)}
+                      className={inputCls}
+                    >
+                      <option value="">انتخاب مدرس...</option>
+                      {teachers.map((t) => (
+                        <option key={t._id} value={t._id}>
+                          {t.fullName}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
 
                 <div>
                   <label className="block text-xs text-slate-400 mb-1.5">

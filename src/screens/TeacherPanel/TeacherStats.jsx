@@ -1,6 +1,6 @@
 import React from "react";
 
-const TeacherStats = ({ courses = [], summary }) => {
+const TeacherStats = ({ courses, summary }) => {
   let totalAverage = 0;
   let ratedCoursesCount = 0;
 
@@ -14,7 +14,6 @@ const TeacherStats = ({ courses = [], summary }) => {
   const ratingsAverage =
     ratedCoursesCount > 0 ? totalAverage / ratedCoursesCount : 0;
 
-  // فرمت کردن اعداد به تومان
   const formatCurrency = (value) => {
     return new Intl.NumberFormat("fa-IR").format(value || 0) + " تومان";
   };
@@ -31,7 +30,7 @@ const TeacherStats = ({ courses = [], summary }) => {
     {
       id: 2,
       title: "دوره‌های فعال",
-      value: `${summary?.totalCoursesCreated || 0} دوره`,
+      value: `${courses?.length} دوره`,
       icon: "📚",
       color: "text-violet-500",
       bg: "bg-violet-500/10",

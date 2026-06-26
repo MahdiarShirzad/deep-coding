@@ -251,7 +251,7 @@ const TeacherEditProfile = () => {
                 )}
               </div>
             </div>
-            1
+
             <div className="border-t border-slate-800/80 pt-5">
               <h3 className="text-sm font-bold text-cyan-400 mb-4">
                 🔗 شبکه‌های تخصصی و رزومه

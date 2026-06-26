@@ -1,13 +1,18 @@
 import React from "react";
 
-const AdminStats = () => {
+const AdminStats = ({ overallStats }) => {
+  const formatNumber = (num) => {
+    if (num === undefined || num === null) return "۰";
+    return num.toLocaleString("fa-IR");
+  };
+
+  // console.log(overallStats);
+
   const stats = [
     {
       id: 1,
-      title: "مجموع کاربران",
-      value: "۳,۴۵۲",
-      trend: "+۱۲٪",
-      isUp: true,
+      title: "مجموع دانشجویان",
+      value: formatNumber(overallStats?.uniqueStudents),
       icon: "👥",
       color: "text-cyan-400",
       bg: "bg-cyan-500/10",
@@ -15,10 +20,8 @@ const AdminStats = () => {
     },
     {
       id: 2,
-      title: "درآمد کل (تومان)",
-      value: "۱۲۵,۴۰۰,۰۰۰",
-      trend: "+۸.۵٪",
-      isUp: true,
+      title: "درآمد کل ادمین (تومان)",
+      value: formatNumber(overallStats?.platformTotalEarnings),
       icon: "💳",
       color: "text-emerald-400",
       bg: "bg-emerald-500/10",
@@ -26,10 +29,8 @@ const AdminStats = () => {
     },
     {
       id: 3,
-      title: "دوره‌های فعال",
-      value: "۴۸",
-      trend: "۲ دوره جدید",
-      isUp: true,
+      title: "کل سفارشات موفق",
+      value: formatNumber(overallStats?.totalOrders),
       icon: "📚",
       color: "text-violet-400",
       bg: "bg-violet-500/10",
@@ -37,14 +38,12 @@ const AdminStats = () => {
     },
     {
       id: 4,
-      title: "تیکت‌های باز",
-      value: "۱۲",
-      trend: "-۵٪",
-      isUp: false,
-      icon: "🎫",
-      color: "text-rose-400",
-      bg: "bg-rose-500/10",
-      border: "border-rose-500/20",
+      title: "تعداد مدرسین",
+      value: formatNumber(overallStats?.uniqueTeachers),
+      icon: "👨‍🏫",
+      color: "text-amber-400",
+      bg: "bg-amber-500/10",
+      border: "border-amber-500/20",
     },
   ];
 
@@ -61,11 +60,6 @@ const AdminStats = () => {
             >
               {stat.icon}
             </div>
-            <span
-              className={`text-[10px] font-bold px-2 py-1 rounded-md ${stat.isUp ? "bg-emerald-500/10 text-emerald-400" : "bg-rose-500/10 text-rose-400"}`}
-            >
-              {stat.trend}
-            </span>
           </div>
           <h4 className="text-xs text-slate-400 mb-1">{stat.title}</h4>
           <p className="text-xl font-black text-white">{stat.value}</p>

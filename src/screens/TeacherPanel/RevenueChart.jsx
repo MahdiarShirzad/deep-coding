@@ -89,7 +89,7 @@ const RevenueChart = ({ monthlyIncome = [] }) => {
                   className={`w-full max-w-[32px] rounded-t-md transition-all duration-300 ${
                     data.totalIncome > 0
                       ? "bg-gradient-to-t from-violet-600 via-fuchsia-600 to-fuchsia-500 shadow-lg shadow-violet-600/10 group-hover:shadow-fuchsia-500/20 group-hover:brightness-110"
-                      : "bg-slate-800/50 border-t border-slate-700" // رنگ خنثی برای ماه‌های بدون درآمد
+                      : "bg-slate-800/50 border-t border-slate-700"
                   }`}
                 ></div>
 

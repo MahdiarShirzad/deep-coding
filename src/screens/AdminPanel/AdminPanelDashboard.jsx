@@ -1,10 +1,18 @@
 import React from "react";
 import AdminStats from "./AdminStats";
 import QuickActions from "./QuickActions";
-import PendingCourses from "./PendingCourses";
+import RecentCourses from "./RecentCourses";
 import RecentUsers from "./user/RecentUsers.jsx";
 
+import { fetchAdminDashboardData } from "../../services/apiAdminDashboard.js";
+import { useQuery } from "@tanstack/react-query";
+
 const AdminPanelDashboard = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["AdminDashboard"],
+    queryFn: fetchAdminDashboardData,
+  });
+
   return (
     <div className="w-full min-h-screen rounded-xl bg-slate-950 text-slate-100 p-4 md:p-8 font-iransans">
       <div className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -28,12 +36,23 @@ const AdminPanelDashboard = () => {
         </div>
       </div>
 
-      <AdminStats />
+      {isLoading ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          {[...Array(4)].map((_, index) => (
+            <div
+              key={index}
+              className="bg-slate-900 border border-slate-800/80 p-5 h-32 rounded-2xl animate-pulse"
+            />
+          ))}
+        </div>
+      ) : (
+        <AdminStats overallStats={data?.overallStats} />
+      )}
 
       <QuickActions />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pb-10">
-        <PendingCourses />
+        <RecentCourses />
         <RecentUsers />
       </div>
     </div>
