@@ -38,3 +38,19 @@ export const getBlog = async (id) => {
 
   return result.data.blog;
 };
+
+export const addBlog = async (data) => {
+  const res = await fetch(`${API_URL}/blogs`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || "خطا در ایجاد بلاگ");
+  }
+
+  const result = await res.json();
+  return result.data.blog;
+};

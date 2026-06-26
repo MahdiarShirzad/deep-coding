@@ -42,3 +42,19 @@ export const getBook = async (id) => {
 
   return result;
 };
+
+export const addBook = async (data) => {
+  const res = await fetch(`${API_URL}/books`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || "خطا در ایجاد کتاب");
+  }
+
+  const result = await res.json();
+  return result.data.book;
+};
