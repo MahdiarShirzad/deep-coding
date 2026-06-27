@@ -1,18 +1,28 @@
 import React from "react";
 
 const BookRow = React.memo(({ book, onEdit, onDelete }) => {
-  console.log(`📚 Row Rendered: ${book.title}`);
   return (
-    <tr className="hover:bg-slate-800/20 border-b border-slate-800/60 transition-colors text-slate-300">
-      <td className="p-4 font-medium text-white">{book.title}</td>
-      <td className="p-4 text-cyan-400">{book.author}</td>
-      <td className="p-4">{book.price} تومان</td>
-      <td className="p-4 text-center">
+    <tr className="hover:bg-slate-800/20 border-b border-slate-800/60 transition-colors text-slate-300 block md:table-row">
+      <td className="p-4 block md:table-cell">
+        <img
+          src={book?.image}
+          alt={book?.title}
+          className="w-14 h-14 rounded-lg object-cover bg-slate-700"
+        />
+      </td>
+      <td className="p-4 font-medium text-white block md:table-cell">
+        {book.title}
+      </td>
+      <td className="p-4 text-cyan-400 block md:table-cell">{book.author}</td>
+      <td className="p-4 block md:table-cell">
+        {book.price?.toLocaleString("fa-IR")} تومان
+      </td>
+      <td className="p-4 text-center block md:table-cell">
         <div className="flex justify-center gap-3">
-          {/* دکمه ویرایش */}
           <button
             onClick={() => onEdit(book)}
             className="text-slate-400 hover:text-violet-400 transition-colors"
+            title="ویرایش"
           >
             <svg
               className="w-5 h-5"
@@ -29,10 +39,10 @@ const BookRow = React.memo(({ book, onEdit, onDelete }) => {
             </svg>
           </button>
 
-          {/* دکمه حذف */}
           <button
-            onClick={() => onDelete(book.id)}
+            onClick={() => onDelete(book)}
             className="text-slate-400 hover:text-rose-400 transition-colors"
+            title="حذف"
           >
             <svg
               className="w-5 h-5"
