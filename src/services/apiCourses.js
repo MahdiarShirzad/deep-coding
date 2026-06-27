@@ -54,7 +54,6 @@ export const deleteCourse = async (id) => {
     toast.success("دوره حذف شد");
   } catch (err) {
     console.log(err);
-
     toast.error("حذف انجام نشد");
     throw err;
   }

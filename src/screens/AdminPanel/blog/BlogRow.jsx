@@ -2,18 +2,29 @@ import React from "react";
 
 const BlogRow = React.memo(({ blog, onEdit, onDelete }) => {
   return (
-    <tr className="hover:bg-slate-800/20 border-b border-slate-800/60 transition-colors text-slate-300">
-      <td className="p-4 font-medium text-white max-w-xs truncate">
+    <tr className="hover:bg-slate-800/20 border-b border-slate-800/60 transition-colors text-slate-300 block md:table-row">
+      <td className="p-4 block md:table-cell">
+        <img
+          className="w-16 h-16 rounded-lg object-cover"
+          src={blog?.coverImg}
+          alt={blog?.title}
+        />
+      </td>
+      <td className="p-4 font-medium text-white max-w-xs truncate block md:table-cell">
         {blog.title}
       </td>
-      <td className="p-4 text-cyan-400 text-sm">{blog.category}</td>
-      <td className="p-4 text-slate-400 font-mono text-xs">{blog.date}</td>
-      <td className="p-4 text-center">
+      <td className="p-4 text-cyan-400 text-sm block md:table-cell">
+        {blog.category}
+      </td>
+      <td className="p-4 text-slate-400 font-mono text-xs block md:table-cell">
+        {blog.createdAt}
+      </td>
+      <td className="p-4 text-center block md:table-cell">
         <div className="flex justify-center gap-3">
-          {/* دکمه ویرایش */}
           <button
             onClick={() => onEdit(blog)}
             className="text-slate-400 hover:text-violet-400 transition-colors"
+            title="ویرایش"
           >
             <svg
               className="w-5 h-5"
@@ -30,10 +41,10 @@ const BlogRow = React.memo(({ blog, onEdit, onDelete }) => {
             </svg>
           </button>
 
-          {/* دکمه حذف */}
           <button
-            onClick={() => onDelete(blog.id)}
+            onClick={() => onDelete(blog)}
             className="text-slate-400 hover:text-rose-400 transition-colors"
+            title="حذف"
           >
             <svg
               className="w-5 h-5"
