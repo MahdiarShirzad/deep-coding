@@ -86,3 +86,9 @@ export const getLastUsers = async () => {
   const data = await apiRequest("/users/last-users");
   return data?.data?.users ?? [];
 };
+
+export const getAllUsers = async () => {
+  const data = await apiRequest("/users");
+
+  return data;
+};

@@ -8,7 +8,6 @@ const UserFilters = ({
 }) => {
   return (
     <div className="bg-slate-900 border border-slate-800/80 p-4 rounded-2xl flex flex-col sm:flex-row gap-4 items-center justify-between mb-6">
-      {/* باکس جستجو */}
       <div className="relative w-full sm:max-w-xs">
         <span className="absolute right-3 top-3.5 text-slate-500 text-sm">
           🔍
@@ -22,7 +21,6 @@ const UserFilters = ({
         />
       </div>
 
-      {/* فیلتر بر اساس نقش */}
       <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
         <label className="text-xs text-slate-400 whitespace-nowrap">
           فیلتر نقش:
@@ -35,7 +33,6 @@ const UserFilters = ({
           <option value="all">همه کاربران</option>
           <option value="student">دانشجو</option>
           <option value="teacher">مدرس</option>
-          <option value="admin">مدیر (Admin)</option>
         </select>
       </div>
     </div>

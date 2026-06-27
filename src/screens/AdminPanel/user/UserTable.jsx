@@ -17,12 +17,11 @@ const UserTable = ({ users, onRoleChange, onDeleteClick }) => {
         </table>
 
         <div className="divide-y divide-slate-800/60">
-          {users.map((user) => (
+          {users?.map((user) => (
             <div
               key={user.id}
               className="flex flex-row items-center justify-between p-4 hover:bg-slate-800/20 transition-colors text-xs md:text-sm"
             >
-              {/* بخش اول: اطلاعات کاربر */}
               <div className="flex items-center gap-3 min-w-[200px]">
                 <div className="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 text-slate-300 flex items-center justify-center font-bold text-base shadow-inner">
                   {user.avatar ? (
@@ -43,17 +42,14 @@ const UserTable = ({ users, onRoleChange, onDeleteClick }) => {
                 </div>
               </div>
 
-              {/* بخش دوم: ایمیل (پنهان در موبایل) */}
               <div className="hidden md:block text-slate-400 font-medium dir-ltr text-left min-w-[180px]">
                 {user.email}
               </div>
 
-              {/* بخش سوم: تاریخ */}
               <div className="hidden lg:block text-slate-500 text-xs min-w-[100px]">
                 {user.createdAt}
               </div>
 
-              {/* بخش چهارم: بچِ نقش */}
               <div className="min-w-[90px]">
                 {user.role === "admin" && (
                   <span className="bg-rose-500/10 text-rose-400 px-2 py-1 rounded-md text-[10px] font-bold border border-rose-500/20">
@@ -72,7 +68,6 @@ const UserTable = ({ users, onRoleChange, onDeleteClick }) => {
                 )}
               </div>
 
-              {/* بخش پنجم: تغییر سریع نقش */}
               <div className="min-w-[130px]">
                 <select
                   value={user.role}
@@ -85,7 +80,6 @@ const UserTable = ({ users, onRoleChange, onDeleteClick }) => {
                 </select>
               </div>
 
-              {/* بخش ششم: دکمه حذف */}
               <div className="text-left">
                 <button
                   onClick={() => onDeleteClick(user)}
@@ -99,7 +93,7 @@ const UserTable = ({ users, onRoleChange, onDeleteClick }) => {
           ))}
         </div>
 
-        {users.length === 0 && (
+        {users?.length === 0 && (
           <div className="text-center text-slate-500 py-10 text-xs">
             کاربری با این مشخصات یافت نشد.
           </div>

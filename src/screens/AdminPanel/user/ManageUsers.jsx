@@ -1,44 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserHeader from "./UserHeader.jsx";
 import UserFilters from "./UserFilters.jsx";
 import UserTable from "./UserTable.jsx";
 import DeleteConfirmModal from "../DeleteConfirmModal.jsx";
+import { useQuery } from "@tanstack/react-query";
+import { getAllUsers } from "../../../services/apiAuth.js";
 
 const ManageUsers = () => {
-  const [users, setUsers] = useState([
-    {
-      id: "1",
-      fullName: "مهدیار شیرزاد",
-      email: "mahdiar@example.com",
-      role: "teacher",
-      createdAt: "۱۴۰۵/۰۳/۱۹",
-      avatar: "",
-    },
-    {
-      id: "2",
-      fullName: "علی کریمی",
-      email: "ali.k@example.com",
-      role: "student",
-      createdAt: "۱۴۰۵/۰۳/۲۰",
-      avatar: "",
-    },
-    {
-      id: "3",
-      fullName: "سارا احمدی",
-      email: "sara.ahmadi@example.com",
-      role: "admin",
-      createdAt: "۱۴۰۵/۰۱/۱۵",
-      avatar: "",
-    },
-    {
-      id: "4",
-      fullName: "رضا محمدی",
-      email: "reza@example.com",
-      role: "student",
-      createdAt: "۱۴۰۵/۰۳/۲۲",
-      avatar: "",
-    },
-  ]);
+  const { data, isLoading } = useQuery({
+    queryKey: ["users"],
+    queryFn: getAllUsers,
+  });
+  const totalUsers = data?.data?.users;
+
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    if (data?.data?.users) {
+      setUsers(data.data.users);
+    }
+  }, [data]);
+
+  console.log(totalUsers);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [roleFilter, setRoleFilter] = useState("all");
@@ -46,9 +29,9 @@ const ManageUsers = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
 
-  const totalUsers = users.length;
-  const teachersCount = users.filter((u) => u.role === "teacher").length;
-  const studentsCount = users.filter((u) => u.role === "student").length;
+  const totalUsersLength = users?.length;
+  const teachersCount = users?.filter((u) => u.role === "teacher").length;
+  const studentsCount = users?.filter((u) => u.role === "student").length;
 
   const handleRoleChange = (userId, newRole) => {
     setUsers(
@@ -70,7 +53,7 @@ const ManageUsers = () => {
     setIsModalOpen(false);
   };
 
-  const filteredUsers = users.filter((user) => {
+  const filteredUsers = users?.filter((user) => {
     const matchesSearch =
       user.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.email.toLowerCase().includes(searchTerm.toLowerCase());
@@ -83,7 +66,7 @@ const ManageUsers = () => {
   return (
     <div className="w-full min-h-screen bg-slate-950 rounded-xl text-slate-100 p-4 md:p-8 font-iransans pb-12">
       <UserHeader
-        totalUsers={totalUsers}
+        totalUsersLength={totalUsersLength}
         teachersCount={teachersCount}
         studentsCount={studentsCount}
       />
