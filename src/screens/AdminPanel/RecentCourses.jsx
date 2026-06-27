@@ -8,24 +8,7 @@ const RecentCourses = () => {
     queryFn: getLastCourses,
   });
 
-  console.log(data);
-
-  const courses = [
-    {
-      id: 1,
-      title: "آموزش پیشرفته Next.js 14",
-      teacher: "مهدیار شیرزاد",
-      price: "۳,۵۰۰,۰۰۰",
-      date: "امروز",
-    },
-    {
-      id: 2,
-      title: "معماری Microservices در Node",
-      teacher: "علی احمدی",
-      price: "۴,۲۰۰,۰۰۰",
-      date: "دیروز",
-    },
-  ];
+  const courses = data?.data?.courses ?? [];
 
   return (
     <div className="bg-slate-900 border border-slate-800/80 p-5 rounded-2xl flex flex-col h-full">
@@ -40,17 +23,17 @@ const RecentCourses = () => {
       </div>
 
       <div className="space-y-3 flex-1">
-        {courses.map((course) => (
+        {courses?.map((course) => (
           <div
-            key={course.id}
+            key={course?._id}
             className="bg-slate-950 border border-slate-800 p-3 rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3"
           >
             <div>
               <h4 className="text-xs font-bold text-slate-200 mb-1 line-clamp-1">
-                {course.title}
+                {course?.name}
               </h4>
               <p className="text-[10px] text-slate-500">
-                مدرس: {course.teacher} | {course.price} تومان
+                مدرس: {course.teacher?.fullName}| {course.price} تومان
               </p>
             </div>
             <div className="flex gap-2 w-full sm:w-auto">

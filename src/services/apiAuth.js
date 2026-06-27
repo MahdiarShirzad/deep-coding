@@ -81,3 +81,8 @@ export async function updateUser(updates, avatarFile) {
   });
   return data.data.user;
 }
+
+export const getLastUsers = async () => {
+  const data = await apiRequest("/users/last-users");
+  return data?.data?.users ?? [];
+};
