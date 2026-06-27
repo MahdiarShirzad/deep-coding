@@ -159,3 +159,9 @@ export const getStudentsCountOfCourse = async (id) => {
 
   return result;
 };
+
+export const getLastCourses = async () => {
+  const res = await fetch(`${API_URL}/courses/last-courses`);
+  const courses = res.json();
+  return courses;
+};

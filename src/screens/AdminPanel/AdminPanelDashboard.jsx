@@ -13,6 +13,8 @@ const AdminPanelDashboard = () => {
     queryFn: fetchAdminDashboardData,
   });
 
+  // console.log(data);
+
   return (
     <div className="w-full min-h-screen rounded-xl bg-slate-950 text-slate-100 p-4 md:p-8 font-iransans">
       <div className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">

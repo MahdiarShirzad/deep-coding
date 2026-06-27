@@ -1,3 +1,5 @@
+import { apiRequest } from "./apiClient";
+
 const API_URL = import.meta.env.VITE_API_URL;
 
 export const getTeachers = async () => {
@@ -39,14 +41,6 @@ export const getCoursesByteacher = async (id) => {
 };
 
 export const getTeachersStudentsCounts = async (id) => {
-  const res = await fetch(`${API_URL}/users/teachers/${id}/students-count`);
-
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    throw new Error(err?.message);
-  }
-
-  const result = await res.json();
-
-  return result;
+  const data = await apiRequest(`/users/teachers/${id}/students-count`);
+  return data?.data?.studentsCount ?? 0;
 };

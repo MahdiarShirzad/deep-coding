@@ -1,6 +1,15 @@
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { getLastCourses } from "../../services/apiCourses";
 
 const RecentCourses = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["lastCourses"],
+    queryFn: getLastCourses,
+  });
+
+  console.log(data);
+
   const courses = [
     {
       id: 1,

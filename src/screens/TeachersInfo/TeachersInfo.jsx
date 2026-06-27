@@ -1,19 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { getTeacher } from "../../services/apiTeachers";
+import {
+  getTeacher,
+  getTeachersStudentsCounts,
+} from "../../services/apiTeachers";
 
 import TeacherAvatar from "./TeachersAvatar";
 import AboutTeacher from "./AboutTeacher";
 import TeachersCourse from "./TeachersCourse";
 
 const TeachersInfo = () => {
+  const [studentsCount, setStudentsCount] = useState(0);
   const { id } = useParams();
 
   const { data, isPending, isError } = useQuery({
     queryKey: ["teacher", id],
     queryFn: () => getTeacher(id),
   });
+
+  useEffect(() => {
+    const fetchStudentsCount = async () => {
+      const studentsCount = await getTeachersStudentsCounts(id);
+
+      setStudentsCount(studentsCount);
+    };
+
+    fetchStudentsCount();
+  }, [id]);
+
+  console.log(studentsCount);
 
   const selectedTeacher = data?.data?.teacher;
   const socialLinks = selectedTeacher?.teacherInfo?.socialLinks;
@@ -53,7 +69,9 @@ const TeachersInfo = () => {
               <p className="text-slate-500 text-sm sm:text-base">
                 تعداد دانشجویان
               </p>
-              <p className="text-xl font-extrabold text-slate-800">۱,۳۷۶</p>
+              <p className="text-xl font-extrabold text-slate-800">
+                {studentsCount}
+              </p>
             </div>
             <div className="w-[1px] h-10 bg-slate-200"></div>
             <div className="flex flex-col gap-2 items-center">
