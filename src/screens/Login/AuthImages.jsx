@@ -2,13 +2,14 @@ import img1 from "../../assets/images/login/authImg.png";
 
 const AuthImages = () => {
   return (
-    <div className=" w-2/5 relative max-lg:hidden">
+    <aside className="w-full max-w-md relative z-10">
       <img
-        className="rounded-3xl shadow-xl shadow-emerald-950 "
         src={img1}
-        alt=""
+        alt="illustration"
+        className="w-full h-auto rounded-[2rem] shadow-2xl object-cover transform transition-transform duration-700 hover:scale-[1.02]"
+        loading="lazy"
       />
-    </div>
+    </aside>
   );
 };
 

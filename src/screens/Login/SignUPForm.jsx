@@ -3,30 +3,23 @@ import { Link } from "react-router-dom";
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as yup from "yup";
 import { useSignUp } from "./useSignUp";
-import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
 
-const scrollToTop = () => {
-  window.scrollTo({
-    top: 0,
-  });
-};
+const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
 const SignUpForm = () => {
   const queryClient = useQueryClient();
-
   const [passwordIsVisible, setPasswordIsVisible] = useState(false);
-  const [passwordConfirmIsVisible, setpasswordConfirmIsVisible] =
+  const [passwordConfirmIsVisible, setPasswordConfirmIsVisible] =
     useState(false);
 
-  const darkMode = false;
-
-  const { signUp, isPending, isError } = useSignUp();
+  const { signUp, isPending } = useSignUp();
 
   const initialValues = {
     email: "",
     fullName: "",
     password: "",
+    passwordConfirm: "",
   };
 
   const validation = yup.object().shape({
@@ -56,371 +49,345 @@ const SignUpForm = () => {
     const { email, password, fullName, passwordConfirm } = values;
     if (!email || !password || !fullName) return;
     signUp({ email, password, fullName, confirmPassword: passwordConfirm });
-
     queryClient.invalidateQueries(["user"]);
   };
 
   return (
-    <div className="bg-white w-[630px] font-iransans px-16 py-10 rounded-xl">
-      <p className="text-3xl font-bold">ثبت نام</p>
-      <div className="flex gap-2 mt-3">
-        <span className="text-gray-500">آیا قبلا ثبت نام کرده اید؟</span>
-        <Link onClick={scrollToTop} to="/login" className="text-indigo-500">
-          ورود
+    <section dir="rtl" className="w-full font-iransans">
+      <h1 className="text-3xl font-black text-gray-900 mb-2">ثبت نام</h1>
+
+      <div className="mb-8 flex flex-wrap gap-2 text-sm">
+        <span className="text-gray-500">آیا قبلا ثبت نام کرده‌اید؟</span>
+        <Link
+          onClick={scrollToTop}
+          to="/login"
+          className="text-indigo-600 font-medium hover:text-indigo-800 transition-colors"
+        >
+          ورود به حساب
         </Link>
       </div>
+
       <Formik
         initialValues={initialValues}
-        className=" px-20 mt-8"
         onSubmit={handleSubmit}
         validationSchema={validation}
       >
-        <Form className=" flex flex-wrap justify-between ">
-          <div className="w-1/2">
-            <label
-              className={`text-lg block mt-4 ${
-                darkMode ? "text-slate-200" : "text-slate-600"
-              } font-inter`}
-              htmlFor="fullName"
-            >
-              نام کاربری
-            </label>
-            <div className=" flex items-center gap-3 border-2 rounded-lg px-4 py-3 mt-2 mx-1 ">
-              <svg
-                className=" w-[24px]"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                <g
-                  id="SVGRepo_tracerCarrier"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></g>
-                <g id="SVGRepo_iconCarrier">
-                  {" "}
-                  <path
-                    d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z"
-                    stroke="#aaa"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>{" "}
-                  <path
-                    d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z"
-                    stroke="#aaa"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>{" "}
-                </g>
-              </svg>
-              <Field
-                className={`block w-full  px-1 focus:outline-none font-inter bg-transparent ${
-                  darkMode ? "text-gray-200" : "text-slate-800"
-                } bg-transparent`}
-                // type=""
-                title="text"
-                id="fullName"
-                name="fullName"
-                placeholder="نام کاربری"
-              />
-            </div>
-            <ErrorMessage
-              name="fullName"
-              component="div"
-              className="text-red-500 text-sm mt-1 "
-            />
-          </div>
-          <div className="w-1/2">
-            <label
-              className={`text-lg mt-4 block ${
-                darkMode ? "text-slate-200" : "text-slate-600"
-              } font-inter`}
-              htmlFor="email"
-            >
-              ایمیل
-            </label>
-            <div className=" flex items-center gap-3 border-2 rounded-lg px-4 py-3 mt-2 mx-1">
-              <svg
-                className=" w-[22px]"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                <g
-                  id="SVGRepo_tracerCarrier"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></g>
-                <g id="SVGRepo_iconCarrier">
-                  {" "}
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M23 6V18C23 19.6523 21.6523 21 20 21H4C2.34772 21 1 19.6523 1 18V6C1 4.34315 2.34315 3 4 3H20C21.6569 3 23 4.34315 23 6ZM3.10658 5.55395C3.27196 5.22692 3.61204 5 4 5H20C20.388 5 20.728 5.22692 20.8934 5.55395L12 11.7793L3.10658 5.55395ZM3 7.92066L10.8531 13.4178C11.5417 13.8999 12.4583 13.8999 13.1469 13.4178L21 7.92066V18C21 18.5477 20.5477 19 20 19H4C3.45228 19 3 18.5477 3 18V7.92066Z"
-                    fill="#aaa"
-                  ></path>{" "}
-                </g>
-              </svg>
-              <Field
-                className={`block w-full  px-1 focus:outline-none font-inter ${
-                  darkMode ? "text-gray-200" : "text-slate-800"
-                } bg-transparent`}
-                type="email"
-                title="email"
-                name="email"
-                id="email"
-                placeholder="ایمیل"
-              />
-            </div>
-            <ErrorMessage
-              name="email"
-              component="div"
-              className="text-red-500 text-sm mt-1"
-            />
-          </div>
-          <div className="w-1/2">
-            <label
-              className={`text-lg mt-4 block ${
-                darkMode ? "text-slate-200" : "text-slate-600"
-              } font-inter`}
-              htmlFor="email"
-            >
-              رمز عبور
-            </label>
-            <div className=" flex items-center relative gap-3 border-2 rounded-lg px-4 py-3 mt-2 mx-1 ">
-              <svg
-                className=" w-[24px]"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                <g
-                  id="SVGRepo_tracerCarrier"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></g>
-                <g id="SVGRepo_iconCarrier">
-                  {" "}
-                  <path
-                    d="M12 14.5V16.5M7 10.0288C7.47142 10 8.05259 10 8.8 10H15.2C15.9474 10 16.5286 10 17 10.0288M7 10.0288C6.41168 10.0647 5.99429 10.1455 5.63803 10.327C5.07354 10.6146 4.6146 11.0735 4.32698 11.638C4 12.2798 4 13.1198 4 14.8V16.2C4 17.8802 4 18.7202 4.32698 19.362C4.6146 19.9265 5.07354 20.3854 5.63803 20.673C6.27976 21 7.11984 21 8.8 21H15.2C16.8802 21 17.7202 21 18.362 20.673C18.9265 20.3854 19.3854 19.9265 19.673 19.362C20 18.7202 20 17.8802 20 16.2V14.8C20 13.1198 20 12.2798 19.673 11.638C19.3854 11.0735 18.9265 10.6146 18.362 10.327C18.0057 10.1455 17.5883 10.0647 17 10.0288M7 10.0288V8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8V10.0288"
-                    stroke="#aaa"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>{" "}
-                </g>
-              </svg>
-              <Field
-                className={`block w-full  px-1 focus:outline-none font-inter ${
-                  darkMode ? "text-gray-200" : "text-slate-800"
-                } bg-transparent`}
-                type={passwordIsVisible ? "text" : "password"}
-                title="password"
-                id="password"
-                name="password"
-                placeholder="رمز عبور"
-                disabled={isPending}
-              />
-              <div
-                onClick={() => setPasswordIsVisible(!passwordIsVisible)}
-                className="absolute left-3 cursor-pointer"
-              >
-                {passwordIsVisible ? (
-                  <svg
-                    className=" w-6"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g
-                      id="SVGRepo_tracerCarrier"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    ></g>
-                    <g id="SVGRepo_iconCarrier">
-                      {" "}
+        {({ isSubmitting }) => (
+          <Form className="space-y-5" aria-live="polite">
+            {/* Top Row: Username & Email */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              {/* Full Name */}
+              <div className="flex flex-col">
+                <label
+                  htmlFor="fullName"
+                  className="text-sm font-medium text-gray-700 mb-2"
+                >
+                  نام کاربری
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none">
+                    <svg
+                      className="w-5 h-5 text-gray-400"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
                       <path
-                        d="M15.0007 12C15.0007 13.6569 13.6576 15 12.0007 15C10.3439 15 9.00073 13.6569 9.00073 12C9.00073 10.3431 10.3439 9 12.0007 9C13.6576 9 15.0007 10.3431 15.0007 12Z"
-                        stroke="#aaa"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      ></path>{" "}
-                      <path
-                        d="M12.0012 5C7.52354 5 3.73326 7.94288 2.45898 12C3.73324 16.0571 7.52354 19 12.0012 19C16.4788 19 20.2691 16.0571 21.5434 12C20.2691 7.94291 16.4788 5 12.0012 5Z"
-                        stroke="#aaa"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      ></path>{" "}
-                    </g>
-                  </svg>
-                ) : (
-                  <svg
-                    className=" w-6"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g
-                      id="SVGRepo_tracerCarrier"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    ></g>
-                    <g id="SVGRepo_iconCarrier">
-                      {" "}
-                      <path
-                        d="M2.99902 3L20.999 21M9.8433 9.91364C9.32066 10.4536 8.99902 11.1892 8.99902 12C8.99902 13.6569 10.3422 15 11.999 15C12.8215 15 13.5667 14.669 14.1086 14.133M6.49902 6.64715C4.59972 7.90034 3.15305 9.78394 2.45703 12C3.73128 16.0571 7.52159 19 11.9992 19C13.9881 19 15.8414 18.4194 17.3988 17.4184M10.999 5.04939C11.328 5.01673 11.6617 5 11.9992 5C16.4769 5 20.2672 7.94291 21.5414 12C21.2607 12.894 20.8577 13.7338 20.3522 14.5"
-                        stroke="#aaa"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      ></path>{" "}
-                    </g>
-                  </svg>
-                )}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                      />
+                    </svg>
+                  </div>
+                  <Field
+                    id="fullName"
+                    name="fullName"
+                    type="text"
+                    placeholder="نام کاربری"
+                    className="w-full bg-gray-50/50 rounded-xl border border-gray-200 pr-11 pl-4 py-3 text-gray-800 placeholder-gray-400 focus:bg-white focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all duration-300"
+                  />
+                </div>
+                <ErrorMessage
+                  name="fullName"
+                  component="div"
+                  className="text-red-500 text-xs mt-1.5"
+                />
               </div>
-            </div>
-            <ErrorMessage
-              component="div"
-              name="password"
-              className="text-red-500 text-sm mt-1"
-            />
-          </div>
-          <div className="w-1/2">
-            <label
-              className={`text-lg mt-4 block ${
-                darkMode ? "text-slate-200" : "text-slate-600"
-              } font-inter`}
-              htmlFor="passwordConfirm"
-            >
-              تایید رمز عبور
-            </label>
-            <div className=" flex items-center relative gap-3 border-2 rounded-lg px-4 py-3 mt-2 mx-1">
-              <svg
-                className=" w-[24px]"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                <g
-                  id="SVGRepo_tracerCarrier"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></g>
-                <g id="SVGRepo_iconCarrier">
-                  {" "}
-                  <path
-                    d="M12 14.5V16.5M7 10.0288C7.47142 10 8.05259 10 8.8 10H15.2C15.9474 10 16.5286 10 17 10.0288M7 10.0288C6.41168 10.0647 5.99429 10.1455 5.63803 10.327C5.07354 10.6146 4.6146 11.0735 4.32698 11.638C4 12.2798 4 13.1198 4 14.8V16.2C4 17.8802 4 18.7202 4.32698 19.362C4.6146 19.9265 5.07354 20.3854 5.63803 20.673C6.27976 21 7.11984 21 8.8 21H15.2C16.8802 21 17.7202 21 18.362 20.673C18.9265 20.3854 19.3854 19.9265 19.673 19.362C20 18.7202 20 17.8802 20 16.2V14.8C20 13.1198 20 12.2798 19.673 11.638C19.3854 11.0735 18.9265 10.6146 18.362 10.327C18.0057 10.1455 17.5883 10.0647 17 10.0288M7 10.0288V8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8V10.0288"
-                    stroke="#aaa"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>{" "}
-                </g>
-              </svg>
-              <Field
-                className={`block w-full  px-1 focus:outline-none font-inter ${
-                  darkMode ? "text-gray-200" : "text-slate-800"
-                } bg-transparent`}
-                type={passwordConfirmIsVisible ? "text" : "password"}
-                title="passwordConfirm"
-                id="passwordConfirm"
-                name="passwordConfirm"
-                placeholder="تایید رمز عبور"
-                disabled={isPending}
-              />
-              <div
-                onClick={() =>
-                  setpasswordConfirmIsVisible(!passwordConfirmIsVisible)
-                }
-                className="absolute left-3 cursor-pointer"
-              >
-                {passwordConfirmIsVisible ? (
-                  <svg
-                    className=" w-6"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g
-                      id="SVGRepo_tracerCarrier"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    ></g>
-                    <g id="SVGRepo_iconCarrier">
-                      {" "}
-                      <path
-                        d="M15.0007 12C15.0007 13.6569 13.6576 15 12.0007 15C10.3439 15 9.00073 13.6569 9.00073 12C9.00073 10.3431 10.3439 9 12.0007 9C13.6576 9 15.0007 10.3431 15.0007 12Z"
-                        stroke="#aaa"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      ></path>{" "}
-                      <path
-                        d="M12.0012 5C7.52354 5 3.73326 7.94288 2.45898 12C3.73324 16.0571 7.52354 19 12.0012 19C16.4788 19 20.2691 16.0571 21.5434 12C20.2691 7.94291 16.4788 5 12.0012 5Z"
-                        stroke="#aaa"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      ></path>{" "}
-                    </g>
-                  </svg>
-                ) : (
-                  <svg
-                    className=" w-6"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g
-                      id="SVGRepo_tracerCarrier"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    ></g>
-                    <g id="SVGRepo_iconCarrier">
-                      {" "}
-                      <path
-                        d="M2.99902 3L20.999 21M9.8433 9.91364C9.32066 10.4536 8.99902 11.1892 8.99902 12C8.99902 13.6569 10.3422 15 11.999 15C12.8215 15 13.5667 14.669 14.1086 14.133M6.49902 6.64715C4.59972 7.90034 3.15305 9.78394 2.45703 12C3.73128 16.0571 7.52159 19 11.9992 19C13.9881 19 15.8414 18.4194 17.3988 17.4184M10.999 5.04939C11.328 5.01673 11.6617 5 11.9992 5C16.4769 5 20.2672 7.94291 21.5414 12C21.2607 12.894 20.8577 13.7338 20.3522 14.5"
-                        stroke="#aaa"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      ></path>{" "}
-                    </g>
-                  </svg>
-                )}
-              </div>
-            </div>
-            <ErrorMessage
-              component="div"
-              name="passwordConfirm"
-              className="text-red-500 text-sm mt-1"
-            />
-          </div>
-          <button
-            type="submit"
-            className=" flex items-center justify-center gap-1 bg-lime-400  w-full mt-5 py-2 rounded-xl font-interSemiBold"
-          >
-            <p>{isPending ? "لطفا صبر کنید ...!" : "ثبت نام"}</p>
-          </button>
-        </Form>
-      </Formik>
 
-      <Link className=" inline-block mt-6 text-sm text-end text-gray-700">
-        رمز عبور خود را فراموش کرده اید؟
-      </Link>
-    </div>
+              {/* Email */}
+              <div className="flex flex-col">
+                <label
+                  htmlFor="email"
+                  className="text-sm font-medium text-gray-700 mb-2"
+                >
+                  ایمیل
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none">
+                    <svg
+                      className="w-5 h-5 text-gray-400"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                      />
+                    </svg>
+                  </div>
+                  <Field
+                    id="email"
+                    name="email"
+                    type="email"
+                    dir="ltr"
+                    placeholder="name@example.com"
+                    className="w-full bg-gray-50/50 rounded-xl border border-gray-200 pr-11 pl-4 py-3 text-gray-800 placeholder-gray-400 focus:bg-white focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all duration-300"
+                  />
+                </div>
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className="text-red-500 text-xs mt-1.5"
+                />
+              </div>
+            </div>
+
+            {/* Bottom Row: Passwords */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              {/* Password */}
+              <div className="flex flex-col">
+                <label
+                  htmlFor="password"
+                  className="text-sm font-medium text-gray-700 mb-2"
+                >
+                  رمز عبور
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none">
+                    <svg
+                      className="w-5 h-5 text-gray-400"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 14.5V16.5M7 10.0288C7.47142 10 8.05259 10 8.8 10H15.2C15.9474 10 16.5286 10 17 10.0288"
+                      />
+                    </svg>
+                  </div>
+                  <Field
+                    id="password"
+                    name="password"
+                    dir="ltr"
+                    type={passwordIsVisible ? "text" : "password"}
+                    placeholder="••••••••"
+                    disabled={isPending}
+                    className="w-full bg-gray-50/50 rounded-xl border border-gray-200 pr-11 pl-12 py-3 text-gray-800 placeholder-gray-400 focus:bg-white focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all duration-300"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setPasswordIsVisible(!passwordIsVisible)}
+                    className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-gray-400 hover:text-gray-700 transition-colors"
+                  >
+                    {passwordIsVisible ? (
+                      <svg
+                        className="w-5 h-5"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                        <path
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M2.5 12s3.5-7 9.5-7 9.5 7 9.5 7-3.5 7-9.5 7S2.5 12 2.5 12z"
+                        />
+                      </svg>
+                    ) : (
+                      <svg
+                        className="w-5 h-5"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M3 3l18 18"
+                        />
+                        <path
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M10.58 10.58A3 3 0 0113.42 13.42"
+                        />
+                        <path
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M2.5 12s3.5-7 9.5-7 9.5 7 9.5 7-3.5 7-9.5 7S2.5 12 2.5 12z"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                </div>
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className="text-red-500 text-xs mt-1.5"
+                />
+              </div>
+
+              {/* Confirm Password */}
+              <div className="flex flex-col">
+                <label
+                  htmlFor="passwordConfirm"
+                  className="text-sm font-medium text-gray-700 mb-2"
+                >
+                  تکرار رمز عبور
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none">
+                    <svg
+                      className="w-5 h-5 text-gray-400"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 14.5V16.5M7 10.0288C7.47142 10 8.05259 10 8.8 10H15.2C15.9474 10 16.5286 10 17 10.0288"
+                      />
+                    </svg>
+                  </div>
+                  <Field
+                    id="passwordConfirm"
+                    name="passwordConfirm"
+                    dir="ltr"
+                    type={passwordConfirmIsVisible ? "text" : "password"}
+                    placeholder="••••••••"
+                    disabled={isPending}
+                    className="w-full bg-gray-50/50 rounded-xl border border-gray-200 pr-11 pl-12 py-3 text-gray-800 placeholder-gray-400 focus:bg-white focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all duration-300"
+                  />
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setPasswordConfirmIsVisible(!passwordConfirmIsVisible)
+                    }
+                    className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-gray-400 hover:text-gray-700 transition-colors"
+                  >
+                    {passwordConfirmIsVisible ? (
+                      <svg
+                        className="w-5 h-5"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                        <path
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M2.5 12s3.5-7 9.5-7 9.5 7 9.5 7-3.5 7-9.5 7S2.5 12 2.5 12z"
+                        />
+                      </svg>
+                    ) : (
+                      <svg
+                        className="w-5 h-5"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M3 3l18 18"
+                        />
+                        <path
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M10.58 10.58A3 3 0 0113.42 13.42"
+                        />
+                        <path
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M2.5 12s3.5-7 9.5-7 9.5 7 9.5 7-3.5 7-9.5 7S2.5 12 2.5 12z"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                </div>
+                <ErrorMessage
+                  name="passwordConfirm"
+                  component="div"
+                  className="text-red-500 text-xs mt-1.5"
+                />
+              </div>
+            </div>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={isPending || isSubmitting}
+              className="w-full flex items-center justify-center gap-3 bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed disabled:active:scale-100 text-white font-semibold py-3.5 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 mt-6"
+            >
+              {isPending || isSubmitting ? (
+                <>
+                  <svg
+                    className="animate-spin w-5 h-5 text-white"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                      strokeOpacity="0.25"
+                    />
+                    <path
+                      d="M22 12a10 10 0 00-10-10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                  <span>لطفا صبر کنید ...</span>
+                </>
+              ) : (
+                "ایجاد حساب کاربری"
+              )}
+            </button>
+          </Form>
+        )}
+      </Formik>
+    </section>
   );
 };
 
