@@ -4,11 +4,17 @@ import { motion } from "framer-motion";
 import RenderStars from "../../components/RenderStars/RenderStars";
 import { addToWishlist, getUsersWishlist } from "../../services/apiWishlist";
 import { getStudentsCountOfCourse } from "../../services/apiCourses";
+import { useQueryClient } from "@tanstack/react-query";
 
 const CourseHero = ({ selectedCourse }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isInWishlist, setIsInWishlist] = useState(false);
   const [studentsCount, setStudentsCount] = useState(0);
+
+  const queryClient = useQueryClient();
+
+  const user = queryClient.getQueryData(["user"]);
+  const isRestricted = user?.role === "admin" || user?.role === "teacher";
 
   useEffect(() => {
     const fetchWishlist = async () => {
@@ -39,9 +45,8 @@ const CourseHero = ({ selectedCourse }) => {
     fetchStudentsCounts();
   }, [selectedCourse?._id]);
 
-  console.log(studentsCount);
-
   const handleAddToWishlist = async () => {
+    if (!selectedCourse?._id || isInWishlist || isRestricted) return;
     if (!selectedCourse?._id || isInWishlist) return;
     try {
       setIsLoading(true);
@@ -121,13 +126,16 @@ const CourseHero = ({ selectedCourse }) => {
         <motion.div variants={itemVariants} className="pt-6">
           <button
             onClick={handleAddToWishlist}
-            disabled={isLoading || isInWishlist}
+            disabled={isLoading || isInWishlist || isRestricted} // ✅
+            title={isRestricted ? "ادمین و مدرس امکان افزودن ندارند" : ""}
             className={`flex items-center gap-2 px-5 py-2.5 rounded-xl transition-all duration-300 font-medium
-               ${
-                 isInWishlist
-                   ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 cursor-not-allowed"
-                   : "bg-white/10 text-white hover:bg-white/20 border border-white/10"
-               }`}
+        ${
+          isInWishlist
+            ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 cursor-not-allowed"
+            : isRestricted // ✅
+              ? "bg-slate-500/10 text-slate-400 border border-slate-500/20 cursor-not-allowed"
+              : "bg-white/10 text-white hover:bg-white/20 border border-white/10"
+        }`}
           >
             {isInWishlist ? (
               <svg
@@ -159,11 +167,13 @@ const CourseHero = ({ selectedCourse }) => {
               </svg>
             )}
             <span>
-              {isInWishlist
-                ? "موجود در علاقه‌مندی‌ها"
-                : isLoading
-                  ? "در حال افزودن..."
-                  : "افزودن به علاقه‌مندی‌ها"}
+              {isRestricted
+                ? "امکان افزودن برای شما وجود ندارد"
+                : isInWishlist
+                  ? "موجود در علاقه‌مندی‌ها"
+                  : isLoading
+                    ? "در حال افزودن..."
+                    : "افزودن به علاقه‌مندی‌ها"}
             </span>
           </button>
         </motion.div>

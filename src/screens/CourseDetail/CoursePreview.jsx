@@ -10,13 +10,16 @@ const CoursePreview = ({ selectedCourse }) => {
   const queryClient = useQueryClient();
 
   const cart = queryClient.getQueryData(["cart"]) ?? [];
+  const user = queryClient.getQueryData(["user"]);
+  const isRestricted = user?.role === "admin" || user?.role === "teacher";
   const isInCart = cart.some((item) => item?._id === selectedCourse?._id);
 
   const formattedPrice = selectedCourse?.price
     ?.toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // تغییر . به , برای خوانایی بهتر اعداد فارسی
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   const addToCartHandler = async () => {
+    if (isRestricted) return;
     try {
       if (isInCart) {
         toast.error("این دوره قبلاً در سبد خرید شماست!", {
@@ -37,7 +40,6 @@ const CoursePreview = ({ selectedCourse }) => {
 
   return (
     <div className="bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden">
-      {/* بخش ویدیو */}
       <div className="w-full aspect-video bg-slate-900 relative">
         <ReactPlayer
           ref={playerRef}
@@ -49,11 +51,10 @@ const CoursePreview = ({ selectedCourse }) => {
           height="100%"
           onPlay={() => setIsPlaying(true)}
           onPause={() => setIsPlaying(false)}
-          light={true} // اختیاری: اضافه کردن پوستر پیش‌نمایش به جای لود کردن کامل ویدیو در ابتدا
+          light={true}
         />
       </div>
 
-      {/* بخش اطلاعات و قیمت */}
       <div className="p-6">
         <div className="flex items-center gap-2 mb-6 text-slate-800">
           <span className="text-3xl font-bold">
@@ -66,15 +67,20 @@ const CoursePreview = ({ selectedCourse }) => {
 
         <button
           onClick={addToCartHandler}
-          disabled={isInCart}
+          disabled={isInCart || isRestricted} // ✅
+          title={isRestricted ? "ادمین و مدرس امکان خرید ندارند" : ""}
           className={`w-full py-3.5 rounded-xl text-white font-medium text-lg transition-all duration-300 
             ${
-              isInCart
+              isInCart || isRestricted // ✅
                 ? "bg-slate-400 cursor-not-allowed"
                 : "bg-violet-600 hover:bg-violet-700 hover:shadow-lg hover:shadow-violet-600/20 active:scale-[0.98]"
             }`}
         >
-          {isInCart ? "موجود در سبد خرید" : "افزودن به سبد خرید"}
+          {isRestricted // ✅
+            ? "امکان خرید برای شما وجود ندارد"
+            : isInCart
+              ? "موجود در سبد خرید"
+              : "افزودن به سبد خرید"}
         </button>
 
         <div className="mt-8 space-y-4">

@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useParams } from "react-router-dom";
-import { getBook, getBooks } from "../../services/apiBooks";
+import { getBook } from "../../services/apiBooks";
 import { toast } from "react-toastify";
 import { Spinner } from "../../components/Spinner/Spinner";
 import { motion } from "framer-motion";
+import BookReviews from "../../components/BookReviews";
 
 export default function Book() {
   const { id } = useParams();
@@ -33,7 +34,6 @@ export default function Book() {
       });
   };
 
-  // تنظیمات انیمیشن ورود المان‌ها به صورت پله‌ای
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -51,7 +51,6 @@ export default function Book() {
     },
   };
 
-  // لودینگ ارتقا یافته
   if (isLoading) {
     return (
       <div className="flex h-screen w-full items-center justify-center bg-gray-50">
@@ -60,7 +59,6 @@ export default function Book() {
     );
   }
 
-  // مدیریت در صورت عدم وجود کتاب
   if (!selectedBook) {
     return (
       <div className="flex h-screen w-full items-center justify-center font-iransans dir-rtl">
@@ -151,6 +149,9 @@ export default function Book() {
                 dangerouslySetInnerHTML={{ __html: selectedBook?.introduction }}
               />
             </motion.div>
+
+            {/* Book Reviews Section */}
+            <BookReviews bookId={id} />
           </div>
 
           <div className="lg:sticky lg:top-8 space-y-6">
@@ -170,7 +171,7 @@ export default function Book() {
 
               <div className="w-full pt-6 mt-6 border-t border-gray-100 flex items-center justify-between">
                 <span className="text-sm font-medium text-gray-500">
-                  این نقشه راه رو دوست داشتی؟
+                  این کتاب رو دوست داشتی؟
                 </span>
                 <motion.button
                   onClick={handleShare}
