@@ -3,7 +3,7 @@ import React from "react";
 const LoadingSkeleton = () => {
   return (
     <div className="w-[300px] h-[455px] mb-8 px-4 py-5 rounded-xl shadow-sm shadow-gray-200 bg-white">
-      {/* Image Skeleton */}
+      {/* Image Skele ton */}
       <div className="w-full h-[210px] rounded-lg bg-gray-300 animate-pulse"></div>
 
       {/* Rating */}
