@@ -1,5 +1,5 @@
 import React, { useMemo, useRef, useState, useEffect } from "react";
-import { motion, useInView } from "fram♂er-motion";
+import { motion, useInView } from "framer-motion";
 import CourseCard from "../../components/CourseCard/CourseCard.jsx";
 import CourseCategory from "./CourseCategory.jsx";
 import CourseTime from "./CourseTime.jsx";
