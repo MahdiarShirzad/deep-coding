@@ -1,7 +1,7 @@
 import React from "react";
 import levelsvg from "../../../assets/images//coursesCards/icons/3.svg";
 import styles from "./MemberCard.module.css";
-import RenderStars from "../../RenderStars/RenderStars";
+import RenderStars from "../../RenderStars/RenderStars.jsx";
 import { Link } from "react-router-dom";
 
 const TopCoursesCard = ({ course }) => {

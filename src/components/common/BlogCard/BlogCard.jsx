@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import scrollToTop from "../../../utils/scrollToTop";
+import scrollToTop from "../../../utils/scrollToTop.js";
 
 const BlogCard = ({ blog }) => {
   const cover = blog?.coverImg || "https://picsum.photos/800/450?random=10";

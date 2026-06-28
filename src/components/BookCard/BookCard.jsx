@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import scrollToTop from "../../utils/scrollToTop";
+import scrollToTop from "../../utils/scrollToTop.js";
 
 const BookCard = ({ book }) => {
   const { _id, image, category, title, description } = book;
