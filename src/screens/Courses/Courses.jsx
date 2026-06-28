@@ -1,4 +1,5 @@
 import React, { useMemo, useRef, useState, useEffect } from "react";
+import { motion, useInView } from "fram♂er-motion";
 import CourseCard from "../../components/CourseCard/CourseCard.jsx";
 import CourseCategory from "./CourseCategory.jsx";
 import CourseTime from "./CourseTime.jsx";
@@ -8,8 +9,6 @@ import SortingCourses from "./SortingCourses.jsx";
 import SearchCourses from "../../components/SearchCourses/SearchCourses.jsx";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { getCourses } from "../../services/apiCourses.js";
-// import LoadingSkeleton from "../../components/loadingSkeleton/loadingSkeleton.jsx";
-import { motion, useInView } from "framer-motion";
 import { useSearchParams } from "react-router-dom";
 import { buildCourseQueryParams } from "../../utils/buildCourseQueryParams.js";
 import FilterButton from "../../components/FilterButton/FilterButton.jsx";
