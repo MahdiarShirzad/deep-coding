@@ -7,6 +7,8 @@ import {
   updateReview,
   deleteReview,
   getUserReviews,
+  getAdminAllComments,
+  replyToComment,
 } from "../services/apiReview.js";
 
 export const useReviewsForItem = (refType, refId) => {
@@ -58,24 +60,42 @@ export const useUpdateReview = () => {
 
 export const useDeleteReview = () => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: deleteReview,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["reviews"] });
       queryClient.invalidateQueries({ queryKey: ["userReviews"] });
+      queryClient.invalidateQueries({ queryKey: ["adminComments"] }); // ← add
     },
   });
 };
 
 export const useApproveReview = () => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: approveReview,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["pendingReviews"] });
       queryClient.invalidateQueries({ queryKey: ["reviews"] });
+      queryClient.invalidateQueries({ queryKey: ["adminComments"] }); // ← add
+    },
+  });
+};
+
+export const useAdminAllComments = () => {
+  return useQuery({
+    queryKey: ["adminComments"],
+    queryFn: getAdminAllComments,
+    select: (data) => data?.data?.reviews ?? [],
+  });
+};
+
+export const useReplyToComment = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: replyToComment,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["adminComments"] });
     },
   });
 };

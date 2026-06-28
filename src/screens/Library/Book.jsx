@@ -150,7 +150,6 @@ export default function Book() {
               />
             </motion.div>
 
-            {/* Book Reviews Section */}
             <BookReviews bookId={id} />
           </div>
 

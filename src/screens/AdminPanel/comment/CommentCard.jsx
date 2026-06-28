@@ -3,7 +3,6 @@ import React from "react";
 const CommentCard = ({ comment, onApprove, onOpenReply, onDelete }) => {
   return (
     <div className="bg-slate-900 border border-slate-800/80 p-5 rounded-2xl flex flex-col gap-4 hover:border-slate-700/80 transition-all duration-300">
-      {/* بخش هدر کارت (اطلاعات کاربر و مقصد کامنت) */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-slate-800/50 pb-3">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center font-bold text-slate-300">
@@ -27,7 +26,6 @@ const CommentCard = ({ comment, onApprove, onOpenReply, onDelete }) => {
           </div>
         </div>
 
-        {/* وضعیت فعلی کامنت */}
         <div>
           {comment.status === "pending" ? (
             <span className="bg-amber-500/10 text-amber-400 text-[10px] px-2 py-1 rounded-md border border-amber-500/20 font-bold">
@@ -41,12 +39,10 @@ const CommentCard = ({ comment, onApprove, onOpenReply, onDelete }) => {
         </div>
       </div>
 
-      {/* متن اصلی نظر */}
       <div className="text-xs text-slate-300 leading-relaxed bg-slate-950/50 p-3 rounded-xl border border-slate-950">
         {comment.content}
       </div>
 
-      {/* دکمه‌های عملیاتی زیر کارت */}
       <div className="flex items-center justify-between pt-1">
         <div className="flex items-center gap-2">
           {comment.status === "pending" && (

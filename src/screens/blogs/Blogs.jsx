@@ -95,7 +95,6 @@ const Blogs = () => {
         </motion.div>
       )}
 
-      {/* Load More */}
       {hasNextPage && (
         <div className="flex justify-center mt-10">
           <button

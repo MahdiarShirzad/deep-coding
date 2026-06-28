@@ -19,7 +19,6 @@ const CommentReplyModal = ({ isOpen, onClose, comment, onSubmitReply }) => {
           💬 پاسخ ادمین به دیدگاه
         </h3>
 
-        {/* باکس نمایش خلاصه نظر کاربر */}
         <div className="bg-slate-950 p-3 rounded-xl text-xs text-slate-400 mb-4 border border-slate-800/40 max-h-24 overflow-y-auto">
           <span className="font-bold text-slate-300 block mb-1">
             {comment.userName}:

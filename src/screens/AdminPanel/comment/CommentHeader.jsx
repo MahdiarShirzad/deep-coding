@@ -11,7 +11,6 @@ const CommentHeader = ({ total, pending, approved }) => {
         </p>
       </div>
 
-      {/* مینی آمار نظرات */}
       <div className="grid grid-cols-3 gap-4 max-w-xl">
         <div className="bg-slate-900 border border-slate-800 p-3 rounded-xl text-center">
           <span className="block text-[10px] text-slate-400 mb-1">

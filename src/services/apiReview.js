@@ -48,3 +48,14 @@ export const getUserReviews = async (userId) => {
   const response = await apiRequest(`/reviews/user/${userId}`);
   return response.data.reviews;
 };
+
+export const getAdminAllComments = async () => {
+  return apiRequest("/reviews/admin/all");
+};
+
+export const replyToComment = async ({ commentId, refType, refId, text }) => {
+  return apiRequest("/reviews/admin/reply", {
+    method: "POST",
+    body: { commentId, refType, refId, text },
+  });
+};
