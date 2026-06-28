@@ -8,11 +8,12 @@ import SortingCourses from "./SortingCourses.jsx";
 import SearchCourses from "../../components/SearchCourses/SearchCourses.jsx";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { getCourses } from "../../services/apiCourses.js";
-import LoadingSkeleton from "../../components/loadingSkeleton/loadingSkeleton.jsx";
+// import LoadingSkeleton from "../../components/loadingSkeleton/loadingSkeleton.jsx";
 import { motion, useInView } from "framer-motion";
 import { useSearchParams } from "react-router-dom";
 import { buildCourseQueryParams } from "../../utils/buildCourseQueryParams.js";
 import FilterButton from "../../components/FilterButton/FilterButton.jsx";
+import LoadingSkeleton from "../../components/LoadingSkeleton/LoadingSkeleton.jsx";
 
 const headerVariants = {};
 const cardVariants = {};
