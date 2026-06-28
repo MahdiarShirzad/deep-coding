@@ -1,5 +1,5 @@
 import AuthImages from "./AuthImages.jsx";
-import SignUpForm from "./SignUpForm.jsx";
+import SignUpForm from "./SignUPForm.jsx";
 
 const SignUp = () => {
   return (
