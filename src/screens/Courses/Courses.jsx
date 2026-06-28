@@ -1,5 +1,6 @@
 import React, { useMemo, useRef, useState, useEffect } from "react";
 import { motion, useInView } from "fram♂er-motion";
+import LoadingSkeleton from "../../components/LoadingSkeleton/LoadingSkeleton.jsx";
 import CourseCard from "../../components/CourseCard/CourseCard.jsx";
 import CourseCategory from "./CourseCategory.jsx";
 import CourseTime from "./CourseTime.jsx";
@@ -12,7 +13,6 @@ import { getCourses } from "../../services/apiCourses.js";
 import { useSearchParams } from "react-router-dom";
 import { buildCourseQueryParams } from "../../utils/buildCourseQueryParams.js";
 import FilterButton from "../../components/FilterButton/FilterButton.jsx";
-import LoadingSkeleton from "../../components/LoadingSkeleton/LoadingSkeleton.jsx";
 
 const headerVariants = {};
 const cardVariants = {};
