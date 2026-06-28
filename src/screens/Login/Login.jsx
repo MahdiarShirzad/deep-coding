@@ -1,5 +1,5 @@
-import AuthImages from "./AuthImages";
-import LoginForm from "./LoginForm";
+import AuthImages from "./AuthImages.jsx";
+import LoginForm from "./LoginForm.jsx";
 
 const Login = () => {
   return (
