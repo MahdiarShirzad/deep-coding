@@ -1,4 +1,4 @@
-import { apiRequest } from "./apiClient.js"; // Adjust path based on your structure
+import { apiRequest } from "./apiClient.js";
 
 export const createReview = async (reviewData) => {
   const response = await apiRequest("/reviews", {
