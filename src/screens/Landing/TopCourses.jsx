@@ -99,7 +99,7 @@ const TopCourses = () => {
   });
 
   return (
-    <div className="mt-24 max-w-[1320px] mx-auto">
+    <div className="mt-24 max-w-[1320px] mx-auto px-4">
       <div
         className="
           flex items-center justify-between
@@ -107,78 +107,21 @@ const TopCourses = () => {
           max-md:gap-8
           max-md:justify-start
           max-md:items-start
-          max-md:pr-6
+          max-md:pr-0 {/* اصلاح پدینگ */}
           font-iransans
         "
-      >
-        <motion.div
-          ref={titleRef}
-          initial="hidden"
-          animate={titleInView ? "visible" : "hidden"}
-          variants={titleVariants}
-        >
-          <h3 className="text-3xl font-semibold max-lg:text-xl">
-            پرمخاطب ترین دوره ها را جستجو کنید
-          </h3>
-
-          <p className="text-sm mt-3 text-slate-600 max-lg:text-xs">
-            مجموعه‌ای بی‌نظیر از دوره‌های آنلاین برای یادگیری مهارت‌های جدید و
-            پیشرفت در مسیر حرفه‌ای
-          </p>
-        </motion.div>
-
-        <motion.ul
-          ref={filterRef}
-          initial="hidden"
-          animate={filterInView ? "visible" : "hidden"}
-          variants={filterVariants}
-          className="
-            flex items-center justify-center gap-3
-            p-2 rounded-full bg-gray-200
-            max-lg:text-sm
-          "
-        >
-          {categories.map((cat) => (
-            <motion.li
-              key={cat}
-              layout
-              whileHover={{
-                y: -2,
-              }}
-              whileTap={{
-                scale: 0.98,
-              }}
-              transition={{
-                duration: 0.2,
-              }}
-              onClick={() => setSelectedCategory(cat)}
-              className={`
-    px-4 py-2 rounded-full cursor-pointer transition-all duration-300
-    ${
-      selectedCategory === cat
-        ? "bg-white text-[#6440FB] shadow-sm"
-        : "text-gray-600 hover:bg-white/60"
-    }
-  `}
-            >
-              {cat === "all" ? "همه" : cat}
-            </motion.li>
-          ))}
-        </motion.ul>
-      </div>
-
+      ></div>
       <motion.div
         ref={cardsRef}
         initial="hidden"
         animate={cardsInView ? "visible" : "hidden"}
         variants={cardsContainerVariants}
         className="
-    flex flex-wrap
-    max-xl:mx-auto
-    justify-between
-    mt-10
-    gap-y-8
-  "
+          grid grid-cols-1 sm:grid-cols-2 
+          gap-8 
+          mt-10
+          max-xl:mx-auto
+        "
       >
         {isLoading
           ? skeletons.map((_, i) => <TopCoursesCardSkeleton key={i} />)
