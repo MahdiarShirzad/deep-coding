@@ -1,4 +1,4 @@
-import { apiRequest } from "./apiClient.js";
+import { apiRequest } from "../utils/apiClients";
 
 export const createReview = async (reviewData) => {
   const response = await apiRequest("/reviews", {

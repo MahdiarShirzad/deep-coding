@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { apiRequest } from "./apiClient.js";
+import { apiRequest } from "../utils/apiClients";
 
 const API_URL = import.meta.env.VITE_API_URL;
 

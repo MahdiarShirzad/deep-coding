@@ -1,6 +1,6 @@
-import { apiRequest } from "./apiClient.js";
-
 // const API_URL = import.meta.env.VITE_API_URL;
+
+import { apiRequest } from "../utils/apiClients";
 
 export async function signUp({ fullName, email, password, confirmPassword }) {
   const data = await apiRequest("/users/signup", {
