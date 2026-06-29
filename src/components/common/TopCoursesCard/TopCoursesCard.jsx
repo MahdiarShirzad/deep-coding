@@ -85,7 +85,6 @@ const TopCoursesCard = ({ course }) => {
                   </p>
                 </div>
               </div>
-              {/* ریسپانسیو کردن بخش مدرس و قیمت: تو موبایل ستونی، از تبلت به بعد کنار هم */}
               <div className="border-t-2 flex flex-col sm:flex-row pt-3 justify-between gap-3 sm:gap-1 text-xs md:text-sm">
                 <div className="flex items-center gap-1">
                   <svg
