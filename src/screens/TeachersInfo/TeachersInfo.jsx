@@ -9,6 +9,7 @@ import {
 import TeacherAvatar from "./TeachersAvatar";
 import AboutTeacher from "./AboutTeacher";
 import TeachersCourse from "./TeachersCourse";
+import TeachersInfoSkeleton from "../../components/TeachersInfoSkeleton";
 
 const TeachersInfo = () => {
   const [studentsCount, setStudentsCount] = useState(0);
@@ -22,24 +23,17 @@ const TeachersInfo = () => {
   useEffect(() => {
     const fetchStudentsCount = async () => {
       const studentsCount = await getTeachersStudentsCounts(id);
-
       setStudentsCount(studentsCount);
     };
 
     fetchStudentsCount();
   }, [id]);
 
-  console.log(studentsCount);
-
   const selectedTeacher = data?.data?.teacher;
   const socialLinks = selectedTeacher?.teacherInfo?.socialLinks;
 
-  if (isPending)
-    return (
-      <div className="h-screen flex items-center justify-center font-iransans">
-        در حال بارگذاری...
-      </div>
-    );
+  if (isPending) return <TeachersInfoSkeleton />;
+
   if (isError || !selectedTeacher)
     return (
       <div className="h-screen flex items-center justify-center font-iransans text-red-500">
@@ -109,6 +103,7 @@ const TeachersInfo = () => {
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-3 w-full py-3 px-4 rounded-xl border border-slate-200 hover:border-blue-500 hover:bg-blue-50 text-slate-700 hover:text-blue-600 transition-all duration-300"
                 >
+                  {/* آیکون لینکدین */}
                   <svg
                     className="w-6 h-6"
                     viewBox="0 0 24 24"
@@ -133,6 +128,7 @@ const TeachersInfo = () => {
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-3 w-full py-3 px-4 rounded-xl border border-slate-200 hover:border-slate-800 hover:bg-slate-50 text-slate-700 hover:text-slate-900 transition-all duration-300"
                 >
+                  {/* آیکون گیت‌هاب */}
                   <svg
                     className="w-6 h-6"
                     viewBox="0 0 24 24"
@@ -155,6 +151,7 @@ const TeachersInfo = () => {
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-3 w-full py-3 px-4 rounded-xl border border-slate-200 hover:border-violet-500 hover:bg-violet-50 text-slate-700 hover:text-violet-600 transition-all duration-300"
                 >
+                  {/* آیکون وب‌سایت */}
                   <svg
                     className="w-6 h-6"
                     viewBox="0 0 24 24"
