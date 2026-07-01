@@ -9,6 +9,7 @@ import IntroduceCourse from "./IntroduceCourse";
 import CourseRequirements from "./CourseRequirements";
 import CourseHeadline from "./CourseHeadline";
 import CoursePreview from "./CoursePreview";
+import CourseDetailSkeleton from "../../components/CourseDetailSkeleton";
 
 const CourseDetail = () => {
   const { id } = useParams();
@@ -25,12 +26,8 @@ const CourseDetail = () => {
 
   const selectedCourse = course;
 
-  if (isLoading)
-    return (
-      <div className="h-screen flex items-center justify-center font-iransans">
-        در حال بارگذاری...
-      </div>
-    );
+  if (isLoading) return <CourseDetailSkeleton />;
+
   if (error)
     return (
       <div className="h-screen flex items-center justify-center font-iransans text-red-500">
@@ -44,7 +41,9 @@ const CourseDetail = () => {
       dir="rtl"
     >
       <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white">
-        <CourseHero selectedCourse={selectedCourse} />
+        <div className="max-w-[1320px] mx-auto">
+          <CourseHero selectedCourse={selectedCourse} />
+        </div>
       </div>
       <div className="max-w-[1320px] mx-auto px-4 sm:px-8 py-10 relative ">
         <div className="flex flex-col lg:flex-row gap-8">
