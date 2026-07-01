@@ -3,7 +3,6 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { getBook } from "../../services/apiBooks";
 import { toast } from "react-toastify";
-import { Spinner } from "../../components/Spinner/Spinner";
 import { motion } from "framer-motion";
 import BookReviews from "../../components/BookReviews";
 
@@ -53,8 +52,65 @@ export default function Book() {
 
   if (isLoading) {
     return (
-      <div className="flex h-screen w-full items-center justify-center bg-gray-50">
-        <Spinner />
+      <div className="min-h-screen bg-gray-50/50 py-10 md:py-20 px-4 sm:px-6 lg:px-8 font-iransans dir-rtl text-right animate-pulse">
+        <div className="container max-w-[1200px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
+            {/* Right Side / Content Skeleton (2 Columns on large screens) */}
+            <div className="lg:col-span-2 space-y-6 md:space-y-8">
+              {/* Category, Title, Author */}
+              <div className="space-y-3">
+                <div className="h-6 w-16 bg-gray-200 rounded-lg"></div>
+                <div className="h-9 w-3/4 bg-gray-200 rounded-xl md:w-1/2"></div>
+                <div className="h-4 w-32 bg-gray-200 rounded-md mt-2"></div>
+              </div>
+
+              {/* Rating Box */}
+              <div className="h-11 w-40 bg-gray-200 rounded-2xl"></div>
+
+              {/* Tags */}
+              <div className="flex gap-2">
+                <div className="h-7 w-16 bg-gray-200 rounded-xl"></div>
+                <div className="h-7 w-20 bg-gray-200 rounded-xl"></div>
+                <div className="h-7 w-14 bg-gray-200 rounded-xl"></div>
+              </div>
+
+              {/* Description Summary Block */}
+              <div className="bg-white p-6 rounded-3xl border border-gray-100 space-y-3">
+                <div className="h-5 w-24 bg-gray-200 rounded border-r-4 border-gray-300 pr-2"></div>
+                <div className="space-y-2">
+                  <div className="h-4 w-full bg-gray-200 rounded"></div>
+                  <div className="h-4 w-full bg-gray-200 rounded"></div>
+                  <div className="h-4 w-5/6 bg-gray-200 rounded"></div>
+                </div>
+              </div>
+
+              {/* Introduction Block */}
+              <div className="bg-white p-6 md:p-8 rounded-3xl border border-gray-100 space-y-3">
+                <div className="h-5 w-32 bg-gray-200 rounded border-r-4 border-gray-300 pr-2"></div>
+                <div className="space-y-2">
+                  <div className="h-4 w-full bg-gray-200 rounded"></div>
+                  <div className="h-4 w-full bg-gray-200 rounded"></div>
+                  <div className="h-4 w-full bg-gray-200 rounded"></div>
+                  <div className="h-4 w-2/3 bg-gray-200 rounded"></div>
+                </div>
+              </div>
+            </div>
+
+            {/* Left Side / Sidebar Skeleton (1 Column) */}
+            <div className="space-y-6">
+              <div className="bg-white p-4 rounded-3xl border border-gray-100 flex flex-col items-center">
+                {/* Book Cover Image Placeholder */}
+                <div className="w-full max-w-[280px] aspect-[3/4] rounded-2xl bg-gray-200"></div>
+
+                {/* Share Button Placeholder */}
+                <div className="w-full pt-6 mt-6 border-t border-gray-100 flex items-center justify-between">
+                  <div className="h-4 w-28 bg-gray-200 rounded"></div>
+                  <div className="h-9 w-24 bg-gray-200 rounded-2xl"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
